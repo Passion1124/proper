@@ -1,0 +1,173 @@
+.page_title{
+  padding: 60rpx 0 0 32rpx;
+  font-size: 64rpx;
+  line-height: 72rpx;
+  color: #3C3C3C;
+  letter-spacing: 6rpx;
+  font-weight: bold;
+}
+
+.empty{
+  text-align: center;
+  margin-bottom: 80rpx;
+}
+
+.empty .img_row{
+  width: 614rpx;
+  height: 304rpx;
+  margin: 17rpx auto 23rpx;
+}
+
+.empty .img_row image{
+  width: 100%;
+  height: 100%;
+}
+
+.empty .text{
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #8C8C8C;
+  letter-spacing: 3rpx;
+}
+
+.like .title{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #8C8C8C;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.like .title text{
+  position: relative;
+}
+
+.like .title>text::before, .like .title>text::after{
+  position: absolute;
+  top: 50%;
+  content: "";
+  width: 80rpx;
+  height: 2rpx;
+  border-radius: 1rpx;
+  transform: translateY(-50%);
+}
+
+.like .title text::before{
+  left: 120%;
+  background:linear-gradient(90deg,rgba(42,197,206,1) 0%,rgba(84,228,233,0) 100%);
+}
+
+.like .title text::after{
+  right: 120%;
+  background:linear-gradient(90deg,rgba(84,228,233,0) 0%,rgba(42,197,206,1) 100%);
+}
+
+.like .recommend{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+}
+
+.like .recommend .list{
+  width: 324rpx;
+  margin-bottom: 40rpx;
+}
+
+.like .recommend .list .img_row{
+  width: 100%;
+  height: 333rpx;
+  margin-bottom: 25rpx;
+}
+
+.like .recommend .list .img_row image{
+  width: 100%;
+  height: 100%;
+}
+
+.like .recommend .list .info{
+  display: flex;
+  align-items: center;
+  margin-bottom: 17rpx;
+}
+
+.like .recommend .list .info .star{
+  flex: 1;
+  line-height: 0;
+}
+
+.like .recommend .list .info .star image{
+  width: 16rpx;
+  height: 16rpx;
+  margin-right: 4rpx;
+  vertical-align: top;
+}
+
+.like .recommend .list .info .num{
+  flex: 1;
+  font-size: 20rpx;
+  line-height: 24rpx;
+  color: #8C8C8C;
+  text-align: right;
+}
+
+.like .recommend .list .title_warp{
+  width: 100%;
+  font-size: 32rpx;
+  line-height: 42rpx;
+  color: #3C3C3C;
+  font-weight: bold;
+  margin-bottom: 11rpx;
+}
+
+.like .recommend .list .location{
+  display: flex;
+  align-items: center;
+  margin-bottom: 17rpx;
+}
+
+.like .recommend .list .location .icon{
+  width: 14rpx;
+  height: 16rpx;
+  margin-right: 14rpx;
+  line-height: 0;
+}
+
+.like .recommend .list .location .icon image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.like .recommend .list .location .text{
+  flex: 1;
+  font-size: 20rpx;
+  line-height: 28rpx;
+  color: #8C8C8C;
+}
+
+.like .recommend .list .worth{
+  display: flex;
+  align-items: center;
+}
+
+.like .recommend .list .worth .price{
+  flex: 1;
+  font-size: 32rpx;
+  line-height: 28rpx;
+  color: #D9333F;
+}
+
+.like .recommend .list .worth .ticket{
+  width: 35rpx;
+  height: 25rpx;
+  line-height: 0;
+}
+
+.like .recommend .list .worth .ticket image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}

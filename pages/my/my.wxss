@@ -1,0 +1,68 @@
+.container{
+  padding: 0 40rpx;
+}
+
+.info{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 84rpx 0 87rpx;
+  box-sizing: border-box;
+  border-bottom: 1rpx solid #E0E0E0;
+}
+
+.left{
+  flex: 1;
+}
+
+.left .login{
+  font-size: 56rpx;
+  line-height: 78rpx;
+  color: #3C3C3C;
+  margin: 24rpx 0;
+}
+
+.left .collection_coupon{
+  display: flex;
+}
+
+.left .collection_coupon>view{
+  display: flex;
+  align-items: flex-end;
+}
+
+.left .collection_coupon>view .num{
+  font-size: 48rpx;
+  line-height: 67rpx;
+  margin-right: 8rpx;
+}
+
+.left .collection_coupon>view:first-of-type .num{
+  color: #23C2F7;
+}
+
+.left .collection_coupon>view:last-of-type .num{
+  color: #F97572;
+}
+
+.left .collection_coupon>view .text{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #666;
+  margin-bottom: 9rpx;
+}
+
+.left .collection_coupon .collection{
+  margin-right: 109rpx;
+}
+
+.right{
+  width: 192rpx;
+}
+
+.right .avatar{
+  width: 192rpx;
+  height: 192rpx;
+  background-color: #F3F3F3;
+  border-radius: 50%;
+}

@@ -1,0 +1,129 @@
+<!-- trip.wxml -->
+<view class='container'>
+  <view class='page_title'>
+    <text>行程</text>
+  </view>
+  <view class='empty'>
+    <view class='img_row'>
+      <image src='../../img/trip/empty.png'></image>
+    </view>
+    <view class='text'>
+      <text>快去探索你的精彩日本游吧</text>
+    </view>
+  </view>
+  <view class='like'>
+    <view class='title'>
+      <text>猜你喜欢</text>
+    </view>
+    <view class='recommend'>
+      <view class='list'>
+        <view class='img_row'>
+          <image src='../../img/index/12.png'></image>
+        </view>
+        <view class='info'>
+          <view class='star'>
+            <image src='../../img/index/star_uncheck.png'></image>
+            <image src='../../img/index/star_uncheck.png'></image>
+            <image src='../../img/index/star_uncheck.png'></image>
+            <image src='../../img/index/star_uncheck.png'></image>
+            <image src='../../img/index/star_uncheck.png'></image>
+          </view>
+          <view class='num'>
+            <text>已售 323</text>
+          </view>
+        </view>
+        <view class='title_warp'>
+          <text>日本东京+大阪7日自由行，正在火爆预热…</text>
+        </view>
+        <view class='location'>
+          <view class='icon'>
+            <image src='../../img/index/location.png'></image>
+          </view>
+          <view class='text'>
+            <text>东京 · 距离市中心11.8公里</text>
+          </view>
+        </view>
+        <view class='worth'>
+          <view class='price'>
+            <text>￥1012</text>
+          </view>
+          <view class='ticket'>
+            <image src='../../img/index/ticket.png'></image>
+          </view>
+        </view>
+      </view>
+      <view class='list'>
+        <view class='img_row'>
+          <image src='../../img/index/12.png'></image>
+        </view>
+        <view class='info'>
+          <view class='star'>
+            <image src='../../img/index/star_uncheck.png'></image>
+            <image src='../../img/index/star_uncheck.png'></image>
+            <image src='../../img/index/star_uncheck.png'></image>
+            <image src='../../img/index/star_uncheck.png'></image>
+            <image src='../../img/index/star_uncheck.png'></image>
+          </view>
+          <view class='num'>
+            <text>已售 323</text>
+          </view>
+        </view>
+        <view class='title_warp'>
+          <text>日本东京+大阪7日自由行，正在火爆预热…</text>
+        </view>
+        <view class='location'>
+          <view class='icon'>
+            <image src='../../img/index/location.png'></image>
+          </view>
+          <view class='text'>
+            <text>东京 · 距离市中心11.8公里</text>
+          </view>
+        </view>
+        <view class='worth'>
+          <view class='price'>
+            <text>￥1012</text>
+          </view>
+          <view class='ticket'>
+            <image src='../../img/index/ticket.png'></image>
+          </view>
+        </view>
+      </view>
+      <view class='list'>
+        <view class='img_row'>
+          <image src='../../img/index/12.png'></image>
+        </view>
+        <view class='info'>
+          <view class='star'>
+            <image src='../../img/index/star_uncheck.png'></image>
+            <image src='../../img/index/star_uncheck.png'></image>
+            <image src='../../img/index/star_uncheck.png'></image>
+            <image src='../../img/index/star_uncheck.png'></image>
+            <image src='../../img/index/star_uncheck.png'></image>
+          </view>
+          <view class='num'>
+            <text>已售 323</text>
+          </view>
+        </view>
+        <view class='title_warp'>
+          <text>日本东京+大阪7日自由行，正在火爆预热…</text>
+        </view>
+        <view class='location'>
+          <view class='icon'>
+            <image src='../../img/index/location.png'></image>
+          </view>
+          <view class='text'>
+            <text>东京 · 距离市中心11.8公里</text>
+          </view>
+        </view>
+        <view class='worth'>
+          <view class='price'>
+            <text>￥1012</text>
+          </view>
+          <view class='ticket'>
+            <image src='../../img/index/ticket.png'></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

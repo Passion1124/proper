@@ -1,0 +1,23 @@
+<!-- my.wxml -->
+<view class='container'>
+  <view class='info'>
+    <view class='left'>
+      <view class='login'>
+        <text>注册/登录</text>
+      </view>
+      <view class='collection_coupon'>
+        <view class='collection'>
+          <view class='num'>0</view>
+          <view class='text'>/收藏</view>
+        </view>
+        <view class='coupon'>
+          <view class='num'>0</view>
+          <view class='text'>/优惠券</view>
+        </view>
+      </view>
+    </view>
+    <view class='right'>
+      <view class='avatar'></view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,469 @@
+/**index.wxss**/
+.header{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 15rpx 0;
+  box-sizing: border-box;
+}
+
+.header image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.header .location{
+  display: flex;
+  align-items: center;
+  padding-left: 25rpx;
+  box-sizing: border-box;
+}
+
+.header .location view:first-of-type{
+  width: 44rpx;
+  height: 44rpx;
+  margin-right: 4rpx;
+}
+
+.header .location view:nth-of-type(2){
+  font-size: 40rpx;
+  line-height: 56rpx;
+  letter-spacing: -2px;
+  color: #3C3C3C;
+  font-weight: bold;
+  margin-right: 13rpx;
+}
+
+.header .location view:last-of-type{
+  width: 17rpx;
+  height: 11rpx;
+}
+
+.header .functions{
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 32rpx;
+  box-sizing: border-box;
+}
+
+.header .functions view{
+  width: 44rpx;
+  height: 44rpx;
+  margin-right: 64rpx;
+}
+
+.header .functions view:last-of-type{
+  margin-right: 0;
+}
+
+.banner{
+  width: 100%;
+  height: 260rpx;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  margin-bottom: 30rpx;
+}
+
+.banner swiper{
+  width: 100%;
+  height: 100%;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.banner swiper image{
+  width: 100%;
+  height: 100%;
+}
+
+.classify, .classify_btn{
+  width: 100%;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  margin-bottom: 30rpx;
+}
+
+.classify>view{
+  position: relative;
+  width: 100%;
+  height: 146rpx;
+  /* padding: 16rpx 16rpx 16rpx 0; */
+  box-sizing: border-box;
+}
+
+.classify>view image{
+  width: 100%;
+  height: 100%;
+}
+
+.classify>view .title{
+  position: absolute;
+  left: 56rpx;
+  top: 16rpx;
+  font-size: 38rpx;
+  line-height: 53rpx;
+  letter-spacing: 5rpx;
+  color: #fff;
+  /* font-weight: bold; */
+}
+
+.classify>view .content{
+  position: absolute;
+  right: 16rpx;
+  top: 18rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 458rpx;
+  height: 114rpx;
+  font-size: 24rpx;
+  letter-spacing: -1rpx;
+  color: #fff;
+}
+
+.classify>view .content view{
+  width: 228rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  text-align: center;
+}
+
+.classify>view .content view:nth-child(1){
+  border-radius: 4px 0 0 0;
+}
+
+.classify>view .content view:nth-child(2){
+  border-radius: 0 4px 0 0;
+}
+
+.classify>view .content view:nth-child(3){
+  border-radius: 0 0 0 4px;
+}
+
+.classify>view .content view:nth-child(4){
+  border-radius: 0 0 4px 0;
+}
+
+.classify .food .content view{
+  background-color: #18B1E4;
+}
+
+.classify .shopping .content view{
+  background-color: #1DD7B7;
+}
+
+.classify_btn{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 88rpx;
+}
+
+.classify_btn>view{
+  position: relative;
+  width: 222rpx;
+  height: 100rpx;
+}
+
+.classify_btn>view image{
+  width: 100%;
+  height: 100%;
+}
+
+.classify_btn>view .text{
+  position: absolute;
+  top: 26rpx;
+  left: 116rpx;
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #3C3C3C;
+  font-weight: bold;
+}
+
+.hot_recommend{
+  width: 100%;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+}
+
+.hot_recommend .title{
+  font-size: 46rpx;
+  line-height: 46rpx;
+  margin-bottom: 40rpx;
+  font-weight: bold;
+}
+
+.hot_recommend .tabs_title{
+  display: flex;
+  width: 100%;
+  line-height: 0;
+  color: #8C8C8C;
+}
+
+.hot_recommend .tabs_title view{
+  flex: 1;
+  position: relative;
+  padding-bottom: 22rpx;
+}
+
+.hot_recommend .tabs_title view text{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  vertical-align: top;
+}
+
+.hot_recommend .tabs_title view.active{
+  color: #3C3C3C;
+}
+
+.hot_recommend .tabs_title image{
+  display: none;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 41rpx;
+  height: 6rpx;
+}
+
+.hot_recommend .tabs_title view.active image{
+  display: block;
+}
+
+.hot_recommend .tabs_content{
+  width: 100%;
+}
+
+.hot_recommend .tabs_content>view{
+  display: none;
+}
+
+.hot_recommend .tabs_content>view.active{
+  display: block;
+}
+
+.hot_recommend .tabs_content>view .main{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.hot_recommend .tabs_content>view .main>view{
+  width: 324rpx;
+  margin-top: 40rpx;
+}
+
+.hot_recommend .tabs_content>view .main>view>.img_row{
+  position: relative;
+  width: 100%;
+  height: 324rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+  margin-bottom: 24rpx;
+}
+
+.hot_recommend .tabs_content>view .main>view>.img_row .bg{
+  width: 100%;
+  height: 100%;
+}
+
+.hot_recommend .tabs_content>view .main>view>.img_row .top{
+  position: absolute;
+  bottom: 10rpx;
+  left: 10rpx;
+  width: 56rpx;
+  height: 28rpx;
+}
+
+.hot_recommend .tabs_content>view .main>view>.img_row .ticket{
+  position: absolute;
+  bottom: 10rpx;
+  right: 10rpx;
+  width: 38rpx;
+  height: 28rpx;
+}
+
+.hot_recommend .tabs_content>view .main>view .title{
+  font-size: 32rpx;
+  line-height: 42rpx;
+  color: #3C3C3C;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin-bottom: 8rpx;
+}
+
+.hot_recommend .tabs_content>view .main>view .location{
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.hot_recommend .tabs_content>view .main>view .location .img_row{
+  width: 16rpx;
+  height: 16rpx;
+  margin-right: 13rpx;
+}
+
+.hot_recommend .tabs_content>view .main>view .location .img_row image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.hot_recommend .tabs_content>view .main>view .location .text{
+  font-size: 20rpx;
+  line-height: 28rpx;
+  color: #8C8C8C;
+}
+
+.hot_recommend .tabs_content>view .main>view .info{
+  display: flex;
+  align-items: center;
+}
+
+.hot_recommend .tabs_content>view .main>view .info .price{
+  font-size: 32rpx;
+  line-height: 28rpx;
+  color: #D9333F;
+}
+
+.hot_recommend .tabs_content>view .main>view .info .price text text{
+  font-size: 20rpx;
+}
+
+.hot_recommend .tabs_content>view .main>view .info .star{
+  flex: 1;
+  height: 14rpx;
+  text-align: right;
+}
+
+.hot_recommend .tabs_content>view .main>view .info .star image{
+  width: 14rpx;
+  height: 14rpx;
+  margin-right: 5rpx;
+  vertical-align: top;
+}
+
+.hot_recommend .tabs_content>view .main>view .info .star image:last-of-type{
+  margin-right: 0;
+}
+
+.hot_recommend .tabs_content>view .more{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #3C3C3C;
+  padding: 60rpx 0 40rpx;
+  text-align: center;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+.coupon{
+  width: 100%;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+}
+
+.coupon .title{
+  font-size: 48rpx;
+  line-height: 67rpx;
+  color: #3C3C3C;
+  margin: 60rpx 0 16rpx;
+  padding-left: 10rpx;
+}
+
+.coupon .subTitle{
+  padding-left: 14rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #3C3C3C;
+  margin-bottom: 34rpx;
+}
+
+.coupon .main{
+  position: relative;
+  width: 684rpx;
+  height: 238rpx;
+  margin: 0 auto 25rpx;
+}
+
+.coupon .main .bg{
+  width: 100%;
+  height: 100%;
+}
+
+.coupon .main .content{
+  position: absolute;
+  left: 7rpx;
+  top: 7rpx;
+  width: 670rpx;
+  height: 224rpx;
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+
+.coupon .main .content .top{
+  display: flex;
+  justify-content: space-between;
+}
+
+.coupon .main .content .top .logo{
+  width: 92rpx;
+  height: 92rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.coupon .main .content .top .logo image{
+  width: 100%;
+  height: 100%;
+}
+
+.coupon .main .content .top .worth{
+  text-align: right;
+}
+
+.coupon .main .content .top .worth .discount{
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  color: #3C3C3C;
+}
+
+.coupon .main .content .top .worth .discount .num{
+  font-size: 62rpx;
+  line-height: 59rpx;
+}
+
+.coupon .main .content .top .worth .discount .fracture{
+  position: relative;
+  font-size: 24rpx;
+  top: -4rpx;
+}
+
+.coupon .main .content .top .worth .expiry_date{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #3C3C3C;
+}
+
+.coupon .main .content .bottom{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 51rpx;
+}
+
+.coupon .main .content .bottom view:first-of-type{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #666666;
+}
+
+.coupon .main .content .bottom view:last-of-type{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  letter-spacing: 2px;
+  color: #23C2F7;
+}

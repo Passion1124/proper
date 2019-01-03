@@ -1,0 +1,235 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view> -->
+  <view class='header'>
+    <view class='location'>
+      <view>
+        <image src='../../img/index/location.png'></image>
+      </view>
+      <view class='text'>
+        <text>东京</text>
+      </view>
+      <view>
+        <image src='../../img/index/lower.png'></image>
+      </view>
+    </view>
+    <view class='functions'>
+      <view>
+        <image src='../../img/index/search.png'></image>
+      </view>
+      <view>
+        <image src='../../img/index/scan.png'></image>
+      </view>
+      <view>
+        <image src='../../img/index/tips.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='banner'>
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image swiper_img" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class='classify'>
+    <view class='food'>
+      <image src='../../img/index/food.png'></image>
+      <view class='title'>
+        <text>美食</text>
+      </view>
+      <view class='content'>
+        <view>
+          <text>怀石料理</text>
+        </view>
+        <view>
+          <text>烧酒</text>
+        </view>
+        <view>
+          <text>寿司鱼片</text>
+        </view>
+        <view>
+          <text>小丸子</text>
+        </view>
+      </view>
+    </view>
+    <view class='shopping'>
+      <image src='../../img/index/shopping.png'></image>
+      <view class='title'>
+        <text>购物</text>
+      </view>
+      <view class='content'>
+        <view>
+          <text>数码电器</text>
+        </view>
+        <view>
+          <text>美妆</text>
+        </view>
+        <view>
+          <text>居家用品</text>
+        </view>
+        <view>
+          <text>美食标签</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='classify_btn'>
+    <view>
+      <image src='../../img/index/traffic.png'></image>
+      <view class='text'>
+        <text>交通</text>
+      </view>
+    </view>
+    <view>
+      <image src='../../img/index/spot.png'></image>
+      <view class='text'>
+        <text>景点</text>
+      </view>
+    </view>
+    <view>
+      <image src='../../img/index/entertainment.png'></image>
+      <view class='text'>
+        <text>娱乐</text>
+      </view>
+    </view>
+  </view>
+  <view class='hot_recommend'>
+    <view class='title'>热门推荐</view>
+    <view class='tabs_title'>
+      <view class='active'>
+        <text>智能推荐</text>
+        <image src='../../img/index/tabs.png'></image>
+      </view>
+      <view>
+        <text>距离最近</text>
+        <image src='../../img/index/tabs.png'></image>
+      </view>
+      <view>
+        <text>人气最高</text>
+        <image src='../../img/index/tabs.png'></image>
+      </view>
+      <view>
+        <text>好评最多</text>
+        <image src='../../img/index/tabs.png'></image>
+      </view>
+    </view>
+    <view class='tabs_content'>
+      <view class='active'>
+        <view class='main'>
+          <view>
+            <view class='img_row'>
+              <image class='bg' src='../../img/index/1.png'></image>
+              <image class='top' src='../../img/index/top.png'></image>
+              <image class='ticket' src='../../img/index/ticket.png'></image>
+            </view>
+            <view class='title'>
+              <text>日本东京+大阪7日自由行，正在火爆预热卖东西咯，快来买呀！！</text>
+            </view>
+            <view class='location'>
+              <view class='img_row'>
+                <image src='../../img/index/small_location.png'></image>
+              </view>
+              <view class='text'>
+                <text>东京 · 距离市中心11.8公里</text>
+              </view>
+            </view>
+            <view class='info'>
+              <view class='price'>
+                <text><text>￥</text>1012</text>
+              </view>
+              <view class='star'>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+              </view>
+            </view>
+          </view>
+          <view>
+            <view class='img_row'>
+              <image class='bg' src='../../img/index/11.png'></image>
+              <image class='top' src='../../img/index/top.png'></image>
+              <image class='ticket' src='../../img/index/ticket.png'></image>
+            </view>
+            <view class='title'>
+              <text>日本东京+大阪7日自由行，正在火爆预热卖东西咯，快来买呀！！</text>
+            </view>
+            <view class='location'>
+              <view class='img_row'>
+                <image src='../../img/index/small_location.png'></image>
+              </view>
+              <view class='text'>
+                <text>东京 · 距离市中心11.8公里</text>
+              </view>
+            </view>
+            <view class='info'>
+              <view class='price'>
+                <text><text>￥</text>1012</text>
+              </view>
+              <view class='star'>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class='more'>查看更多</view>
+      </view>
+    </view>
+  </view>
+  <view class='coupon'>
+    <view class='title'>
+      <text>优惠券</text>
+    </view>
+    <view class='subTitle'>
+      <text>给你带来更多的优惠</text>
+    </view>
+    <view class='main'>
+      <image class='bg' src='../../img/index/coupon_bg.png'></image>
+      <view class='content'>
+        <view class='top'>
+          <view class='logo'>
+            <image src='../../img/index/coupon_logo.png'></image>
+          </view>
+          <view class='worth'>
+            <view class='discount'>
+              <view class='num'>
+                <text>8</text>
+              </view>
+              <view class='fracture'>
+                <text>/折</text>
+              </view>
+            </view>
+            <view class='expiry_date'>
+              <text>有效期至：2020年10月7日</text>
+            </view>
+          </view>
+        </view>
+        <view class='bottom'>
+          <view>
+            <text>无印良品全场无限制，任意...</text>
+          </view>
+          <view>
+            <text>前往使用></text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
