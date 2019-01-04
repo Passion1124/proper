@@ -1,0 +1,18 @@
+<!-- feedback.wxml -->
+<view class='container'>
+  <view class='title'>意见反馈</view>
+  <view class='text'>
+    <view>我们一直在努力，也在不断改进妥妥得体验，</view>
+    <view>也很希望您能给我们提供宝贵的建议，</view>
+    <view>让我们一并努力变得更好……</view>
+  </view>
+  <view class='textarea'>
+    <textarea placeholder='请描述下你要反馈的内容…'></textarea>
+  </view>
+  <view class='phone'>
+    <input type='number' placeholder='请输入手机号码'></input>
+  </view>
+  <view class='button'>
+    <button class='allow' disabled='true'>提交反馈</button>
+  </view>
+</view>

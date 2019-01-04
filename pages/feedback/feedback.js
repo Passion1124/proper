@@ -61,10 +61,5 @@ Page({
    */
   onShareAppMessage: function () {
     
-  },
-  goToTheFeedBack () {
-    wx.navigateTo({
-      url: '/pages/feedback/feedback'
-    })
   }
 })

@@ -17,7 +17,65 @@
       </view>
     </view>
     <view class='right'>
-      <view class='avatar'></view>
+      <view class='avatar'>
+        <image src='../../img/common/avatar.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='order'>
+    <view class='all_order'>
+      <view class='img_row'>
+        <image src='../../img/common/all_order.png'></image>
+      </view>
+      <view class='text'>全部订单</view>
+    </view>
+    <view class='pending'>
+      <view class='img_row'>
+        <image src='../../img/common/pending.png'></image>
+      </view>
+      <view class='text'>待付款</view>
+    </view>
+    <view class='use'>
+      <view class='img_row'>
+        <image src='../../img/common/use.png'></image>
+      </view>
+      <view class='text'>待使用</view>
+    </view>
+    <view class='refund'>
+      <view class='img_row'>
+        <image src='../../img/common/refund.png'></image>
+      </view>
+      <view class='text'>退款/点评</view>
+    </view>
+  </view>
+  <view class='single'>
+    <view class='text'>我的优惠劵</view>
+    <view class='img_row'>
+      <image src='../../img/common/more.png'></image>
+    </view>
+  </view>
+  <view class='single'>
+    <view class='text'>我的收藏</view>
+    <view class='img_row'>
+      <image src='../../img/common/more.png'></image>
+    </view>
+  </view>
+  <view class='single'>
+    <view class='text'>帮助</view>
+    <view class='img_row'>
+      <image src='../../img/common/more.png'></image>
+    </view>
+  </view>
+  <view class='single' bindtap='goToTheFeedBack'>
+    <view class='text'>意见反馈</view>
+    <view class='img_row'>
+      <image src='../../img/common/more.png'></image>
+    </view>
+  </view>
+  <view class='single'>
+    <view class='text'>关于</view>
+    <view class='img_row'>
+      <image src='../../img/common/more.png'></image>
     </view>
   </view>
 </view>

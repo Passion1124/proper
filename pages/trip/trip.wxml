@@ -11,6 +11,46 @@
       <text>快去探索你的精彩日本游吧</text>
     </view>
   </view>
+  <view class='un_empty'>
+    <view class='list'>
+      <view class='date'>2018-10-01（今天）</view>
+      <view class='order'>
+        <view class='content'>
+          <view class='title'>日本东京+大阪7日自由行爆预热…</view>
+          <view class='subTitle'>
+            <view class='expiry_date'>有效期至2018-12-12</view>
+            <view class='order_detail'>订单详情></view>
+          </view>
+        </view>
+        <view class='content'>
+          <view class='title'>日本东京+大阪7日自由行爆预热…</view>
+          <view class='subTitle'>
+            <view class='expiry_date'>有效期至2018-12-12</view>
+            <view class='order_detail'>订单详情></view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='list'>
+      <view class='date'>2018-10-01（今天）</view>
+      <view class='order'>
+        <view class='content'>
+          <view class='title'>日本东京+大阪7日自由行爆预热…</view>
+          <view class='subTitle'>
+            <view class='expiry_date'>有效期至2018-12-12</view>
+            <view class='order_detail'>订单详情></view>
+          </view>
+        </view>
+        <view class='content'>
+          <view class='title'>日本东京+大阪7日自由行爆预热…</view>
+          <view class='subTitle'>
+            <view class='expiry_date'>有效期至2018-12-12</view>
+            <view class='order_detail'>订单详情></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
   <view class='like'>
     <view class='title'>
       <text>猜你喜欢</text>

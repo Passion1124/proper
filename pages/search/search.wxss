@@ -1,0 +1,78 @@
+.container{
+  padding: 0 40rpx;
+}
+
+.search_input{
+  margin-bottom: 60rpx;
+}
+
+.search_input input{
+  width: 100%;
+  height: 88rpx;
+  padding-left: 40rpx;
+  border-radius: 69rpx;
+  font-size: 32rpx;
+  letter-spacing: 1rpx;
+  color: #3C3C3C;
+  background-color: #F3F3F3;
+  box-sizing: border-box;
+}
+
+.search_input input::-webkit-input-placeholder{
+  color: #8C8C8C;
+}
+
+.history_search{
+  margin-bottom: 80rpx;
+}
+
+.history_search .title{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.history_search .title .text{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #8C8C8C;
+}
+
+.history_search .title .remove{
+  width: 30rpx;
+  height: 31rpx;
+}
+
+.history_search .title .remove image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.history_search .list view{
+  font-size: 32rpx;
+  line-height: 45rpx;
+  letter-spacing: 1rpx;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #E0E0E0;
+}
+
+.hot_recommend{
+  margin-bottom: 30rpx;
+}
+
+.hot_recommend .title{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #8C8C8C;
+  margin-bottom: 16rpx;
+}
+
+.hot_recommend .list view{
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #3C3C3C;
+  letter-spacing: 1rpx;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #E0E0E0;
+}

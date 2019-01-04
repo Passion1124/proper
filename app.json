@@ -1,9 +1,12 @@
 {
   "pages":[
-    "pages/my/my",
     "pages/index/index",
     "pages/trip/trip",
     "pages/shoppingCart/shoppingCart",
+    "pages/my/my",
+    "pages/search/search",
+    "pages/city/city",
+    "pages/feedback/feedback",
     "pages/logs/logs"
   ],
   "window":{

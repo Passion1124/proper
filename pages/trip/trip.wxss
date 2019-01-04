@@ -30,6 +30,97 @@
   letter-spacing: 3rpx;
 }
 
+.un_empty{
+  width: 100%;
+  padding: 0 40rpx;
+  margin: 92rpx 0 69rpx;
+  box-sizing: border-box;
+}
+
+.un_empty .list{
+  position: relative;
+  width: 100%;
+  padding-left: 30rpx;
+  padding-bottom: 89rpx;
+  box-sizing: border-box;
+}
+
+.un_empty .list:last-of-type{
+  padding-bottom: 0;
+}
+
+.un_empty .list::before{
+  position: absolute;
+  left: 0;
+  top: 14rpx;
+  content: "";
+  width: 13rpx;
+  height: 13rpx;
+  border-radius: 50%;
+  background-color: #3C3C3C;
+  border: 8rpx solid #fff;
+  border-width: 8rpx 0 8rpx 0;
+  z-index: 99;
+}
+
+.un_empty .list::after{
+  position: absolute;
+  left: 6rpx;
+  top: 35rpx;
+  content: "";
+  width: 1rpx;
+  height: 100%;
+  background-color: #B7B7B7;
+  z-index: 97;
+}
+
+.un_empty .list .date{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #3C3C3C;
+  font-weight: bold;
+  margin-bottom: 24rpx;
+}
+
+.un_empty .list .order .content{
+  width: 632rpx;
+  height: 191rpx;
+  padding: 40rpx 24rpx 0 40rpx;
+  border-radius: 8rpx;
+  border: 1rpx solid #B7B7B7;
+  margin-bottom: 20rpx;
+  box-sizing: border-box;
+}
+
+.un_empty .list .order .content:last-of-type{
+  margin-bottom: 0;
+}
+
+.un_empty .list .order .content .title{
+  font-size: 36rpx;
+  line-height: 50rpx;
+  color: #3C3C3C;
+  margin-bottom: 25rpx;
+}
+
+.un_empty .list .order .content .subTitle{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.un_empty .list .order .content .subTitle .expiry_date{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #979797;
+}
+
+.un_empty .list .order .content .subTitle .order_detail{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #3C3C3C;
+}
+
 .like .title{
   font-size: 28rpx;
   line-height: 40rpx;

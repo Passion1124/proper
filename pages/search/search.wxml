@@ -1,0 +1,25 @@
+<!-- search.wxml -->
+<view class='container'>
+  <view class='search_input'>
+    <input placeholder='搜索目的地、景点'></input>
+  </view>
+  <view class='history_search'>
+    <view class='title'>
+      <view class='text'>历史搜索</view>
+      <view class='remove'>
+        <image src='../../img/common/history_remove.png'></image>
+      </view>
+    </view>
+    <view class='list'>
+      <view>东京</view>
+    </view>
+  </view>
+  <view class='hot_recommend'>
+    <view class='title'>热门推荐</view>
+    <view class='list'>
+      <view>东京</view>
+      <view>大阪</view>
+      <view>富士山</view>
+    </view>
+  </view>
+</view>
