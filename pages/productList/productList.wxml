@@ -1,0 +1,160 @@
+<!-- productList.wxml -->
+<view class='container'>
+  <view class='title'>日本</view>
+  <scroll-view class='tab-h' scroll-x="true" scroll-with-animation="true">
+    <view class='tab-item {{ currentTab === 0 ? "active" : ""}}' data-current='0' bindtap='swichNav'>
+      <view class='text'>一日游</view>
+      <image src='../../img/index/tabs.png'></image>
+    </view>
+    <view class='tab-item {{ currentTab === 1 ? "active" : ""}}' data-current='1' bindtap='swichNav'>
+      <view class='text'>美食</view>
+      <image src='../../img/index/tabs.png'></image>
+    </view>
+    <view class='tab-item {{ currentTab === 2 ? "active" : ""}}' data-current='2' bindtap='swichNav'>
+      <view class='text'>交通</view>
+      <image src='../../img/index/tabs.png'></image>
+    </view>
+    <view class='tab-item {{ currentTab === 3 ? "active" : ""}}' data-current='3' bindtap='swichNav'>
+      <view class='text'>玩乐</view>
+      <image src='../../img/index/tabs.png'></image>
+    </view>
+    <view class='tab-item {{ currentTab === 4 ? "active" : ""}}' data-current='4' bindtap='swichNav'>
+      <view class='text'>购物</view>
+      <image src='../../img/index/tabs.png'></image>
+    </view>
+  </scroll-view>
+  <swiper class='tab-content' current='{{ currentTab }}' duration='300' bindchange='switchTab' style='height:{{winHeight}}rpx'>
+    <swiper-item>
+      <scroll-view scroll-y="true" class='scoll-h' data-current='0' bindscrolltolower="scrolltolower">
+        <view class='header'>
+          <view class='active'>智能推荐</view>
+          <view>最近距离</view>
+          <view>人气最高</view>
+          <view>好评最多</view>
+        </view>
+        <view class='list_row'>
+          <view class='list'>
+            <view class='img_row'>
+              <image class='bg' src='../../img/index/1.png'></image>
+              <image class='top' src='../../img/index/top.png'></image>
+              <image class='ticket' src='../../img/index/ticket.png'></image>
+            </view>
+            <view class='title'>
+              <text>日本东京+大阪7日自由行，正在火爆预热卖东西咯，快来买呀！！</text>
+            </view>
+            <view class='location'>
+              <view class='img_row'>
+                <image src='../../img/index/small_location.png'></image>
+              </view>
+              <view class='text'>
+                <text>东京 · 距离市中心11.8公里</text>
+              </view>
+            </view>
+            <view class='info'>
+              <view class='price'>
+                <text><text>￥</text>1012</text>
+              </view>
+              <view class='star'>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+              </view>
+            </view>
+          </view>
+          <view class='list'>
+            <view class='img_row'>
+              <image class='bg' src='../../img/index/1.png'></image>
+              <image class='top' src='../../img/index/top.png'></image>
+              <image class='ticket' src='../../img/index/ticket.png'></image>
+            </view>
+            <view class='title'>
+              <text>日本东京+大阪7日自由行，正在火爆预热卖东西咯，快来买呀！！</text>
+            </view>
+            <view class='location'>
+              <view class='img_row'>
+                <image src='../../img/index/small_location.png'></image>
+              </view>
+              <view class='text'>
+                <text>东京 · 距离市中心11.8公里</text>
+              </view>
+            </view>
+            <view class='info'>
+              <view class='price'>
+                <text><text>￥</text>1012</text>
+              </view>
+              <view class='star'>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+              </view>
+            </view>
+          </view>
+          <view class='list'>
+            <view class='img_row'>
+              <image class='bg' src='../../img/index/1.png'></image>
+              <image class='top' src='../../img/index/top.png'></image>
+              <image class='ticket' src='../../img/index/ticket.png'></image>
+            </view>
+            <view class='title'>
+              <text>日本东京+大阪7日自由行，正在火爆预热卖东西咯，快来买呀！！</text>
+            </view>
+            <view class='location'>
+              <view class='img_row'>
+                <image src='../../img/index/small_location.png'></image>
+              </view>
+              <view class='text'>
+                <text>东京 · 距离市中心11.8公里</text>
+              </view>
+            </view>
+            <view class='info'>
+              <view class='price'>
+                <text><text>￥</text>1012</text>
+              </view>
+              <view class='star'>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+              </view>
+            </view>
+          </view>
+          <view class='list'>
+            <view class='img_row'>
+              <image class='bg' src='../../img/index/1.png'></image>
+              <image class='top' src='../../img/index/top.png'></image>
+              <image class='ticket' src='../../img/index/ticket.png'></image>
+            </view>
+            <view class='title'>
+              <text>日本东京+大阪7日自由行，正在火爆预热卖东西咯，快来买呀！！</text>
+            </view>
+            <view class='location'>
+              <view class='img_row'>
+                <image src='../../img/index/small_location.png'></image>
+              </view>
+              <view class='text'>
+                <text>东京 · 距离市中心11.8公里</text>
+              </view>
+            </view>
+            <view class='info'>
+              <view class='price'>
+                <text><text>￥</text>1012</text>
+              </view>
+              <view class='star'>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+                <image src='../../img/index/star_uncheck.png'></image>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+</view>

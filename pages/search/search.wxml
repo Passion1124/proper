@@ -17,9 +17,9 @@
   <view class='hot_recommend'>
     <view class='title'>热门推荐</view>
     <view class='list'>
-      <view>东京</view>
-      <view>大阪</view>
-      <view>富士山</view>
+      <block wx:for='{{hotWord}}' wx:key='{{index}}'>
+        <view>{{item.name}}</view>
+      </block>
     </view>
   </view>
 </view>

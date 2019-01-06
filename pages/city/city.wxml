@@ -1,21 +1,12 @@
 <!-- city.wxml -->
 <view class='container'>
-  <view class='list'>
-    <view class='text'>东京</view>
-    <view class='radio'>
-      <image src='../../img/common/checked.png'></image>
+  <block wx:for='{{cities}}' wx:key='{{index}}'>
+    <view class='list' data-item='{{item}}' bindtap='changeCity'>
+      <view class='text'>{{item.cityName}}</view>
+      <view class='radio'>
+        <image src='../../img/common/checked.png' wx:if='{{ cityName === item.cityName }}'></image>
+        <image src='../../img/common/unchecked.png' wx:else></image>
+      </view>
     </view>
-  </view>
-  <view class='list'>
-    <view class='text'>大阪</view>
-    <view class='radio'>
-      <image src='../../img/common/unchecked.png'></image>
-    </view>
-  </view>
-  <view class='list'>
-    <view class='text'>富士山</view>
-    <view class='radio'>
-      <image src='../../img/common/unchecked.png'></image>
-    </view>
-  </view>
+  </block>
 </view>

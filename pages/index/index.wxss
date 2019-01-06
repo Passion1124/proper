@@ -202,9 +202,9 @@
 }
 
 .hot_recommend .tabs_title view{
-  flex: 1;
   position: relative;
   padding-bottom: 22rpx;
+  margin-right: 50rpx;
 }
 
 .hot_recommend .tabs_title view text{
@@ -232,6 +232,7 @@
 
 .hot_recommend .tabs_content{
   width: 100%;
+  border-bottom: 1px solid #E0E0E0;
 }
 
 .hot_recommend .tabs_content>view{
@@ -245,6 +246,7 @@
 .hot_recommend .tabs_content>view .main{
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   width: 100%;
 }
 
@@ -351,13 +353,12 @@
   margin-right: 0;
 }
 
-.hot_recommend .tabs_content>view .more{
+.more{
   font-size: 28rpx;
   line-height: 40rpx;
   color: #3C3C3C;
-  padding: 60rpx 0 40rpx;
+  padding: 56rpx 0 40rpx;
   text-align: center;
-  border-bottom: 1px solid #E0E0E0;
 }
 
 .coupon{
@@ -387,6 +388,10 @@
   width: 684rpx;
   height: 238rpx;
   margin: 0 auto 25rpx;
+}
+
+.coupon .main_row .main:last-of-type{
+  margin-bottom: 0;
 }
 
 .coupon .main .bg{

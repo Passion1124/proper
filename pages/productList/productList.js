@@ -1,19 +1,19 @@
-const app = getApp();
-
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    hotWord: []
+    winHeight: "", //窗口高度
+    currentTab: 0, //预设当前项的值
+    scrollLeft: 0, //tab标题的滚动条位置
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getHotWord();
+    this.handleHeightAuto();
   },
 
   /**
@@ -64,16 +64,19 @@ Page({
   onShareAppMessage: function () {
     
   },
-  getHotWord () {
-    let data = { base: app.globalData.baseBody, count: 10 };
-    let api = 'com.ttdtrip.api.search.apis.service.HotWordQryApiService';
-    app.request(api, data, (res) => {
-      console.log(res);
-      this.setData({
-        hotWord: res.hotWords
-      })
-    }, (err) => {
-      console.error(err);
-    })
+  handleHeightAuto () {
+    var that = this;
+    //  高度自适应
+    wx.getSystemInfo({
+      success: function (res) {
+        var clientHeight = res.windowHeight,
+          clientWidth = res.windowWidth,
+          rpxR = 750 / clientWidth;
+        var calc = clientHeight * rpxR - 242;
+        that.setData({
+          winHeight: calc
+        });
+      }
+    });
   }
 })

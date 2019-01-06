@@ -8,11 +8,13 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    imgUrls: [
-      '../../img/index/banner.png',
-      '../../img/index/banner.png',
-      '../../img/index/banner.png'
-    ],
+    bannerInfo: [],
+    coupons: [],
+    buyTags: [],
+    foodTags: [],
+    goodsList: [],
+    cityName: '',
+    recommendType: 1,
     indicatorDots: true,
     autoplay: false,
     interval: 5000,
@@ -50,7 +52,14 @@ Page({
           })
         }
       })
-    }
+    };
+    this.setData({
+      cityName: app.globalData.cityName
+    })
+    this.getBannerInfo();
+    this.getCategoryInfo();
+    this.getCouponInfo();
+    this.getGoodsList();
   },
   getUserInfo: function(e) {
     console.log(e)
@@ -58,6 +67,101 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+  getBannerInfo () {
+    let data = { base: app.globalData.baseBody, progId: 10001 };
+    let api = 'com.ttdtrip.api.config.apis.service.BannerQryApiService';
+    app.request(api, data, (res) => {
+      console.log(res);
+      this.setData({
+        bannerInfo: res.banners
+      })
+    }, (res) => {
+      console.error(res);
+    })
+  },
+  getCategoryInfo () {
+    let data = { base: app.globalData.baseBody };
+    let api = 'com.ttdtrip.api.config.apis.service.CategoryQryApiService';
+    app.request(api, data, (res) => {
+      console.log(res);
+      this.setData({
+        buyTags: res.buyCategories,
+        foodTags: res.foodCategories
+      })
+    }, (res) => {
+      console.error(res);
+    })
+  },
+  getCouponInfo () {
+    let data = { base: app.globalData.baseBody, progId: 10001, count: 5, offset: 0 };
+    let api = 'com.ttdtrip.api.config.apis.service.CouponQryApiService';
+    app.request(api, data, (res) => {
+      console.log(res);
+      this.setData({
+        coupons: res.coupons
+      })
+    }, (res) => {
+      console.error(res);
+    })
+  },
+  getGoodsList () {
+    let data = { base: app.globalData.baseBody, sortType: 1, page: 1, size: 20, type: this.data.recommendType };
+    let api = 'com.ttdtrip.api.goods.apis.GoodsListApiService';
+    app.request(api, data, (res) => {
+      console.log(res);
+      this.setData({
+        goodsList: res.goodsVOs
+      })
+    }, (err) => {
+      console.error(err);
+    })
+  },
+  handleSwichChange (e) {
+    this.setData({
+      recommendType: Number(e.currentTarget.dataset.type)
+    });
+    this.getGoodsList();
+  },
+  handleScanCode () {
+    wx.scanCode({
+      onlyFromCamera: true,
+      success (res) {
+        console.log(res);
+      },
+      fail (res) {
+        console.log(res);
+      }
+    })
+  },
+  changeCity () {
+    this.setData({
+      cityName: app.globalData.cityName
+    });
+    this.getGoodsList();
+    this.getCouponInfo();
+  },
+  goToTheSearch () {
+    wx.navigateTo({
+      url: '/pages/search/search',
+    })
+  },
+  goToTheCity () {
+    wx.navigateTo({
+      url: '/pages/city/city',
+    })
+  },
+  goToThePoiDetail (e) {
+    let gid = e.currentTarget.dataset.gid;
+    let type = e.currentTarget.dataset.type;
+    wx.navigateTo({
+      url: '/pages/poi_detail/poi_detail?gid=' + gid + '&type=' + type,
+    })
+  },
+  goToTheProductList (e) {
+    wx.navigateTo({
+      url: '/pages/productList/productList',
     })
   }
 })

@@ -1,4 +1,5 @@
 <!--index.wxml-->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class="container">
   <!-- <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
@@ -11,22 +12,22 @@
     <text class="user-motto">{{motto}}</text>
   </view> -->
   <view class='header'>
-    <view class='location'>
+    <view class='location' bindtap='goToTheCity'>
       <view>
         <image src='../../img/index/location.png'></image>
       </view>
       <view class='text'>
-        <text>东京</text>
+        <text>{{cityName}}</text>
       </view>
       <view>
         <image src='../../img/index/lower.png'></image>
       </view>
     </view>
     <view class='functions'>
-      <view>
+      <view bindtap='goToTheSearch'>
         <image src='../../img/index/search.png'></image>
       </view>
-      <view>
+      <view bindtap='handleScanCode'>
         <image src='../../img/index/scan.png'></image>
       </view>
       <view>
@@ -35,70 +36,56 @@
     </view>
   </view>
   <view class='banner'>
-    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-      <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular='true'>
+      <block wx:for="{{bannerInfo}}" wx:key="{{index}}">
         <swiper-item>
-          <image src="{{item}}" class="slide-image swiper_img" />
+          <image src="{{item.imgUrl}}" class="slide-image swiper_img" />
         </swiper-item>
       </block>
     </swiper>
   </view>
   <view class='classify'>
-    <view class='food'>
+    <view class='food' bindtap='goToTheProductList'>
       <image src='../../img/index/food.png'></image>
       <view class='title'>
         <text>美食</text>
       </view>
       <view class='content'>
-        <view>
-          <text>怀石料理</text>
-        </view>
-        <view>
-          <text>烧酒</text>
-        </view>
-        <view>
-          <text>寿司鱼片</text>
-        </view>
-        <view>
-          <text>小丸子</text>
-        </view>
+        <block wx:for='{{foodTags}}' wx:key='{{index}}'>
+          <view wx:if='index <= 3'>
+            <text>{{item.name}}</text>
+          </view>
+        </block>
       </view>
     </view>
-    <view class='shopping'>
+    <view class='shopping' bindtap='goToTheProductList'>
       <image src='../../img/index/shopping.png'></image>
       <view class='title'>
         <text>购物</text>
       </view>
       <view class='content'>
-        <view>
-          <text>数码电器</text>
-        </view>
-        <view>
-          <text>美妆</text>
-        </view>
-        <view>
-          <text>居家用品</text>
-        </view>
-        <view>
-          <text>美食标签</text>
-        </view>
+        <block wx:for='{{buyTags}}' wx:key='{{index}}'>
+          <view wx:if='index <= 3'>
+            <text>{{item.name}}</text>
+          </view>
+        </block>
       </view>
     </view>
   </view>
   <view class='classify_btn'>
-    <view>
+    <view bindtap='goToTheProductList'>
       <image src='../../img/index/traffic.png'></image>
       <view class='text'>
         <text>交通</text>
       </view>
     </view>
-    <view>
+    <view bindtap='goToTheProductList'>
       <image src='../../img/index/spot.png'></image>
       <view class='text'>
         <text>景点</text>
       </view>
     </view>
-    <view>
+    <view bindtap='goToTheProductList'>
       <image src='../../img/index/entertainment.png'></image>
       <view class='text'>
         <text>娱乐</text>
@@ -108,128 +95,108 @@
   <view class='hot_recommend'>
     <view class='title'>热门推荐</view>
     <view class='tabs_title'>
-      <view class='active'>
-        <text>智能推荐</text>
+      <view class='{{ recommendType === 1 ? "active" : "" }}' data-type='1' bindtap='handleSwichChange'>
+        <text>一日游</text>
         <image src='../../img/index/tabs.png'></image>
       </view>
-      <view>
-        <text>距离最近</text>
+      <view class='{{ recommendType === 2 ? "active" : "" }}' data-type='2' bindtap='handleSwichChange'>
+        <text>美食</text>
         <image src='../../img/index/tabs.png'></image>
       </view>
-      <view>
-        <text>人气最高</text>
+      <view class='{{ recommendType === 3 ? "active" : "" }}' data-type='3' bindtap='handleSwichChange'>
+        <text>交通</text>
         <image src='../../img/index/tabs.png'></image>
       </view>
-      <view>
-        <text>好评最多</text>
+      <view class='{{ recommendType === 4 ? "active" : "" }}' data-type='4' bindtap='handleSwichChange'>
+        <text>玩乐</text>
+        <image src='../../img/index/tabs.png'></image>
+      </view>
+      <view class='{{ recommendType === 5 ? "active" : "" }}' data-type='5' bindtap='handleSwichChange'>
+        <text>购物</text>
         <image src='../../img/index/tabs.png'></image>
       </view>
     </view>
     <view class='tabs_content'>
       <view class='active'>
         <view class='main'>
-          <view>
-            <view class='img_row'>
-              <image class='bg' src='../../img/index/1.png'></image>
-              <image class='top' src='../../img/index/top.png'></image>
-              <image class='ticket' src='../../img/index/ticket.png'></image>
-            </view>
-            <view class='title'>
-              <text>日本东京+大阪7日自由行，正在火爆预热卖东西咯，快来买呀！！</text>
-            </view>
-            <view class='location'>
+          <block wx:for='{{goodsList}}' wx:key='{{index}}'>
+            <view data-gid='{{item.goodsDescs[0].gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
-                <image src='../../img/index/small_location.png'></image>
+                <image class='bg' src='{{item.goodsBase.poster}}'></image>
+                <image class='top' wx:if='{{ false }}' src='../../img/index/top.png'></image>
+                <image class='ticket' wx:if='{{ false }}' src='../../img/index/ticket.png'></image>
               </view>
-              <view class='text'>
-                <text>东京 · 距离市中心11.8公里</text>
+              <view class='title'>
+                <text>{{item.goodsInfo.name}}</text>
               </view>
-            </view>
-            <view class='info'>
-              <view class='price'>
-                <text><text>￥</text>1012</text>
+              <view class='location'>
+                <view class='img_row'>
+                  <image src='../../img/index/small_location.png'></image>
+                </view>
+                <view class='text'>
+                  <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+                </view>
               </view>
-              <view class='star'>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-              </view>
-            </view>
-          </view>
-          <view>
-            <view class='img_row'>
-              <image class='bg' src='../../img/index/11.png'></image>
-              <image class='top' src='../../img/index/top.png'></image>
-              <image class='ticket' src='../../img/index/ticket.png'></image>
-            </view>
-            <view class='title'>
-              <text>日本东京+大阪7日自由行，正在火爆预热卖东西咯，快来买呀！！</text>
-            </view>
-            <view class='location'>
-              <view class='img_row'>
-                <image src='../../img/index/small_location.png'></image>
-              </view>
-              <view class='text'>
-                <text>东京 · 距离市中心11.8公里</text>
+              <view class='info'>
+                <view class='price'>
+                  <text><text>￥</text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
+                </view>
+                <view class='star'>
+                  <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                    <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                    <image wx:else src='../../img/index/star_uncheck.png'></image>
+                  </block>
+                </view>
               </view>
             </view>
-            <view class='info'>
-              <view class='price'>
-                <text><text>￥</text>1012</text>
-              </view>
-              <view class='star'>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-              </view>
-            </view>
-          </view>
+          </block>
         </view>
         <view class='more'>查看更多</view>
       </view>
     </view>
   </view>
-  <view class='coupon'>
+  <view class='coupon' wx:if="{{coupons.length}}">
     <view class='title'>
       <text>优惠券</text>
     </view>
     <view class='subTitle'>
       <text>给你带来更多的优惠</text>
     </view>
-    <view class='main'>
-      <image class='bg' src='../../img/index/coupon_bg.png'></image>
-      <view class='content'>
-        <view class='top'>
-          <view class='logo'>
-            <image src='../../img/index/coupon_logo.png'></image>
-          </view>
-          <view class='worth'>
-            <view class='discount'>
-              <view class='num'>
-                <text>8</text>
+    <view class='main_row'>
+      <block wx:for="{{coupons}}" wx:key="{{index}}">
+        <view class='main'>
+          <image class='bg' src='../../img/index/coupon_bg.png'></image>
+          <view class='content'>
+            <view class='top'>
+              <view class='logo'>
+                <image src='{{item.imgUrl}}'></image>
               </view>
-              <view class='fracture'>
-                <text>/折</text>
+              <view class='worth'>
+                <view class='discount'>
+                  <view class='num'>
+                    <text>{{item.discount / 10}}</text>
+                  </view>
+                  <view class='fracture'>
+                    <text>/折</text>
+                  </view>
+                </view>
+                <view class='expiry_date'>
+                  <text>有效期至：{{dateFr.getDate(item.expireEndAt, '/')}}</text>
+                </view>
               </view>
             </view>
-            <view class='expiry_date'>
-              <text>有效期至：2020年10月7日</text>
+            <view class='bottom'>
+              <view>
+                <text>{{item.description}}</text>
+              </view>
+              <view>
+                <text>前往使用></text>
+              </view>
             </view>
           </view>
         </view>
-        <view class='bottom'>
-          <view>
-            <text>无印良品全场无限制，任意...</text>
-          </view>
-          <view>
-            <text>前往使用></text>
-          </view>
-        </view>
-      </view>
+      </block>
     </view>
+    <view class='more'>查看更多</view>
   </view>
 </view>
