@@ -1,17 +1,20 @@
+const app = getApp();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    
+    trips: [],
+    goods: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.getRGoodsList();
   },
 
   /**
@@ -61,5 +64,26 @@ Page({
    */
   onShareAppMessage: function () {
     
+  },
+  getUserItineraryList: function () {
+    let api = 'com.ttdtrip.api.order.apis.service.UserItineraryListApiService';
+    let data = { base: app.globalData.baseBody, recentDays: 5 };
+    app.request(api, data, (res) => {
+      console.log(res);
+    }, (err) => {
+      console.error(err);
+    })
+  },
+  getRGoodsList: function () {
+    let api = 'com.ttdtrip.api.goods.apis.RGoodsListApiService';
+    let data = { base: app.globalData.baseBody, location: 2, page: 1, size: 30 };
+    app.request(api, data, (res) => {
+      console.log(res);
+      this.setData({
+        goods: res.goodsVOs
+      })
+    }, (err) => {
+      console.error(err);
+    })
   }
 })

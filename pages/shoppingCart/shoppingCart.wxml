@@ -3,7 +3,7 @@
   <view class='page_title'>
     <text>购物车</text>
   </view>
-  <view class='empty'>
+  <view class='empty' wx:if='{{!cart.length}}'>
     <view class='img_row'>
       <image src='../../img/shoppingCart/empty.png'></image>
     </view>
@@ -15,7 +15,7 @@
     <view class='title'>
       <text>猜你喜欢</text>
     </view>
-    <view class='recommend'>
+    <view class='recommend' wx:if='{{goods.length}}'>
       <view class='list'>
         <view class='img_row'>
           <image src='../../img/index/12.png'></image>
@@ -125,5 +125,6 @@
         </view>
       </view>
     </view>
+    <view class='recommend_empty' wx:if='{{!goods.length}}'>暂无推荐商品</view>
   </view>
 </view>

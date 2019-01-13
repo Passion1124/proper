@@ -269,14 +269,6 @@
   text-align: center;
 }
 
-.area .introduce .wxParse-p{
-  
-}
-
-.area .introduce .wxParse-p:last-of-type{
-  margin-bottom: 0;
-}
-
 .area .introduce .wxParse-p .WxEmojiView{
   font-size: 28rpx;
   line-height: 40rpx;
@@ -284,9 +276,11 @@
   margin-bottom: 40rpx;
 }
 
+.area .introduce .wxParse-p:last-of-type .WxEmojiView{
+  margin-bottom: 0;
+}
+
 .area .introduce .wxParse-p image{
-  /* width: 100% !important;
-  height: 400rpx !important; */
   max-width: 100% !important;
   vertical-align: top;
   border-radius: 8rpx;

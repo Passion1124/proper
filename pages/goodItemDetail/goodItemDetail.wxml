@@ -1,0 +1,45 @@
+<!-- goodItemDetail.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
+<import src="../../wxParse/wxParse.wxml" />
+<view class='container'>
+  <view class='page_title'>商品详情</view>
+  <view class='card_row'>
+    <view class='good_item_card'>
+      <view class='title'>{{goodsItem.goodsItemInfo.name}}</view>
+      <view class='subTitle'>{{goodsItem.goodsItemInfo.subInfo}}</view>
+      <view class='price'>
+        <text>{{goodsItem.goodsItemBase.currency}}</text>
+        <text>{{goodsItem.goodsItemBase.amount / 100}}</text>
+      </view>
+    </view>
+  </view>
+  <view class='single'>
+    <view class='s_title'>确认时间</view>
+    <view class='tips'>{{dateFr.getSureDateText(goodsItem.goodsItemBase.confirmType)}}</view>
+  </view>
+  <view class='single'>
+    <view class='s_title'>退订须知</view>
+    <view class='tips'>{{goods.goodsInfo.refundPrivacy}}</view>
+  </view>
+  <block wx:for='{{goodsItem.goodsItemDescs}}' wx:key='{{index}}'>
+    <view class='single' wx:if='{{item.title || item.info}}'>
+      <view class='s_title'>{{item.title}}</view>
+      <view class='tips'>{{item.info}}</view>
+    </view>
+  </block>
+  <view class='introduce'>
+    <view class='i_title'>介绍说明</view>
+    <view class='i_content'>
+      <template is="wxParse" data="{{wxParseData: article.nodes}}" />
+    </view>
+  </view>
+  <view class='subscribe'>
+    <view class='price'>
+      <text>合计</text>
+      <text>{{goodsItem.goodsItemBase.currency}}{{goodsItem.goodsItemBase.amount / 100}}</text>
+    </view>
+    <view class='btn'>
+      <button bindtap='goToTheAdvanceOrder'>填写预定信息</button>
+    </view>
+  </view>
+</view>

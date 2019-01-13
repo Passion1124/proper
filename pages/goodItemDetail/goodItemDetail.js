@@ -1,20 +1,29 @@
 const app = getApp();
 
+var WxParse = require('../../wxParse/wxParse.js');
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    cart: [],
-    goods: []
+    gid: '',
+    giid: '',
+    goods: {},
+    goodsItem: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getRGoodsList();
+    this.setData({
+      gid: options.gid,
+      giid: options.giid
+    });
+    this.getGoodsItemDetail();
+    this.getGoodsDetail();
   },
 
   /**
@@ -65,25 +74,34 @@ Page({
   onShareAppMessage: function () {
     
   },
-  getCartList: function () {
-    let api = 'com.ttdtrip.api.cart.apis.service.UserCartListApiService';
-    let data = { base: app.globalData.baseBody, limit: 10, page: 1, userId: '' };
+  getGoodsItemDetail: function () {
+    let api = 'com.ttdtrip.api.goods.apis.GoodsItemDetailApiService';
+    let data = { base: app.globalData.baseBody, giId: this.data.giid, spec: 1 };
     app.request(api, data, (res) => {
       console.log(res);
+      this.setData({
+        goodsItem: res.goodsItemVO
+      });
+      WxParse.wxParse('article', 'html', this.data.goodsItem.goodsItemInfo.info, this, 5);
     }, (err) => {
       console.error(err);
     })
   },
-  getRGoodsList: function () {
-    let api = 'com.ttdtrip.api.goods.apis.RGoodsListApiService';
-    let data = { base: app.globalData.baseBody, location: 3, page: 1, size: 30 };
+  getGoodsDetail: function () {
+    let api = 'com.ttdtrip.api.goods.apis.GoodsDetailApiService';
+    let data = { base: app.globalData.baseBody, gid: this.data.gid, spec: 1 };
     app.request(api, data, (res) => {
       console.log(res);
       this.setData({
-        goods: res.goodsVOs
+        goods: res.goodsVO
       })
     }, (err) => {
       console.error(err);
+    })
+  },
+  goToTheAdvanceOrder: function () {
+    wx.navigateTo({
+      url: '/pages/order/order',
     })
   }
 })

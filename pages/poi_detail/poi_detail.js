@@ -10,6 +10,7 @@ Page({
    */
   data: {
     gid: '',
+    type: '',
     favor: false,
     goods: {},
     goodsItem: [],
@@ -44,7 +45,8 @@ Page({
   onLoad: function(options) {
     console.log(options);
     this.setData({
-      gid: options.gid
+      gid: options.gid,
+      type: options.type
     });
     this.getGoodsDetail();
     this.getCommentList();
@@ -212,6 +214,12 @@ Page({
           address: '天府二街'
         })
       },
+    })
+  },
+  goToTheGoodsItemDetail (e) {
+    let giid = e.currentTarget.dataset.giid;
+    wx.navigateTo({
+      url: '/pages/goodItemDetail/goodItemDetail?giid=' + giid + '&gid=' + this.data.gid + '&type=' + this.data.type,
     })
   }
 })

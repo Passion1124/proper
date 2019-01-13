@@ -262,3 +262,9 @@
   height: 100%;
   vertical-align: top;
 }
+.recommend_empty{
+  font-size: 32rpx;
+  line-height: 48rpx;
+  text-align: center;
+  color: #8C8C8C;
+}

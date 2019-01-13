@@ -1,0 +1,146 @@
+.container{
+  padding: 0 40rpx 172rpx;
+  box-sizing: border-box;
+}
+
+.page_title{
+  font-size: 56rpx;
+  line-height: 78rpx;
+  color: #3C3C3C;
+  font-weight: bold;
+  padding-top: 24rpx;
+  margin-bottom: 90rpx;
+}
+
+.card_row{
+  /* padding-bottom: 80rpx;
+  border-bottom: 1rpx solid #E0E0E0; */
+}
+
+.good_item_card{
+  width: 100%;
+  border-radius: 16rpx;
+  background-color: #F2F5F7;
+  padding: 40rpx 40rpx 24rpx;
+  box-sizing: border-box;
+}
+
+.good_item_card .title{
+  font-size: 36rpx;
+  line-height: 50rpx;
+  color: #484848;
+  margin-bottom: 8rpx;
+}
+
+.good_item_card .subTitle{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #666666;
+  margin-bottom: 24rpx;
+}
+
+.good_item_card .price{
+  color: #F97572;
+  line-height: 45rpx;
+}
+
+.good_item_card .price>text:first-of-type{
+  font-size: 32rpx;
+}
+
+.good_item_card .price>text:last-of-type{
+  font-size: 48rpx;
+}
+
+.single{
+  width: 100%;
+  padding: 40rpx 0;
+  box-sizing: border-box;
+  border-bottom: 1rpx solid #E0E0E0;
+}
+
+.single .s_title{
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #3C3C3C;
+  margin-bottom: 24rpx;
+}
+
+.single .tips{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #666666;
+}
+
+.introduce{
+  padding-top: 44rpx;
+}
+
+.introduce .i_title{
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #3C3C3C;
+  margin-bottom: 24rpx;
+}
+
+.introduce .i_content .wxParse-p .WxEmojiView{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #3C3C3C;
+  margin-bottom: 40rpx;
+}
+
+.introduce .i_content .wxParse-p:last-of-type .WxEmojiView{
+  margin-bottom: 0;
+}
+
+.introduce .i_content .wxParse-p image{
+  max-width: 100% !important;
+  vertical-align: top;
+  border-radius: 8rpx;
+  margin-bottom: 40rpx;
+}
+
+.subscribe{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 120rpx;
+  padding: 20rpx 40rpx;
+  background-color: #FFFFFF;
+  box-shadow:0px -3px 14px 0px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+.subscribe .price{
+  display: flex;
+  align-items: center;
+}
+
+.subscribe .price text:first-of-type{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #3C3C3C;
+  margin-right: 8rpx;
+}
+
+.subscribe .price text:last-of-type{
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #F97572;
+}
+
+.subscribe .btn button{
+  width: 370rpx;
+  height: 80rpx;
+  font-size: 32rpx;
+  letter-spacing: 4rpx;
+  color: #fff;
+  border-radius: 40rpx;
+  background-color: #F97572;
+}
+

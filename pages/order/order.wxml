@@ -1,0 +1,71 @@
+<!-- order.wxml -->
+<view class='container'>
+  <view class='page_title'>预订信息</view>
+  <view class='many'>
+    <view class='text'>选择使用时间</view>
+    <view class='date'>
+      <picker mode='date' value='{{preOrderInfo.date}}' bindchange="bindDateChange">
+        <view class='blue_text'>{{preOrderInfo.date}}</view>
+      </picker>
+      <view class='img_row'>
+        <image src='../../img/common/more.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='many'>
+    <view class='text'>选择份数</view>
+    <view class='copies'>
+      <view class='{{ minusStatus }}' bindtap='bindMinus'>
+        <view class='img_row'>
+          <image src='../../img/common/reduce.png'></image>
+        </view>
+      </view>
+      <view>
+        <input type='number' value='{{preOrderInfo.totalCount}}' bindchange='bindManual'></input>
+      </view>
+      <view class='{{ maxusStatus }}' bindtap='bindPlus'>
+        <view class='img_row'>
+          <image src='../../img/common/plus.png'></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='single'>
+    <input placeholder-class='phcolor' placeholder='您的姓名'></input>
+  </view>
+  <view class='single appellation'>
+    <picker mode='selector' value='{{preOrderInfo.gender}}' range='{{genderRange}}' range-key='label' bindchange='bindGenderChange'>
+      <view class='{{preOrderInfo.gender ? "checked" : ""}}'>{{preOrderInfo.gender ? (preOrderInfo.gender === 1 ? "先生" : "女士") : '称谓'}}</view>
+    </picker>
+    <view class='img_row'>
+      <image src='../../img/common/more.png'></image>
+    </view>
+  </view>
+  <view class='single'>
+    <input type='number' placeholder-class='phcolor' placeholder='手机号码'></input>
+  </view>
+  <view class='single'>
+    <input placeholder-class='phcolor' placeholder='邮箱'></input>
+  </view>
+  <view class='single'>
+    <input placeholder-class='phcolor' placeholder='传真号'></input>
+  </view>
+  <view class='many'>
+    <view class='text'>可用优惠券</view>
+    <view class='coupon'>
+      <view class='blue_text'>4张</view>
+      <view class='img_row'>
+        <image src='../../img/common/more.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='pay'>
+    <view class='price'>
+      <text>合计</text>
+      <text>￥1212.00</text>
+    </view>
+    <view class='btn'>
+      <button>去付款</button>
+    </view>
+  </view>
+</view>

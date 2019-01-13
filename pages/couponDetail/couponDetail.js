@@ -6,15 +6,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-    cart: [],
-    goods: []
+    couponId: '',
+    coupon: {},
+    hasExists: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getRGoodsList();
+    this.setData({
+      couponId: options.couponId
+    });
+    this.getCouponDetail();
+    this.getUserCouponExist();
   },
 
   /**
@@ -65,22 +70,25 @@ Page({
   onShareAppMessage: function () {
     
   },
-  getCartList: function () {
-    let api = 'com.ttdtrip.api.cart.apis.service.UserCartListApiService';
-    let data = { base: app.globalData.baseBody, limit: 10, page: 1, userId: '' };
+  getUserCouponExist: function () {
+    let api = 'com.ttdtrip.api.order.apis.service.UserCouponExistApiService';
+    let data = { base: app.globalData.baseBody, couponId: this.data.couponId };
     app.request(api, data, (res) => {
       console.log(res);
+      this.setData({
+        hasExists: res.hasExists
+      })
     }, (err) => {
       console.error(err);
     })
   },
-  getRGoodsList: function () {
-    let api = 'com.ttdtrip.api.goods.apis.RGoodsListApiService';
-    let data = { base: app.globalData.baseBody, location: 3, page: 1, size: 30 };
+  getCouponDetail: function () {
+    let api = 'com.ttdtrip.api.order.apis.service.CouponDetailApiService';
+    let data = { base: app.globalData.baseBody, id: this.data.couponId };
     app.request(api, data, (res) => {
       console.log(res);
       this.setData({
-        goods: res.goodsVOs
+        coupon: res.coupon
       })
     }, (err) => {
       console.error(err);

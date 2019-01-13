@@ -83,12 +83,12 @@ Page({
   },
   getCategoryInfo () {
     let data = { base: app.globalData.baseBody };
-    let api = 'com.ttdtrip.api.config.apis.service.CategoryQryApiService';
+    let api = 'com.ttdtrip.api.config.apis.service.IndexLabelQryApiService';
     app.request(api, data, (res) => {
       console.log(res);
       this.setData({
-        buyTags: res.buyCategories,
-        foodTags: res.foodCategories
+        buyTags: res.buyLabels,
+        foodTags: res.foodLabels
       })
     }, (res) => {
       console.error(res);
@@ -162,6 +162,12 @@ Page({
   goToTheProductList (e) {
     wx.navigateTo({
       url: '/pages/productList/productList',
+    })
+  },
+  goToTheCouponsDetail (e) {
+    let couponId = e.currentTarget.dataset.couponid;
+    wx.navigateTo({
+      url: '/pages/couponDetail/couponDetail?couponId=' + couponId,
     })
   }
 })

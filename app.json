@@ -9,6 +9,9 @@
     "pages/feedback/feedback",
     "pages/poi_detail/poi_detail",
     "pages/productList/productList",
+    "pages/goodItemDetail/goodItemDetail",
+    "pages/order/order",
+    "pages/couponDetail/couponDetail",
     "pages/logs/logs"
   ],
   "window":{

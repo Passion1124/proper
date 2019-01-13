@@ -3,7 +3,7 @@
   <view class='page_title'>
     <text>行程</text>
   </view>
-  <view class='empty'>
+  <view class='empty' wx:if='{{!trips.length}}'>
     <view class='img_row'>
       <image src='../../img/trip/empty.png'></image>
     </view>
@@ -11,7 +11,7 @@
       <text>快去探索你的精彩日本游吧</text>
     </view>
   </view>
-  <view class='un_empty'>
+  <view class='un_empty' wx:if='{{trips.length}}'>
     <view class='list'>
       <view class='date'>2018-10-01（今天）</view>
       <view class='order'>
@@ -55,7 +55,7 @@
     <view class='title'>
       <text>猜你喜欢</text>
     </view>
-    <view class='recommend'>
+    <view class='recommend' wx:if='{{goods.length}}'>
       <view class='list'>
         <view class='img_row'>
           <image src='../../img/index/12.png'></image>
@@ -165,5 +165,6 @@
         </view>
       </view>
     </view>
+    <view class='recommend_empty' wx:if='{{!goods.length}}'>暂无推荐商品</view>
   </view>
 </view>

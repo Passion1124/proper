@@ -59,7 +59,7 @@
             <view>
               <view class='title'>{{item.goodsItemInfo.name}}</view>
               <view class='buy'>
-                <button>立即购买</button>
+                <button data-giid='{{item.goodsItemInfo.giid}}' bindtap='goToTheGoodsItemDetail'>立即购买</button>
               </view>
             </view>
             <view>{{item.goodsItemInfo.subInfo}}</view>
@@ -109,7 +109,7 @@
       <view class='comment_empty' wx:if='{{!comment.length}}'>暂无评论</view>
     </view>
     <view class='area border_0'>
-      <view class='area_title'>景点介绍</view>
+      <view class='area_title'>介绍说明</view>
       <view class='introduce'>
         <!-- <rich-text nodes='{{goods.goodsInfo.info}}'></rich-text> -->
         <template is="wxParse" data="{{wxParseData: article.nodes}}" />
@@ -118,14 +118,12 @@
     <view class='area border_0 padding_top_0'>
       <view class='area_title'>购买须知</view>
       <view class='explain'>
-        <view class='cost'>
-          <view>费用说明：</view>
-          <view>详细说明内容详细说明内容详细说明内容详细说明</view>
-        </view>
-        <view class='refund'>
-          <view>退款说明：</view>
-          <view>详细说明内容详细说明内容详细说明内容详细说明</view>
-        </view>
+        <block wx:for="{{goods.goodsDescs}}" wx:key='{{index}}'>
+          <view>
+            <view>{{item.title}}</view>
+            <view>{{item.info}}</view>
+          </view>
+        </block>
       </view>
     </view>
   </view>

@@ -40,6 +40,17 @@ var DateFr = {
     var second = date.getSeconds()
 
     return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+  },
+  getSureDateText: function (type) {
+    if (type === 1) {
+      return '立刻确认'
+    } else if (type === 2) {
+      return '3小时确认'
+    } else if (type === 3) {
+      return '1天确认'
+    } else if (type === 4) {
+      return '3天内确认'
+    }
   }
 }
 
@@ -52,6 +63,7 @@ module.exports = {
   getDate: DateFr.getDate,
   getDistance: DateFr.getDistance,
   getSupportedLanguage: DateFr.getSupportedLanguage,
-  formatTime: DateFr.formatTime
+  formatTime: DateFr.formatTime,
+  getSureDateText: DateFr.getSureDateText
 }
 

@@ -1,0 +1,49 @@
+<!-- couponDetail.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
+<view class='container'>
+  <view class='page_title'>优惠券</view>
+  <view class='card'>
+    <image class='bg' src='../../img/coupon/coupon_bg_normal.png'></image>
+    <view class='content'>
+      <view class='top'>
+        <view class='logo'>
+          <image src='{{coupon.imgUrl}}'></image>
+        </view>
+        <view>
+          <view wx:if='{{coupon.type === 0 }}'>
+            <text>{{coupon.discount / 10}}</text>
+            <text>/折</text>
+          </view>
+          <view wx:if='{{coupon.type === 1}}'>
+            <text>{{coupon.currency}}{{coupon.reducePrice / 100}}</text>
+            <text>/满{{coupon.sourcePrice / 100}}</text>
+          </view>
+          <view>{{coupon.name}}</view>
+          <view wx:if='{{coupon.type === 2}}'>
+            <text>{{coupon.currency}}{{coupon.reducePrice / 100}}</text>
+          </view>
+        </view>
+      </view>
+      <view class='center'>
+        <view>
+          <view>使用属性：{{coupon.usingTimes === -1 ? '重复使用' : coupon.usingTimes + '次'}}</view>
+          <view>有效期至：{{dateFr.getDate(coupon.expireEndAt, '/')}}</view>
+        </view>
+        <view>
+          <button>立即领取</button>
+        </view>
+      </view>
+      <view class='image_row'>
+        <image src='{{coupon.photoUrl}}'></image>
+      </view>
+      <view class='btn'>
+        <button>前往使用</button>
+      </view>
+    </view>
+  </view>
+  <view class='explain'>
+    <view class='e_title'>使用说明</view>
+    <view class='date'>失效期：{{dateFr.getDate(coupon.expireEndAt, '/')}}</view>
+    <view class='careful'>使用注意：{{coupon.precaustion}}</view>
+  </view>
+</view>
