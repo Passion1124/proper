@@ -1,9 +1,9 @@
 <!-- trip.wxml -->
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container'>
-  <view class='page_title'>
+  <!-- <view class='page_title'>
     <text>行程</text>
-  </view>
+  </view> -->
   <view class='empty' wx:if='{{!trips.length}}'>
     <view class='img_row'>
       <image src='../../img/trip/empty.png'></image>

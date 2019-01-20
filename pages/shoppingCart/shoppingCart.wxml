@@ -1,9 +1,9 @@
 <!-- shoppingCart.wxml -->
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container'>
-  <view class='page_title'>
+  <!-- <view class='page_title'>
     <text>购物车</text>
-  </view>
+  </view> -->
   <view class='empty' wx:if='{{!cart.length}}'>
     <view class='img_row'>
       <image src='../../img/shoppingCart/empty.png'></image>
