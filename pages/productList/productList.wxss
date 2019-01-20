@@ -1,18 +1,27 @@
+/*隐藏滚动条*/
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
 .container{
-  padding: 0 40rpx;
+  /* padding: 0 40rpx; */
 }
 
 .container>view.title{
   font-size: 56rpx;
   line-height: 78rpx;
   color: #3C3C3C;
-  font-weight: bold;
+  /* font-weight: bold; */
   margin: 46rpx 0;
+  padding: 0 40rpx;
 }
 
 .tab-h{
   display: flex;
   line-height: 0;
+  padding: 0 40rpx;
 }
 
 .tab-h .tab-item{
@@ -53,7 +62,13 @@
   box-sizing: border-box;
 }
 
+.tab-content swiper-item{
+  padding: 0 40rpx;
+  box-sizing: border-box;
+}
+
 .tab-content .header{
+  margin-top: 24rpx;
   display: flex;
   justify-content: space-between;
 }
@@ -85,7 +100,7 @@
 
 .tab-content .list_row>view{
   width: 324rpx;
-  margin-top: 40rpx;
+  margin-bottom: 40rpx;
 }
 
 .tab-content .list_row>view>.img_row{

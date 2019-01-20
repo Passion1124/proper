@@ -1,4 +1,5 @@
 <!-- trip.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container'>
   <view class='page_title'>
     <text>行程</text>
@@ -56,114 +57,43 @@
       <text>猜你喜欢</text>
     </view>
     <view class='recommend' wx:if='{{goods.length}}'>
-      <view class='list'>
-        <view class='img_row'>
-          <image src='../../img/index/12.png'></image>
-        </view>
-        <view class='info'>
-          <view class='star'>
-            <image src='../../img/index/star_uncheck.png'></image>
-            <image src='../../img/index/star_uncheck.png'></image>
-            <image src='../../img/index/star_uncheck.png'></image>
-            <image src='../../img/index/star_uncheck.png'></image>
-            <image src='../../img/index/star_uncheck.png'></image>
+      <block wx:for='{{goods}}' wx:key='{{index}}'>
+        <view class='list'>
+          <view class='img_row'>
+            <image src='{{item.goodsBase.poster}}'></image>
           </view>
-          <view class='num'>
-            <text>已售 323</text>
+          <view class='info'>
+            <view class='star'>
+              <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                <image wx:else src='../../img/index/star_uncheck.png'></image>
+              </block>
+            </view>
+            <view class='num'>
+              <text>已售 323</text>
+            </view>
           </view>
-        </view>
-        <view class='title_warp'>
-          <text>日本东京+大阪7日自由行，正在火爆预热…</text>
-        </view>
-        <view class='location'>
-          <view class='icon'>
-            <image src='../../img/index/location.png'></image>
+          <view class='title_warp'>
+            <text>{{item.goodsInfo.name}}</text>
           </view>
-          <view class='text'>
-            <text>东京 · 距离市中心11.8公里</text>
+          <view class='location'>
+            <view class='icon'>
+              <image src='../../img/index/location.png'></image>
+            </view>
+            <view class='text'>
+              <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+            </view>
           </view>
-        </view>
-        <view class='worth'>
-          <view class='price'>
-            <text>￥1012</text>
-          </view>
-          <view class='ticket'>
-            <image src='../../img/index/ticket.png'></image>
-          </view>
-        </view>
-      </view>
-      <view class='list'>
-        <view class='img_row'>
-          <image src='../../img/index/12.png'></image>
-        </view>
-        <view class='info'>
-          <view class='star'>
-            <image src='../../img/index/star_uncheck.png'></image>
-            <image src='../../img/index/star_uncheck.png'></image>
-            <image src='../../img/index/star_uncheck.png'></image>
-            <image src='../../img/index/star_uncheck.png'></image>
-            <image src='../../img/index/star_uncheck.png'></image>
-          </view>
-          <view class='num'>
-            <text>已售 323</text>
+          <view class='worth'>
+            <view class='price'>
+              <text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
+            </view>
+            <view class='ticket'>
+              <image src='../../img/index/ticket.png'></image>
+            </view>
           </view>
         </view>
-        <view class='title_warp'>
-          <text>日本东京+大阪7日自由行，正在火爆预热…</text>
-        </view>
-        <view class='location'>
-          <view class='icon'>
-            <image src='../../img/index/location.png'></image>
-          </view>
-          <view class='text'>
-            <text>东京 · 距离市中心11.8公里</text>
-          </view>
-        </view>
-        <view class='worth'>
-          <view class='price'>
-            <text>￥1012</text>
-          </view>
-          <view class='ticket'>
-            <image src='../../img/index/ticket.png'></image>
-          </view>
-        </view>
-      </view>
-      <view class='list'>
-        <view class='img_row'>
-          <image src='../../img/index/12.png'></image>
-        </view>
-        <view class='info'>
-          <view class='star'>
-            <image src='../../img/index/star_uncheck.png'></image>
-            <image src='../../img/index/star_uncheck.png'></image>
-            <image src='../../img/index/star_uncheck.png'></image>
-            <image src='../../img/index/star_uncheck.png'></image>
-            <image src='../../img/index/star_uncheck.png'></image>
-          </view>
-          <view class='num'>
-            <text>已售 323</text>
-          </view>
-        </view>
-        <view class='title_warp'>
-          <text>日本东京+大阪7日自由行，正在火爆预热…</text>
-        </view>
-        <view class='location'>
-          <view class='icon'>
-            <image src='../../img/index/location.png'></image>
-          </view>
-          <view class='text'>
-            <text>东京 · 距离市中心11.8公里</text>
-          </view>
-        </view>
-        <view class='worth'>
-          <view class='price'>
-            <text>￥1012</text>
-          </view>
-          <view class='ticket'>
-            <image src='../../img/index/ticket.png'></image>
-          </view>
-        </view>
-      </view>
+      </block>
     </view>
     <view class='recommend_empty' wx:if='{{!goods.length}}'>暂无推荐商品</view>
   </view>

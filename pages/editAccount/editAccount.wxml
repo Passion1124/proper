@@ -1,0 +1,36 @@
+<!-- editAccount.wxml -->
+<view class='container'>
+  <view class='single'>
+    <input value='{{userInfo.nickname}}' placeholder-class='phcolor' placeholder='您的姓名' bindinput='bindNicknameChange'></input>
+  </view>
+  <view class='single flex'>
+    <view>
+      <picker mode='selector' value='{{userInfo.gender}}' range='{{genderRange}}' range-key='label' bindchange='bindGenderChange'>
+      <view class='{{userInfo.gender ? "checked" : ""}}'>{{userInfo.gender ? (userInfo.gender === 1 ? "先生" : "女士") : '称谓'}}</view>
+    </picker>
+    </view>
+    <view class='arrow'>
+      <image src='../../img/common/more.png'></image>
+    </view>
+  </view>
+  <view class='single'>
+    <view class='text'>手机号码</view>
+    <!-- <input type='number' placeholder-class='phcolor' placeholder='手机号码'></input> -->
+  </view>
+  <view class='single'>
+    <view class='text'>邮箱（接受凭证）</view>
+    <!-- <input placeholder-class='phcolor' placeholder='邮箱（接受凭证）'></input> -->
+  </view>
+  <view class='single'>
+    <input value='{{userInfo.fax}}' placeholder-class='phcolor' placeholder='传真号' bindblur='bindFaxChange'></input>
+  </view>
+  <view class='single tips'>
+    <view class='text'>用户商品邮寄收件地址</view>
+  </view>
+  <view class='single'>
+    <input value='{{userInfo.address}}' placeholder-class='phcolor' placeholder='详细地址'  bindinput='bindAddressChange'></input>
+  </view>
+  <view class='btn'>
+    <button bindtap='handleUserDetailUpdate'>确认修改</button>
+  </view>
+</view>

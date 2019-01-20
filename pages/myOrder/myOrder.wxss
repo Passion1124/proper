@@ -1,0 +1,137 @@
+.container{
+  padding: 0 40rpx;
+}
+
+.tabs{
+  display: flex;
+  align-items: center;
+}
+
+.tabs view{
+  position: relative;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #8C8C8C;
+  padding: 20rpx 0;
+  margin-right: 60rpx;
+}
+
+.tabs view:last-of-type{
+  margin-right: 0;
+}
+
+.tabs view image{
+  display: none;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 41rpx;
+  height: 6rpx;
+}
+
+.tabs view.active{
+  color: #3C3C3C;
+}
+
+.tabs view.active image{
+  display: block;
+}
+
+.empty{
+  margin-top: 80rpx;
+}
+
+.empty .image_row{
+  width: 614rpx;
+  height: 380rpx;
+  margin: 0 auto 30rpx;
+}
+
+.empty .image_row image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.empty .text{
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #8C8C8C;
+  letter-spacing: 3rpx;
+  text-align: center;
+}
+
+.order{
+  width: 100%;
+  padding: 24rpx;
+  border-radius: 16rpx;
+  background:rgba(255,255,255,1);
+  box-shadow:0px 4rpx 16rpx 0px rgba(195,195,195,0.4);
+  margin-top: 40rpx;
+  box-sizing: border-box;
+}
+
+.order .top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order .top view:first-of-type{
+  max-width: 493rpx;
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #3C3C3C;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+.order .top .status{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #3C3C3C;
+}
+
+.order .line{
+  width: 100%;
+  height: 2rpx;
+  background-color: #E0E0E0;
+  margin: 30rpx 0;
+}
+
+.order .center{
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #3C3C3C;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  margin-bottom: 40rpx;
+}
+
+.order .bottom{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order .bottom .left{
+  
+}
+
+.order .bottom .right .detail{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #3C3C3C;
+}
+
+.order .bottom button{
+  width: 154rpx;
+  height: 55rpx;
+  font-size: 22rpx;
+  color: #666666;
+  border-radius: 31rpx;
+  border:1rpx solid rgba(183,183,183,1);
+  background-color: #fff;
+}

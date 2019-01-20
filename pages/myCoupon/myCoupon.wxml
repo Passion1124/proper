@@ -1,0 +1,129 @@
+<!-- myCoupon.wxml -->
+<view class='container'>
+  <view class='tabs'>
+    <view class='{{body.qryType === 1 ? "active" : ""}}' data-type='1' bindtap='changeQryType'>
+      可使用
+      <image src='../../img/index/tabs.png'></image>
+    </view>
+    <view class='{{body.qryType === 2 ? "active" : ""}}' data-type='2' bindtap='changeQryType'>
+      已过期
+      <image src='../../img/index/tabs.png'></image>
+    </view>
+  </view>
+  <view class='use' wx:if="{{body.qryType === 1}}">
+    <view class='empty' wx:if='{{!use.length}}'>
+      <view class='image_row'>
+        <image src='../../img/common/empty_data.png'></image>
+      </view>
+      <view class='text'>暂无数据哦，快去逛逛吧～</view>
+    </view>
+    <view class='un_empty' wx:if='{{use.length}}'>
+      <block wx:for="{{use}}" wx:key="{{index}}">
+        <view class='main' data-couponId='{{item.id}}' bindtap='goToTheCouponsDetail'>
+          <image class='bg' src='../../img/index/coupon_bg.png'></image>
+          <view class='content'>
+            <view class='top'>
+              <view class='logo'>
+                <image src='{{item.imgUrl}}'></image>
+              </view>
+              <view class='worth'>
+                <view class='discount'>
+                  <block wx:if='{{item.type === 0}}'>
+                    <view class='num'>
+                      <text>{{item.discount / 10}}</text>
+                    </view>
+                    <view class='fracture'>
+                      <text>/折</text>
+                    </view>
+                  </block>
+                  <block wx:if='{{item.type === 1}}'>
+                    <view class='num'>
+                      <text><text class='currency'>{{item.currency}}</text>{{item.reducePrice / 100}}</text>
+                    </view>
+                    <view class='fracture'>
+                      <text>/满{{item.sourcePrice / 100}}</text>
+                    </view>
+                  </block>
+                  <block wx:if='{{item.type === 2}}'>
+                    <view class='num'>
+                      <text><text class='currency'>{{item.currency}}</text>{{item.reducePrice / 100}}</text>
+                    </view>
+                  </block>
+                </view>
+                <view class='expiry_date'>
+                  <text>有效期至：{{dateFr.getDate(item.expireEndAt, '/')}}</text>
+                </view>
+              </view>
+            </view>
+            <view class='bottom'>
+              <view>
+                <text>{{item.name}}</text>
+              </view>
+              <view>
+                <text>前往使用></text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class='expire' wx:if="{{body.qryType === 2}}">
+    <view class='empty' wx:if='{{!expire.length}}'>
+      <view class='image_row'>
+        <image src='../../img/common/empty_data.png'></image>
+      </view>
+      <view class='text'>暂无数据哦，快去逛逛吧～</view>
+    </view>
+    <view class='un_empty' wx:if='{{expire.length}}'>
+      <block wx:for="{{expire}}" wx:key="{{index}}">
+        <view class='main' data-couponId='{{item.id}}' bindtap='goToTheCouponsDetail'>
+          <image class='bg' src='../../img/index/coupon_bg.png'></image>
+          <view class='content'>
+            <view class='top'>
+              <view class='logo'>
+                <image src='{{item.imgUrl}}'></image>
+              </view>
+              <view class='worth'>
+                <view class='discount'>
+                  <block wx:if='{{item.type === 0}}'>
+                    <view class='num'>
+                      <text>{{item.discount / 10}}</text>
+                    </view>
+                    <view class='fracture'>
+                      <text>/折</text>
+                    </view>
+                  </block>
+                  <block wx:if='{{item.type === 1}}'>
+                    <view class='num'>
+                      <text><text class='currency'>{{item.currency}}</text>{{item.reducePrice / 100}}</text>
+                    </view>
+                    <view class='fracture'>
+                      <text>/满{{item.sourcePrice / 100}}</text>
+                    </view>
+                  </block>
+                  <block wx:if='{{item.type === 2}}'>
+                    <view class='num'>
+                      <text><text class='currency'>{{item.currency}}</text>{{item.reducePrice / 100}}</text>
+                    </view>
+                  </block>
+                </view>
+                <view class='expiry_date'>
+                  <text>有效期至：{{dateFr.getDate(item.expireEndAt, '/')}}</text>
+                </view>
+              </view>
+            </view>
+            <view class='bottom'>
+              <view>
+                <text>{{item.name}}</text>
+              </view>
+              <view>
+                <text>前往使用></text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

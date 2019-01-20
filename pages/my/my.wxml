@@ -3,64 +3,64 @@
   <view class='info'>
     <view class='left'>
       <view class='login'>
-        <text>注册/登录</text>
+        <text bindtap='goToTheAccount'>注册/登录</text>
       </view>
       <view class='collection_coupon'>
-        <view class='collection'>
+        <view class='collection' bindtap='goToTheCollection'>
           <view class='num'>0</view>
           <view class='text'>/收藏</view>
         </view>
-        <view class='coupon'>
+        <view class='coupon' bindtap='goToTheMyCoupon'>
           <view class='num'>0</view>
           <view class='text'>/优惠券</view>
         </view>
       </view>
     </view>
-    <view class='right'>
+    <view class='right' bindtap='goToTheAccount'>
       <view class='avatar'>
         <image src='../../img/common/avatar.png'></image>
       </view>
     </view>
   </view>
   <view class='order'>
-    <view class='all_order'>
+    <view class='all_order' data-orderType='0' bindtap='goToTheMyOrder'>
       <view class='img_row'>
         <image src='../../img/common/all_order.png'></image>
       </view>
       <view class='text'>全部订单</view>
     </view>
-    <view class='pending'>
+    <view class='pending' data-orderType='1' bindtap='goToTheMyOrder'>
       <view class='img_row'>
         <image src='../../img/common/pending.png'></image>
       </view>
       <view class='text'>待付款</view>
     </view>
-    <view class='use'>
+    <view class='use' data-orderType='2' bindtap='goToTheMyOrder'>
       <view class='img_row'>
         <image src='../../img/common/use.png'></image>
       </view>
       <view class='text'>待使用</view>
     </view>
-    <view class='refund'>
+    <view class='refund' data-orderType='3' bindtap='goToTheMyOrder'>
       <view class='img_row'>
         <image src='../../img/common/refund.png'></image>
       </view>
-      <view class='text'>退款/点评</view>
+      <view class='text'>待点评</view>
     </view>
   </view>
-  <view class='single'>
+  <view class='single' bindtap='goToTheMyCoupon'>
     <view class='text'>我的优惠劵</view>
     <view class='img_row'>
       <image src='../../img/common/more.png'></image>
     </view>
   </view>
-  <view class='single'>
+  <view class='single' bindtap='goToTheCollection'>
     <view class='text'>我的收藏</view>
     <view class='img_row'>
       <image src='../../img/common/more.png'></image>
     </view>
   </view>
-  <view class='single'>
+  <view class='single' bindtap='goToTheHelp'>
     <view class='text'>帮助</view>
     <view class='img_row'>
       <image src='../../img/common/more.png'></image>
@@ -72,7 +72,7 @@
       <image src='../../img/common/more.png'></image>
     </view>
   </view>
-  <view class='single'>
+  <view class='single' bindtap='goToTheAbout'>
     <view class='text'>关于</view>
     <view class='img_row'>
       <image src='../../img/common/more.png'></image>

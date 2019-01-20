@@ -1,0 +1,69 @@
+<!-- myOrder.wxml -->
+<view class='container'>
+  <view class='all_order' wx:if='{{orderType === 0}}'>
+    <view class='tabs'>
+      <view class='active'>
+        旅游订单
+        <image src='../../img/index/tabs.png'></image>
+      </view>
+      <view>
+        购物订单
+        <image src='../../img/index/tabs.png'></image>
+      </view>
+      <view>
+        排队订单
+        <image src='../../img/index/tabs.png'></image>
+      </view>
+      <view>
+        预订订单
+        <image src='../../img/index/tabs.png'></image>
+      </view>
+    </view>
+    <view class='empty'>
+      <view class='image_row'>
+        <image src='../../img/common/empty_data.png'></image>
+      </view>
+      <view class='text'>暂无数据哦，快去逛逛吧～</view>
+    </view>
+  </view>
+  <view class='payment' wx:if='{{orderType === 1}}'>
+    <view class='empty'>
+      <view class='image_row'>
+        <image src='../../img/common/empty_data.png'></image>
+      </view>
+      <view class='text'>暂无数据哦，快去逛逛吧～</view>
+    </view>
+  </view>
+  <view class='use' wx:if='{{orderType === 2}}'>
+    <view class='empty'>
+      <view class='image_row'>
+        <image src='../../img/common/empty_data.png'></image>
+      </view>
+      <view class='text'>暂无数据哦，快去逛逛吧～</view>
+    </view>
+  </view>
+  <view class='comment' wx:if='{{orderType === 3}}'>
+    <view class='empty'>
+      <view class='image_row'>
+        <image src='../../img/common/empty_data.png'></image>
+      </view>
+      <view class='text'>暂无数据哦，快去逛逛吧～</view>
+    </view>
+  </view>
+  <view class='order'>
+    <view class='top'>
+      <view>10月1日</view>
+      <view class='status'>待付款</view>
+    </view>
+    <view class='line'></view>
+    <view class='center'>日本东京+大阪7日自由行，正在火爆预热aaaaaaaaaaaaaaaa</view>
+    <view class='bottom'>
+      <view class='left'>
+        <button>去使用</button>
+      </view>
+      <view class='right'>
+        <view class='detail'>订单详情></view>
+      </view>
+    </view>
+  </view>
+</view>

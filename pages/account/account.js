@@ -1,4 +1,4 @@
-const app = getApp();
+const app = getApp()
 
 Page({
 
@@ -64,41 +64,24 @@ Page({
   onShareAppMessage: function () {
     
   },
-  goToTheFeedBack () {
-    wx.navigateTo({
-      url: '/pages/feedback/feedback'
+  wxChooseImage () {
+    wx.chooseImage({
+      count: 1,
+      sourceType: ['album'],
+      success: function(res) {
+        console.log(res);
+        wx.previewImage({
+          urls: [].concat(res.tempFilePaths),
+        })
+      },
+      fail: function (fail) {
+        console.error(fail);
+      }
     })
   },
-  goToTheAccount () {
+  goToTheEditAccount () {
     wx.navigateTo({
-      url: '/pages/account/account',
-    })
-  },
-  goToTheMyCoupon () {
-    wx.navigateTo({
-      url: '/pages/myCoupon/myCoupon',
-    })
-  },
-  goToTheCollection () {
-    wx.navigateTo({
-      url: '/pages/collection/collection',
-    })
-  },
-  goToTheAbout () {
-    wx.navigateTo({
-      url: '/pages/about/about',
-    })
-  },
-  goToTheHelp () {
-    wx.navigateTo({
-      url: '/pages/help/help',
-    })
-  },
-  goToTheMyOrder (e) {
-    console.log(e);
-    let orderType = e.currentTarget.dataset.ordertype;
-    wx.navigateTo({
-      url: '/pages/myOrder/myOrder?orderType=' + orderType,
+      url: '/pages/editAccount/editAccount',
     })
   }
 })

@@ -6,14 +6,26 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    orderType: '',
+    orderOptions: [
+      { label: '全部订单', value: 0 },
+      { label: '待付款', value: 1 },
+      { label: '待使用', value: 2 },
+      { label: '待点评', value: 3 }
+    ]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    let orderType = Number(options.orderType);
+    wx.setNavigationBarTitle({
+      title: this.data.orderOptions.find(item => item.value === orderType).label,
+    })
+    this.setData({
+      orderType: orderType
+    })
   },
 
   /**
@@ -63,42 +75,5 @@ Page({
    */
   onShareAppMessage: function () {
     
-  },
-  goToTheFeedBack () {
-    wx.navigateTo({
-      url: '/pages/feedback/feedback'
-    })
-  },
-  goToTheAccount () {
-    wx.navigateTo({
-      url: '/pages/account/account',
-    })
-  },
-  goToTheMyCoupon () {
-    wx.navigateTo({
-      url: '/pages/myCoupon/myCoupon',
-    })
-  },
-  goToTheCollection () {
-    wx.navigateTo({
-      url: '/pages/collection/collection',
-    })
-  },
-  goToTheAbout () {
-    wx.navigateTo({
-      url: '/pages/about/about',
-    })
-  },
-  goToTheHelp () {
-    wx.navigateTo({
-      url: '/pages/help/help',
-    })
-  },
-  goToTheMyOrder (e) {
-    console.log(e);
-    let orderType = e.currentTarget.dataset.ordertype;
-    wx.navigateTo({
-      url: '/pages/myOrder/myOrder?orderType=' + orderType,
-    })
   }
 })

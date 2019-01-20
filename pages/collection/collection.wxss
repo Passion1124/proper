@@ -1,0 +1,111 @@
+.container{
+  padding: 0 40rpx 40rpx;
+}
+
+.empty{
+  margin-top: 80rpx;
+}
+
+.empty .image_row{
+  width: 614rpx;
+  height: 380rpx;
+  margin: 0 auto 30rpx;
+}
+
+.empty .image_row image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.empty .text{
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #8C8C8C;
+  letter-spacing: 3rpx;
+  text-align: center;
+}
+
+.main{
+  width: 100%;
+  padding:  40rpx 0 20rpx;
+  border-bottom: 1rpx solid #E0E0E0;
+}
+
+.main .poster{
+  position: relative;
+  width: 670rpx;
+  height: 376rpx;
+  margin-bottom: 40rpx;
+}
+
+.main .poster>image{
+  width: 100%;
+  height: 100%;
+  border-radius: 8rpx;
+}
+
+.main .poster .white_circle{
+  position: absolute;
+  right: 40rpx;
+  bottom: -36rpx;
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background:rgba(255,255,255,1);
+  box-shadow:0px 5rpx 14rpx 0px rgba(207,207,207,1);
+  z-index: 9;
+}
+
+.main .poster .white_circle .collection_row{
+  width: 36rpx;
+  height: 36rpx;
+  margin: 18rpx auto 0;
+}
+
+.main .poster .white_circle .collection_row image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.main .title{
+  font-size: 32rpx;
+  line-height: 52rpx;
+  color: #3C3C3C;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  margin-bottom: 24rpx;
+}
+
+.main .price_star{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.main .price_star .price{
+  font-size: 32rpx;
+  line-height: 44rpx;
+  color: #F97572;
+}
+
+.main .price_star .price text{
+  font-size: 24rpx;
+}
+
+.main .price_star .star{
+  height: 16rpx;
+}
+
+.main .price_star .star image{
+  width: 16rpx;
+  height: 16rpx;
+  margin: 0 4rpx 0 0;
+  vertical-align: top;
+}
+
+.main .price_star .star image:last-of-type{
+  margin-right: 0;
+}

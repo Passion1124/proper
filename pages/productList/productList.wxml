@@ -1,4 +1,5 @@
 <!-- productList.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container'>
   <view class='title'>日本</view>
   <scroll-view class='tab-h' scroll-x="true" scroll-with-animation="true">
@@ -25,134 +26,217 @@
   </scroll-view>
   <swiper class='tab-content' current='{{ currentTab }}' duration='300' bindchange='switchTab' style='height:{{winHeight}}rpx'>
     <swiper-item>
+      <view class='header'>
+        <view class='{{full_day_body.sortType === 1 ? "active" : ""}}' data-sortType='1' bindtap='changeSortType'>智能推荐</view>
+        <view class='{{full_day_body.sortType === 2 ? "active" : ""}}' data-sortType='2' bindtap='changeSortType'>最近距离</view>
+        <view class='{{full_day_body.sortType === 3 ? "active" : ""}}' data-sortType='3' bindtap='changeSortType'>人气最高</view>
+        <view class='{{full_day_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
+      </view>
       <scroll-view scroll-y="true" class='scoll-h' data-current='0' bindscrolltolower="scrolltolower">
-        <view class='header'>
-          <view class='active'>智能推荐</view>
-          <view>最近距离</view>
-          <view>人气最高</view>
-          <view>好评最多</view>
-        </view>
         <view class='list_row'>
-          <view class='list'>
-            <view class='img_row'>
-              <image class='bg' src='../../img/index/1.png'></image>
-              <image class='top' src='../../img/index/top.png'></image>
-              <image class='ticket' src='../../img/index/ticket.png'></image>
-            </view>
-            <view class='title'>
-              <text>日本东京+大阪7日自由行，正在火爆预热卖东西咯，快来买呀！！</text>
-            </view>
-            <view class='location'>
+          <block wx:for='{{full_day}}' wx:key='{{index}}'>
+            <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
-                <image src='../../img/index/small_location.png'></image>
+                <image class='bg' src='{{item.goodsBase.poster}}'></image>
+                <image class='top' src='../../img/index/top.png'></image>
+                <image class='ticket' src='../../img/index/ticket.png'></image>
               </view>
-              <view class='text'>
-                <text>东京 · 距离市中心11.8公里</text>
+              <view class='title'>
+                <text>{{item.goodsInfo.name}}</text>
+              </view>
+              <view class='location'>
+                <view class='img_row'>
+                  <image src='../../img/index/small_location.png'></image>
+                </view>
+                <view class='text'>
+                  <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+                </view>
+              </view>
+              <view class='info'>
+                <view class='price'>
+                  <text><text>￥</text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
+                </view>
+                <view class='star'>
+                  <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                    <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                    <image wx:else src='../../img/index/star_uncheck.png'></image>
+                  </block>
+                </view>
               </view>
             </view>
-            <view class='info'>
-              <view class='price'>
-                <text><text>￥</text>1012</text>
-              </view>
-              <view class='star'>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-              </view>
-            </view>
-          </view>
-          <view class='list'>
-            <view class='img_row'>
-              <image class='bg' src='../../img/index/1.png'></image>
-              <image class='top' src='../../img/index/top.png'></image>
-              <image class='ticket' src='../../img/index/ticket.png'></image>
-            </view>
-            <view class='title'>
-              <text>日本东京+大阪7日自由行，正在火爆预热卖东西咯，快来买呀！！</text>
-            </view>
-            <view class='location'>
+          </block>
+        </view>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <view class='header'>
+        <view class='{{food_body.sortType === 1 ? "active" : ""}}' data-sortType='1'>智能推荐</view>
+        <view class='{{food_body.sortType === 2 ? "active" : ""}}' data-sortType='2'>最近距离</view>
+        <view class='{{food_body.sortType === 3 ? "active" : ""}}' data-sortType='3'>人气最高</view>
+        <view class='{{food_body.sortType === 4 ? "active" : ""}}' data-sortType='4'>好评最多</view>
+      </view>
+      <scroll-view scroll-y="true" class='scoll-h' data-current='1' bindscrolltolower="scrolltolower">
+        <view class='list_row'>
+          <block wx:for='{{food}}' wx:key='{{index}}'>
+            <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
-                <image src='../../img/index/small_location.png'></image>
+                <image class='bg' src='{{item.goodsBase.poster}}'></image>
+                <image class='top' src='../../img/index/top.png'></image>
+                <image class='ticket' src='../../img/index/ticket.png'></image>
               </view>
-              <view class='text'>
-                <text>东京 · 距离市中心11.8公里</text>
+              <view class='title'>
+                <text>{{item.goodsInfo.name}}</text>
+              </view>
+              <view class='location'>
+                <view class='img_row'>
+                  <image src='../../img/index/small_location.png'></image>
+                </view>
+                <view class='text'>
+                  <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+                </view>
+              </view>
+              <view class='info'>
+                <view class='price'>
+                  <text><text>￥</text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
+                </view>
+                <view class='star'>
+                  <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                    <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                    <image wx:else src='../../img/index/star_uncheck.png'></image>
+                  </block>
+                </view>
               </view>
             </view>
-            <view class='info'>
-              <view class='price'>
-                <text><text>￥</text>1012</text>
-              </view>
-              <view class='star'>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-              </view>
-            </view>
-          </view>
-          <view class='list'>
-            <view class='img_row'>
-              <image class='bg' src='../../img/index/1.png'></image>
-              <image class='top' src='../../img/index/top.png'></image>
-              <image class='ticket' src='../../img/index/ticket.png'></image>
-            </view>
-            <view class='title'>
-              <text>日本东京+大阪7日自由行，正在火爆预热卖东西咯，快来买呀！！</text>
-            </view>
-            <view class='location'>
+          </block>
+        </view>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <view class='header'>
+        <view class='{{traffic_body.sortType === 1 ? "active" : ""}}' data-sortType='1' bindtap='changeSortType'>智能推荐</view>
+        <view class='{{traffic_body.sortType === 2 ? "active" : ""}}' data-sortType='2' bindtap='changeSortType'>最近距离</view>
+        <view class='{{traffic_body.sortType === 3 ? "active" : ""}}' data-sortType='3' bindtap='changeSortType'>人气最高</view>
+        <view class='{{traffic_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
+      </view>
+      <scroll-view scroll-y="true" class='scoll-h' data-current='2' bindscrolltolower="scrolltolower">
+        <view class='list_row'>
+          <block wx:for='{{traffic}}' wx:key='{{index}}'>
+            <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
-                <image src='../../img/index/small_location.png'></image>
+                <image class='bg' src='{{item.goodsBase.poster}}'></image>
+                <image class='top' src='../../img/index/top.png'></image>
+                <image class='ticket' src='../../img/index/ticket.png'></image>
               </view>
-              <view class='text'>
-                <text>东京 · 距离市中心11.8公里</text>
+              <view class='title'>
+                <text>{{item.goodsInfo.name}}</text>
+              </view>
+              <view class='location'>
+                <view class='img_row'>
+                  <image src='../../img/index/small_location.png'></image>
+                </view>
+                <view class='text'>
+                  <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+                </view>
+              </view>
+              <view class='info'>
+                <view class='price'>
+                  <text><text>￥</text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
+                </view>
+                <view class='star'>
+                  <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                    <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                    <image wx:else src='../../img/index/star_uncheck.png'></image>
+                  </block>
+                </view>
               </view>
             </view>
-            <view class='info'>
-              <view class='price'>
-                <text><text>￥</text>1012</text>
-              </view>
-              <view class='star'>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-              </view>
-            </view>
-          </view>
-          <view class='list'>
-            <view class='img_row'>
-              <image class='bg' src='../../img/index/1.png'></image>
-              <image class='top' src='../../img/index/top.png'></image>
-              <image class='ticket' src='../../img/index/ticket.png'></image>
-            </view>
-            <view class='title'>
-              <text>日本东京+大阪7日自由行，正在火爆预热卖东西咯，快来买呀！！</text>
-            </view>
-            <view class='location'>
+          </block>
+        </view>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <view class='header'>
+        <view class='{{lark_body.sortType === 1 ? "active" : ""}}' data-sortType='1' bindtap='changeSortType'>智能推荐</view>
+        <view class='{{lark_body.sortType === 2 ? "active" : ""}}' data-sortType='2' bindtap='changeSortType'>最近距离</view>
+        <view class='{{lark_body.sortType === 3 ? "active" : ""}}' data-sortType='3' bindtap='changeSortType'>人气最高</view>
+        <view class='{{lark_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
+      </view>
+      <scroll-view scroll-y="true" class='scoll-h' data-current='3' bindscrolltolower="scrolltolower">
+        <view class='list_row'>
+          <block wx:for='{{lark}}' wx:key='{{index}}'>
+            <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
-                <image src='../../img/index/small_location.png'></image>
+                <image class='bg' src='{{item.goodsBase.poster}}'></image>
+                <image class='top' src='../../img/index/top.png'></image>
+                <image class='ticket' src='../../img/index/ticket.png'></image>
               </view>
-              <view class='text'>
-                <text>东京 · 距离市中心11.8公里</text>
+              <view class='title'>
+                <text>{{item.goodsInfo.name}}</text>
+              </view>
+              <view class='location'>
+                <view class='img_row'>
+                  <image src='../../img/index/small_location.png'></image>
+                </view>
+                <view class='text'>
+                  <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+                </view>
+              </view>
+              <view class='info'>
+                <view class='price'>
+                  <text><text>￥</text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
+                </view>
+                <view class='star'>
+                  <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                    <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                    <image wx:else src='../../img/index/star_uncheck.png'></image>
+                  </block>
+                </view>
               </view>
             </view>
-            <view class='info'>
-              <view class='price'>
-                <text><text>￥</text>1012</text>
+          </block>
+        </view>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <view class='header'>
+        <view class='{{shopping_body.sortType === 1 ? "active" : ""}}' data-sortType='1' bindtap='changeSortType'>智能推荐</view>
+        <view class='{{shopping_body.sortType === 2 ? "active" : ""}}' data-sortType='2' bindtap='changeSortType'>最近距离</view>
+        <view class='{{shopping_body.sortType === 3 ? "active" : ""}}' data-sortType='3' bindtap='changeSortType'>人气最高</view>
+        <view class='{{shopping_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
+      </view>
+      <scroll-view scroll-y="true" class='scoll-h' data-current='4' bindscrolltolower="scrolltolower">
+        <view class='list_row'>
+          <block wx:for='{{shopping}}' wx:key='{{index}}'>
+            <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
+              <view class='img_row'>
+                <image class='bg' src='{{item.goodsBase.poster}}'></image>
+                <image class='top' src='../../img/index/top.png'></image>
+                <image class='ticket' src='../../img/index/ticket.png'></image>
               </view>
-              <view class='star'>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
-                <image src='../../img/index/star_uncheck.png'></image>
+              <view class='title'>
+                <text>{{item.goodsInfo.name}}</text>
+              </view>
+              <view class='location'>
+                <view class='img_row'>
+                  <image src='../../img/index/small_location.png'></image>
+                </view>
+                <view class='text'>
+                  <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+                </view>
+              </view>
+              <view class='info'>
+                <view class='price'>
+                  <text><text>￥</text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
+                </view>
+                <view class='star'>
+                  <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                    <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                    <image wx:else src='../../img/index/star_uncheck.png'></image>
+                  </block>
+                </view>
               </view>
             </view>
-          </view>
+          </block>
         </view>
       </scroll-view>
     </swiper-item>

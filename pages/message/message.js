@@ -1,4 +1,4 @@
-const app = getApp();
+const app = getApp()
 
 Page({
 
@@ -63,42 +63,5 @@ Page({
    */
   onShareAppMessage: function () {
     
-  },
-  goToTheFeedBack () {
-    wx.navigateTo({
-      url: '/pages/feedback/feedback'
-    })
-  },
-  goToTheAccount () {
-    wx.navigateTo({
-      url: '/pages/account/account',
-    })
-  },
-  goToTheMyCoupon () {
-    wx.navigateTo({
-      url: '/pages/myCoupon/myCoupon',
-    })
-  },
-  goToTheCollection () {
-    wx.navigateTo({
-      url: '/pages/collection/collection',
-    })
-  },
-  goToTheAbout () {
-    wx.navigateTo({
-      url: '/pages/about/about',
-    })
-  },
-  goToTheHelp () {
-    wx.navigateTo({
-      url: '/pages/help/help',
-    })
-  },
-  goToTheMyOrder (e) {
-    console.log(e);
-    let orderType = e.currentTarget.dataset.ordertype;
-    wx.navigateTo({
-      url: '/pages/myOrder/myOrder?orderType=' + orderType,
-    })
   }
 })

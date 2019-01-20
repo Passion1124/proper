@@ -18,10 +18,10 @@
             <text>{{coupon.currency}}{{coupon.reducePrice / 100}}</text>
             <text>/满{{coupon.sourcePrice / 100}}</text>
           </view>
-          <view>{{coupon.name}}</view>
           <view wx:if='{{coupon.type === 2}}'>
             <text>{{coupon.currency}}{{coupon.reducePrice / 100}}</text>
           </view>
+          <view>{{coupon.name}}</view>
         </view>
       </view>
       <view class='center'>

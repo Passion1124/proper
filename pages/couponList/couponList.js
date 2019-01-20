@@ -6,14 +6,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    coupons: [],
+    page: 1,
+    size: 10
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.getCouponInfo();
   },
 
   /**
@@ -48,14 +50,19 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    
+    this.data.page = 1;
+    this.data.coupons = [];
+    this.getCouponInfo();
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    
+    if (this.data.coupons.length && (this.data.coupons.length / this.data.size) % 1 === 0) {
+      this.data.page++;
+      this.getCouponInfo();
+    }
   },
 
   /**
@@ -64,41 +71,24 @@ Page({
   onShareAppMessage: function () {
     
   },
-  goToTheFeedBack () {
-    wx.navigateTo({
-      url: '/pages/feedback/feedback'
+  getCouponInfo() {
+    let data = { base: app.globalData.baseBody, page: this.data.page, size: this.data.size };
+    let api = 'com.ttdtrip.api.order.apis.service.CouponListApiService';
+    app.request(api, data, (res) => {
+      console.log(res);
+      this.setData({
+        coupons: this.data.coupons.concat(res.coupons)
+      });
+      wx.stopPullDownRefresh();
+    }, (res) => {
+      console.error(res);
+      wx.stopPullDownRefresh();
     })
   },
-  goToTheAccount () {
+  goToTheCouponsDetail (e) {
+    let couponId = e.currentTarget.dataset.couponid;
     wx.navigateTo({
-      url: '/pages/account/account',
-    })
-  },
-  goToTheMyCoupon () {
-    wx.navigateTo({
-      url: '/pages/myCoupon/myCoupon',
-    })
-  },
-  goToTheCollection () {
-    wx.navigateTo({
-      url: '/pages/collection/collection',
-    })
-  },
-  goToTheAbout () {
-    wx.navigateTo({
-      url: '/pages/about/about',
-    })
-  },
-  goToTheHelp () {
-    wx.navigateTo({
-      url: '/pages/help/help',
-    })
-  },
-  goToTheMyOrder (e) {
-    console.log(e);
-    let orderType = e.currentTarget.dataset.ordertype;
-    wx.navigateTo({
-      url: '/pages/myOrder/myOrder?orderType=' + orderType,
+      url: '/pages/couponDetail/couponDetail?couponId=' + couponId,
     })
   }
 })

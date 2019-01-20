@@ -112,7 +112,7 @@ Page({
     app.request(api, data, (res) => {
       console.log(res);
       this.setData({
-        goodsList: res.goodsVOs
+        goodsList: res.goodsVOs.length > 20 ? res.goodsVOs.slice(0, 20) : res.goodsVOs
       })
     }, (err) => {
       console.error(err);
@@ -161,13 +161,23 @@ Page({
   },
   goToTheProductList (e) {
     wx.navigateTo({
-      url: '/pages/productList/productList',
+      url: '/pages/productList/productList?type=' + Number(e.currentTarget.dataset.type),
     })
   },
   goToTheCouponsDetail (e) {
     let couponId = e.currentTarget.dataset.couponid;
     wx.navigateTo({
       url: '/pages/couponDetail/couponDetail?couponId=' + couponId,
+    })
+  },
+  goToTheCouponList () {
+    wx.navigateTo({
+      url: '/pages/couponList/couponList',
+    })
+  },
+  goToTheMessage () {
+    wx.navigateTo({
+      url: '/pages/message/message',
     })
   }
 })

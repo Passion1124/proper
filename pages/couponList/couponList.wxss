@@ -1,0 +1,110 @@
+.container{
+  padding: 0 30rpx;
+}
+
+.main_row{
+  padding: 25rpx 0;
+}
+
+.main{
+  position: relative;
+  width: 684rpx;
+  height: 238rpx;
+  margin: 0 auto 25rpx;
+}
+
+.main_row .main:last-of-type{
+  margin-bottom: 0;
+}
+
+.main .bg{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.main .content{
+  position: absolute;
+  left: 7rpx;
+  top: 7rpx;
+  width: 670rpx;
+  height: 224rpx;
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+
+.main .content .top{
+  display: flex;
+  justify-content: space-between;
+}
+
+.main .content .top .logo{
+  width: 92rpx;
+  height: 92rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.main .content .top .logo image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.main .content .top .worth{
+  text-align: right;
+}
+
+.main .content .top .worth .discount{
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  color: #3C3C3C;
+}
+
+.main .content .top .worth .discount .num{
+  font-size: 62rpx;
+  line-height: 59rpx;
+  font-weight: normal;
+  margin-right: 10rpx;
+}
+
+.main .content .top .worth .discount .num .currency{
+  font-size: 24rpx;
+  line-height: 33rpx;
+}
+
+.main .content .top .worth .discount .fracture{
+  position: relative;
+  font-size: 24rpx;
+  top: -4rpx;
+}
+
+.main .content .top .worth .expiry_date{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #3C3C3C;
+}
+
+.main .content .bottom{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 51rpx;
+}
+
+.main .content .bottom view:first-of-type{
+  max-width: 377rpx;
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #666666;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+.main .content .bottom view:last-of-type{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  letter-spacing: 2px;
+  color: #23C2F7;
+}

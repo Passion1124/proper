@@ -1,0 +1,37 @@
+<!-- account.wxml -->
+<view class='container'>
+  <view class='avatar' bindtap='wxChooseImage'>
+    <image src='../../img/common/avatar.png'></image>
+    <view class='tips'>点击更换</view>
+  </view>
+  <view class='single' bindtap='goToTheEditAccount'>
+    <view class='left'>修改账户信息</view>
+    <view class='right'>
+      <view>蒙丹</view>
+      <view class='arrow'>
+        <image src='../../img/common/more.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='single'>
+    <view class='left'>绑定手机号</view>
+    <view class='right'>
+      <view>15688889999</view>
+      <view class='arrow'>
+        <image src='../../img/common/more.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='single'>
+    <view class='left'>绑定邮箱</view>
+    <view class='right'>
+      <view>去绑定</view>
+      <view class='arrow'>
+        <image src='../../img/common/more.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='out'>
+    <button>退出</button>
+  </view>
+</view>

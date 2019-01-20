@@ -8,8 +8,6 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
   </view> -->
   <view class='header'>
     <view class='location' bindtap='goToTheCity'>
@@ -30,8 +28,9 @@
       <view bindtap='handleScanCode'>
         <image src='../../img/index/scan.png'></image>
       </view>
-      <view>
+      <view bindtap='goToTheMessage'>
         <image src='../../img/index/tips.png'></image>
+        <view class='num'>2</view>
       </view>
     </view>
   </view>
@@ -45,7 +44,7 @@
     </swiper>
   </view>
   <view class='classify'>
-    <view class='food' bindtap='goToTheProductList'>
+    <view class='food' data-type='2' bindtap='goToTheProductList'>
       <image src='../../img/index/food.png'></image>
       <view class='title'>
         <text>美食</text>
@@ -58,7 +57,7 @@
         </block>
       </view>
     </view>
-    <view class='shopping' bindtap='goToTheProductList'>
+    <view class='shopping' data-type='5' bindtap='goToTheProductList'>
       <image src='../../img/index/shopping.png'></image>
       <view class='title'>
         <text>购物</text>
@@ -73,22 +72,22 @@
     </view>
   </view>
   <view class='classify_btn'>
-    <view bindtap='goToTheProductList'>
+    <view data-type='3' bindtap='goToTheProductList'>
       <image src='../../img/index/traffic.png'></image>
       <view class='text'>
         <text>交通</text>
       </view>
     </view>
-    <view bindtap='goToTheProductList'>
+    <view data-type='1' bindtap='goToTheProductList'>
       <image src='../../img/index/spot.png'></image>
       <view class='text'>
         <text>一日游</text>
       </view>
     </view>
-    <view bindtap='goToTheProductList'>
+    <view data-type='4' bindtap='goToTheProductList'>
       <image src='../../img/index/entertainment.png'></image>
       <view class='text'>
-        <text>娱乐</text>
+        <text>玩乐</text>
       </view>
     </view>
   </view>
@@ -120,7 +119,7 @@
       <view class='active'>
         <view class='main'>
           <block wx:for='{{goodsList}}' wx:key='{{index}}'>
-            <view data-gid='{{item.goodsDescs[0].gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
+            <view data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
                 <image class='bg' src='{{item.goodsBase.poster}}'></image>
                 <image class='top' wx:if='{{ false }}' src='../../img/index/top.png'></image>
@@ -151,7 +150,7 @@
             </view>
           </block>
         </view>
-        <view class='more'>查看更多</view>
+        <view class='more' data-type='{{recommendType}}' bindtap='goToTheProductList' wx:if='{{(goodsList.length / 20) % 1 === 0}}'>查看更多</view>
       </view>
     </view>
   </view>
@@ -173,12 +172,27 @@
               </view>
               <view class='worth'>
                 <view class='discount'>
-                  <view class='num'>
-                    <text>{{item.discount / 10}}</text>
-                  </view>
-                  <view class='fracture'>
-                    <text>/折</text>
-                  </view>
+                  <block wx:if='{{item.type === 0}}'>
+                    <view class='num'>
+                      <text>{{item.discount / 10}}</text>
+                    </view>
+                    <view class='fracture'>
+                      <text>/折</text>
+                    </view>
+                  </block>
+                  <block wx:if='{{item.type === 1}}'>
+                    <view class='num'>
+                      <text><text class='currency'>{{item.currency}}</text>{{item.reducePrice / 100}}</text>
+                    </view>
+                    <view class='fracture'>
+                      <text>/满{{item.sourcePrice / 100}}</text>
+                    </view>
+                  </block>
+                  <block wx:if='{{item.type === 2}}'>
+                    <view class='num'>
+                      <text><text class='currency'>{{item.currency}}</text>{{item.reducePrice / 100}}</text>
+                    </view>
+                  </block>
                 </view>
                 <view class='expiry_date'>
                   <text>有效期至：{{dateFr.getDate(item.expireEndAt, '/')}}</text>
@@ -197,6 +211,6 @@
         </view>
       </block>
     </view>
-    <view class='more'>查看更多</view>
+    <view class='more' bindtap='goToTheCouponList'>查看更多</view>
   </view>
 </view>

@@ -12,6 +12,15 @@
     "pages/goodItemDetail/goodItemDetail",
     "pages/order/order",
     "pages/couponDetail/couponDetail",
+    "pages/couponList/couponList",
+    "pages/message/message",
+    "pages/account/account",
+    "pages/editAccount/editAccount",
+    "pages/myCoupon/myCoupon",
+    "pages/collection/collection",
+    "pages/myOrder/myOrder",
+    "pages/about/about",
+    "pages/help/help",
     "pages/logs/logs"
   ],
   "window":{
