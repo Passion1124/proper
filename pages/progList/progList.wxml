@@ -1,0 +1,43 @@
+<!-- progList.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
+<view class='container'>
+  <view class='header'>
+    <view class='{{sortType === 1 ? "active" : ""}}' data-sortType='1' bindtap='changeSortType'>智能推荐</view>
+    <view class='{{sortType === 2 ? "active" : ""}}' data-sortType='2' bindtap='changeSortType'>最近距离</view>
+    <view class='{{sortType === 3 ? "active" : ""}}' data-sortType='3' bindtap='changeSortType'>人气最高</view>
+    <view class='{{sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
+  </view>
+  <view class='list_row'>
+    <block wx:for='{{goods}}' wx:key='{{index}}'>
+      <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
+        <view class='img_row'>
+          <image class='bg' src='{{item.goodsBase.poster}}'></image>
+          <image class='top' src='../../img/index/top.png'></image>
+          <image class='ticket' src='../../img/index/ticket.png'></image>
+        </view>
+        <view class='title'>
+          <text>{{item.goodsInfo.name}}</text>
+        </view>
+        <view class='location'>
+          <view class='img_row'>
+            <image src='../../img/index/small_location.png'></image>
+          </view>
+          <view class='text'>
+            <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+          </view>
+        </view>
+        <view class='info'>
+          <view class='price'>
+            <text><text>￥</text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
+          </view>
+          <view class='star'>
+            <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+              <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+              <image wx:else src='../../img/index/star_uncheck.png'></image>
+            </block>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

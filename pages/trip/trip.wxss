@@ -211,6 +211,10 @@
   color: #3C3C3C;
   font-weight: bold;
   margin-bottom: 11rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .like .recommend .list .location{

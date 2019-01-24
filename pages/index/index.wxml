@@ -51,7 +51,7 @@
       </view>
       <view class='content'>
         <block wx:for='{{foodTags}}' wx:key='{{index}}'>
-          <view wx:if='index <= 3'>
+          <view data-type='2' data-labelId='{{item.lid}}' data-name='{{item.name}}' catchtap='goToTheProgList' wx:if='index <= 3'>
             <text>{{item.name}}</text>
           </view>
         </block>
@@ -64,7 +64,7 @@
       </view>
       <view class='content'>
         <block wx:for='{{buyTags}}' wx:key='{{index}}'>
-          <view wx:if='index <= 3'>
+          <view data-type='5' data-labelId='{{item.lid}}' data-name='{{item.name}}' catchtap='goToTheProgList' wx:if='index <= 3'>
             <text>{{item.name}}</text>
           </view>
         </block>

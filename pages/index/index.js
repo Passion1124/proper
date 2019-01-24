@@ -179,5 +179,13 @@ Page({
     wx.navigateTo({
       url: '/pages/message/message',
     })
-  }
+  },
+  goToTheProgList (e) {
+    let labelId = e.currentTarget.dataset.labelid;
+    let name = e.currentTarget.dataset.name;
+    let type = e.currentTarget.dataset.type;
+    wx.navigateTo({
+      url: '/pages/progList/progList?labelId=' + labelId + '&name=' + name + '&type=' + type,
+    })
+  },
 })

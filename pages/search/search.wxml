@@ -1,7 +1,7 @@
 <!-- search.wxml -->
 <view class='container'>
   <view class='search_input'>
-    <input placeholder='搜索目的地、景点'></input>
+    <input placeholder='搜索目的地、景点' bindconfirm='goToTheSearchList'></input>
   </view>
   <view class='history_search'>
     <view class='title'>
@@ -11,14 +11,14 @@
       </view>
     </view>
     <view class='list'>
-      <view>东京</view>
+      <view data-name='东京' bindtap='goToTheSearchList'>东京</view>
     </view>
   </view>
   <view class='hot_recommend'>
     <view class='title'>热门推荐</view>
     <view class='list'>
       <block wx:for='{{hotWord}}' wx:key='{{index}}'>
-        <view>{{item.name}}</view>
+        <view data-name='{{item.name}}' bindtap='goToTheSearchList'>{{item.name}}</view>
       </block>
     </view>
   </view>

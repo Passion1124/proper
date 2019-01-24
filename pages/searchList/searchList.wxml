@@ -1,0 +1,3 @@
+<!-- searchList.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
+<view class='container'></view>

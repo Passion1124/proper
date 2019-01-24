@@ -302,6 +302,7 @@
 }
 
 .hot_recommend .tabs_content>view .main>view .title{
+  height: 84rpx;
   font-size: 32rpx;
   line-height: 42rpx;
   color: #3C3C3C;
@@ -343,9 +344,13 @@
 }
 
 .hot_recommend .tabs_content>view .main>view .info .price{
+  max-width: 200rpx;
   font-size: 32rpx;
   line-height: 28rpx;
   color: #D9333F;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
 
 .hot_recommend .tabs_content>view .main>view .info .price text text{

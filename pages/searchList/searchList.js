@@ -6,14 +6,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-    hotWord: []
+    searchKey: '',
+    page: 1,
+    size: 30,
+    goodsType: 0,
+    sortType: 1
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getHotWord();
+    wx.setNavigationBarTitle({
+      title: options.search,
+    })
   },
 
   /**
@@ -63,25 +69,5 @@ Page({
    */
   onShareAppMessage: function () {
     
-  },
-  getHotWord () {
-    let data = { base: app.globalData.baseBody, count: 10 };
-    let api = 'com.ttdtrip.api.search.apis.service.HotWordQryApiService';
-    app.request(api, data, (res) => {
-      console.log(res);
-      this.setData({
-        hotWord: res.hotWords
-      })
-    }, (err) => {
-      console.error(err);
-    })
-  },
-  goToTheSearchList (e) {
-    console.log(e);
-    let type = e.type;
-    let search = type === 'tap' ? e.currentTarget.dataset.name : e.detail.value;
-    wx.navigateTo({
-      url: '/pages/searchList/searchList?search=' + search,
-    })
   }
 })
