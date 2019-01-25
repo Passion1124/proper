@@ -23,7 +23,7 @@ var DateFr = {
   },
   getDistance: function (distance) {
     var num = distance / 1000;
-    return num.toFixed(1);
+    return num ? num.toFixed(1) : '';
   },
   getSupportedLanguage: function (language) {
     return language.reduce(function(pre, curr){

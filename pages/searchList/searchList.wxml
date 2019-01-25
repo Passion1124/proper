@@ -1,3 +1,290 @@
 <!-- searchList.wxml -->
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
-<view class='container'></view>
+<view class='container'>
+  <scroll-view class='tab-h' scroll-x="true" scroll-with-animation="true">
+    <view class='tab-item {{ currentTab === 0 ? "active" : ""}}' data-current='0' bindtap='swichNav'>
+      <view class='text'>全部</view>
+      <image src='../../img/index/tabs.png'></image>
+    </view>
+    <view class='tab-item {{ currentTab === 1 ? "active" : ""}}' data-current='1' bindtap='swichNav'>
+      <view class='text'>一日游</view>
+      <image src='../../img/index/tabs.png'></image>
+    </view>
+    <view class='tab-item {{ currentTab === 2 ? "active" : ""}}' data-current='2' bindtap='swichNav'>
+      <view class='text'>美食</view>
+      <image src='../../img/index/tabs.png'></image>
+    </view>
+    <view class='tab-item {{ currentTab === 3 ? "active" : ""}}' data-current='3' bindtap='swichNav'>
+      <view class='text'>交通</view>
+      <image src='../../img/index/tabs.png'></image>
+    </view>
+    <view class='tab-item {{ currentTab === 4 ? "active" : ""}}' data-current='4' bindtap='swichNav'>
+      <view class='text'>玩乐</view>
+      <image src='../../img/index/tabs.png'></image>
+    </view>
+    <view class='tab-item {{ currentTab === 5 ? "active" : ""}}' data-current='5' bindtap='swichNav'>
+      <view class='text'>购物</view>
+      <image src='../../img/index/tabs.png'></image>
+    </view>
+  </scroll-view>
+  <swiper class='tab-content' current='{{ currentTab }}' duration='300' bindchange='switchTab' style='height:{{winHeight}}rpx'>
+    <swiper-item>
+      <view class='header'>
+        <view class='{{all_goods_body.sortType === 1 ? "active" : ""}}' data-sortType='1' bindtap='changeSortType'>智能推荐</view>
+        <view class='{{all_goods_body.sortType === 2 ? "active" : ""}}' data-sortType='2' bindtap='changeSortType'>最近距离</view>
+        <view class='{{all_goods_body.sortType === 3 ? "active" : ""}}' data-sortType='3' bindtap='changeSortType'>人气最高</view>
+        <view class='{{all_goods_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
+      </view>
+      <scroll-view scroll-y="true" class='scoll-h' data-current='0' bindscrolltolower="scrolltolower">
+        <view class='list_row'>
+          <block wx:for='{{all_goods}}' wx:key='{{index}}'>
+            <view class='list' data-gid='{{item.id}}' data-type='{{item.type}}' bindtap='goToThePoiDetail'>
+              <view class='img_row'>
+                <image class='bg' src='{{item.poster}}'></image>
+                <image class='top' src='../../img/index/top.png' wx:if='{{false}}'></image>
+                <image class='ticket' src='../../img/index/ticket.png' wx:if='{{item.coupon === 1}}'></image>
+              </view>
+              <view class='title'>
+                <text>{{item.desc.name}}</text>
+              </view>
+              <view class='location'>
+                <view class='img_row'>
+                  <image src='../../img/index/small_location.png'></image>
+                </view>
+                <view class='text'>
+                  <text>{{item.city}} · 距离市中心{{dateFr.getDistance(item.geoDistance)}}公里</text>
+                </view>
+              </view>
+              <view class='info'>
+                <view class='price'>
+                  <text>{{item.desc ? item.desc.avgPrice : ''}}</text>
+                </view>
+                <view class='star'>
+                  <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                    <image wx:if='{{(item ? item.commentScore : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                    <image wx:else src='../../img/index/star_uncheck.png'></image>
+                  </block>
+                </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <view class='header'>
+        <view class='{{full_day_body.sortType === 1 ? "active" : ""}}' data-sortType='1' bindtap='changeSortType'>智能推荐</view>
+        <view class='{{full_day_body.sortType === 2 ? "active" : ""}}' data-sortType='2' bindtap='changeSortType'>最近距离</view>
+        <view class='{{full_day_body.sortType === 3 ? "active" : ""}}' data-sortType='3' bindtap='changeSortType'>人气最高</view>
+        <view class='{{full_day_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
+      </view>
+      <scroll-view scroll-y="true" class='scoll-h' data-current='0' bindscrolltolower="scrolltolower">
+        <view class='list_row'>
+          <block wx:for='{{full_day}}' wx:key='{{index}}'>
+            <view class='list' data-gid='{{item.id}}' data-type='{{item.type}}' bindtap='goToThePoiDetail'>
+              <view class='img_row'>
+                <image class='bg' src='{{item.poster}}'></image>
+                <image class='top' src='../../img/index/top.png' wx:if='{{false}}'></image>
+                <image class='ticket' src='../../img/index/ticket.png' wx:if='{{item.coupon === 1}}'></image>
+              </view>
+              <view class='title'>
+                <text>{{item.desc.name}}</text>
+              </view>
+              <view class='location'>
+                <view class='img_row'>
+                  <image src='../../img/index/small_location.png'></image>
+                </view>
+                <view class='text'>
+                  <text>{{item.city}} · 距离市中心{{dateFr.getDistance(item.geoDistance)}}公里</text>
+                </view>
+              </view>
+              <view class='info'>
+                <view class='price'>
+                  <text>{{item.desc ? item.desc.avgPrice : ''}}</text>
+                </view>
+                <view class='star'>
+                  <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                    <image wx:if='{{(item ? item.commentScore : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                    <image wx:else src='../../img/index/star_uncheck.png'></image>
+                  </block>
+                </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <view class='header'>
+        <view class='{{food_body.sortType === 1 ? "active" : ""}}' data-sortType='1'>智能推荐</view>
+        <view class='{{food_body.sortType === 2 ? "active" : ""}}' data-sortType='2'>最近距离</view>
+        <view class='{{food_body.sortType === 3 ? "active" : ""}}' data-sortType='3'>人气最高</view>
+        <view class='{{food_body.sortType === 4 ? "active" : ""}}' data-sortType='4'>好评最多</view>
+      </view>
+      <scroll-view scroll-y="true" class='scoll-h' data-current='1' bindscrolltolower="scrolltolower">
+        <view class='list_row'>
+          <block wx:for='{{food}}' wx:key='{{index}}'>
+            <view class='list' data-gid='{{item.id}}' data-type='{{item.type}}' bindtap='goToThePoiDetail'>
+              <view class='img_row'>
+                <image class='bg' src='{{item.poster}}'></image>
+                <image class='top' src='../../img/index/top.png' wx:if='{{false}}'></image>
+                <image class='ticket' src='../../img/index/ticket.png' wx:if='{{item.coupon === 1}}'></image>
+              </view>
+              <view class='title'>
+                <text>{{item.desc.name}}</text>
+              </view>
+              <view class='location'>
+                <view class='img_row'>
+                  <image src='../../img/index/small_location.png'></image>
+                </view>
+                <view class='text'>
+                  <text>{{item.city}} · 距离市中心{{dateFr.getDistance(item.geoDistance)}}公里</text>
+                </view>
+              </view>
+              <view class='info'>
+                <view class='price'>
+                  <text>{{item.desc ? item.desc.avgPrice : ''}}</text>
+                </view>
+                <view class='star'>
+                  <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                    <image wx:if='{{(item ? item.commentScore : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                    <image wx:else src='../../img/index/star_uncheck.png'></image>
+                  </block>
+                </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <view class='header'>
+        <view class='{{traffic_body.sortType === 1 ? "active" : ""}}' data-sortType='1' bindtap='changeSortType'>智能推荐</view>
+        <view class='{{traffic_body.sortType === 2 ? "active" : ""}}' data-sortType='2' bindtap='changeSortType'>最近距离</view>
+        <view class='{{traffic_body.sortType === 3 ? "active" : ""}}' data-sortType='3' bindtap='changeSortType'>人气最高</view>
+        <view class='{{traffic_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
+      </view>
+      <scroll-view scroll-y="true" class='scoll-h' data-current='2' bindscrolltolower="scrolltolower">
+        <view class='list_row'>
+          <block wx:for='{{traffic}}' wx:key='{{index}}'>
+            <view class='list' data-gid='{{item.id}}' data-type='{{item.type}}' bindtap='goToThePoiDetail'>
+              <view class='img_row'>
+                <image class='bg' src='{{item.poster}}'></image>
+                <image class='top' src='../../img/index/top.png' wx:if='{{false}}'></image>
+                <image class='ticket' src='../../img/index/ticket.png' wx:if='{{item.coupon === 1}}'></image>
+              </view>
+              <view class='title'>
+                <text>{{item.desc.name}}</text>
+              </view>
+              <view class='location'>
+                <view class='img_row'>
+                  <image src='../../img/index/small_location.png'></image>
+                </view>
+                <view class='text'>
+                  <text>{{item.city}} · 距离市中心{{dateFr.getDistance(item.geoDistance)}}公里</text>
+                </view>
+              </view>
+              <view class='info'>
+                <view class='price'>
+                  <text>{{item.desc ? item.desc.avgPrice : ''}}</text>
+                </view>
+                <view class='star'>
+                  <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                    <image wx:if='{{(item ? item.commentScore : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                    <image wx:else src='../../img/index/star_uncheck.png'></image>
+                  </block>
+                </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <view class='header'>
+        <view class='{{lark_body.sortType === 1 ? "active" : ""}}' data-sortType='1' bindtap='changeSortType'>智能推荐</view>
+        <view class='{{lark_body.sortType === 2 ? "active" : ""}}' data-sortType='2' bindtap='changeSortType'>最近距离</view>
+        <view class='{{lark_body.sortType === 3 ? "active" : ""}}' data-sortType='3' bindtap='changeSortType'>人气最高</view>
+        <view class='{{lark_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
+      </view>
+      <scroll-view scroll-y="true" class='scoll-h' data-current='3' bindscrolltolower="scrolltolower">
+        <view class='list_row'>
+          <block wx:for='{{lark}}' wx:key='{{index}}'>
+            <view class='list' data-gid='{{item.id}}' data-type='{{item.type}}' bindtap='goToThePoiDetail'>
+              <view class='img_row'>
+                <image class='bg' src='{{item.poster}}'></image>
+                <image class='top' src='../../img/index/top.png' wx:if='{{false}}'></image>
+                <image class='ticket' src='../../img/index/ticket.png' wx:if='{{item.coupon === 1}}'></image>
+              </view>
+              <view class='title'>
+                <text>{{item.desc.name}}</text>
+              </view>
+              <view class='location'>
+                <view class='img_row'>
+                  <image src='../../img/index/small_location.png'></image>
+                </view>
+                <view class='text'>
+                  <text>{{item.city}} · 距离市中心{{dateFr.getDistance(item.geoDistance)}}公里</text>
+                </view>
+              </view>
+              <view class='info'>
+                <view class='price'>
+                  <text>{{item.desc ? item.desc.avgPrice : ''}}</text>
+                </view>
+                <view class='star'>
+                  <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                    <image wx:if='{{(item ? item.commentScore : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                    <image wx:else src='../../img/index/star_uncheck.png'></image>
+                  </block>
+                </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <view class='header'>
+        <view class='{{shopping_body.sortType === 1 ? "active" : ""}}' data-sortType='1' bindtap='changeSortType'>智能推荐</view>
+        <view class='{{shopping_body.sortType === 2 ? "active" : ""}}' data-sortType='2' bindtap='changeSortType'>最近距离</view>
+        <view class='{{shopping_body.sortType === 3 ? "active" : ""}}' data-sortType='3' bindtap='changeSortType'>人气最高</view>
+        <view class='{{shopping_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
+      </view>
+      <scroll-view scroll-y="true" class='scoll-h' data-current='4' bindscrolltolower="scrolltolower">
+        <view class='list_row'>
+          <block wx:for='{{shopping}}' wx:key='{{index}}'>
+            <view class='list' data-gid='{{item.id}}' data-type='{{item.type}}' bindtap='goToThePoiDetail'>
+              <view class='img_row'>
+                <image class='bg' src='{{item.poster}}'></image>
+                <image class='top' src='../../img/index/top.png' wx:if='{{false}}'></image>
+                <image class='ticket' src='../../img/index/ticket.png' wx:if='{{item.coupon === 1}}'></image>
+              </view>
+              <view class='title'>
+                <text>{{item.desc.name}}</text>
+              </view>
+              <view class='location'>
+                <view class='img_row'>
+                  <image src='../../img/index/small_location.png'></image>
+                </view>
+                <view class='text'>
+                  <text>{{item.city}} · 距离市中心{{dateFr.getDistance(item.geoDistance)}}公里</text>
+                </view>
+              </view>
+              <view class='info'>
+                <view class='price'>
+                  <text>{{item.desc ? item.desc.avgPrice : ''}}</text>
+                </view>
+                <view class='star'>
+                  <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                    <image wx:if='{{(item ? item.commentScore : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                    <image wx:else src='../../img/index/star_uncheck.png'></image>
+                  </block>
+                </view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+</view>
