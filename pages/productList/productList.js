@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    city: '',
     winHeight: "", //窗口高度
     currentTab: 0, //预设当前项的值
     scrollLeft: 0, //tab标题的滚动条位置
@@ -52,7 +53,8 @@ Page({
   onLoad: function (options) {
     this.handleHeightAuto();
     this.setData({
-      currentTab: Number(options.type) - 1
+      currentTab: Number(options.type) - 1,
+      city: app.globalData.cityName
     });
     if (this.data.currentTab === 0) {
       this.getFullDayGoodsList();

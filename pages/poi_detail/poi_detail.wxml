@@ -38,7 +38,7 @@
           <!-- <view class='tips'>建议游玩时间为 8小时，这个也是内这个内…</view> -->
         </view>
       </view>
-      <view class='business_hours'>
+      <view class='business_hours' wx:if='{{goods.goodsInfo.playTime}}'>
         <view class='label'>游玩时间：</view>
         <view class='text'>
           <view class='date'>{{goods.goodsInfo.playTime}}</view>

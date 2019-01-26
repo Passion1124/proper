@@ -211,28 +211,39 @@
 
 .hot_recommend .tabs_title{
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
   line-height: 0;
   color: #8C8C8C;
 }
 
-.hot_recommend .tabs_title view{
+.hot_recommend .tabs_title .tabs_title_text{
+  display: flex;
+  align-items: center;
+}
+
+.hot_recommend .tabs_title .tabs_title_text view{
   position: relative;
   padding-bottom: 22rpx;
   margin-right: 50rpx;
 }
 
-.hot_recommend .tabs_title view text{
+.hot_recommend .tabs_title .tabs_title_text view:last-of-type{
+  margin-right: 0;
+}
+
+.hot_recommend .tabs_title .tabs_title_text view text{
   font-size: 28rpx;
   line-height: 40rpx;
   vertical-align: top;
 }
 
-.hot_recommend .tabs_title view.active{
+.hot_recommend .tabs_title .tabs_title_text view.active{
   color: #3C3C3C;
 }
 
-.hot_recommend .tabs_title image{
+.hot_recommend .tabs_title .tabs_title_text image{
   display: none;
   position: absolute;
   left: 0;
@@ -241,8 +252,20 @@
   height: 6rpx;
 }
 
-.hot_recommend .tabs_title view.active image{
+.hot_recommend .tabs_title .tabs_title_text view.active image{
   display: block;
+}
+
+.hot_recommend .tabs_title .tabs_show_type{
+  margin-top: -14rpx;
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.hot_recommend .tabs_title .tabs_show_type image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
 }
 
 .hot_recommend .tabs_content{

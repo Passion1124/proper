@@ -116,7 +116,7 @@
 
 .like .recommend .list .title_warp {
   width: 100%;
-  /* height: 84rpx; */
+  height: 84rpx;
   font-size: 32rpx;
   line-height: 42rpx;
   color: #3c3c3c;
@@ -157,13 +157,18 @@
 .like .recommend .list .worth {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .like .recommend .list .worth .price {
   flex: 1;
+  max-width: 200rpx;
   font-size: 32rpx;
-  line-height: 28rpx;
+  line-height: 32rpx;
   color: #d9333f;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
 
 .like .recommend .list .worth .ticket {

@@ -1,7 +1,7 @@
 <!-- productList.wxml -->
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container'>
-  <view class='title'>日本</view>
+  <view class='title'>{{city}}</view>
   <scroll-view class='tab-h' scroll-x="true" scroll-with-animation="true">
     <view class='tab-item {{ currentTab === 0 ? "active" : ""}}' data-current='0' bindtap='swichNav'>
       <view class='text'>一日游</view>
@@ -38,8 +38,8 @@
             <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
                 <image class='bg' src='{{item.goodsBase.poster}}'></image>
-                <image class='top' src='../../img/index/top.png'></image>
-                <image class='ticket' src='../../img/index/ticket.png'></image>
+                <image class='top' src='../../img/index/top.png' wx:if='{{item.goodsBase.top === 1}}'></image>
+                <image class='ticket' src='../../img/index/ticket.png' wx:if='{{item.goodsBase.coupon === 1}}'></image>
               </view>
               <view class='title'>
                 <text>{{item.goodsInfo.name}}</text>
@@ -81,8 +81,8 @@
             <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
                 <image class='bg' src='{{item.goodsBase.poster}}'></image>
-                <image class='top' src='../../img/index/top.png'></image>
-                <image class='ticket' src='../../img/index/ticket.png'></image>
+                <image class='top' src='../../img/index/top.png' wx:if='{{item.goodsBase.top === 1}}'></image>
+                <image class='ticket' src='../../img/index/ticket.png' wx:if='{{item.goodsBase.coupon === 1}}'></image>
               </view>
               <view class='title'>
                 <text>{{item.goodsInfo.name}}</text>
@@ -124,8 +124,8 @@
             <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
                 <image class='bg' src='{{item.goodsBase.poster}}'></image>
-                <image class='top' src='../../img/index/top.png'></image>
-                <image class='ticket' src='../../img/index/ticket.png'></image>
+                <image class='top' src='../../img/index/top.png' wx:if='{{item.goodsBase.top === 1}}'></image>
+                <image class='ticket' src='../../img/index/ticket.png' wx:if='{{item.goodsBase.coupon === 1}}'></image>
               </view>
               <view class='title'>
                 <text>{{item.goodsInfo.name}}</text>
@@ -167,8 +167,8 @@
             <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
                 <image class='bg' src='{{item.goodsBase.poster}}'></image>
-                <image class='top' src='../../img/index/top.png'></image>
-                <image class='ticket' src='../../img/index/ticket.png'></image>
+                <image class='top' src='../../img/index/top.png' wx:if='{{item.goodsBase.top === 1}}'></image>
+                <image class='ticket' src='../../img/index/ticket.png' wx:if='{{item.goodsBase.coupon === 1}}'></image>
               </view>
               <view class='title'>
                 <text>{{item.goodsInfo.name}}</text>
@@ -210,8 +210,8 @@
             <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
                 <image class='bg' src='{{item.goodsBase.poster}}'></image>
-                <image class='top' src='../../img/index/top.png'></image>
-                <image class='ticket' src='../../img/index/ticket.png'></image>
+                <image class='top' src='../../img/index/top.png' wx:if='{{item.goodsBase.top === 1}}'></image>
+                <image class='ticket' src='../../img/index/ticket.png' wx:if='{{item.goodsBase.coupon === 1}}'></image>
               </view>
               <view class='title'>
                 <text>{{item.goodsInfo.name}}</text>

@@ -69,6 +69,7 @@
 .area .tags{
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .area .tags view{
@@ -79,6 +80,7 @@
   border-radius: 4rpx;
   background-color: #E0F7FF;
   margin-right: 16rpx;
+  margin-bottom: 10rpx;
 }
 
 .area .tags view:last-of-type{

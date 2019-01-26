@@ -110,6 +110,11 @@ image{
   border-radius:50rpx;
 }
 
+.card .content .center>view:last-of-type button.disabled{
+  border: 1rpx solid #B7B7B7;
+  color: #B7B7B7;
+}
+
 .card .content .image_row{
   width: 602rpx;
   height: 206rpx;

@@ -8,13 +8,16 @@ Page({
   data: {
     couponId: '',
     coupon: {},
-    hasExists: false
+    hasExists: false,
+    gid: '',
+    giid: '',
+    type: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.setData({
       couponId: options.couponId
     });
@@ -25,54 +28,57 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-    
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-    
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-    
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-    
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-    
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-    
+  onShareAppMessage: function() {
+
   },
-  getUserCouponExist: function () {
+  getUserCouponExist: function() {
     let api = 'com.ttdtrip.api.order.apis.service.UserCouponExistApiService';
-    let data = { base: app.globalData.baseBody, couponId: this.data.couponId };
+    let data = {
+      base: app.globalData.baseBody,
+      couponId: this.data.couponId
+    };
     app.request(api, data, (res) => {
       console.log(res);
       this.setData({
@@ -82,16 +88,88 @@ Page({
       console.error(err);
     })
   },
-  getCouponDetail: function () {
+  getCouponDetail: function() {
     let api = 'com.ttdtrip.api.order.apis.service.CouponDetailApiService';
-    let data = { base: app.globalData.baseBody, id: this.data.couponId };
+    let data = {
+      base: app.globalData.baseBody,
+      id: this.data.couponId
+    };
     app.request(api, data, (res) => {
       console.log(res);
       this.setData({
         coupon: res.coupon
-      })
+      });
+      if (this.data.coupon.usingScope === 12) {
+        this.getGoodsDetail();
+      } else if (this.data.coupon.usingScope === 13) {
+        this.getGoodsItem();
+      }
     }, (err) => {
       console.error(err);
+    })
+  },
+  getGoodsDetail() {
+    let api = 'com.ttdtrip.api.goods.apis.GoodsDetailApiService';
+    let data = {
+      base: app.globalData.baseBody,
+      gid: this.data.coupon.usingId
+    };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        gid: res.goodsVO.goodsInfo.gid,
+        type: res.goodsVO.goodsInfo.type
+      })
+    }, err => {
+      console.error(err);
+    })
+  },
+  getGoodsItem () {
+    let api = 'com.ttdtrip.api.goods.apis.GoodsItemDetailApiService';
+    let data = { base: app.globalData.baseBody, giid: this.data.coupon.usingId, spec: 0 };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        gid: res.goodsItemVO.goodsItemBase.gid,
+        giid: res.goodsItemVO.goodsItemInfo.giid,
+        type: res.goodsItemVO.goodsItemBase.gType
+      })
+    }, err => {
+      console.error(err);
+    })
+  },
+  handleUserCouponReceive() {
+    let api = 'com.ttdtrip.api.order.apis.service.UserCouponReceiveApiService';
+    let data = {
+      base: app.globalData.baseBody,
+      couponId: this.data.couponId,
+      receiveSource: 'other'
+    };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        hasExists: true
+      });
+    }, err => {
+      console.error(err);
+    })
+  },
+  goToTheUseing() {
+    let url = '';
+    if (this.data.coupon.usingOnline === 1) {
+      if (this.data.coupon.usingScope === 10) {
+        url = '/pages/productList/productList?type=1'
+      } else if (this.data.coupon.usingScope === 12) {
+        url = '/pages/poi_detail/poi_detail?gid=' + this.data.gid + '&type=' + this.data.type
+      } else if (this.data.coupon.usingScope === 13) {
+        url = '/pages/goodItemDetail/goodItemDetail?giid=' + this.data.giid + '&gid=' + this.data.gid + '&type=' + this.data.type
+      };
+    } else {
+      url = ''
+    }
+    console.log(url);
+    wx.navigateTo({
+      url: url,
     })
   }
 })

@@ -22,8 +22,7 @@
     "pages/collection/collection",
     "pages/myOrder/myOrder",
     "pages/about/about",
-    "pages/help/help",
-    "pages/logs/logs"
+    "pages/help/help"
   ],
   "window":{
     "backgroundTextStyle":"light",

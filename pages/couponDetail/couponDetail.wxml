@@ -30,14 +30,15 @@
           <view>有效期至：{{dateFr.getDate(coupon.expireEndAt, '/')}}</view>
         </view>
         <view>
-          <button>立即领取</button>
+          <button class='disabled' wx:if='{{hasExists}}'>您已领取</button>
+          <button wx:else bindtap='handleUserCouponReceive'>立即领取</button>
         </view>
       </view>
       <view class='image_row'>
         <image src='{{coupon.photoUrl}}'></image>
       </view>
       <view class='btn'>
-        <button>前往使用</button>
+        <button disabled='{{coupon.usable === 0}}' bindtap='goToTheUseing'>前往使用</button>
       </view>
     </view>
   </view>
