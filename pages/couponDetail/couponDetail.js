@@ -11,7 +11,9 @@ Page({
     hasExists: false,
     gid: '',
     giid: '',
-    type: ''
+    type: '',
+    source: '',
+    id: ''
   },
 
   /**
@@ -21,6 +23,9 @@ Page({
     this.setData({
       couponId: options.couponId
     });
+    this.data.source = options.source;
+    this.data.id = options.id;
+    console.log(this.data.source);
     this.getCouponDetail();
     this.getUserCouponExist();
   },
@@ -89,10 +94,10 @@ Page({
     })
   },
   getCouponDetail: function() {
-    let api = 'com.ttdtrip.api.order.apis.service.CouponDetailApiService';
+    let api = this.data.source === 'myCoupon' ? 'com.ttdtrip.api.order.apis.service.UserCouponDetailApiService' : 'com.ttdtrip.api.order.apis.service.CouponDetailApiService';
     let data = {
       base: app.globalData.baseBody,
-      id: this.data.couponId
+      id: this.data.id
     };
     app.request(api, data, (res) => {
       console.log(res);

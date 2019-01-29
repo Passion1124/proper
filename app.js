@@ -3,10 +3,15 @@ import md5 from './utils/md5.js'
 App({
   onLaunch: function() {
     var city = wx.getStorageSync('city') || '';
+    var authority = wx.getStorageSync('authority') || '';
     if (city) {
       this.globalData.cityName = city.cityName;
       this.globalData.baseBody.lat = city.latitude;
       this.globalData.baseBody.lng = city.longitude;
+    }
+    if (authority) {
+      this.globalData.baseBody.auth = authority.auth;
+      this.globalData.baseBody.myUid = authority.myUid;
     }
 
     // 登录
@@ -61,6 +66,10 @@ App({
           success(res.data);
         } else {
           console.log(res.data.ret_msg);
+          wx.showToast({
+            title: res.data.ret_msg,
+            icon: 'none'
+          });
           fail(res.data);
         }
       },

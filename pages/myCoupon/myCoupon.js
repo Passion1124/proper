@@ -78,6 +78,8 @@ Page({
         ['body.qryType']: type,
         ['body.page']: 1
       });
+      this.data.use = [];
+      this.data.expire = [];
       this.getUserCouponList();
     }
   },
@@ -103,8 +105,9 @@ Page({
   },
   goToTheCouponsDetail(e) {
     let couponId = e.currentTarget.dataset.couponid;
+    let id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '/pages/couponDetail/couponDetail?couponId=' + couponId,
+      url: '/pages/couponDetail/couponDetail?couponId=' + couponId + '&source=myCoupon&id=' + id,
     })
   }
 })

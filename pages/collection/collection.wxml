@@ -6,22 +6,22 @@
     </view>
     <view class='text'>暂无数据哦，快去逛逛吧～</view>
   </view>
-  <view class='un_empty' wx:if='{{good.length}}'>
+  <view class='un_empty' wx:if='{{goods.length}}'>
     <block wx:for='{{goods}}' wx:key='{{index}}'>
       <view class='main'>
         <view class='poster'>
           <image src='{{item.goodsBase.poster}}'></image>
           <view class='white_circle'>
             <view class='collection_row'>
-              <image src='../../img/common/collection.png' bindtap='handleGoodsUnFavorApiService' wx:if='{{item.favor}}'></image>
-              <image src='../../img/common/uncollection.png' bindtap='handleGoodsFavorApiService' wx:else></image>
+              <image src='../../img/common/collection.png' data-gid='{{item.goodsInfo.gid}}' data-index='{{index}}' bindtap='handleGoodsUnFavorApiService' wx:if='{{item.favor}}'></image>
+              <image src='../../img/common/uncollection.png' data-gid='{{item.goodsInfo.gid}}' data-index='{{index}}' bindtap='handleGoodsFavorApiService' wx:else></image>
             </view>
           </view>
         </view>
         <view class='title'>{{item.goodsInfo.name}}</view>
         <view class='price_star'>
           <view class='price'>
-            <text class='unit'>{{item.goodsBase.currency}}</text>{{item.goodsBase.amount / 100}}
+            <text class='unit'></text>{{item.goodsInfo.avgPrice}}
           </view>
           <view class='star'>
             <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>

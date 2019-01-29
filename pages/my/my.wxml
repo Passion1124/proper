@@ -3,22 +3,22 @@
   <view class='info'>
     <view class='left'>
       <view class='login'>
-        <text bindtap='goToTheAccount'>注册/登录</text>
+        <text bindtap='goToTheAccount'>{{ userInfo ? userInfo.nickName : '注册/登录'}}</text>
       </view>
       <view class='collection_coupon'>
         <view class='collection' bindtap='goToTheCollection'>
-          <view class='num'>0</view>
+          <view class='num'>{{ favorCount }}</view>
           <view class='text'>/收藏</view>
         </view>
         <view class='coupon' bindtap='goToTheMyCoupon'>
-          <view class='num'>0</view>
+          <view class='num'>{{ couponCount }}</view>
           <view class='text'>/优惠券</view>
         </view>
       </view>
     </view>
     <view class='right' bindtap='goToTheAccount'>
       <view class='avatar'>
-        <image src='../../img/common/avatar.png'></image>
+        <image src='{{ userInfo ? userInfo.avatarUrl : "../../img/common/avatar.png"}}'></image>
       </view>
     </view>
   </view>

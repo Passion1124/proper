@@ -169,7 +169,7 @@
     </view>
     <view class='main_row'>
       <block wx:for="{{coupons}}" wx:key="{{index}}">
-        <view class='main' data-couponId='{{item.id}}' bindtap='goToTheCouponsDetail'>
+        <view class='main' data-couponId='{{item.id}}' data-id='{{item.id}}' bindtap='goToTheCouponsDetail'>
           <image class='bg' src='../../img/index/coupon_bg.png'></image>
           <view class='content'>
             <view class='top'>

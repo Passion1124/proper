@@ -22,7 +22,8 @@
     "pages/collection/collection",
     "pages/myOrder/myOrder",
     "pages/about/about",
-    "pages/help/help"
+    "pages/help/help",
+    "pages/signIn/signIn"
   ],
   "window":{
     "backgroundTextStyle":"light",

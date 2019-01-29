@@ -60,8 +60,10 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    this.data.pagination.page++;
-    this.getFavorListApiService();
+    if ((this.data.goods.length / this.data.pagination.size) % 1 === 0) {
+      this.data.pagination.page++;
+      this.getFavorListApiService();
+    }
   },
 
   /**

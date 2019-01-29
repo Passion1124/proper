@@ -6,7 +6,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    userInfo: null,
+    couponCount: 0,
+    favorCount: 0
   },
 
   /**
@@ -27,7 +29,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo
+      });
+      this.getUserCount();
+    }
   },
 
   /**
@@ -64,12 +71,30 @@ Page({
   onShareAppMessage: function () {
     
   },
+  getUserCount () {
+    let api = 'com.ttdtrip.api.goods.apis.UserCountApiService';
+    let data = { base: app.globalData.baseBody, qryType: 1 };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        favorCount: res.favorCount,
+        couponCount: res.couponCount
+      })
+    }, err => {
+      console.error(err);
+    })
+  },
   goToTheFeedBack () {
     wx.navigateTo({
       url: '/pages/feedback/feedback'
     })
   },
   goToTheAccount () {
+    if (!app.globalData.userInfo) {
+      wx.navigateTo({
+        url: '/pages/signIn/signIn',
+      })
+    }
     wx.navigateTo({
       url: '/pages/account/account',
     })

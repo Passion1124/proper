@@ -1,0 +1,9 @@
+<!-- login.wxml -->
+<view class='container'>
+  <view class='img_row'>
+    <image src='../../img/common/logo.png'></image>
+  </view>
+  <view class='btn'>
+    <button open-type='getUserInfo' bindgetuserinfo='getUserInfo'>微信一键登录</button>
+  </view>
+</view>

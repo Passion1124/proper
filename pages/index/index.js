@@ -166,8 +166,9 @@ Page({
   },
   goToTheCouponsDetail (e) {
     let couponId = e.currentTarget.dataset.couponid;
+    let id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '/pages/couponDetail/couponDetail?couponId=' + couponId,
+      url: '/pages/couponDetail/couponDetail?couponId=' + couponId + '&source=index&id=' + id,
     })
   },
   goToTheCouponList () {
