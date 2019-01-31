@@ -14,6 +14,7 @@
     "pages/goodItemDetail/goodItemDetail",
     "pages/order/order",
     "pages/couponDetail/couponDetail",
+    "pages/showCoupon/showCoupon",
     "pages/couponList/couponList",
     "pages/message/message",
     "pages/account/account",

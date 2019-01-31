@@ -25,7 +25,7 @@ Page({
     });
     this.data.source = options.source;
     this.data.id = options.id;
-    console.log(this.data.source);
+    // console.log(this.data.source);
     this.getCouponDetail();
     this.getUserCouponExist();
   },
@@ -104,9 +104,9 @@ Page({
       this.setData({
         coupon: res.coupon
       });
-      if (this.data.coupon.usingScope === 12) {
+      if (this.data.coupon.usingScope === 12 && this.data.coupon.usingOnline) {
         this.getGoodsDetail();
-      } else if (this.data.coupon.usingScope === 13) {
+      } else if (this.data.coupon.usingScope === 13 && this.data.coupon.usingOnline) {
         this.getGoodsItem();
       }
     }, (err) => {
@@ -144,6 +144,13 @@ Page({
     })
   },
   handleUserCouponReceive() {
+    if (!app.globalData.userInfo) {
+      wx.showToast({
+        title: '您未登录，暂时无法领取',
+        icon: 'none'
+      });
+      return false;
+    }
     let api = 'com.ttdtrip.api.order.apis.service.UserCouponReceiveApiService';
     let data = {
       base: app.globalData.baseBody,
@@ -170,7 +177,15 @@ Page({
         url = '/pages/goodItemDetail/goodItemDetail?giid=' + this.data.giid + '&gid=' + this.data.gid + '&type=' + this.data.type
       };
     } else {
-      url = ''
+      if (this.data.hasExists) {
+        url = '/pages/showCoupon/showCoupon?img=' + this.coupon.photoUrl;
+      } else {
+        wx.showToast({
+          title: '您还未领取优惠券，暂时不能使用',
+          icon: 'none'
+        });
+        return false;
+      }
     }
     console.log(url);
     wx.navigateTo({

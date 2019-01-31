@@ -38,7 +38,7 @@
         <image src='{{coupon.photoUrl}}'></image>
       </view>
       <view class='btn'>
-        <button disabled='{{coupon.usable === 0}}' bindtap='goToTheUseing'>前往使用</button>
+        <button disabled='{{coupon.usable === 0}}' bindtap='goToTheUseing'>{{coupon.usingOnline ? '前往' : '出示'}}使用</button>
       </view>
     </view>
   </view>

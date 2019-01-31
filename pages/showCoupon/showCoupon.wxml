@@ -1,0 +1,6 @@
+<!-- showCoupon.wxml -->
+<view class='container'>
+  <view class='img_row'>
+    <image mode="widthFix" src='{{imgUrl}}'></image>
+  </view>
+</view>
