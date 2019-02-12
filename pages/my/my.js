@@ -84,6 +84,12 @@ Page({
       console.error(err);
     })
   },
+  showFeedBackSuccessToast () {
+    wx.showToast({
+      title: '已提交成功，谢谢您的反馈',
+      icon: 'none'
+    });
+  },
   goToTheFeedBack () {
     wx.navigateTo({
       url: '/pages/feedback/feedback'

@@ -15,6 +15,9 @@ Page({
    */
   onLoad: function (options) {
     this.getRGoodsList();
+    if (app.globalData.userInfo) {
+      this.getUserItineraryList();
+    }
   },
 
   /**
@@ -65,15 +68,21 @@ Page({
   onShareAppMessage: function () {
     
   },
+  // 行程列表
   getUserItineraryList: function () {
     let api = 'com.ttdtrip.api.order.apis.service.UserItineraryListApiService';
     let data = { base: app.globalData.baseBody, recentDays: 5 };
     app.request(api, data, (res) => {
       console.log(res);
+      let merchSimples = res.merchSimples || [];
+      this.setData({
+        trips: merchSimples
+      });
     }, (err) => {
       console.error(err);
     })
   },
+  // 猜你喜欢
   getRGoodsList: function () {
     let api = 'com.ttdtrip.api.goods.apis.RGoodsListApiService';
     let data = { base: app.globalData.baseBody, location: 2, page: 1, size: 30 };
@@ -84,6 +93,18 @@ Page({
       })
     }, (err) => {
       console.error(err);
+    })
+  },
+  goToThePoiDetail (e) {
+    let gid = e.currentTarget.dataset.gid;
+    let type = e.currentTarget.dataset.type;
+    wx.navigateTo({
+      url: '/pages/poi_detail/poi_detail?gid=' + gid + '&type=' + type,
+    })
+  },
+  goToTheProductList() {
+    wx.navigateTo({
+      url: '/pages/productList/productList?type=1'
     })
   }
 })

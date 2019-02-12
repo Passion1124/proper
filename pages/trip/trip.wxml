@@ -11,6 +11,9 @@
     <view class='text'>
       <text>快去探索你的精彩日本游吧</text>
     </view>
+    <view class='button'>
+      <button bindtap='goToTheProductList'>创建行程</button>
+    </view>
   </view>
   <view class='un_empty' wx:if='{{trips.length}}'>
     <view class='list'>
@@ -58,38 +61,41 @@
     </view>
     <view class='recommend' wx:if='{{goods.length}}'>
       <block wx:for='{{goods}}' wx:key='{{index}}'>
-        <view class='list'>
+        <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
           <view class='img_row'>
-            <image src='{{item.goodsBase.poster}}'></image>
+            <image class='bg' src='{{item.goodsBase.poster}}'></image>
+            <view class='icon'>
+              <view class='icon_left'>
+                <image class='top' wx:if='{{ item.goodsBase.top === 1 }}' src='../../img/index/top.png'></image>
+                <image class='group' wx:if='{{item.goodsBase.groupBuy === 1}}' src='../../img/common/group.png'></image>
+                <image class='line_up' wx:if='{{item.goodsBase.lineUp === 1}}' src='../../img/common/line_up.png'></image>
+                <image class='reserve' wx:if='{{item.goodsBase.reserve === 1}}' src='../../img/common/reserve.png'></image>
+              </view>
+              <view class='icon_right'>
+                <image class='ticket' wx:if='{{ item.goodsBase.coupon === 1 }}' src='../../img/index/ticket.png'></image>
+              </view>
+            </view>
+          </view>
+          <view class='title'>
+            <text>{{item.goodsInfo.name}}</text>
+          </view>
+          <view class='location'>
+            <view class='img_row'>
+              <image src='../../img/index/small_location.png'></image>
+            </view>
+            <view class='text'>
+              <text>{{item.goodsInfo.city}} · 距离{{dateFr.getDistance(item.distance)}}{{item.distance ? '公里' : ''}}</text>
+            </view>
           </view>
           <view class='info'>
+            <view class='price'>
+              <text class='{{item.goodsInfo.avgPrice ? "" : "ashy"}}'><text wx:if='{{false}}'>￥</text>{{item.goodsInfo.avgPrice ? item.goodsInfo.avgPrice : '暂无均价建议'}}</text>
+            </view>
             <view class='star'>
               <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
                 <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
                 <image wx:else src='../../img/index/star_uncheck.png'></image>
               </block>
-            </view>
-            <view class='num'>
-              <text>已售 323</text>
-            </view>
-          </view>
-          <view class='title_warp'>
-            <text>{{item.goodsInfo.name}}</text>
-          </view>
-          <view class='location'>
-            <view class='icon'>
-              <image src='../../img/index/location.png'></image>
-            </view>
-            <view class='text'>
-              <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
-            </view>
-          </view>
-          <view class='worth'>
-            <view class='price'>
-              <text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
-            </view>
-            <view class='ticket'>
-              <image src='../../img/index/ticket.png'></image>
             </view>
           </view>
         </view>

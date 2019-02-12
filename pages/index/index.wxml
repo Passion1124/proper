@@ -30,12 +30,12 @@
       </view>
       <view bindtap='goToTheMessage'>
         <image src='../../img/index/tips.png'></image>
-        <view class='num'>2</view>
+        <view class='num' wx:if='{{msgCount}}'>{{msgCount}}</view>
       </view>
     </view>
   </view>
   <view class='banner'>
-    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular='true'>
+    <swiper indicator-dots="{{indicatorDots}}" indicator-color='rgba(187,187,187,1)' indicator-active-color='#0000FF' autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular='true'>
       <block wx:for="{{bannerInfo}}" wx:key="{{index}}">
         <swiper-item>
           <image src="{{item.imgUrl}}" class="slide-image swiper_img" />
@@ -50,7 +50,7 @@
         <text>美食</text>
       </view>
       <view class='content'>
-        <block wx:for='{{foodTags}}' wx:key='{{index}}'>
+        <block wx:for='{{foodTags}}' wx:key='{{index}}' wx:if='{{index < 4 }}'>
           <view data-type='2' data-labelId='{{item.lid}}' data-name='{{item.name}}' catchtap='goToTheProgList' wx:if='index <= 3'>
             <text>{{item.name}}</text>
           </view>
@@ -63,7 +63,7 @@
         <text>购物</text>
       </view>
       <view class='content'>
-        <block wx:for='{{buyTags}}' wx:key='{{index}}'>
+        <block wx:for='{{buyTags}}' wx:key='{{index}}' wx:if='{{index < 4 }}'>
           <view data-type='5' data-labelId='{{item.lid}}' data-name='{{item.name}}' catchtap='goToTheProgList' wx:if='index <= 3'>
             <text>{{item.name}}</text>
           </view>
@@ -99,16 +99,16 @@
         <text>一日游</text>
         <image src='../../img/index/tabs.png'></image>
       </view>
-      <view class='{{ recommendType === 2 ? "active" : "" }}' data-type='2' bindtap='handleSwichChange'>
-        <text>美食</text>
-        <image src='../../img/index/tabs.png'></image>
-      </view>
       <view class='{{ recommendType === 3 ? "active" : "" }}' data-type='3' bindtap='handleSwichChange'>
         <text>交通</text>
         <image src='../../img/index/tabs.png'></image>
       </view>
       <view class='{{ recommendType === 4 ? "active" : "" }}' data-type='4' bindtap='handleSwichChange'>
         <text>玩乐</text>
+        <image src='../../img/index/tabs.png'></image>
+      </view>
+      <view class='{{ recommendType === 2 ? "active" : "" }}' data-type='2' bindtap='handleSwichChange'>
+        <text>美食</text>
         <image src='../../img/index/tabs.png'></image>
       </view>
       <view class='{{ recommendType === 5 ? "active" : "" }}' data-type='5' bindtap='handleSwichChange'>
@@ -128,8 +128,17 @@
             <view data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
                 <image class='bg' src='{{item.goodsBase.poster}}'></image>
-                <image class='top' wx:if='{{ item.goodsBase.top === 1 }}' src='../../img/index/top.png'></image>
-                <image class='ticket' wx:if='{{ item.goodsBase.coupon === 1 }}' src='../../img/index/ticket.png'></image>
+                <view class='icon'>
+                  <view class='icon_left'>
+                    <image class='top' wx:if='{{ item.goodsBase.top === 1 }}' src='../../img/index/top.png'></image>
+                    <image class='group' wx:if='{{item.goodsBase.groupBuy === 1}}' src='../../img/common/group.png'></image>
+                    <image class='line_up' wx:if='{{item.goodsBase.lineUp === 1}}' src='../../img/common/line_up.png'></image>
+                    <image class='reserve' wx:if='{{item.goodsBase.reserve === 1}}' src='../../img/common/reserve.png'></image>
+                  </view>
+                  <view class='icon_right'>
+                    <image class='ticket' wx:if='{{ item.goodsBase.coupon === 1 }}' src='../../img/index/ticket.png'></image>
+                  </view>
+                </view>
               </view>
               <view class='title'>
                 <text>{{item.goodsInfo.name}}</text>
@@ -139,12 +148,12 @@
                   <image src='../../img/index/small_location.png'></image>
                 </view>
                 <view class='text'>
-                  <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+                  <text>{{item.goodsInfo.city}} · 距离{{dateFr.getDistance(item.distance)}}{{item.distance ? '公里' : ''}}</text>
                 </view>
               </view>
               <view class='info'>
                 <view class='price'>
-                  <text><text>￥</text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
+                  <text class='{{item.goodsInfo.avgPrice ? "" : "ashy"}}'><text wx:if='{{false}}'>￥</text>{{item.goodsInfo.avgPrice ? item.goodsInfo.avgPrice : '暂无均价建议'}}</text>
                 </view>
                 <view class='star'>
                   <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
@@ -156,7 +165,7 @@
             </view>
           </block>
         </view>
-        <view class='more' data-type='{{recommendType}}' bindtap='goToTheProductList' wx:if='{{(goodsList.length / 20) % 1 === 0}}'>查看更多</view>
+        <view class='more' data-type='{{recommendType}}' bindtap='goToTheProductList' wx:if='{{goodsList.length}}'>查看更多</view>
       </view>
     </view>
   </view>

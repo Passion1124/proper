@@ -36,7 +36,9 @@ Page({
       }
     }],
     comment: [],
-    commentCount: 0
+    commentCount: 0,
+    coupons: [],
+    hasExists: []
   },
 
   /**
@@ -52,6 +54,8 @@ Page({
     this.getCommentList();
     this.getCommentCount();
     this.getFavorCheckList();
+    this.handleGoodsReport('view');
+    this.getCouponList();
   },
 
   /**
@@ -102,6 +106,7 @@ Page({
   onShareAppMessage: function() {
 
   },
+  // 商品详情
   getGoodsDetail () {
     let data = { base: app.globalData.baseBody, gid: this.data.gid };
     let api = 'com.ttdtrip.api.goods.apis.GoodsDetailApiService';
@@ -117,6 +122,7 @@ Page({
       console.error(err);
     })
   },
+  // 评论列表
   getCommentList () {
     let data = { base: app.globalData.baseBody, page: 1, size: 1, target: this.data.gid, time: new Date().getTime(), type: 'poi'};
     let api = 'com.ttdtrip.api.comment.apis.CommentListApiService';
@@ -129,6 +135,7 @@ Page({
       console.error(err);
     })
   },
+  // 评论总数
   getCommentCount () {
     let data = { base: app.globalData.baseBody, target: this.data.gid, time: new Date().getTime(), type: 'poi' };
     let api = 'com.ttdtrip.api.comment.apis.CommentCountApiService';
@@ -141,6 +148,7 @@ Page({
       console.error(err);
     })
   },
+  // 是否收藏
   getFavorCheckList () {
     let api = 'com.ttdtrip.api.goods.apis.FavorCheckApiService';
     let data = { base: app.globalData.baseBody, ids: [this.data.gid]};
@@ -157,6 +165,7 @@ Page({
       console.error(err);
     })
   },
+  // 点击收藏按钮
   handleSetGoodsFavor () {
     if (this.data.favor) {
       this.handleGoodsUnFavor();
@@ -164,6 +173,7 @@ Page({
       this.handleGoodsFavor();
     }
   },
+  // 收藏商品
   handleGoodsFavor() {
     let api = 'com.ttdtrip.api.goods.apis.FavorApiService';
     let data = { base: app.globalData.baseBody, gid: this.data.gid };
@@ -174,11 +184,12 @@ Page({
       });
       this.setData({
         favor: true
-      })
+      });
     }, (err) => {
       console.error(err);
     })
   },
+  // 取消收藏商品
   handleGoodsUnFavor() {
     let api = 'com.ttdtrip.api.goods.apis.UnFavorApiService';
     let data = { base: app.globalData.baseBody, gid: this.data.gid };
@@ -189,8 +200,48 @@ Page({
       });
       this.setData({
         favor: false
-      })
+      });
+      this.handleGoodsReport('comment');
     }, (err) => {
+      console.error(err);
+    })
+  },
+  //商品上报
+  handleGoodsReport (type) {
+    let api = 'com.ttdtrip.api.goods.apis.GoodsReportApiService';
+    let data = { base: app.globalData.baseBody, gid: this.data.gid, type: type };
+    app.request(api, data, res => {
+      console.log(res);
+    }, err => {
+      console.error(err);
+    })
+  },
+  // 优惠券列表
+  getCouponList () {
+    let api = 'com.ttdtrip.api.order.apis.service.CouponListApiService';
+    let data = { base: app.globalData.baseBody, page: 1, size: 100, usingId: this.data.gid, usingScope: 12 };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        coupons: res.coupons || []
+      });
+      if (app.globalData.userInfo && this.data.coupons.length) {
+        this.getHasExistsCoupon(this.data.coupons.map(item => item.id));
+      }
+    }, err => {
+      console.error(err);
+    })
+  },
+  // 是否领取优惠券
+  getHasExistsCoupon(couponIds) {
+    let api = 'com.ttdtrip.api.order.apis.service.UserCouponsExistApiService';
+    let data = { base: app.globalData.baseBody, couponIds: couponIds };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        hasExists: res.hasExists
+      })
+    }, err => {
       console.error(err);
     })
   },
@@ -220,6 +271,13 @@ Page({
     let giid = e.currentTarget.dataset.giid;
     wx.navigateTo({
       url: '/pages/goodItemDetail/goodItemDetail?giid=' + giid + '&gid=' + this.data.gid + '&type=' + this.data.type,
+    })
+  },
+  goToTheCouponsDetail (e) {
+    let couponId = e.currentTarget.dataset.couponid;
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/couponDetail/couponDetail?couponId=' + couponId + '&source=index&id=' + id,
     })
   }
 })

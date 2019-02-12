@@ -6,13 +6,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-    hotWord: []
+    hotWord: [],
+    history: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let history = wx.getStorageSync('history') || [];
+    console.log(history);
+    if (history.length) {
+      this.setData({
+        history: history
+      });
+    }
     this.getHotWord();
   },
 
@@ -34,7 +42,10 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    
+    let history = wx.getStorageSync('history') || [];
+    this.setData({
+      history: history
+    });
   },
 
   /**
@@ -64,6 +75,7 @@ Page({
   onShareAppMessage: function () {
     
   },
+  // 获取热门推荐
   getHotWord () {
     let data = { base: app.globalData.baseBody, count: 10 };
     let api = 'com.ttdtrip.api.search.apis.service.HotWordQryApiService';
@@ -76,10 +88,31 @@ Page({
       console.error(err);
     })
   },
+  // 清除历史记录
+  handleClearHistory () {
+    let _that = this;
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除历史记录吗？',
+      success (res) {
+        if (res.confirm) {
+          wx.removeStorageSync('history');
+          _that.setData({
+            history: []
+          })
+        }
+      }
+    })
+  },
+  // 跳转到搜索列表及保存搜索的历史记录
   goToTheSearchList (e) {
-    console.log(e);
     let type = e.type;
     let search = type === 'tap' ? e.currentTarget.dataset.name : e.detail.value;
+    if (this.data.history.indexOf(search) === -1) {
+      let history = this.data.history;
+      history.push(search);
+      wx.setStorageSync('history', history);
+    }
     wx.navigateTo({
       url: '/pages/searchList/searchList?search=' + search,
     })

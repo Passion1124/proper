@@ -14,7 +14,7 @@
   font-size: 28rpx;
   line-height: 40rpx;
   color: #3C3C3C;
-  margin-bottom: 40rpx;
+  margin: 40rpx 0;
 }
 
 .textarea textarea{

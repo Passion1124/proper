@@ -3,15 +3,17 @@
   <view class='search_input'>
     <input placeholder='搜索目的地、景点' bindconfirm='goToTheSearchList'></input>
   </view>
-  <view class='history_search'>
+  <view class='history_search' wx:if='{{history.length}}'>
     <view class='title'>
       <view class='text'>历史搜索</view>
-      <view class='remove'>
+      <view class='remove' bindtap='handleClearHistory'>
         <image src='../../img/common/history_remove.png'></image>
       </view>
     </view>
     <view class='list'>
-      <view data-name='东京' bindtap='goToTheSearchList'>东京</view>
+      <block wx:for='{{history}}' wx:key='{{index}}'>
+        <view data-name='{{item}}' bindtap='goToTheSearchList'>{{item}}</view>
+      </block>
     </view>
   </view>
   <view class='hot_recommend'>

@@ -19,6 +19,7 @@ Page({
     autoplay: false,
     interval: 5000,
     duration: 1000,
+    msgCount: 0
   },
   //事件处理函数
   bindViewTap: function() {
@@ -60,6 +61,7 @@ Page({
     this.getCategoryInfo();
     this.getCouponInfo();
     this.getGoodsList();
+    this.getMsgCount();
   },
   getUserInfo: function(e) {
     console.log(e)
@@ -115,6 +117,18 @@ Page({
         goodsList: res.goodsVOs.length > 20 ? res.goodsVOs.slice(0, 20) : res.goodsVOs
       })
     }, (err) => {
+      console.error(err);
+    })
+  },
+  getMsgCount () {
+    let data = { base: app.globalData.baseBody, time: 0 };
+    let api = 'com.ttdtrip.api.account.apis.service.msg.MsgCountApiService';
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        msgCount: res.count
+      })
+    }, err => {
       console.error(err);
     })
   },

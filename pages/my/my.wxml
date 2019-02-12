@@ -51,31 +51,31 @@
   <view class='single' bindtap='goToTheMyCoupon'>
     <view class='text'>我的优惠劵</view>
     <view class='img_row'>
-      <image src='../../img/common/more.png'></image>
+      <image src='../../img/my/coupon.png'></image>
     </view>
   </view>
   <view class='single' bindtap='goToTheCollection'>
     <view class='text'>我的收藏</view>
     <view class='img_row'>
-      <image src='../../img/common/more.png'></image>
+      <image src='../../img/my/collection.png'></image>
     </view>
   </view>
   <view class='single' bindtap='goToTheHelp'>
     <view class='text'>帮助</view>
     <view class='img_row'>
-      <image src='../../img/common/more.png'></image>
+      <image src='../../img/my/help.png'></image>
     </view>
   </view>
   <view class='single' bindtap='goToTheFeedBack'>
     <view class='text'>意见反馈</view>
     <view class='img_row'>
-      <image src='../../img/common/more.png'></image>
+      <image src='../../img/my/feedback.png'></image>
     </view>
   </view>
   <view class='single' bindtap='goToTheAbout'>
     <view class='text'>关于</view>
     <view class='img_row'>
-      <image src='../../img/common/more.png'></image>
+      <image src='../../img/my/about.png'></image>
     </view>
   </view>
 </view>

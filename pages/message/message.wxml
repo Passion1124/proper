@@ -1,21 +1,22 @@
 <!-- message.wxml -->
 <view class='container'>
-  <view class='list'>
-    <view class='title'>酒店确认</view>
-    <view class='subTitle'>你的酒店已预订成功</view>
-    <view class='introduce'>在显示酒店预订的详细信息在显示酒店预订的详细信息在显示酒店预订的详细信息在显示信息在显示酒店预订的详细信息在显示信息在显示酒店预订的详细信息在显示信息在显示酒店预订的详细信息在显示</view>
-    <view class='bottom'>
-      <view class='date'>2020年10月1日</view>
-      <view class='detail'>查看详情></view>
-    </view>
+  <view class='un_empty' wx:if='{{msgs.length}}'>
+    <block wx:for='{{msgs}}' wx:key='{{index}}'>
+      <view class='list'>
+        <view class='title'>酒店确认2</view>
+        <view class='subTitle'>你的酒店已预订成功2</view>
+        <view class='introduce'>在显示酒店预订的详细信息在显示酒店预订的详细信息在显示酒店预订的详细信息在显示信息在显示酒店预订的详细信息在显示信息在显示酒店预订的详细信息在显示信息在显示酒店预订的详细信息在显示</view>
+        <view class='bottom'>
+          <view class='date'>2020年10月1日</view>
+          <view class='detail'>查看详情2></view>
+        </view>
+      </view>
+    </block>
   </view>
-  <view class='list'>
-    <view class='title'>酒店确认2</view>
-    <view class='subTitle'>你的酒店已预订成功2</view>
-    <view class='introduce'>在显示酒店预订的详细信息在显示酒店预订的详细信息在显示酒店预订的详细信息在显示信息在显示酒店预订的详细信息在显示信息在显示酒店预订的详细信息在显示信息在显示酒店预订的详细信息在显示</view>
-    <view class='bottom'>
-      <view class='date'>2020年10月1日</view>
-      <view class='detail'>查看详情2></view>
+  <view class='empty' wx:if='{{!msgs.length}}'>
+    <view class='image_row'>
+      <image src='../../img/common/empty_data.png'></image>
     </view>
+    <view class='text'>暂无数据哦，快去逛逛吧～</view>
   </view>
 </view>

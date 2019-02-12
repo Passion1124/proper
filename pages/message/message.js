@@ -6,14 +6,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    msgs: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.getMessageList();
   },
 
   /**
@@ -63,5 +63,17 @@ Page({
    */
   onShareAppMessage: function () {
     
+  },
+  getMessageList () {
+    let data = { base: app.globalData.baseBody, page: 1, size: 30 };
+    let api = 'com.ttdtrip.api.account.apis.service.msg.MsgListApiService';
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        msgs: res.msgs
+      })
+    }, err => {
+      console.error(err);
+    })
   }
 })

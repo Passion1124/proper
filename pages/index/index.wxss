@@ -307,22 +307,47 @@
 .hot_recommend .tabs_content>view .main>view>.img_row .bg {
   width: 100%;
   height: 100%;
+  vertical-align: top;
 }
 
-.hot_recommend .tabs_content>view .main>view>.img_row .top {
+.hot_recommend .tabs_content>view .main>view>.img_row .icon{
   position: absolute;
+  left: 0;
+  right: 0;
   bottom: 10rpx;
-  left: 10rpx;
-  width: 56rpx;
+  padding: 0 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hot_recommend .tabs_content>view .main>view>.img_row .icon .icon_left{
+  display: flex;
+  align-items: center;
+}
+
+.hot_recommend .tabs_content>view .main>view>.img_row .icon .icon_left image{
+  width: 28rpx;
   height: 28rpx;
+  vertical-align: top;
 }
 
-.hot_recommend .tabs_content>view .main>view>.img_row .ticket {
-  position: absolute;
-  bottom: 10rpx;
-  right: 10rpx;
+.hot_recommend .tabs_content>view .main>view>.img_row .icon .icon_left image.top{
+  width: 56rpx;
+}
+
+.hot_recommend .tabs_content>view .main>view>.img_row .icon .icon_left image + image{
+  margin-left: 8rpx;
+}
+
+.hot_recommend .tabs_content>view .main>view>.img_row .icon .icon_right{
+  display: flex;
+}
+
+.hot_recommend .tabs_content>view .main>view>.img_row .icon .icon_right .ticket{
   width: 38rpx;
   height: 28rpx;
+  vertical-align: top;
 }
 
 .hot_recommend .tabs_content>view .main>view .title {
@@ -370,11 +395,15 @@
 .hot_recommend .tabs_content>view .main>view .info .price {
   max-width: 200rpx;
   font-size: 32rpx;
-  line-height: 28rpx;
+  line-height: 32rpx;
   color: #d9333f;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.hot_recommend .tabs_content>view .main>view .info .price .ashy{
+  color: #999;
 }
 
 .hot_recommend .tabs_content>view .main>view .info .price text text {

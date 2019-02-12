@@ -1,17 +1,22 @@
+import md5 from '../../utils/md5.js'
+
+const app = getApp();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    
+    contact: '',
+    info: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
 
   /**
@@ -61,5 +66,37 @@ Page({
    */
   onShareAppMessage: function () {
     
+  },
+  handleSubmitFeedBack () {
+    let info = this.data.info;
+    let contact = this.data.contact;
+    if (info) {
+      let sn = md5(info + contact);
+      let data = { base: app.globalData.baseBody, info, contact, sn };
+      let api = 'com.ttdtrip.api.config.apis.service.FeedBackApiService';
+      app.request(api, data, res => {
+        console.log(res);
+        wx.navigateBack();
+        let pages = getCurrentPages();
+        pages[pages.length - 2].showFeedBackSuccessToast();
+      }, err => {
+        console.error(err);
+      })
+    } else{
+      wx.showToast({
+        title: '请输入你要反馈的内容',
+        icon: 'none'
+      })
+    }
+  },
+  handleInputInfo (e) {
+    this.setData({
+      info: e.detail.value
+    })
+  },
+  handleInputContact (e) {
+    this.setData({
+      contact: e.detail.value
+    })
   }
 })
