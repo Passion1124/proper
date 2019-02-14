@@ -45,11 +45,11 @@ var DateFr = {
     if (type === 1) {
       return '立刻确认'
     } else if (type === 2) {
-      return '3小时确认'
+      return '工作日3小时内确认'
     } else if (type === 3) {
-      return '1天确认'
+      return '工作日1天内确认'
     } else if (type === 4) {
-      return '3天内确认'
+      return '工作日3天内确认'
     }
   }
 }

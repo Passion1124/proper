@@ -1,6 +1,6 @@
 <!-- order.wxml -->
 <view class='container'>
-  <view class='page_title'>预订信息</view>
+  <!-- <view class='page_title'>预订信息</view> -->
   <view class='many'>
     <view class='text'>选择使用时间</view>
     <view class='date'>
@@ -35,7 +35,7 @@
   </view>
   <view class='single appellation'>
     <picker mode='selector' value='{{preOrderInfo.gender}}' range='{{genderRange}}' range-key='label' bindchange='bindGenderChange'>
-      <view class='{{preOrderInfo.gender ? "checked" : ""}}'>{{preOrderInfo.gender ? (preOrderInfo.gender === 1 ? "先生" : "女士") : '称谓'}}</view>
+      <view class='{{preOrderInfo.gender ? "checked" : ""}}'>{{preOrderInfo.gender ? (preOrderInfo.gender === "gentleman" ? "先生" : "女士") : '称谓'}}</view>
     </picker>
     <view class='img_row'>
       <image src='../../img/common/more.png'></image>

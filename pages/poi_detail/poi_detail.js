@@ -245,6 +245,15 @@ Page({
       console.error(err);
     })
   },
+  // 修改已经领取优惠券
+  changeHasExistsCoupon (couponId) {
+    let index = this.data.coupons.findIndex(item => item.id === couponId);
+    if (!this.data.hasExists[index]) {
+      this.setData({
+        ['hasExists[' + index + ']']: true
+      })
+    }
+  },
   callPhone (e) {
     let phone = e.currentTarget.dataset.phone;
     wx.makePhoneCall({
@@ -277,7 +286,7 @@ Page({
     let couponId = e.currentTarget.dataset.couponid;
     let id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '/pages/couponDetail/couponDetail?couponId=' + couponId + '&source=index&id=' + id,
+      url: '/pages/couponDetail/couponDetail?couponId=' + couponId + '&source=poi_detail&id=' + id,
     })
   }
 })

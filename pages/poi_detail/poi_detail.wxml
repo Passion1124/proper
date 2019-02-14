@@ -124,7 +124,8 @@
                   <text>{{item.name}}</text>
                 </view>
                 <view>
-                  <button>立即领取</button>
+                  <button wx:if='{{!hasExists[index]}}'>立即领取</button>
+                  <text class='hasExists' wx:if='{{hasExists[index]}}'>领取成功</text>
                 </view>
               </view>
             </view>

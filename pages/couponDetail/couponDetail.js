@@ -55,7 +55,8 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    let pages = getCurrentPages();
+    pages[pages.length - 2].changeHasExistsCoupon(this.data.couponId);
   },
 
   /**

@@ -2,16 +2,67 @@
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <import src="../../wxParse/wxParse.wxml" />
 <view class='container'>
-  <view class='page_title'>商品详情</view>
+  <!-- <view class='page_title'>商品详情</view> -->
   <view class='card_row'>
     <view class='good_item_card'>
       <view class='title'>{{goodsItem.goodsItemInfo.name}}</view>
       <view class='subTitle'>{{goodsItem.goodsItemInfo.subInfo}}</view>
       <view class='price'>
         <text>{{goodsItem.goodsItemBase.currency}}</text>
-        <text>{{goodsItem.goodsItemBase.amount / 100}}</text>
+        <text>{{ (goodsItem.goodsItemBase.amount ? goodsItem.goodsItemBase.amount : goodsItem.goodsItemBase.sourceAmount) / 100 }}</text>
       </view>
     </view>
+  </view>
+  <view class='main_row' wx:if='{{coupons.length}}'>
+    <block wx:for="{{coupons}}" wx:key="{{index}}">
+      <view class='main' data-couponId='{{item.id}}' data-id='{{item.id}}' bindtap='goToTheCouponsDetail'>
+        <image class='bg' src='../../img/index/coupon_bg.png'></image>
+        <view class='content'>
+          <view class='top'>
+            <view class='logo'>
+              <image src='{{item.imgUrl}}'></image>
+            </view>
+            <view class='worth'>
+              <view class='discount'>
+                <block wx:if='{{item.type === 0}}'>
+                  <view class='num'>
+                    <text>{{item.discount / 10}}</text>
+                  </view>
+                  <view class='fracture'>
+                    <text>/折</text>
+                  </view>
+                </block>
+                <block wx:if='{{item.type === 1}}'>
+                  <view class='num'>
+                    <text><text class='currency'>{{item.currency}}</text>{{item.reducePrice / 100}}</text>
+                  </view>
+                  <view class='fracture'>
+                    <text>/满{{item.sourcePrice / 100}}</text>
+                  </view>
+                </block>
+                <block wx:if='{{item.type === 2}}'>
+                  <view class='num'>
+                    <text><text class='currency'>{{item.currency}}</text>{{item.reducePrice / 100}}</text>
+                  </view>
+                </block>
+              </view>
+              <view class='expiry_date'>
+                <text>有效期至：{{dateFr.getDate(item.expireEndAt, '/')}}</text>
+              </view>
+            </view>
+          </view>
+          <view class='bottom'>
+            <view>
+              <text>{{item.name}}</text>
+            </view>
+            <view>
+              <button wx:if='{{!hasExists[index]}}'>立即领取</button>
+              <text class='hasExists' wx:if='{{hasExists[index]}}'>领取成功</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
   </view>
   <view class='single'>
     <view class='s_title'>确认时间</view>
@@ -27,7 +78,7 @@
       <view class='tips'>{{item.info}}</view>
     </view>
   </block>
-  <view class='introduce'>
+  <view class='introduce' wx:if='{{goodsItem.goodsItemInfo.info}}'>
     <view class='i_title'>介绍说明</view>
     <view class='i_content'>
       <template is="wxParse" data="{{wxParseData: article.nodes}}" />
@@ -36,7 +87,7 @@
   <view class='subscribe'>
     <view class='price'>
       <text>合计</text>
-      <text>{{goodsItem.goodsItemBase.currency}}{{goodsItem.goodsItemBase.amount / 100}}</text>
+      <text>{{goodsItem.goodsItemBase.currency}}{{(goodsItem.goodsItemBase.amount ? goodsItem.goodsItemBase.amount : goodsItem.goodsItemBase.sourceAmount) / 100}}</text>
     </view>
     <view class='btn'>
       <button bindtap='goToTheAdvanceOrder'>填写预定信息</button>

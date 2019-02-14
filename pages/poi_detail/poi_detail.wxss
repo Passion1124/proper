@@ -460,6 +460,10 @@
   text-overflow: ellipsis;
 }
 
+.main_row .main .content .bottom view:last-of-type{
+  font-size: 0;
+}
+
 .main_row .main .content .bottom view:last-of-type button {
   width: 154rpx;
   height: 48rpx;
@@ -473,7 +477,8 @@
   padding: 0;
 }
 
-.main_row .main .content .bottom view:last-of-type button.disabled {
-  border: 1rpx solid #b7b7b7;
-  color: #b7b7b7;
+.main_row .main .content .bottom view:last-of-type .hasExists{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #8C8C8C;
 }
