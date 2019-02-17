@@ -1,11 +1,12 @@
 <!-- order.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container'>
   <!-- <view class='page_title'>预订信息</view> -->
   <view class='many'>
     <view class='text'>选择使用时间</view>
     <view class='date'>
-      <picker mode='date' value='{{preOrderInfo.date}}' bindchange="bindDateChange">
-        <view class='blue_text'>{{preOrderInfo.date}}</view>
+      <picker mode='date' start='2019-02-18' value='{{useData}}' bindchange="bindDateChange">
+        <view class='blue_text'>{{useData}}</view>
       </picker>
       <view class='img_row'>
         <image src='../../img/common/more.png'></image>
@@ -13,7 +14,7 @@
     </view>
   </view>
   <view class='many'>
-    <view class='text'>选择份数</view>
+    <view class='text'>份数</view>
     <view class='copies'>
       <view class='{{ minusStatus }}' bindtap='bindMinus'>
         <view class='img_row'>
@@ -21,7 +22,7 @@
         </view>
       </view>
       <view>
-        <input type='number' value='{{preOrderInfo.totalCount}}' bindchange='bindManual'></input>
+        <input type='number' value='{{orderMerches.merchCount}}' bindchange='bindManual'></input>
       </view>
       <view class='{{ maxusStatus }}' bindtap='bindPlus'>
         <view class='img_row'>
@@ -30,42 +31,124 @@
       </view>
     </view>
   </view>
+  <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 11 || goodsItem.goodsItemBase.subType === 33}}'>
+    <view class='tips'>安全座椅</view>
+    <view class='text'>个数</view>
+    <view class='copies'>
+      <view class='{{ minusStatus }}'>
+        <view class='img_row'>
+          <image src='../../img/common/reduce.png'></image>
+        </view>
+      </view>
+      <view>
+        <input type='number' value='{{orderMerches.ext.babyChairCount}}' bindchange='bindManual'></input>
+      </view>
+      <view class='{{ maxusStatus }}'>
+        <view class='img_row'>
+          <image src='../../img/common/plus.png'></image>
+        </view>
+      </view>
+    </view>
+  </view>
   <view class='single'>
-    <input placeholder-class='phcolor' placeholder='您的姓名'></input>
+    <input placeholder-class='phcolor' value='{{receiver.name}}' placeholder='您的姓名' bindinput='handleInputName'></input>
   </view>
   <view class='single appellation'>
-    <picker mode='selector' value='{{preOrderInfo.gender}}' range='{{genderRange}}' range-key='label' bindchange='bindGenderChange'>
-      <view class='{{preOrderInfo.gender ? "checked" : ""}}'>{{preOrderInfo.gender ? (preOrderInfo.gender === "gentleman" ? "先生" : "女士") : '称谓'}}</view>
+    <picker mode='selector' value='{{receiver.alias}}' range='{{genderRange}}' range-key='label' bindchange='bindGenderChange'>
+      <view class='{{receiver.alias ? "checked" : ""}}'>{{receiver.alias ? (receiver.alias === "gentleman" ? "先生" : "女士") : '称谓'}}</view>
     </picker>
     <view class='img_row'>
       <image src='../../img/common/more.png'></image>
     </view>
   </view>
   <view class='single'>
-    <input type='number' placeholder-class='phcolor' placeholder='手机号码'></input>
+    <input type='number' placeholder-class='phcolor' value='{{receiver.phoneNo}}' placeholder='手机号码' bindinput='handleInputPhone'></input>
   </view>
   <view class='single'>
-    <input placeholder-class='phcolor' placeholder='邮箱'></input>
+    <input placeholder-class='phcolor' value='{{receiver.email}}' placeholder='邮箱' bindinput='handleInputEmail'></input>
   </view>
-  <view class='single'>
+  <view class='single' wx:if='{{goodsItem.goodsItemBase.subType === 11 || goodsItem.goodsItemBase.subType === 12}}'>
+    <input placeholder-class='phcolor' value='{{merchSpecific}}' placeholder='接送点' bindinput='handleInputMerchSpecific'></input>
+  </view>
+  <view class='single' wx:if='{{false}}'>
     <input placeholder-class='phcolor' placeholder='传真号'></input>
   </view>
-  <view class='many'>
+  <view class='many' wx:if='{{useData}}' bindtap='clickCouponLan'>
     <view class='text'>可用优惠券</view>
     <view class='coupon'>
-      <view class='blue_text'>4张</view>
+      <view class='blue_text' wx:if='{{!selectCoupon.id && coupons.length}}'>{{coupons.length}}张</view>
+      <view class='blue_text' wx:if='{{selectCoupon.id}}'>{{selectCoupon.name}}</view>
+      <view class='blue_text' wx:if='{{!selectCoupon.id && !coupons.length}}'>无优惠券</view>
       <view class='img_row'>
         <image src='../../img/common/more.png'></image>
       </view>
     </view>
   </view>
+  <view class='mask {{ p_mask ? "open_mask" : "close_mask"}}' bindtap='closePopup'></view>
+  <view class='coupons_box {{ p_mask ? "open_popup" : "close_popup"}}'>
+    <image class='close' src='../../img/order/pay_icon_close.png' bindtap='closePopup'></image>
+    <view class='main_row'>
+      <block wx:for="{{coupons}}" wx:key="{{index}}">
+        <view class='main' data-couponId='{{item.id}}' data-id='{{item.id}}' data-index='{{index}}' bindtap='selectedCoupon'>
+          <image class='bg' src='../../img/index/coupon_bg.png'></image>
+          <view class='content'>
+            <view class='top'>
+              <view class='logo'>
+                <image src='{{item.imgUrl}}'></image>
+              </view>
+              <view class='worth'>
+                <view class='discount'>
+                  <block wx:if='{{item.type === 0}}'>
+                    <view class='num'>
+                      <text>{{item.discount / 10}}</text>
+                    </view>
+                    <view class='fracture'>
+                      <text>/折</text>
+                    </view>
+                  </block>
+                  <block wx:if='{{item.type === 1}}'>
+                    <view class='num'>
+                      <text><text class='currency'>{{item.currency}}</text>{{item.reducePrice / 100}}</text>
+                    </view>
+                    <view class='fracture'>
+                      <text>/满{{item.sourcePrice / 100}}</text>
+                    </view>
+                  </block>
+                  <block wx:if='{{item.type === 2}}'>
+                    <view class='num'>
+                      <text><text class='currency'>{{item.currency}}</text>{{item.reducePrice / 100}}</text>
+                    </view>
+                  </block>
+                </view>
+                <view class='expiry_date'>
+                  <text>有效期至：{{dateFr.getDate(item.expireEndAt, '/')}}</text>
+                </view>
+              </view>
+            </view>
+            <view class='bottom'>
+              <view>
+                <text>{{item.name}}</text>
+              </view>
+              <view>
+                <image wx:if='{{selectCoupon.id !== item.id}}' src='../../img/order/pay_icon_check.png'></image>
+                <image wx:if='{{selectCoupon.id === item.id}}' src='../../img/order/pay_icon_checked.png'></image>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
   <view class='pay'>
     <view class='price'>
-      <text>合计</text>
-      <text>￥1212.00</text>
+      <view class='pay_price'>
+        <text>合计</text>
+        <text>{{goodsItem.goodsItemBase.currency}}{{dateFr.getOrderPrice((price * orderMerches.merchCount), selectCoupon) / 100}}</text>
+      </view>
+      <view class='discount' wx:if='{{selectCoupon.id}}'>优惠 {{goodsItem.goodsItemBase.currency}}{{dateFr.getDiscountPrice((price * orderMerches.merchCount), selectCoupon) / 100}}</view>
     </view>
     <view class='btn'>
-      <button>去付款</button>
+      <button bindtap='handleClickPaymentButton'>去付款</button>
     </view>
   </view>
 </view>

@@ -1,3 +1,5 @@
+import md5 from '../../utils/md5.js'
+
 const app = getApp();
 
 Page({
@@ -8,6 +10,8 @@ Page({
   data: {
     giid: '',
     type: '',
+    price: '',
+    discount: '',
     receiver: {
       name: '',
       alias: '',
@@ -15,18 +19,24 @@ Page({
       email: '',
       faxNo: '',
       addr: '',
+      addType: 1
     },
-    preOrderInfo: {
-      date: '',
-      name: '',
-      alias: '',
-      phoneNo: '',
-      email: '',
-      faxNo: '',
-      addr: '',
-      totalCount: 1
+    receiverId: '',
+    orderMerches: {
+      merchId: '',
+      merchName: '',
+      merchType: '',
+      merchImgUrl: '',
+      merchSpecific: '',
+      usingDate: '',
+      ext: {
+        babyChairCount: 0
+      },
+      merchCount: 1
     },
-    maxNum: 10,
+    useData: '',
+    merchSpecific: '',
+    maxNum: 100,
     minusStatus: 'disabled',
     maxusStatus: 'normal',
     genderRange: [
@@ -41,15 +51,25 @@ Page({
     ],
     goods: {},
     goodsItem: {},
-    coupons: []
+    coupons: [],
+    selectCoupon: {},
+    p_mask: false,
+    start_date: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // this.data.giid = 'abbefc0d-4770-434d-9c18-4e26ff4c304a';
+    // this.data.orderMerches.merchId = 'abbefc0d-4770-434d-9c18-4e26ff4c304a';
+    // this.data.type = 1;
     this.data.giid = options.giid;
+    this.data.orderMerches.merchId = options.giid;
     this.data.type = options.type;
+    this.setData({
+      start_date: this.getNowFormatDate()
+    })
     this.getReceiverLatest();
     this.getGoodsItemDetail();
   },
@@ -109,9 +129,9 @@ Page({
     app.request(api, data, res => {
       console.log(res);
       if (res.receiver) {
-        let preOrderInfo = Object.assign(this.data.preOrderInfo, res.receiver);
+        let { addr, addrType, alias, email, faxNo, name, phoneNo } = res.receiver;
         this.setData({
-          preOrderInfo: preOrderInfo
+          receiver: { addr, addrType, alias, email, faxNo, name, phoneNo }
         });
       }
     }, err => {
@@ -125,7 +145,8 @@ Page({
     app.request(api, data, res => {
       console.log(res);
       this.setData({
-        goodsItem: res.goodsItemVO
+        goodsItem: res.goodsItemVO,
+        price: res.goodsItemVO.goodsItemBase.amount || res.goodsItemVO.goodsItemBase.sourceAmount
       });
       this.getGoodsDetail(res.goodsItemVO.goodsItemBase.gid);
       this.getUserCouponUsable(res.goodsItemVO.goodsItemBase.subType);
@@ -167,9 +188,10 @@ Page({
   // 获取商品库存信息
   getMerchInventoryl () {
     let api = 'com.ttdtrip.api.order.apis.service.MerchInventorylApiService';
-    let data = { base: app.globalData.baseBody, itemValues: {}, merchId: this.data.giid, merchType: this.goodsItem.goodsItemBase.subType };
+    let data = { base: app.globalData.baseBody, itemValues: {}, merchId: this.data.giid, merchType: this.data.goodsItem.goodsItemBase.subType };
     app.request(api, data, res => {
       console.log(res);
+      this.data.maxNum = res.merchInventory.consumableCount;
     }, err => {
       console.error(err);
     })
@@ -177,10 +199,11 @@ Page({
   // 保存收货信息
   handleSaveReceiverInfo () {
     let api = 'com.ttdtrip.api.order.apis.service.ReceiverSaveApiService';
-    let { name, alias, phoneNo, email, faxNo, addr, addrType } = this.data.preOrderInfo;
-    let data = { base: app.globalData.baseBody, name, alias, phoneNo, email, faxNo, addr, addrType };
+    let data = Object.assign({ base: app.globalData.baseBody }, this.data.receiver);
     app.request(api, data, res => {
       console.log(res);
+      this.data.receiverId = res.receiverId;
+      this.handleCreateOrderGen();
     }, err => {
       console.error(err);
     })
@@ -188,29 +211,69 @@ Page({
   // 生成订单
   handleCreateOrderGen () {
     let api = 'com.ttdtrip.api.order.apis.service.OrderGenApiService';
-    let data = { base: app.globalData.baseBody, sn: '', orderType: 1, couponId: '', receiverId: '', orderMerches: [], preOrderInfo: {} };
+    let p_data = { orderType: 1, receiverId: this.data.receiverId, orderMerches: this.data.orderMerches };
+    if (this.data.selectCoupon.couponId) {
+      p_data.couponId = this.data.selectCoupon.couponId;
+    };
+    let sn = md5(p_data + new Date().getTime());
+    let data = Object.assign({ base: app.globalData.baseBody }, p_data, { sn });
     app.request(api, data, res => {
       console.log(res);
     }, err => {
       console.error(err);
     })
   },
+  // 点击去付款按钮
+  handleClickPaymentButton () {
+    this.data.orderMerches.merchType = this.data.goodsItem.goodsItemBase.subType;
+    this.data.orderMerches.merchName = this.data.goodsItem.goodsItemInfo.name;
+    this.data.orderMerches.usingDate = this.data.useData.replace(new RegExp('-', 'g'), '');
+    this.data.orderMerches.merchSpecific = this.data.merchSpecific + '&1';
+    this.data.orderMerches.merchImgUrl = this.data.goods.goodsBase.poster;
+    this.handleSaveReceiverInfo();
+  },
   // 选择使用时间改变
   bindDateChange: function (e) {
     this.setData({
-      ['preOrderInfo.date']: e.detail.value
+      useData: e.detail.value
     });
+    console.log(this.data.useData);
     this.getMerchInventoryl();
   },
+  // 修改称谓
   bindGenderChange: function (e) {
     let gender = this.data.genderRange[Number(e.detail.value)];
     this.setData({
-      ['preOrderInfo.gender']: gender.value
+      ['receiver.alias']: gender.value
+    })
+  },
+  // 修改姓名
+  handleInputName (e) {
+    this.setData({
+      ['receiver.name']: e.detail.value
+    })
+  },
+  // 修改姓名
+  handleInputPhone(e) {
+    this.setData({
+      ['receiver.phoneNo']: e.detail.value
+    })
+  },
+  // 修改姓名
+  handleInputMerchSpecific(e) {
+    this.setData({
+      merchSpecific: e.detail.value
+    })
+  },
+  // 修改姓名
+  handleInputName(e) {
+    this.setData({
+      ['receiver.name']: e.detail.value
     })
   },
   // 点击减号
   bindMinus: function () {
-    var num = this.data.preOrderInfo.totalCount;
+    var num = this.data.orderMerches.merchCount;
     // 如果大于1时，才可以减  
     if (num > 1) {
       num--;
@@ -219,28 +282,33 @@ Page({
     var minusStatus = num <= 1 ? 'disabled' : 'normal';
     // 只有小于库存的时候，才能normal状态，否则disable状态  
     var maxusStatus = num < this.data.maxNum ? 'normal' : 'disabled';
-    var totalCount = 'preOrderInfo.totalCount';
+    var merchCount = 'orderMerches.merchCount';
     // 将数值与状态写回  
     this.setData({
-      [totalCount]: num,
+      [merchCount]: num,
       minusStatus: minusStatus,
       maxusStatus: maxusStatus
     });
   },
   // 点击加号
   bindPlus: function () {
-    var num = this.data.preOrderInfo.totalCount;
+    var num = this.data.orderMerches.merchCount;
     if (num < this.data.maxNum) {
       num++;
+    } else {
+      wx.showToast({
+        title: '仅剩' + this.data.maxNum + '件',
+        icon: 'none'
+      })
     }
     // 只有大于一件的时候，才能normal状态，否则disable状态  
     var minusStatus = num < 1 ? 'disabled' : 'normal';
     // 只有小于库存的时候，才能normal状态，否则disable状态  
     var maxusStatus = num < this.data.maxNum ? 'normal' : 'disabled';
     // 将数值与状态写回  
-    var totalCount = 'preOrderInfo.totalCount';
+    var merchCount = 'orderMerches.merchCount';
     this.setData({
-      [totalCount]: num,
+      [merchCount]: num,
       minusStatus: minusStatus,
       maxusStatus: maxusStatus
     });
@@ -257,11 +325,69 @@ Page({
     if (num < 1) {
       num = 1;
     }
-    var totalCount = 'preOrderInfo.totalCount';
+    var merchCount = 'orderMerches.merchCount';
     this.setData({
-      [totalCount]: num,
+      [merchCount]: num,
       minusStatus: minusStatus,
       maxusStatus: maxusStatus
     })
   },
+  // 选中的优惠券
+  selectedCoupon (e) {
+    let selectCoupon = this.data.coupons.find(item => item.id === e.currentTarget.dataset.id);
+    if (selectCoupon.id === this.data.selectCoupon.id) {
+      this.setData({
+        selectCoupon: {}
+      });
+      this.closePopup();
+      return false;
+    }
+    if (selectCoupon.type !== 1) {
+      this.setData({
+        selectCoupon: selectCoupon
+      })
+    } else {
+      if (this.data.price * this.data.orderMerches.merchCount >= selectCoupon.sourcePrice) {
+        this.setData({
+          selectCoupon: selectCoupon
+        })
+      } else {
+        wx.showToast({
+          title: '未达到满减条件，不可使用该优惠券',
+          icon: 'none'
+        });
+        return false;
+      }
+    }
+    this.closePopup();
+  },
+  // 点击优惠券栏
+  clickCouponLan () {
+    if (this.data.coupons.length) {
+      this.setData({
+        p_mask: true
+      })
+    }
+  },
+  // 关闭弹窗
+  closePopup () {
+    this.setData({
+      p_mask: false
+    })
+  },
+  getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+      month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+      strDate = "0" + strDate;
+    }
+    var currentdate = year + seperator1 + month + seperator1 + strDate;
+    return currentdate;
+  }
 })

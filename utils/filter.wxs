@@ -51,6 +51,24 @@ var DateFr = {
     } else if (type === 4) {
       return '工作日3天内确认'
     }
+  },
+  getOrderPrice: function (price, coupon) {
+    if (coupon.type === 0) {
+      return price - (price * (coupon.discount / 100));
+    } else if (coupon.type === 1) {
+      return price - coupon.reducePrice
+    } else if (coupon.type === 2) {
+      return price - coupon.reducePrice >= 0 ? price - coupon.reducePrice : 0
+    } else {
+      return price
+    }
+  },
+  getDiscountPrice: function(price, coupon) {
+    if (coupon.type === 0) {
+      return price * (coupon.discount / 100)
+    } else if (coupon.type === 1 || coupon.type === 2) {
+      return coupon.reducePrice
+    }
   }
 }
 
@@ -64,6 +82,8 @@ module.exports = {
   getDistance: DateFr.getDistance,
   getSupportedLanguage: DateFr.getSupportedLanguage,
   formatTime: DateFr.formatTime,
-  getSureDateText: DateFr.getSureDateText
+  getSureDateText: DateFr.getSureDateText,
+  getOrderPrice: DateFr.getOrderPrice,
+  getDiscountPrice: DateFr.getDiscountPrice
 }
 
