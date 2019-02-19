@@ -73,6 +73,31 @@
   <view class='single' wx:if='{{false}}'>
     <input placeholder-class='phcolor' placeholder='传真号'></input>
   </view>
+  <view class='pickUp' wx:if='{{goodsItem.goodsItemBase.pickUpType}}'>
+    <view class='tab-content'>
+      <view class='tab-text active' wx:if='{{goodsItem.goodsItemBase.pickUpType !== 2}}'>
+        自取
+        <image src='../../img/order/detail_icon_bmline.png'></image>
+      </view>
+      <view class='tab-text' wx:if='{{goodsItem.goodsItemBase.pickUpType !== 1}}'>
+        邮寄
+        <image src='../../img/order/detail_icon_bmline.png'></image>
+      </view>
+    </view>
+    <view class='self_taking' wx:if='{{goodsItem.goodsItemBase.pickUpType !== 2}}'>
+      <block wx:for='{{goodsItem.goodsItemInfo.pickUpAddress}}' wx:key='{{index}}'>
+        <view class='radio_label'>
+          <view class='label'>{{item}}</view>
+          <view class='radio_border'>
+            <view class='radio'></view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class='mail single' wx:if='{{goodsItem.goodsItemBase.pickUpType !== 1}}'>
+      <input placeholder-class='phcolor' placeholder='详细地址'></input>
+    </view>
+  </view>
   <view class='many' wx:if='{{useData}}' bindtap='clickCouponLan'>
     <view class='text'>可用优惠券</view>
     <view class='coupon'>

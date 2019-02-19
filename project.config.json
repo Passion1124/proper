@@ -28,13 +28,25 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 0,
+			"list": [
+				{
+					"id": 0,
+					"name": "ORDER",
+					"pathName": "pages/order/order",
+					"query": "giid=2eeb67f8-1739-4a53-96bc-efaed7c8821d&type=1",
+					"scene": 1001
+				}
+			]
 		}
 	}
 }
