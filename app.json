@@ -24,7 +24,8 @@
     "pages/myOrder/myOrder",
     "pages/about/about",
     "pages/help/help",
-    "pages/signIn/signIn"
+    "pages/signIn/signIn",
+    "pages/pay/pay"
   ],
   "window":{
     "backgroundTextStyle":"light",

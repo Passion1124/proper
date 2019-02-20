@@ -1,0 +1,16 @@
+<!-- pay.wxml -->
+<view class='container'>
+  <view class='pay_price_text'>应付金额</view>
+  <view class='price'>{{order.payCurrency}}{{order.payPrice / 100}}</view>
+  <view class='payment_method'>
+    <view class='text'>支付方式</view>
+    <view class='method'>
+      <view class='weixin'>
+        <image src='../../img/pay/wx_pay_active.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='pay_button'>
+    <button>确认付款</button>
+  </view>
+</view>

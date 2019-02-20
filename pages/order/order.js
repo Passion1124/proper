@@ -19,7 +19,7 @@ Page({
       email: '',
       faxNo: '',
       addr: '',
-      addType: 1
+      addType: 0
     },
     receiverId: '',
     orderMerches: {
@@ -219,6 +219,9 @@ Page({
     let data = Object.assign({ base: app.globalData.baseBody }, p_data, { sn });
     app.request(api, data, res => {
       console.log(res);
+      wx.navigateTo({
+        url: '/pages/pay/pay?orderId=' + res.orderId + '&orderNo=' + res.orderNo + '&currency=' + res.currency + '&type=' + this.data.type,
+      })
     }, err => {
       console.error(err);
     })

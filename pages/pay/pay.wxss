@@ -1,0 +1,66 @@
+.pay_price_text{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #B7B7B7;
+  margin: 80rpx 0 16rpx;
+  text-align: center;
+}
+
+.price{
+  font-size: 72rpx;
+  line-height: 100rpx;
+  color: #F97572;
+  text-align: center;
+  margin-bottom: 160rpx;
+}
+
+.payment_method{
+  width: 100%;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+}
+
+.payment_method .text{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #666666;
+  margin-bottom: 24rpx;
+}
+
+.payment_method .method{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.payment_method .method .weixin{
+  width: 315rpx;
+  height: 120rpx;
+}
+
+.payment_method .method .weixin image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.pay_button{
+  position: absolute;
+  left: 0;
+  bottom: 64rpx;
+  width: 100%;
+  padding: 0 85rpx;
+  box-sizing: border-box;
+}
+
+.pay_button button{
+  width: 100%;
+  height: 80rpx;
+  font-size: 32rpx;
+  letter-spacing: 3rpx;
+  color: #fff;
+  border-radius: 40rpx;
+  background-color: #F97572;
+  box-shadow:0px 10rpx 22rpx 0px rgba(164,178,190,0.39);
+}
+
