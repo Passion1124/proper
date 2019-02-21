@@ -192,6 +192,13 @@
   vertical-align: top;
 }
 
+.area .product_num{
+  font-size: 28rpx;
+  line-height: 32rpx;
+  color: #23C2F7;
+  margin-top: 20rpx;
+}
+
 .area .comment .user_info {
   display: flex;
   align-items: center;

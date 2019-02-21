@@ -1,0 +1,86 @@
+.container{
+  padding: 40rpx;
+}
+
+.comment{
+  padding: 20rpx 0 14rpx;
+}
+
+.comment .user_info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40rpx;
+}
+
+.comment .user_info .user {
+  display: flex;
+  align-items: center;
+}
+
+.comment .user_info .user .avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-right: 24rpx;
+  overflow: hidden;
+}
+
+.comment .user_info .user .avatar image {
+  width: 100%;
+  height: 100%;
+}
+
+.comment .user_info .user .name_date .name {
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #3c3c3c;
+  margin-bottom: 8rpx;
+}
+
+.comment .user_info .user .name_date .date {
+  font-size: 20rpx;
+  line-height: 28rpx;
+  color: #3c3c3c;
+}
+
+.comment .user_info .star {
+  /* padding-top: 11rpx; */
+  margin-bottom: 0;
+}
+
+.comment .user_info .star image {
+  width: 16rpx;
+  height: 16rpx;
+  margin-right: 4rpx;
+  vertical-align: top;
+}
+
+.comment .user_info .star image:last-of-type {
+  margin-right: 0;
+}
+
+.comment .main {
+  margin-bottom: 40rpx;
+}
+
+.comment .main .text {
+  font-size: 32rpx;
+  line-height: 32rpx;
+  color: #3c3c3c;
+  margin-bottom: 24rpx;
+}
+
+.comment .main .img_row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comment .main .img_row image {
+  width: 212rpx;
+  height: 212rpx;
+  border-radius: 8rpx;
+  margin-bottom: 16rpx;
+}

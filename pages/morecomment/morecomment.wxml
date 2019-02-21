@@ -1,0 +1,33 @@
+<!-- morecomment.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
+<view class='container'>
+  <block wx:for='{{comment}}' wx:key='{{index}}' wx:if='{{comment.length}}'>
+    <view class='comment'>
+      <view class='user_info'>
+        <view class='user'>
+          <view class='avatar'>
+            <image src='{{item.avatar || "../../img/common/avatar.png"}}'></image>
+          </view>
+          <view class='name_date'>
+            <view class='name'>{{item.nickname || '游客'}}</view>
+            <view class='date'>{{dateFr.formatTime(item.createAt)}}</view>
+          </view>
+        </view>
+        <view class='star'>
+          <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-item='sItem' wx:for-index='sIndex'>
+            <image src='../../img/index/star_check.png' wx:if='{{item.star >= sItem + 1}}'></image>
+            <image src='../../img/index/star_uncheck.png' wx:else></image>
+          </block>
+        </view>
+      </view>
+      <view class='main'>
+        <view class='text'>{{item.comment}}</view>
+        <view class='img_row' wx:if='{{item.pics.length}}'>
+          <block wx:for='{{item.pics}}' wx:key='{{pIndex}}' wx:for-item='pItem' wx:for-index='pIndex'>
+            <image src='{{pItem}}'></image>
+          </block>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

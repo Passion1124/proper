@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 3,
 			"list": [
 				{
 					"id": 0,
@@ -51,6 +51,20 @@
 					"name": "pay",
 					"pathName": "pages/pay/pay",
 					"query": "orderId=dd4c1032586c44b993bf12c4072be685&orderNo=7786598053894410240&currency=CNY&type=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "产品价格",
+					"pathName": "pages/childProductList/childProductList",
+					"query": "gid=0970e7aa-c471-4f2b-8c59-fdb105c11474",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "评论详情",
+					"pathName": "pages/morecomment/morecomment",
+					"query": "target=0970e7aa-c471-4f2b-8c59-fdb105c11474",
 					"scene": null
 				}
 			]

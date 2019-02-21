@@ -14,6 +14,7 @@ Page({
     favor: false,
     goods: {},
     goodsItem: [],
+    goodsItemCount: 0,
     imgUrls: [],
     indicatorDots: true,
     autoplay: false,
@@ -115,7 +116,8 @@ Page({
       this.setData({
         goods: res.goodsVO,
         goodsItem: res.goodsItemVOs,
-        imgUrls: res.goodsVO.goodsBase.pics
+        imgUrls: res.goodsVO.goodsBase.pics,
+        goodsItemCount: res.itemCount
       });
       WxParse.wxParse('article', 'html', this.data.goods.goodsInfo.info, this, 5);
     }, (err) => {
@@ -287,6 +289,16 @@ Page({
     let id = e.currentTarget.dataset.id;
     wx.navigateTo({
       url: '/pages/couponDetail/couponDetail?couponId=' + couponId + '&source=poi_detail&id=' + id,
+    })
+  },
+  goToTheChildProductList (e) {
+    wx.navigateTo({
+      url: '/pages/childProductList/childProductList?gid=' + this.data.gid + '&type=' + this.data.type,
+    })
+  },
+  goToTheCommentList () {
+    wx.navigateTo({
+      url: '/pages/morecomment/morecomment?target=' + this.data.gid,
     })
   }
 })
