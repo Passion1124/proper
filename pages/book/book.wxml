@@ -1,0 +1,147 @@
+<!-- book.wxml -->
+<view class='container'>
+  <view class='header'>
+    <view class='text active'>预定</view>
+    <view class='arrow'>
+      <image src='../../img/book/arrow_active.png'></image>
+    </view>
+    <view class='text'>确认</view>
+    <view class='arrow'>
+      <image src='../../img/book/arrow.png'></image>
+    </view>
+    <view class='text'>完成</view>
+  </view>
+  <view class='book_form'>
+    <view class='form_title'>
+      <view class='title_text'>预定信息</view>
+    </view>
+    <view class='single'>
+      <view class='single_text'>用餐时间</view>
+      <view class='single_left'>2019-01-07</view>
+    </view>
+    <view class='single'>
+      <view class='single_text'>用餐人数</view>
+      <view class='people_num'>
+        <view class='{{ minusStatus }}' bindtap='bindMinus'>
+          <view class='img_row'>
+            <image src='../../img/common/reduce.png'></image>
+          </view>
+        </view>
+        <view>
+          <input type='number' value='{{orderMerches.merchCount}}' bindchange='bindManual'></input>
+        </view>
+        <view class='{{ maxusStatus }}' bindtap='bindPlus'>
+          <view class='img_row'>
+            <image src='../../img/common/plus.png'></image>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='service_charge'>
+      <view class='info'>
+        <view>预订服务费</view>
+        <view>￥3.00/人</view>
+        <view>服务商：某某某 | 不支持退款</view>
+      </view>
+      <view class='radio_icon'>
+        <image src='../../img/book/cart_icon_radio_on.png'></image>
+      </view>
+    </view>
+    <view class='form_title no_border'>
+      <view class='title_text'>套餐</view>
+      <view class='title_tips'>注：套餐和服务费必须2选一</view>
+    </view>
+    <view class='set_meal_ground'>
+      <view class='set_meal'>
+        <view class='poster'>
+          <image src=''></image>
+        </view>
+        <view class='info'>
+          <view class='info_name'>真·鱼生粉日料神马最爱！</view>
+          <view class='price'>
+            <view class='present'>￥1313.00 </view>
+            <view class='original'>￥3680.00 </view>
+          </view>
+          <view class='order_date'>最早可预订11月25日</view>
+        </view>
+        <view class='radio_icon'>
+          <image src='../../img/book/cart_icon_radio_on.png'></image>
+        </view>
+      </view>
+    </view>
+    <view class='form_title no_border'>
+      <view class='title_text'>偏好</view>
+    </view>
+    <view class='form_radio_ground'>
+      <view class='form_radio'>
+        <view class='radio_text'>吸烟区</view>
+        <view class='radio_icon'>
+          <image src='../../img/book/cart_icon_radio_on.png'></image>
+        </view>
+      </view>
+      <view class='form_radio'>
+        <view class='radio_text'>非吸烟区</view>
+        <view class='radio_icon'>
+          <image src='../../img/book/cart_icon_radio_on.png'></image>
+        </view>
+      </view>
+      <view class='form_radio'>
+        <view class='radio_text'>不介意</view>
+        <view class='radio_icon'>
+          <image src='../../img/book/cart_icon_radio_on.png'></image>
+        </view>
+      </view>
+    </view>
+    <view class='form_title no_border'>
+      <view class='title_text'>包间</view>
+    </view>
+    <view class='form_radio_ground'>
+      <view class='form_radio'>
+        <view class='radio_text'>不需要</view>
+        <view class='radio_icon'>
+          <image src='../../img/book/cart_icon_radio_on.png'></image>
+        </view>
+      </view>
+      <view class='form_radio'>
+        <view class='radio_text'>需要</view>
+        <view class='radio_icon'>
+          <image src='../../img/book/cart_icon_radio.png'></image>
+        </view>
+      </view>
+    </view>
+    <view class='form_title'>
+      <view class='title_text'>联系方式</view>
+    </view>
+    <view class='single'>
+      <input placeholder='输入您的姓名' placeholder-class='ph_class'></input>
+    </view>
+    <view class='single'>
+      <input placeholder='邮箱' placeholder-class='ph_class'></input>
+    </view>
+    <view class='single'>
+      <input placeholder='手机+86' placeholder-class='ph_class'></input>
+    </view>
+    <view class='form_title no_border'>
+      <view class='title_text'>预约说明</view>
+    </view>
+    <view class='order_explain'>
+      <view>花粉过敏</view>
+      <view class='active'>不爱抽烟</view>
+      <view>喜欢安静</view>
+    </view>
+    <view class='form_title no_border'>
+      <view class='title_text'>预约说明</view>
+    </view>
+    <view class='order_explain_tips'>请按照用餐人数下单，本产品为二次确认产品（不是能下单就一定有位，收到确认短信，只是确认收到需求，确认需求后店家确定座位情况），若预定失败（满座，政策等原因），会为您安排退款。
+因餐厅比较热门，为了能够提升预定的成功率，请在备注里勾选可以接受同一个别的时间段用餐。</view>
+  </view>
+  <view class='price_btn'>
+    <view class='price'>
+      <text>合计</text>
+      <text>￥6.00</text>
+    </view>
+    <view class='btn'>
+      <button>提价订单</button>
+    </view>
+  </view>
+</view>

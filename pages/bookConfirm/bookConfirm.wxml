@@ -1,0 +1,74 @@
+<!-- bookConfirm.wxml -->
+<view class='container'>
+  <view class='header'>
+    <view class='text active'>预定</view>
+    <view class='arrow'>
+      <image src='../../img/book/arrow_active.png'></image>
+    </view>
+    <view class='text active'>确认</view>
+    <view class='arrow'>
+      <image src='../../img/book/arrow_active.png'></image>
+    </view>
+    <view class='text'>完成</view>
+  </view>
+  <view class='book_form'>
+    <view class='form_title'>
+      <view class='title_text'>预定信息</view>
+    </view>
+    <view class='single'>
+      <view class='single_text'>用餐时间</view>
+      <view class='single_left'>2018-11-28 17：30</view>
+    </view>
+    <view class='single'>
+      <view class='single_text'>用餐人数</view>
+      <view class='single_left'>3人</view>
+    </view>
+    <view class='single'>
+      <view class='single_text'>预订服务费</view>
+      <view class='single_left'>￥3.00/人</view>
+    </view>
+    <view class='single'>
+      <view class='single_text'>偏好</view>
+      <view class='single_left'>吸烟区</view>
+    </view>
+    <view class='single'>
+      <view class='single_text'>包间</view>
+      <view class='single_left'>需要</view>
+    </view>
+    <view class='single set_meal'>
+      <view class='poster'>
+        <image src=''></image>
+      </view>
+      <view class='info'>
+        <view class='info_name'>日料神马最爱三文鱼</view>
+        <view class='price'>￥1313.00</view>
+      </view>
+    </view>
+    <view class='form_title'>
+      <view class='title_text'>联系方式</view>
+    </view>
+    <view class='single'>
+      <view class='single_text'>姓名(英文/日文)</view>
+      <view class='single_left'>mengdan</view>
+    </view>
+    <view class='single'>
+      <view class='single_text'>邮箱邮箱</view>
+      <view class='single_left'>8888@jp.xxx</view>
+    </view>
+    <view class='single'>
+      <view class='single_text'>手机</view>
+      <view class='single_left'>+86 156 8888 9999</view>
+    </view>
+    <view class='form_title no_border'>
+      <view class='title_text'>预约说明</view>
+    </view>
+    <view class='order_explain'>
+      <view>花粉过敏</view>
+      <view>不爱抽烟</view>
+      <view>喜欢安静</view>
+    </view>
+  </view>
+  <view class='sure_submit_btn'>
+    <button>确认，下一步</button>
+  </view>
+</view>

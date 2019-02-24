@@ -1,0 +1,334 @@
+image {
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 40rpx;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.header .text {
+  font-size: 36rpx;
+  line-height: 50rpx;
+  color: #b7b7b7;
+}
+
+.header .active {
+  color: #23c2f7;
+  font-weight: bold;
+}
+
+.header .arrow {
+  width: 40rpx;
+  height: 9rpx;
+  margin: 0 47rpx;
+}
+
+.book_form {
+  width: 100%;
+  padding: 0 40rpx 180rpx;
+  box-sizing: border-box;
+}
+
+.book_form .form_title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 64rpx 0 24rpx;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.book_form .no_border {
+  border: 0 !important;
+}
+
+.book_form .form_title .title_text {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #3c3c3c;
+}
+
+.book_form .form_title .title_tips{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #8C8C8C;
+}
+
+.book_form .single {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 40rpx 0;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.book_form .single .single_text {
+  font-size: 36rpx;
+  line-height: 50rpx;
+  color: #3c3c3c;
+}
+
+.book_form .service_charge{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 64rpx 0 40rpx;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.book_form .service_charge .info view:first-of-type{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #3C3C3C;
+}
+
+.book_form .service_charge .info view:nth-of-type(2){
+  font-size: 36rpx;
+  line-height: 50rpx;
+  color: #F97572;
+  margin: 10rpx 0;
+}
+
+.book_form .service_charge .info view:last-of-type{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #8C8C8C;
+}
+
+.book_form .service_charge .radio_icon{
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.book_form .set_meal_ground{
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.book_form .set_meal_ground .set_meal{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 40rpx;
+}
+
+.book_form .set_meal_ground  .set_meal .poster{
+  width: 172rpx;
+  height: 172rpx;
+  border-radius: 8rpx;
+  background-color: #D8D8D8;
+  margin-right: 24rpx;
+}
+
+.book_form .set_meal_ground  .set_meal .info{
+  flex: 1;
+}
+
+.book_form .set_meal_ground  .set_meal .info .info_name{
+  font-size: 35rpx;
+  line-height: 49rpx;
+  color: #3C3C3C;
+}
+
+.book_form .set_meal_ground  .set_meal .info .price{
+  display: flex;
+  align-items: center;
+  margin: 42rpx 0 16rpx;
+}
+
+.book_form .set_meal_ground  .set_meal .info .price .present, .book_form .set_meal_ground  .set_meal .info .price .original{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #F97572;
+  margin-right: 16rpx;
+}
+
+.book_form .set_meal_ground  .set_meal .info .price .original{
+  color: #666666;
+  margin-right: 0;
+  text-decoration: line-through;
+}
+
+.book_form .set_meal_ground  .set_meal .info .order_date{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #666666;
+}
+
+.book_form .set_meal_ground  .set_meal .radio_icon{
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.book_form .form_radio_ground .form_radio {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 120rpx;
+  border-radius: 16rpx;
+  border: 1rpx solid #e0e0e0;
+  padding: 0 24rpx;
+  margin-bottom: 24rpx;
+  box-sizing: border-box;
+}
+
+.book_form .form_radio_ground .form_radio:last-of-type {
+  margin-bottom: 0;
+}
+
+.book_form .form_radio_ground .form_radio .radio_text {
+  font-size: 32rpx;
+  line-height: 50rpx;
+  color: #3c3c3c;
+  letter-spacing: 1rpx;
+}
+
+.book_form .form_radio_ground .form_radio .radio_icon {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.book_form .single .people_num {
+  display: flex;
+  align-items: center;
+  width: 262rpx;
+  height: 70rpx;
+  border: 1rpx solid #23c2f7;
+  border-radius: 35rpx;
+  overflow: hidden;
+}
+
+.book_form .single .people_num>view:not(:nth-of-type(2)) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72rpx;
+  height: 68rpx;
+}
+
+.book_form .single .people_num>view:not(:nth-of-type(2)) .img_row {
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 0;
+}
+
+.book_form .single .people_num>view:not(:nth-of-type(2)) .img_row image {
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.book_form .single .people_num>view:nth-of-type(1) {
+  border-right: 1rpx solid #23c2f7;
+}
+
+.book_form .single .people_num>view:nth-of-type(3) {
+  border-left: 1rpx solid #23c2f7;
+}
+
+.book_form .single .people_num>view:nth-of-type(2) {
+  flex: 1;
+  height: 100%;
+}
+
+.book_form .single .people_num>view:nth-of-type(2) input {
+  height: 100%;
+  text-align: center;
+  color: #23c2f7;
+  font-size: 36rpx;
+  line-height: 68rpx;
+}
+
+.book_form .single input {
+  width: 100%;
+  font-size: 36rpx;
+  line-height: 50rpx;
+  color: #3c3c3c;
+}
+
+.book_form .single .ph_class {
+  font-size: 36rpx;
+  line-height: 50rpx;
+  color: #b7b7b7;
+}
+
+.book_form  .order_explain {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.book_form  .order_explain view {
+  height: 75rpx;
+  line-height: 75rpx;
+  font-size: 28rpx;
+  color: #8C8C8C;
+  padding: 0 48rpx;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  margin: 0 24rpx 24rpx 0;
+  overflow: hidden;
+}
+
+.book_form  .order_explain view.active{
+  color: #fff;
+  background-color: #23C2F7;
+  border-color: #23C2F7;
+}
+
+.book_form .order_explain_tips{
+  color: #8C8C8C;
+    font-size: 28rpx;
+    line-height: 40rpx;
+}
+
+.price_btn {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 121rpx;
+  padding: 0 40rpx;
+  border-top: 1rpx solid #e0e0e0;
+  background-color: #fff;
+  box-sizing: border-box;
+  z-index: 9;
+}
+
+.price_btn .price {
+  display: flex;
+  align-items: center;
+}
+
+.price_btn .price text:first-of-type {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #3c3c3c;
+  margin-right: 8rpx;
+}
+
+.price_btn .price text:last-of-type {
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #f97572;
+}
+
+.price_btn .btn button {
+  width: 267rpx;
+  height: 80rpx;
+  font-size: 32rpx;
+  letter-spacing: 3rpx;
+  color: #fff;
+  border-radius: 40rpx;
+  background-color: #f97572;
+}

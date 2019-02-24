@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/lineUp/lineUp",
     "pages/index/index",
     "pages/trip/trip",
     "pages/shoppingCart/shoppingCart",
@@ -27,7 +28,10 @@
     "pages/signIn/signIn",
     "pages/pay/pay",
     "pages/childProductList/childProductList",
-    "pages/morecomment/morecomment"
+    "pages/morecomment/morecomment",
+    "pages/book/book",
+    "pages/bookConfirm/bookConfirm",
+    "pages/lineUpConfirm/lineUpConfirm"
   ],
   "window":{
     "backgroundTextStyle":"light",

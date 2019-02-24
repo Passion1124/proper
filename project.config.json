@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 3,
+			"current": 5,
 			"list": [
 				{
 					"id": 0,
@@ -65,6 +65,20 @@
 					"name": "评论详情",
 					"pathName": "pages/morecomment/morecomment",
 					"query": "target=0970e7aa-c471-4f2b-8c59-fdb105c11474",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "预订座位-预订",
+					"pathName": "pages/book/book",
+					"query": "mid=9e07c7c3-4594-4b3a-beac-ca419becb5f3&gid=7892be6d-b8aa-4863-bef0-550555fcdfb2",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "预订座位-预订确认",
+					"pathName": "pages/bookConfirm/bookConfirm",
+					"query": "mid=9e07c7c3-4594-4b3a-beac-ca419becb5f3&gid=7892be6d-b8aa-4863-bef0-550555fcdfb2",
 					"scene": null
 				}
 			]
