@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 8,
 			"list": [
 				{
 					"id": 0,
@@ -79,6 +79,27 @@
 					"name": "预订座位-预订确认",
 					"pathName": "pages/bookConfirm/bookConfirm",
 					"query": "mid=9e07c7c3-4594-4b3a-beac-ca419becb5f3&gid=7892be6d-b8aa-4863-bef0-550555fcdfb2",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "美食详情",
+					"pathName": "pages/fooddetail/fooddetail",
+					"query": "gid=7892be6d-b8aa-4863-bef0-550555fcdfb2&type=2",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "帮助",
+					"pathName": "pages/help/help",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "关于",
+					"pathName": "pages/about/about",
+					"query": "",
 					"scene": null
 				}
 			]

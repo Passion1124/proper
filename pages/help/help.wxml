@@ -1,2 +1,11 @@
 <!-- help.wxml -->
-<view class='container'>帮助中心</view>
+<view class='container'>
+  <block wx:for='{{list}}' wx:key='{{index}}'>
+    <view data-index='{{index}}' class='list' bindtap='goToTheHelpDetail'>
+      <view class='text'>{{item}}</view>
+      <view class='arrow_icon'>
+        <image src='../../img/common/more.png'></image>
+      </view>
+    </view>
+  </block>
+</view>

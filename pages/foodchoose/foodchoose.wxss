@@ -1,0 +1,126 @@
+.container{
+  padding: 0 40rpx;
+}
+
+.single {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 40rpx 0;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.single .single_text {
+  font-size: 36rpx;
+  line-height: 50rpx;
+  color: #3c3c3c;
+}
+
+.single .people_num {
+  display: flex;
+  align-items: center;
+  width: 262rpx;
+  height: 70rpx;
+  border: 1rpx solid #23c2f7;
+  border-radius: 35rpx;
+  overflow: hidden;
+}
+
+.single .people_num>view:not(:nth-of-type(2)) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72rpx;
+  height: 68rpx;
+}
+
+.single .people_num>view:not(:nth-of-type(2)) .img_row {
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 0;
+}
+
+.single .people_num>view:not(:nth-of-type(2)) .img_row image {
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.single .people_num>view:nth-of-type(1) {
+  border-right: 1rpx solid #23c2f7;
+}
+
+.single .people_num>view:nth-of-type(3) {
+  border-left: 1rpx solid #23c2f7;
+}
+
+.single .people_num>view:nth-of-type(2) {
+  flex: 1;
+  height: 100%;
+}
+
+.single .people_num>view:nth-of-type(2) input {
+  height: 100%;
+  text-align: center;
+  color: #23c2f7;
+  font-size: 36rpx;
+  line-height: 68rpx;
+}
+
+.single input {
+  width: 100%;
+  font-size: 36rpx;
+  line-height: 50rpx;
+  color: #3c3c3c;
+}
+
+.single .ph_class {
+  font-size: 36rpx;
+  line-height: 50rpx;
+  color: #b7b7b7;
+}
+
+.price_btn {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 120rpx;
+  padding: 0 40rpx;
+  box-shadow:0px -3rpx 14rpx 0px rgba(0,0,0,0.1);
+  background-color: #fff;
+  box-sizing: border-box;
+  z-index: 9;
+}
+
+.price_btn .price {
+  display: flex;
+  align-items: center;
+}
+
+.price_btn .price text:first-of-type {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #3c3c3c;
+  margin-right: 8rpx;
+}
+
+.price_btn .price text:last-of-type {
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #f97572;
+}
+
+.price_btn .btn button {
+  width: 370rpx;
+  height: 80rpx;
+  font-size: 32rpx;
+  letter-spacing: 3rpx;
+  color: #fff;
+  border-radius: 40rpx;
+  background-color: #f97572;
+}

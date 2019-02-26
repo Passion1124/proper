@@ -1,6 +1,5 @@
 {
   "pages":[
-    "pages/lineUp/lineUp",
     "pages/index/index",
     "pages/trip/trip",
     "pages/shoppingCart/shoppingCart",
@@ -25,18 +24,23 @@
     "pages/myOrder/myOrder",
     "pages/about/about",
     "pages/help/help",
+    "pages/helpDetail/helpDetail",
     "pages/signIn/signIn",
     "pages/pay/pay",
     "pages/childProductList/childProductList",
     "pages/morecomment/morecomment",
     "pages/book/book",
     "pages/bookConfirm/bookConfirm",
-    "pages/lineUpConfirm/lineUpConfirm"
+    "pages/lineUp/lineUp",
+    "pages/lineUpConfirm/lineUpConfirm",
+    "pages/fooddetail/fooddetail",
+    "pages/foodMeal/foodMeal",
+    "pages/foodchoose/foodchoose"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "",
     "navigationBarTextStyle":"black"
   },
   "tabBar": {

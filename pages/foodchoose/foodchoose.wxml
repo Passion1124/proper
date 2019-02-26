@@ -1,0 +1,39 @@
+<!-- foodchoose.wxml -->
+<view class='container'>
+  <view class='single'>
+    <view class='single_text'>购买份数</view>
+    <view class='people_num'>
+      <view class='{{ minusStatus }}' bindtap='bindMinus'>
+        <view class='img_row'>
+          <image src='../../img/common/reduce.png'></image>
+        </view>
+      </view>
+      <view>
+        <input type='number' value='{{orderMerches.merchCount}}' bindchange='bindManual'></input>
+      </view>
+      <view class='{{ maxusStatus }}' bindtap='bindPlus'>
+        <view class='img_row'>
+          <image src='../../img/common/plus.png'></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='single'>
+    <input placeholder='您的姓名' placeholder-class='ph_class'></input>
+  </view>
+  <view class='single'>
+    <input placeholder='手机号码' placeholder-class='ph_class'></input>
+  </view>
+  <view class='single'>
+    <input placeholder='邮箱' placeholder-class='ph_class'></input>
+  </view>
+  <view class='price_btn'>
+    <view class='price'>
+      <text>合计</text>
+      <text>￥6.00</text>
+    </view>
+    <view class='btn'>
+      <button>提价订单</button>
+    </view>
+  </view>
+</view>

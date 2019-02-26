@@ -1,0 +1,7 @@
+<!-- helpDetail.wxml -->
+<view class='container'>
+  <view class='title'>{{list[index]}}</view>
+  <block wx:for='{{list_detail[index]}}' wx:key='{{index}}'>
+    <view class='subTitle'>{{item}}</view>
+  </block>
+</view>
