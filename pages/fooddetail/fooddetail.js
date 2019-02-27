@@ -51,6 +51,7 @@ Page({
       type: options.type
     });
     this.getGoodsDetail();
+    this.getGoodsItemList();
     this.getCommentList();
     this.getCommentCount();
     this.getFavorCheckList();
@@ -114,13 +115,25 @@ Page({
       console.log(res);
       this.setData({
         goods: res.goodsVO,
-        goodsItem: res.goodsItemVOs,
-        imgUrls: res.goodsVO.goodsBase.pics,
-        goodsItemCount: res.itemCount
+        imgUrls: res.goodsVO.goodsBase.pics
       });
       WxParse.wxParse('article', 'html', this.data.goods.goodsInfo.info, this, 5);
     }, (err) => {
       console.error(err);
+    })
+  },
+  // 子商品列表
+  getGoodsItemList () {
+    let api = 'com.ttdtrip.api.goods.apis.GoodsItemListApiService';
+    let data = { base: app.globalData.baseBody, gid: this.data.gid, subType: 21, page: 1, size: 1 };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        goodsItem: res.goodsItemVOS,
+        goodsItemCount: res.total
+      });
+    }, e => {
+      console.error(e);
     })
   },
   // 评论列表

@@ -18,6 +18,19 @@
   <view class='row'>
     <view class='area'>
       <view class='title'>{{ goods.goodsInfo.name }}</view>
+      <view class='subTitle'>{{ goods.goodsInfo.category}} | 人均{{goods.goodsInfo.avgPrice}}</view>
+      <view class='food_price_box'>
+        <view class='icon'>
+          <image src='../../img/food/fooddetail_icon_sunshine.png'></image>
+        </view>
+        <view class='price'>日均价{{ goods.goodsInfo.dPrice }}</view>
+      </view>
+      <view class='food_price_box'>
+        <view class='icon'>
+          <image src='../../img/food/fooddetail_icon_night.png'></image>
+        </view>
+        <view class='price'>夜均价{{ goods.goodsInfo.nPrice }}</view>
+      </view>
       <view class='star'>
         <block wx:for='{{5}}' wx:key='{{index}}'>
           <image src='../../img/index/star_check.png' wx:if='{{ (goods.goodsBase ? goods.goodsBase.star : 0) >= item + 1}}'></image>
@@ -50,6 +63,18 @@
           <image src='../../img/common/phone.png'></image>
         </view>
       </view>
+      <view class='email' wx:if='{{goods.goodsBase.email}}'>
+        <view class='label'>邮箱：</view>
+        <view class='text'>
+          <view class='date'>{{ goods.goodsBase.email}}</view>
+        </view>
+      </view>
+      <view class='fax' wx:if='{{goods.goodsBase.fax}}'>
+        <view class='label'>传真号：</view>
+        <view class='text'>
+          <view class='date'>{{ goods.goodsBase.fax}}</view>
+        </view>
+      </view>
       <view class='language' wx:if='{{goods.goodsInfo.supportedLanguage.length}}'>
         <view class='label'>服务语言：{{dateFr.getSupportedLanguage(goods.goodsInfo.supportedLanguage)}}</view>
       </view>
@@ -62,26 +87,21 @@
       <view class='product'>
         <block wx:for='{{goodsItem}}' wx:key='{{index}}'>
           <view class='list'>
-            <view class='p_main'>
-              <view class='title'>{{item.goodsItemInfo.name}}</view>
-              <view>{{item.goodsItemInfo.subInfo}}</view>
-              <view>
-                <view class='price'>
-                  <view class='present'>{{item.goodsItemBase.currency}}{{item.goodsItemBase.amount ? item.goodsItemBase.amount / 100 : item.goodsItemBase.sourceAmount / 100 }}</view>
-                  <view class='original' wx:if='{{item.goodsItemBase.amount && item.goodsItemBase.amount !== item.goodsItemBase.sourceAmount}}'>{{item.goodsItemBase.currency}}{{item.goodsItemBase.sourceAmount / 100 }}</view>
-                </view>
-                <view class='ticket' wx:if='{{item.goodsItemBase.coupon}}'>
-                  <image src='../../img/index/ticket.png'></image>
-                </view>
-              </view>
+            <view class='poster'>
+              <image src='{{item.goodsItemBase.poster}}'></image>
             </view>
-            <view class='buy'>
-              <button data-giid='{{item.goodsItemInfo.giid}}' bindtap='goToTheGoodsItemDetail'>购买</button>
+            <view class='info'>
+              <view class='info_name'>{{item.goodsItemInfo.name}}</view>
+              <view class='price'>
+                <view class='present'>{{item.goodsItemBase.currency}}{{item.goodsItemBase.amount ? item.goodsItemBase.amount / 100 : item.goodsItemBase.sourceAmount / 100 }}</view>
+                  <view class='original' wx:if='{{item.goodsItemBase.amount && item.goodsItemBase.amount !== item.goodsItemBase.sourceAmount}}'>{{item.goodsItemBase.currency}}{{item.goodsItemBase.sourceAmount / 100 }}</view>
+              </view>
+              <view class='date'>有效期至：{{dateFr.getDate(item.goodsItemBase.end, '/')}}</view>
             </view>
           </view>
         </block>
       </view>
-      <view class='product_num' bindtap='goToTheChildProductList' wx:if='{{goodsItemCount >= 5}}'>查看全部{{goodsItemCount}}个套餐</view>
+      <view class='product_num' bindtap='goToTheChildProductList'>查看全部{{goodsItemCount}}个套餐</view>
       <view class='main_row' wx:if='{{coupons.length}}'>
         <block wx:for="{{coupons}}" wx:key="{{index}}">
           <view class='main' data-couponId='{{item.id}}' data-id='{{item.id}}' bindtap='goToTheCouponsDetail'>
@@ -168,16 +188,25 @@
       <view class='see' bindtap='goToTheCommentList' wx:if='{{comment.length}}'>查看全部{{commentCount}}条点评</view>
       <view class='comment_empty' wx:if='{{!comment.length}}'>暂无评论</view>
     </view>
-    <view class='area border_0'>
+    <view class='area'>
       <view class='area_title'>餐厅介绍</view>
       <view class='introduce'>
         <!-- <rich-text nodes='{{goods.goodsInfo.info}}'></rich-text> -->
         <template is="wxParse" data="{{wxParseData: article.nodes}}" />
       </view>
     </view>
-    <view class='area border_0 padding_top_0'>
-      <view class='area_title'>购买须知</view>
+    <!-- padding_top_0 -->
+    <view class='area border_0'>
+      <!-- <view class='area_title'>购买须知</view> -->
       <view class='explain'>
+        <view wx:if='{{goods.goodsInfo.childrenPrivacy}}'>
+          <view>儿童政策</view>
+          <view>{{ goods.goodsInfo.childrenPrivacy }}</view>
+        </view>
+        <view wx:if='{{goods.goodsInfo.specialDesc}}'>
+          <view>特殊要求</view>
+          <view>{{ goods.goodsInfo.specialDesc }}</view>
+        </view>
         <block wx:for="{{goods.goodsDescs}}" wx:key='{{index}}'>
           <view>
             <view>{{item.title}}</view>

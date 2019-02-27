@@ -54,6 +54,37 @@
   margin-bottom: 40rpx;
 }
 
+.area .subTitle {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #3c3c3c;
+  margin-bottom: 24rpx;
+}
+
+.area .food_price_box {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.area .food_price_box .icon {
+  width: 28rpx;
+  height: 28rpx;
+  margin-right: 8rpx;
+}
+
+.area .food_price_box .icon image {
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.area .food_price_box .price {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #3c3c3c;
+}
+
 .area .star {
   display: flex;
   align-items: center;
@@ -106,10 +137,7 @@
   align-items: center;
   width: 100%;
   /* height: 264rpx; */
-  padding: 32rpx 24rpx;
-  border-radius: 16rpx;
-  background-color: #f2f5f7;
-  margin-bottom: 20rpx;
+  margin-bottom: 40rpx;
   box-sizing: border-box;
 }
 
@@ -117,85 +145,61 @@
   margin-bottom: 0;
 }
 
-.area .product>view .p_main {
-  width: 452rpx;
-}
-
-.area .product>view .p_main .title {
-  width: 100%;
-  font-size: 32rpx;
-  line-height: 45rpx;
-  color: #484848;
-  margin-bottom: 8rpx;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+.area .product>view .poster {
+  width: 112rpx;
+  height: 112rpx;
+  background: #d8d8d8;
+  border-radius: 8rpx;
   overflow: hidden;
-}
-
-.area .product>view .buy button {
-  width: 128rpx;
-  height: 48rpx;
-  line-height: 46rpx;
-  color: #fff;
-  font-size: 22rpx;
-  letter-spacing: 2rpx;
-  border-radius: 31rpx;
-  background-color: #f97572;
-  padding: 0;
-}
-
-.area .product>view .p_main>view:nth-of-type(2) {
-  width: 100%;
-  font-size: 24rpx;
-  line-height: 33rpx;
-  color: #666;
-  margin-bottom: 24rpx;
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
-}
-
-.area .product>view .p_main>view:nth-of-type(3) {
-  display: flex;
-  align-items: center;
-}
-
-.area .product>view .p_main>view:nth-of-type(3) .price {
-  display: flex;
-  align-items: center;
-}
-
-.area .product>view .p_main>view:nth-of-type(3) .price .present {
-  font-size: 32rpx;
-  line-height: 45rpx;
-  color: #f97572;
   margin-right: 24rpx;
 }
 
-.area .product>view .p_main>view:nth-of-type(3) .price .original {
-  font-size: 24rpx;
-  line-height: 33rpx;
-  color: #8c8c8c;
-  text-decoration: line-through;
-}
-
-.area .product>view .p_main>view:nth-of-type(3) .ticket {
-  width: 38rpx;
-  height: 29rpx;
-  margin-left: 30rpx;
-}
-
-.area .product>view .p_main>view:nth-of-type(3) .ticket image {
+.area .product>view .poster image{
   width: 100%;
   height: 100%;
   vertical-align: top;
 }
 
-.area .product_num{
+.area .product>view .info{
+  flex: 1;
+}
+
+.area .product>view .info .info_name{
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #3C3C3C;
+  letter-spacing: 1rpx;
+}
+
+.area .product>view .info .price{
+  display: flex;
+  align-items: center;
+  margin: 8rpx 0;
+}
+
+.area .product>view .info .price view{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  letter-spacing: 1rpx;
+  color: #F97572;
+  margin-right: 8rpx;
+}
+
+.area .product>view .info .price view.original{
+  color: #666;
+  text-decoration: line-through;
+}
+
+.area .product>view .info .date{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #666;
+}
+
+.area .product_num {
   font-size: 28rpx;
   line-height: 32rpx;
-  color: #23C2F7;
+  color: #23c2f7;
   margin-top: 20rpx;
 }
 
@@ -467,7 +471,7 @@
   text-overflow: ellipsis;
 }
 
-.main_row .main .content .bottom view:last-of-type{
+.main_row .main .content .bottom view:last-of-type {
   font-size: 0;
 }
 
@@ -484,8 +488,8 @@
   padding: 0;
 }
 
-.main_row .main .content .bottom view:last-of-type .hasExists{
+.main_row .main .content .bottom view:last-of-type .hasExists {
   font-size: 24rpx;
   line-height: 33rpx;
-  color: #8C8C8C;
+  color: #8c8c8c;
 }
