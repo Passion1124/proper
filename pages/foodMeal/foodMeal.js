@@ -6,14 +6,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    gid: '',
+    type: '',
+    page: 1,
+    size: 10,
+    goodsItem: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.data.gid = options.gid;
+    this.data.type = options.type;
+    this.getGoodsItemList();
   },
 
   /**
@@ -63,5 +69,18 @@ Page({
    */
   onShareAppMessage: function () {
     
+  },
+  // 子商品列表
+  getGoodsItemList() {
+    let api = 'com.ttdtrip.api.goods.apis.GoodsItemListApiService';
+    let data = { base: app.globalData.baseBody, gid: this.data.gid, subType: 21, page: this.data.page, size: this.data.size };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        goodsItem: res.goodsItemVOS
+      });
+    }, e => {
+      console.error(e);
+    })
   }
 })

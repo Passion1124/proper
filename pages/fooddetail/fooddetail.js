@@ -45,7 +45,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.setData({
       gid: options.gid,
       type: options.type
@@ -62,54 +62,57 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-    
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-    
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-    
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-    
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-    
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-    
+  onShareAppMessage: function() {
+
   },
   // 商品详情
   getGoodsDetail() {
-    let data = { base: app.globalData.baseBody, gid: this.data.gid };
+    let data = {
+      base: app.globalData.baseBody,
+      gid: this.data.gid
+    };
     let api = 'com.ttdtrip.api.goods.apis.GoodsDetailApiService';
     app.request(api, data, (res) => {
       console.log(res);
@@ -123,9 +126,15 @@ Page({
     })
   },
   // 子商品列表
-  getGoodsItemList () {
+  getGoodsItemList() {
     let api = 'com.ttdtrip.api.goods.apis.GoodsItemListApiService';
-    let data = { base: app.globalData.baseBody, gid: this.data.gid, subType: 21, page: 1, size: 1 };
+    let data = {
+      base: app.globalData.baseBody,
+      gid: this.data.gid,
+      subType: 21,
+      page: 1,
+      size: 1
+    };
     app.request(api, data, res => {
       console.log(res);
       this.setData({
@@ -138,7 +147,14 @@ Page({
   },
   // 评论列表
   getCommentList() {
-    let data = { base: app.globalData.baseBody, page: 1, size: 1, target: this.data.gid, time: new Date().getTime(), type: 'poi' };
+    let data = {
+      base: app.globalData.baseBody,
+      page: 1,
+      size: 1,
+      target: this.data.gid,
+      time: new Date().getTime(),
+      type: 'poi'
+    };
     let api = 'com.ttdtrip.api.comment.apis.CommentListApiService';
     app.request(api, data, (res) => {
       console.log(res);
@@ -151,7 +167,12 @@ Page({
   },
   // 评论总数
   getCommentCount() {
-    let data = { base: app.globalData.baseBody, target: this.data.gid, time: new Date().getTime(), type: 'poi' };
+    let data = {
+      base: app.globalData.baseBody,
+      target: this.data.gid,
+      time: new Date().getTime(),
+      type: 'poi'
+    };
     let api = 'com.ttdtrip.api.comment.apis.CommentCountApiService';
     app.request(api, data, (res) => {
       console.log(res);
@@ -165,7 +186,10 @@ Page({
   // 是否收藏
   getFavorCheckList() {
     let api = 'com.ttdtrip.api.goods.apis.FavorCheckApiService';
-    let data = { base: app.globalData.baseBody, ids: [this.data.gid] };
+    let data = {
+      base: app.globalData.baseBody,
+      ids: [this.data.gid]
+    };
     app.request(api, data, (res) => {
       console.log(res);
       let favor = false;
@@ -190,7 +214,10 @@ Page({
   // 收藏商品
   handleGoodsFavor() {
     let api = 'com.ttdtrip.api.goods.apis.FavorApiService';
-    let data = { base: app.globalData.baseBody, gid: this.data.gid };
+    let data = {
+      base: app.globalData.baseBody,
+      gid: this.data.gid
+    };
     app.request(api, data, (res) => {
       console.log(res);
       wx.showToast({
@@ -206,7 +233,10 @@ Page({
   // 取消收藏商品
   handleGoodsUnFavor() {
     let api = 'com.ttdtrip.api.goods.apis.UnFavorApiService';
-    let data = { base: app.globalData.baseBody, gid: this.data.gid };
+    let data = {
+      base: app.globalData.baseBody,
+      gid: this.data.gid
+    };
     app.request(api, data, (res) => {
       console.log(res);
       wx.showToast({
@@ -223,7 +253,11 @@ Page({
   //商品上报
   handleGoodsReport(type) {
     let api = 'com.ttdtrip.api.goods.apis.GoodsReportApiService';
-    let data = { base: app.globalData.baseBody, gid: this.data.gid, type: type };
+    let data = {
+      base: app.globalData.baseBody,
+      gid: this.data.gid,
+      type: type
+    };
     app.request(api, data, res => {
       console.log(res);
     }, err => {
@@ -233,7 +267,13 @@ Page({
   // 优惠券列表
   getCouponList() {
     let api = 'com.ttdtrip.api.order.apis.service.CouponListApiService';
-    let data = { base: app.globalData.baseBody, page: 1, size: 100, usingId: this.data.gid, usingScope: 12 };
+    let data = {
+      base: app.globalData.baseBody,
+      page: 1,
+      size: 100,
+      usingId: this.data.gid,
+      usingScope: 12
+    };
     app.request(api, data, res => {
       console.log(res);
       this.setData({
@@ -249,7 +289,10 @@ Page({
   // 是否领取优惠券
   getHasExistsCoupon(couponIds) {
     let api = 'com.ttdtrip.api.order.apis.service.UserCouponsExistApiService';
-    let data = { base: app.globalData.baseBody, couponIds: couponIds };
+    let data = {
+      base: app.globalData.baseBody,
+      couponIds: couponIds
+    };
     app.request(api, data, res => {
       console.log(res);
       this.setData({
@@ -276,7 +319,7 @@ Page({
   },
   showMapNavigation() {
     wx.getLocation({
-      success: function (res) {
+      success: function(res) {
         console.log(res);
         const latitude = res.latitude
         const longitude = res.longitude
@@ -303,14 +346,20 @@ Page({
       url: '/pages/couponDetail/couponDetail?couponId=' + couponId + '&source=poi_detail&id=' + id,
     })
   },
-  goToTheChildProductList(e) {
+  goToTheFoodMealList(e) {
     wx.navigateTo({
-      url: '/pages/childProductList/childProductList?gid=' + this.data.gid + '&type=' + this.data.type,
+      url: '/pages/foodMeal/foodMeal?gid=' + this.data.gid + '&type=' + this.data.type,
     })
   },
   goToTheCommentList() {
     wx.navigateTo({
       url: '/pages/morecomment/morecomment?target=' + this.data.gid,
+    })
+  },
+  goToTheBookPage() {
+    let goods = this.data.goods;
+    wx.navigateTo({
+      url: '/pages/book/book?mid=' + goods.goodsBase.mid + '&shopName=' + goods.goodsInfo.name + '&gid=' + goods.goodsInfo.gid,
     })
   }
 })

@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 8,
+			"current": 4,
 			"list": [
 				{
 					"id": 0,
@@ -68,10 +68,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 4,
 					"name": "预订座位-预订",
 					"pathName": "pages/book/book",
-					"query": "mid=9e07c7c3-4594-4b3a-beac-ca419becb5f3&gid=7892be6d-b8aa-4863-bef0-550555fcdfb2",
+					"query": "mid=9e07c7c3-4594-4b3a-beac-ca419becb5f3&shopName=东京拉面(新宿店)&gid=7892be6d-b8aa-4863-bef0-550555fcdfb2",
 					"scene": null
 				},
 				{

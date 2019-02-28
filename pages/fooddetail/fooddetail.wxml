@@ -82,6 +82,27 @@
         <map id='myMap' style='width: 100%; height: 249rpx;' latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" show-location></map>
       </view>
     </view>
+    <view class='area padding_0' wx:if='{{goods.goodsBase.lineUp || goods.goodsBase.reserve}}'>
+      <view class='reserve' wx:if='{{goods.goodsBase.reserve}}'>
+        <view class='left'>
+          <view class='l_title'>预订</view>
+          <view class='l_subTitle'>可订明日 | 中文预订</view>
+        </view>
+        <view class='right'>
+          <button bindtap='goToTheBookPage'>预订</button>
+        </view>
+      </view>
+      <view class='lineUp' wx:if='{{goods.goodsBase.lineUp}}'>
+        <view class='left'>
+          <view class='l_title'>排队</view>
+          <view class='l_subTitle'>支持排队通知</view>
+        </view>
+        <view class='right'>
+          <button wx:if='{{goods.lineStatus}}'>排队</button>
+          <view class='text' wx:else>商户已下线，暂不能排队</view>
+        </view>
+      </view>
+    </view>
     <view class='area' wx:if='{{goodsItem.length}}'>
       <view class='area_title'>套餐在线预订</view>
       <view class='product'>
@@ -101,7 +122,7 @@
           </view>
         </block>
       </view>
-      <view class='product_num' bindtap='goToTheChildProductList'>查看全部{{goodsItemCount}}个套餐</view>
+      <view class='product_num' bindtap='goToTheFoodMealList'>查看全部{{goodsItemCount}}个套餐</view>
       <view class='main_row' wx:if='{{coupons.length}}'>
         <block wx:for="{{coupons}}" wx:key="{{index}}">
           <view class='main' data-couponId='{{item.id}}' data-id='{{item.id}}' bindtap='goToTheCouponsDetail'>

@@ -1,15 +1,15 @@
 <!-- foodMeal.wxml -->
 <view class='container'>
-  <block wx:for="{{5}}" wx:key="{{index}}">
+  <block wx:for="{{goodsItem}}" wx:key="{{index}}">
     <view class='meal'>
       <view class='poster'>
-        <image src=''></image>
+        <image src='{{item.goodsItemBase.poster}}'></image>
       </view>
       <view class='info'>
-        <view class='name'>真·鱼生粉！</view>
+        <view class='name'>{{item.goodsItemInfo.name}}</view>
         <view class='price'>
-          <view class='present'>￥1313.00</view>
-          <view class='original'>￥3680.00 </view>
+          <view class='present'>{{item.goodsItemBase.currency + (item.goodsItemBase.amount / 100)}}</view>
+          <view class='original'>{{item.goodsItemBase.currency + (item.goodsItemBase.sourceAmount / 100)}}</view>
         </view>
       </view>
       <view class='buy'>

@@ -16,8 +16,20 @@
       <view class='title_text'>预定信息</view>
     </view>
     <view class='single'>
+      <view class='single_text'>用餐日期</view>
+      <view class='single_left'>
+        <picker mode='date' value='{{date}}' bindchange='handleChangeDate'>
+          <view>{{date}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class='single'>
       <view class='single_text'>用餐时间</view>
-      <view class='single_left'>2019-01-07</view>
+      <view class='single_left'>
+        <picker mode='selector' range='{{timeRange}}' value='{{time}}' bindchange='handleChangeTime'>
+          <view>{{timeRange[time]}}</view>
+        </picker>
+      </view>
     </view>
     <view class='single'>
       <view class='single_text'>用餐人数</view>
@@ -126,7 +138,7 @@
     </view>
     <view class='order_explain'>
       <view>花粉过敏</view>
-      <view class='active'>不爱抽烟</view>
+      <view>不爱抽烟</view>
       <view>喜欢安静</view>
     </view>
     <view class='form_title no_border'>

@@ -47,6 +47,10 @@
   padding-top: 0;
 }
 
+.padding_0 {
+  padding: 0;
+}
+
 .area .title {
   font-size: 64rpx;
   line-height: 72rpx;
@@ -129,6 +133,56 @@
   font-size: 36rpx;
   line-height: 50rpx;
   color: #484848;
+}
+
+.area .reserve, .area .lineUp{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 40rpx 0;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.area .lineUp{
+  border-bottom: 0;
+}
+
+.area .reserve .left, .area .lineUp .left{
+  flex: 1;
+}
+
+.area .reserve .left .l_title, .area .lineUp .left .l_title{
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #3C3C3C;
+  margin-bottom: 20rpx;
+}
+
+.area .reserve .left .l_subTitle, .area .lineUp .left .l_subTitle{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #666666;
+}
+
+.area .reserve .right, .area .lineUp .right{
+  max-width: 160rpx;
+}
+
+.area .reserve .right button, .area .lineUp .right button{
+  width: 154rpx;
+  height: 51rpx;
+  font-size: 22rpx;
+  color: #fff;
+  letter-spacing: 2rpx;
+  background-color: #23C2F7;
+  border-radius: 31rpx;
+}
+
+.area .reserve .right .text, .area .lineUp .right .text{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #8c8c8c;
 }
 
 .area .product>view {

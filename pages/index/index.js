@@ -169,8 +169,9 @@ Page({
   goToThePoiDetail (e) {
     let gid = e.currentTarget.dataset.gid;
     let type = e.currentTarget.dataset.type;
+    let url = type === 2 ? '/pages/fooddetail/fooddetail' : '/pages/poi_detail/poi_detail';
     wx.navigateTo({
-      url: '/pages/poi_detail/poi_detail?gid=' + gid + '&type=' + type,
+      url: url + '?gid=' + gid + '&type=' + type,
     })
   },
   goToTheProductList (e) {
