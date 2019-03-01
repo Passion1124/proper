@@ -144,6 +144,7 @@ image {
   border-radius: 8rpx;
   background-color: #D8D8D8;
   margin-right: 24rpx;
+  overflow: hidden;
 }
 
 .book_form .set_meal_ground  .set_meal .info{

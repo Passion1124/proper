@@ -18,16 +18,16 @@
     <view class='single'>
       <view class='single_text'>用餐日期</view>
       <view class='single_left'>
-        <picker mode='date' value='{{date}}' bindchange='handleChangeDate'>
-          <view>{{date}}</view>
+        <picker mode='date' start='{{stratDate}}' value='{{preOrderInfo.date}}' bindchange='handleChangeDate'>
+          <view>{{preOrderInfo.date}}</view>
         </picker>
       </view>
     </view>
     <view class='single'>
       <view class='single_text'>用餐时间</view>
       <view class='single_left'>
-        <picker mode='selector' range='{{timeRange}}' value='{{time}}' bindchange='handleChangeTime'>
-          <view>{{timeRange[time]}}</view>
+        <picker mode='selector' range='{{timeRange}}' value='{{preOrderInfo.time}}' bindchange='handleChangeTime'>
+          <view>{{timeRange[preOrderInfo.time]}}</view>
         </picker>
       </view>
     </view>
@@ -40,7 +40,7 @@
           </view>
         </view>
         <view>
-          <input type='number' value='{{orderMerches.merchCount}}' bindchange='bindManual'></input>
+          <input type='number' value='{{preOrderInfo.totalCount}}' bindchange='bindManual'></input>
         </view>
         <view class='{{ maxusStatus }}' bindtap='bindPlus'>
           <view class='img_row'>
@@ -49,14 +49,15 @@
         </view>
       </view>
     </view>
-    <view class='service_charge'>
+    <view class='service_charge' data-type='order' bindtap='handleChangeOrderType'>
       <view class='info'>
         <view>预订服务费</view>
-        <view>￥3.00/人</view>
-        <view>服务商：某某某 | 不支持退款</view>
+        <view>{{ setting.currency + setting.priceEachOne / 100}}/人</view>
+        <view>服务商：{{shopName}} | {{setting.allowRefund ? '支持退款' : '不支持退款'}}</view>
       </view>
       <view class='radio_icon'>
-        <image src='../../img/book/cart_icon_radio_on.png'></image>
+        <image src='../../img/book/cart_icon_radio_on.png' wx:if='{{type === "order"}}'></image>
+        <image src='../../img/book/cart_icon_radio.png' wx:else></image>
       </view>
     </view>
     <view class='form_title no_border'>
@@ -64,43 +65,49 @@
       <view class='title_tips'>注：套餐和服务费必须2选一</view>
     </view>
     <view class='set_meal_ground'>
-      <view class='set_meal'>
-        <view class='poster'>
-          <image src=''></image>
-        </view>
-        <view class='info'>
-          <view class='info_name'>真·鱼生粉日料神马最爱！</view>
-          <view class='price'>
-            <view class='present'>￥1313.00 </view>
-            <view class='original'>￥3680.00 </view>
+      <block wx:for='{{goodsItem}}' wx:key='{{index}}'>
+        <view class='set_meal' data-type='{{item.goodsItemInfo.giid}}' bindtap='handleChangeOrderType'>
+          <view class='poster'>
+            <image src='{{item.goodsItemBase.poster}}'></image>
           </view>
-          <view class='order_date'>最早可预订11月25日</view>
+          <view class='info'>
+            <view class='info_name'>{{ item.goodsItemInfo.name}}</view>
+            <view class='price'>
+              <view class='present'>{{item.goodsItemBase.currency + item.goodsItemBase.amount / 100}}</view>
+              <view class='original'>{{item.goodsItemBase.currency + item.goodsItemBase.sourceAmount / 100}}</view>
+            </view>
+            <!-- <view class='order_date'>最早可预订11月25日</view> -->
+          </view>
+          <view class='radio_icon'>
+            <image src='../../img/book/cart_icon_radio_on.png' wx:if='{{type === item.goodsItemInfo.giid}}'></image>
+            <image src='../../img/book/cart_icon_radio.png' wx:else></image>
+          </view>
         </view>
-        <view class='radio_icon'>
-          <image src='../../img/book/cart_icon_radio_on.png'></image>
-        </view>
-      </view>
+      </block>
     </view>
     <view class='form_title no_border'>
       <view class='title_text'>偏好</view>
     </view>
     <view class='form_radio_ground'>
-      <view class='form_radio'>
+      <view class='form_radio' data-smoke='1' bindtap='handleChangeSmoke'>
         <view class='radio_text'>吸烟区</view>
         <view class='radio_icon'>
-          <image src='../../img/book/cart_icon_radio_on.png'></image>
+          <image src='../../img/book/cart_icon_radio_on.png' wx:if='{{preOrderInfo.allowSmoke === 1}}'></image>
+          <image src='../../img/book/cart_icon_radio.png' wx:else></image>
         </view>
       </view>
-      <view class='form_radio'>
+      <view class='form_radio' data-smoke='0' bindtap='handleChangeSmoke'>
         <view class='radio_text'>非吸烟区</view>
         <view class='radio_icon'>
-          <image src='../../img/book/cart_icon_radio_on.png'></image>
+          <image src='../../img/book/cart_icon_radio_on.png' wx:if='{{preOrderInfo.allowSmoke === 0}}'></image>
+          <image src='../../img/book/cart_icon_radio.png' wx:else></image>
         </view>
       </view>
-      <view class='form_radio'>
+      <view class='form_radio' data-smoke='-1' bindtap='handleChangeSmoke'>
         <view class='radio_text'>不介意</view>
         <view class='radio_icon'>
-          <image src='../../img/book/cart_icon_radio_on.png'></image>
+          <image src='../../img/book/cart_icon_radio_on.png' wx:if='{{preOrderInfo.allowSmoke === -1}}'></image>
+          <image src='../../img/book/cart_icon_radio.png' wx:else></image>
         </view>
       </view>
     </view>
@@ -108,16 +115,18 @@
       <view class='title_text'>包间</view>
     </view>
     <view class='form_radio_ground'>
-      <view class='form_radio'>
-        <view class='radio_text'>不需要</view>
-        <view class='radio_icon'>
-          <image src='../../img/book/cart_icon_radio_on.png'></image>
-        </view>
-      </view>
-      <view class='form_radio'>
+      <view class='form_radio' data-box='1' bindtap='handleChangeBox'>
         <view class='radio_text'>需要</view>
         <view class='radio_icon'>
-          <image src='../../img/book/cart_icon_radio.png'></image>
+          <image src='../../img/book/cart_icon_radio_on.png' wx:if='{{preOrderInfo.isBox}}'></image>
+          <image src='../../img/book/cart_icon_radio.png' wx:else></image>
+        </view>
+      </view>
+      <view class='form_radio' data-box='0' bindtap='handleChangeBox'>
+        <view class='radio_text'>不需要</view>
+        <view class='radio_icon'>
+          <image src='../../img/book/cart_icon_radio_on.png' wx:if='{{!preOrderInfo.isBox}}'></image>
+          <image src='../../img/book/cart_icon_radio.png' wx:else></image>
         </view>
       </view>
     </view>
@@ -125,35 +134,35 @@
       <view class='title_text'>联系方式</view>
     </view>
     <view class='single'>
-      <input placeholder='输入您的姓名' placeholder-class='ph_class'></input>
+      <input value='{{preOrderInfo.contactor}}' placeholder='输入您的姓名' placeholder-class='ph_class' data-type='name' bindinput='handleChangeInputValue'></input>
     </view>
     <view class='single'>
-      <input placeholder='邮箱' placeholder-class='ph_class'></input>
+      <input value='{{preOrderInfo.mail}}' placeholder='邮箱' placeholder-class='ph_class' data-type='mail' bindinput='handleChangeInputValue'></input>
     </view>
     <view class='single'>
-      <input placeholder='手机+86' placeholder-class='ph_class'></input>
+      <input value='{{preOrderInfo.phoneNo}}' placeholder='手机' placeholder-class='ph_class' data-type='phone' bindinput='handleChangeInputValue'></input>
     </view>
     <view class='form_title no_border'>
       <view class='title_text'>预约说明</view>
     </view>
     <view class='order_explain'>
-      <view>花粉过敏</view>
-      <view>不爱抽烟</view>
-      <view>喜欢安静</view>
+      <block wx:for='{{customerRequest}}' wx:key='{{index}}'>
+        <view class='{{checkedCustomer[index] ? "active" : ""}}' data-index='{{index}}' bindtap='handleChangeOrderExplain'>{{item}}</view>
+      </block>
     </view>
     <view class='form_title no_border'>
-      <view class='title_text'>预约说明</view>
+      <view class='title_text'>预订说明</view>
     </view>
-    <view class='order_explain_tips'>请按照用餐人数下单，本产品为二次确认产品（不是能下单就一定有位，收到确认短信，只是确认收到需求，确认需求后店家确定座位情况），若预定失败（满座，政策等原因），会为您安排退款。
-因餐厅比较热门，为了能够提升预定的成功率，请在备注里勾选可以接受同一个别的时间段用餐。</view>
+    <view class='order_explain_tips'>请按照用餐人数下单，本产品为二次确认产品（不是能下单就一定有位，收到确认短信，只是确认收到需求，确认需求后店家确定座位情况），若预定失败（满座，政策等原因），会为您安排退款。 因餐厅比较热门，为了能够提升预定的成功率，请在备注里勾选可以接受同一个别的时间段用餐。
+    </view>
   </view>
   <view class='price_btn'>
     <view class='price'>
       <text>合计</text>
-      <text>￥6.00</text>
+      <text>{{currency + (payPrice / 100) * preOrderInfo.totalCount}}</text>
     </view>
     <view class='btn'>
-      <button>提价订单</button>
+      <button bindtap='handleClickPaymentButton'>提价订单</button>
     </view>
   </view>
 </view>

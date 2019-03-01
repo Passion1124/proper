@@ -17,31 +17,33 @@
     </view>
     <view class='single'>
       <view class='single_text'>用餐时间</view>
-      <view class='single_left'>2018-11-28 17：30</view>
+      <view class='single_left'>{{preOrderInfo.date}} {{preOrderInfo.time}}</view>
     </view>
     <view class='single'>
       <view class='single_text'>用餐人数</view>
-      <view class='single_left'>3人</view>
+      <view class='single_left'>{{preOrderInfo.totalCount}}人</view>
     </view>
-    <view class='single'>
+    <view class='single' wx:if='{{!orderMerches.length}}'>
       <view class='single_text'>预订服务费</view>
-      <view class='single_left'>￥3.00/人</view>
+      <view class='single_left'>{{currency + (preOrderInfo.priceEachOne / 100)}}/人</view>
     </view>
     <view class='single'>
       <view class='single_text'>偏好</view>
-      <view class='single_left'>吸烟区</view>
+      <view class='single_left' wx:if='{{preOrderInfo.allowSmoke === 1}}'>吸烟区</view>
+      <view class='single_left' wx:if='{{preOrderInfo.allowSmoke === 0}}'>非吸烟区</view>
+      <view class='single_left' wx:if='{{preOrderInfo.allowSmoke === -1}}'>不介意</view>
     </view>
     <view class='single'>
       <view class='single_text'>包间</view>
-      <view class='single_left'>需要</view>
+      <view class='single_left'>{{preOrderInfo.isBox ? '需要' : '不需要'}}</view>
     </view>
-    <view class='single set_meal'>
+    <view class='single set_meal' wx:if='{{orderMerches.length}}'>
       <view class='poster'>
-        <image src=''></image>
+        <image src='{{goodsItem.goodsItemBase.poster}}'></image>
       </view>
       <view class='info'>
-        <view class='info_name'>日料神马最爱三文鱼</view>
-        <view class='price'>￥1313.00</view>
+        <view class='info_name'>{{goodsItem.goodsItemInfo.name}}</view>
+        <view class='price'>{{goodsItem.goodsItemBase.currency}}{{(goodsItem.goodsItemBase.amount || goodsItem.goodsItemBase.sourceAmount) / 100}}</view>
       </view>
     </view>
     <view class='form_title'>
@@ -49,26 +51,26 @@
     </view>
     <view class='single'>
       <view class='single_text'>姓名(英文/日文)</view>
-      <view class='single_left'>mengdan</view>
+      <view class='single_left'>{{preOrderInfo.contactor}}</view>
     </view>
     <view class='single'>
-      <view class='single_text'>邮箱邮箱</view>
-      <view class='single_left'>8888@jp.xxx</view>
+      <view class='single_text'>邮箱</view>
+      <view class='single_left'>{{preOrderInfo.mail}}</view>
     </view>
     <view class='single'>
       <view class='single_text'>手机</view>
-      <view class='single_left'>+86 156 8888 9999</view>
+      <view class='single_left'>{{preOrderInfo.phoneNo}}</view>
     </view>
     <view class='form_title no_border'>
       <view class='title_text'>预约说明</view>
     </view>
     <view class='order_explain'>
-      <view>花粉过敏</view>
-      <view>不爱抽烟</view>
-      <view>喜欢安静</view>
+      <block wx:for='{{customerRequest}}' wx:key='{{index}}'>
+        <view class='active'>{{item}}</view>
+      </block>
     </view>
   </view>
   <view class='sure_submit_btn'>
-    <button>确认，下一步</button>
+    <button bindtap='handleCreateOrderGen'>确认，下一步</button>
   </view>
 </view>
