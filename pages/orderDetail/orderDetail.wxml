@@ -1,0 +1,79 @@
+<!-- orderDetail.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
+<view class='container'>
+<view class='tips overtime' wx:if='{{order.orderStatus === 0}}'>
+    <view class='title'>亲，该订单已取消，可以选择再次购买</view>
+    <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
+  </view>
+  <view class='tips finished' wx:if='{{order.orderStatus === 2}}'>
+    <view class='title'>感谢您使用妥妥的，期待您下次光临</view>
+    <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
+  </view>
+  <view class='tips tbc' wx:if='{{order.orderStatus === 1}}'>
+    <view class='title'>亲，我们正在核实您的商品，请耐心等待</view>
+  </view>
+  <view class='tips refund' wx:if='{{order.orderStatus === 6}}'>
+    <view class='title'>退款已申请</view>
+    <view class='subTitle'>金额将在7个工作日内原路退</view>
+    <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
+  </view>
+  <view class='row'>
+    <view class='title'>购买商品</view>
+    <block wx:for='{{orderMerches}}' wx:key='{{index}}'>
+      <view class='commodity flex'>
+        <view class='poster'>
+          <image src='{{item.merchImgUrl}}'></image>
+        </view>
+        <view class='info'>
+          <view class='c_title'>{{item.merchName}}</view>
+          <view class='c_subInfo'>
+            <text>{{item.currency + (item.payPrice / 100)}}</text>
+            <text wx:if='{{item.extField}}'> / {{dateFr.getExtFieldText(item.extField)}}</text>
+            <text> / 份数:{{item.merchCount}}</text>
+          </view>
+          <view class='c_date'>有效期至：{{dateFr.getChineseDate(item.usingEndDate)}}</view>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view class='row'>
+    <view class='text'>订单编号：{{order.orderNo}}</view>
+    <view class='text'>下单时间：{{dateFr.formatTime(order.createAt)}}</view>
+  </view>
+  <view class='row' wx:if="{{order.orderStatus === 6}}">
+    <view class='text'>支付方式：{{dateFr.getPayTypeText(order.payType)}}</view>
+    <view class='text'>支付时间：{{dateFr.formatTime(order.payAt)}}</view>
+    <view class='text'>退款时间：{{dateFr.formatTime(order.refundReqAt)}}</view>
+  </view>
+  <view class='row'>
+    <view class='text'>手机：{{receiver.phoneNo}}</view>
+    <view class='text'>邮箱：{{receiver.email}}</view>
+    <view class='text' wx:if='{{receiver.faxNo}}'>传真：{{receiver.faxNo}}</view>
+  </view>
+  <view class='row' wx:if='{{receiver.addr}}'>
+    <view class='text'>收货地址：{{receiver.addr}}</view>
+  </view>
+  <view class='row'>
+    <view class='text flex'>
+      <view>商品总价：</view>
+      <view class='orange'>{{order.payCurrency + (order.sourcePrice / 100)}}</view>
+    </view>
+    <view class='text flex'>
+      <view>优惠</view>
+      <view class='orange'>{{order.payCurrency + (order.couponPrice / 100)}}</view>
+    </view>
+  </view>
+  <view class='row'>
+    <view class='text flex'>
+      <view class='orange'>实付：{{order.payCurrency + (order.paidPrice / 100)}}</view>
+    </view>
+  </view>
+  <view class='row' wx:if='{{order.orderStatus === 2}}'>
+    <view class='other flex'>
+      <view class='refund' bindtap='goToTheRefund' wx:if='{{order.refundStatus < 1 }}'>申请退款</view>
+      <view class='shopping'>
+        <button bindtap='goToTheOrder'>再次购买</button>
+      </view>
+    </view>
+  </view>
+</view>

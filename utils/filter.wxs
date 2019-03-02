@@ -69,6 +69,131 @@ var DateFr = {
     } else if (coupon.type === 1 || coupon.type === 2) {
       return coupon.reducePrice
     }
+  },
+  getChineseDate: function (str) {
+    str = '' + str;
+    var year = str.substring(0, 4) + '年';
+    var month = str.substring(4, 6) + '月';
+    var day = str.substring(6, 8) + '日';
+    return year + month + day;
+  },
+  getOrderDate: function (time) {
+    if (!time) return '';
+
+    var date = getDate(time);
+    var M = date.getMonth() + 1;
+    var y = date.getFullYear();
+    var d = date.getDate();
+
+    if (M < 10) M = "0" + M;
+    if (d < 10) d = "0" + d;
+
+    return y + '年' + M + '月' + d + '日';
+  },
+  getOrderStatus: function (status) {
+    var str = '';
+    switch (status) {
+      case -1:
+        str = '待付款';
+        break;
+      case 0:
+        str = '已取消';
+        break;
+      case 1:
+        str = '待确认';
+        break;
+      case 2:
+        str = '待发货';
+        break;
+      case 3:
+        str = '待使用';
+        break;
+      case 4:
+        str = '待点评';
+        break;
+      case 5:
+        str = '已完成';
+        break;
+      case 6:
+        str = '退款中';
+        break;
+      case 7:
+        str = '已退款';
+        break;
+      case 8:
+        str = '退款驳回';
+        break;
+      case 10:
+        str = '确认驳回';
+        break;
+      case 11:
+        str = '使用中';
+        break;
+      case 99:
+        str = '超时无效';
+        break;
+    };
+    return str;
+  },
+  getOrderStatusSubText: function (status) {
+    var str = '';
+    switch (status) {
+      case -1:
+        str = '去付款';
+        break;
+      case 0:
+        str = '再次购买';
+        break;
+      case 1:
+        str = '等待确认中...';
+        break;
+      case 2:
+        str = '再次购买';
+        break;
+      case 3:
+        str = '再次购买';
+        break;
+      case 4:
+        str = '再次购买';
+        break;
+      case 5:
+        str = '再次购买';
+        break;
+      case 6:
+        str = '退款确认中...';
+        break;
+      case 7:
+        str = '退款成功';
+        break;
+      case 8:
+        str = '退款驳回';
+        break;
+      case 10:
+        str = '确认驳回';
+        break;
+      case 11:
+        str = '使用中';
+        break;
+      case 99:
+        str = '超时无效';
+        break;
+    };
+    return str;
+  },
+  getExtFieldText: function (str) {
+    var obj = JSON.parse(str);
+    var result = ''
+    if (obj['babyChairCount']) {
+      result += '安全座椅:' + obj['babyChairCount']
+    }
+    return result;
+  },
+  getPayTypeText: function (type) {
+    var str = '';
+    if (type === 1) str = '支付宝';
+    if (type === 2) str = '微信';
+    if (type === 3) str = 'apple';
+    return str;
   }
 }
 
@@ -84,6 +209,12 @@ module.exports = {
   formatTime: DateFr.formatTime,
   getSureDateText: DateFr.getSureDateText,
   getOrderPrice: DateFr.getOrderPrice,
-  getDiscountPrice: DateFr.getDiscountPrice
+  getDiscountPrice: DateFr.getDiscountPrice,
+  getChineseDate: DateFr.getChineseDate,
+  getOrderStatus: DateFr.getOrderStatus,
+  getOrderStatusSubText:  DateFr.getOrderStatusSubText,
+  getOrderDate: DateFr.getOrderDate,
+  getExtFieldText: DateFr.getExtFieldText,
+  getPayTypeText: DateFr.getPayTypeText
 }
 

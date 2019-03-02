@@ -63,6 +63,9 @@ Page({
     this.getGoodsList();
     this.getMsgCount();
   },
+  onShow () {
+    this.getMsgCount();
+  },
   getUserInfo: function(e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo

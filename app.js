@@ -18,6 +18,13 @@ App({
     wx.login({
       success: res => {
         console.log(res);
+        if (res.code) {
+          let api = 'com.ttdtrip.api.account.apis.service.WeChatAuthApiService';
+          let data = { base: this.globalData.baseBody, code: res.code };
+          this.request(api, data, res => {
+            console.log(res);
+          })
+        }
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       }
     })

@@ -1,0 +1,56 @@
+<!-- bookDetail.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
+<view class='container'>
+  <view class='row {{(order.orderStatus === 0 || order.orderStatus === 5) ? "gary" : ""}}'>
+    <view class='status'>{{dateFr.getOrderStatus(order.orderStatus)}}</view>
+    <view class='title'>预订单</view>
+    <view class='order_info'>
+      <view class='date_title'>用餐时间：</view>
+      <view class='order_date'>{{dateFr.getChineseDate(order.preOrderDate)}}{{order.preOrder.time}}</view>
+      <view class='other'>
+        <view class='num'>
+          <view class='icon'>
+            <image src='../../img/book/book_icon_num.png'></image>
+          </view>
+          <view class='text'>{{order.preOrder.totalCount}}</view>
+        </view>
+        <view class='price'>
+          <view class='icon'>
+            <image src='../../img/book/book_icon_num.png'></image>
+          </view>
+          <view class='text'>{{order.preOrder.priceEachOne / 100}}/人</view>
+        </view>
+        <view class='smoke'>
+          <view class='icon'>
+            <image src='../../img/book/book_icon_num.png'></image>
+          </view>
+          <view class='text' wx:if='{{order.preOrder.allowSmoke === 1}}'>吸烟区</view>
+          <view class='text' wx:if='{{order.preOrder.allowSmoke === 0}}'>非吸烟区</view>
+          <view class='text' wx:if='{{order.preOrder.allowSmoke === -1}}'>不介意</view>
+        </view>
+        <view class='box'>
+          <view class='icon'>
+            <image src='../../img/book/book_icon_num.png'></image>
+          </view>
+          <view class='text' wx:if='{{order.preOrder.isBox}}'>需要</view>
+          <view class='text' wx:else>不需要</view>
+        </view>
+      </view>
+    </view>
+    <view class='line'></view>
+    <view class='contact_info'>
+      <view class='name'>{{order.preOrder.contactor}}</view>
+      <view class='phone'>{{order.preOrder.phoneNo}}</view>
+      <view class='mail'>{{order.preOrder.mail}}</view>
+    </view>
+    <view class='order_explain' wx:if='{{explain.length}}'>
+      <block wx:for='{{explain}}' wx:key='{{index}}'>
+        <view>{{item}}</view>
+      </block>
+    </view>
+    <view class='btn_row' wx:if='{{order.orderStatus === -1}}'>
+      <button bindtap='handleClickOrderCancelButton'>取消订单</button>
+      <button bindtap='goToThePay'>立即付款</button>
+    </view>
+  </view>
+</view>

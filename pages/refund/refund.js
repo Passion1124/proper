@@ -1,4 +1,4 @@
-const app = getApp()
+const app = getApp();
 
 Page({
 
@@ -6,14 +6,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-    msgs: []
+    reason: '行程有变动',
+    orderId: '',
+    name: '',
+    tel: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getMessageList();
+    this.data.orderId = options.orderId
+    this.setData({
+      name: options.name,
+      tel: options.tel
+    })
   },
 
   /**
@@ -64,27 +71,24 @@ Page({
   onShareAppMessage: function () {
     
   },
-  getMessageList () {
-    let data = { base: app.globalData.baseBody, page: 1, size: 30 };
-    let api = 'com.ttdtrip.api.account.apis.service.msg.MsgListApiService';
+  // 退款申请
+  handleOrderRefunding () {
+    let api = 'com.ttdtrip.api.order.apis.service.OrderRefundingApiService';
+    let data = { base: app.globalData.baseBody, orderId: this.data.orderId, reason: this.data.reason };
     app.request(api, data, res => {
       console.log(res);
-      this.setData({
-        msgs: res.msgs
-      })
-    }, err => {
-      console.error(err);
+      let pages = getCurrentPages();
+      let prePage = pages[pages.length - 2];
+      prePage.handleOrderDetail();
+      wx.navigateBack();
+    }, e => {
+      console.error(e);
     })
   },
-  goToTheDetail (e) {
-    let id = e.currentTarget.dataset.id;
-    let title = e.currentTarget.dataset.title;
-    let url = '/pages/orderDetail/orderDetail';
-    if (title === '订单支付') {
-      url = '/pages/bookDetail/bookDetail'
-    }
-    wx.navigateTo({
-      url: url + '?id=' + id,
-    })
+  // 修改退款原因
+  handleChangeReason (e) {
+    this.setData({
+      reason: e.currentTarget.dataset.text
+    });
   }
 })

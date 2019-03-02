@@ -1,25 +1,30 @@
 <!-- myOrder.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container'>
   <view class='all_order' wx:if='{{orderType === 0}}'>
     <view class='tabs'>
-      <view class='active'>
+      <view class='{{ activeOrderType=== "tourism" ? "active" : ""}}' data-type='tourism' bindtap='handleChangeActiveOrderType'>
         旅游订单
         <image src='../../img/index/tabs.png'></image>
       </view>
-      <view>
+      <view class='{{ activeOrderType=== "shopping" ? "active" : ""}}' data-type='shopping' bindtap='handleChangeActiveOrderType'>
         购物订单
         <image src='../../img/index/tabs.png'></image>
       </view>
-      <view>
+      <view class='{{ activeOrderType=== "line" ? "active" : ""}}' data-type='line' bindtap='handleChangeActiveOrderType'>
         排队订单
         <image src='../../img/index/tabs.png'></image>
       </view>
-      <view>
+      <view class='{{ activeOrderType=== "book" ? "active" : ""}}' data-type='book' bindtap='handleChangeActiveOrderType'>
         预订订单
         <image src='../../img/index/tabs.png'></image>
       </view>
+      <view class='{{ activeOrderType=== "food" ? "active" : ""}}' data-type='food' bindtap='handleChangeActiveOrderType'>
+        点菜订单
+        <image src='../../img/index/tabs.png'></image>
+      </view>
     </view>
-    <view class='empty'>
+    <view class='empty' wx:if='{{!orders.length}}'>
       <view class='image_row'>
         <image src='../../img/common/empty_data.png'></image>
       </view>
@@ -27,7 +32,7 @@
     </view>
   </view>
   <view class='payment' wx:if='{{orderType === 1}}'>
-    <view class='empty'>
+    <view class='empty' wx:if='{{!orders.length}}'>
       <view class='image_row'>
         <image src='../../img/common/empty_data.png'></image>
       </view>
@@ -35,7 +40,7 @@
     </view>
   </view>
   <view class='use' wx:if='{{orderType === 2}}'>
-    <view class='empty'>
+    <view class='empty' wx:if='{{!orders.length}}'>
       <view class='image_row'>
         <image src='../../img/common/empty_data.png'></image>
       </view>
@@ -43,27 +48,34 @@
     </view>
   </view>
   <view class='comment' wx:if='{{orderType === 3}}'>
-    <view class='empty'>
+    <view class='empty' wx:if='{{!orders.length}}'>
       <view class='image_row'>
         <image src='../../img/common/empty_data.png'></image>
       </view>
       <view class='text'>暂无数据哦，快去逛逛吧～</view>
     </view>
   </view>
-  <view class='order'>
-    <view class='top'>
-      <view>10月1日</view>
-      <view class='status'>待付款</view>
-    </view>
-    <view class='line'></view>
-    <view class='center'>日本东京+大阪7日自由行，正在火爆预热aaaaaaaaaaaaaaaa</view>
-    <view class='bottom'>
-      <view class='left'>
-        <button>去使用</button>
+  <block wx:for='{{orders}}' wx:key='{{index}}'>
+    <view class='order' data-id='{{item.id}}' bindtap='goToTheDetail'>
+      <view class='top'>
+        <view wx:if='{{item.preOrder}}'>{{ item.orderStatus === -1 ? dateFr.getChineseDate(item.preOrder.date) : item.name}}</view>
+        <view wx:else>{{dateFr.getOrderDate(item.createAt)}}</view>
+        <view class='status {{(item.orderStatus === -1 || item.orderStatus === 6) ? "orange" : ""}} {{(item.orderStatus === 2 || item.orderStatus === 3) ? "blue" : ""}}'>{{dateFr.getOrderStatus(item.orderStatus)}}</view>
       </view>
-      <view class='right'>
-        <view class='detail'>订单详情></view>
+      <view class='line'></view>
+      <view class='center'>
+        <view class='name'>{{ item.preOrder ? item.preOrder.mName : item.name}}</view>
+        <view class='subTitle' wx:if='{{!item.preOrder && item.merchCount > 1}}'>该订单包含 {{item.merchCount}} 个商品</view>
+      </view>
+      <view class='bottom'>
+        <view class='left'>
+          <text wx:if='{{item.orderStatus === 7 || item.orderStatus === 6 || item.orderStatus === 1}}'>{{dateFr.getOrderStatusSubText(item.orderStatus)}}</text>
+          <button data-order='{{item}}' catchtap='goToTheShoppingOrPay' wx:else>{{dateFr.getOrderStatusSubText(item.orderStatus)}}</button>
+        </view>
+        <view class='right'>
+          <view class='detail'>订单详情></view>
+        </view>
       </view>
     </view>
-  </view>
+  </block>
 </view>

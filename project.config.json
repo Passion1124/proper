@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 9,
 			"list": [
 				{
 					"id": 0,
@@ -51,20 +51,6 @@
 					"name": "pay",
 					"pathName": "pages/pay/pay",
 					"query": "orderId=dd4c1032586c44b993bf12c4072be685&orderNo=7786598053894410240&currency=CNY&type=1",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "产品价格",
-					"pathName": "pages/childProductList/childProductList",
-					"query": "gid=0970e7aa-c471-4f2b-8c59-fdb105c11474",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "评论详情",
-					"pathName": "pages/morecomment/morecomment",
-					"query": "target=0970e7aa-c471-4f2b-8c59-fdb105c11474",
 					"scene": null
 				},
 				{
@@ -90,16 +76,37 @@
 				},
 				{
 					"id": -1,
-					"name": "帮助",
-					"pathName": "pages/help/help",
+					"name": "关于",
+					"pathName": "pages/about/about",
 					"query": "",
 					"scene": null
 				},
 				{
+					"id": 9,
+					"name": "预订 - 订单详情",
+					"pathName": "pages/bookDetail/bookDetail",
+					"query": "id=48cc69c834954fa0890790e6c4e66019",
+					"scene": null
+				},
+				{
+					"id": 10,
+					"name": "订单详情 - 旅游",
+					"pathName": "pages/orderDetail/orderDetail",
+					"query": "id=5a07c2dc7b2c445b8defb7d28f6b0521",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "退款申请",
+					"pathName": "pages/refund/refund",
+					"query": "orderId=5a07c2dc7b2c445b8defb7d28f6b0521&name=boli&tel=15708449685",
+					"scene": null
+				},
+				{
 					"id": -1,
-					"name": "关于",
-					"pathName": "pages/about/about",
-					"query": "",
+					"name": "全部订单",
+					"pathName": "pages/myOrder/myOrder",
+					"query": "orderType=0",
 					"scene": null
 				}
 			]

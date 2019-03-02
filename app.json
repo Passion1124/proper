@@ -22,6 +22,8 @@
     "pages/myCoupon/myCoupon",
     "pages/collection/collection",
     "pages/myOrder/myOrder",
+    "pages/orderDetail/orderDetail",
+    "pages/bookDetail/bookDetail",
     "pages/about/about",
     "pages/help/help",
     "pages/helpDetail/helpDetail",
@@ -31,11 +33,13 @@
     "pages/morecomment/morecomment",
     "pages/book/book",
     "pages/bookConfirm/bookConfirm",
+    "pages/bookOver/bookOver",
     "pages/lineUp/lineUp",
     "pages/lineUpConfirm/lineUpConfirm",
     "pages/fooddetail/fooddetail",
     "pages/foodMeal/foodMeal",
-    "pages/foodchoose/foodchoose"
+    "pages/foodchoose/foodchoose",
+    "pages/refund/refund"
   ],
   "window":{
     "backgroundTextStyle":"light",

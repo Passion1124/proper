@@ -1,0 +1,68 @@
+.container {
+  padding: 0 40rpx;
+}
+
+.row {
+  padding: 40rpx 0;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.border_bottom_0{
+  border-bottom: 0;
+}
+
+.row .title {
+  font-size: 36rpx;
+  line-height: 50rpx;
+  color: #3c3c3c;
+  margin-bottom: 40rpx;
+}
+
+.row .text_row {
+  font-size: 28rpx;
+  line-height: 56rpx;
+  color: #3c3c3c;
+}
+
+.row .radio_row .flex{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28rpx;
+}
+
+.row .radio_row .flex:last-of-type{
+  margin-bottom: 0;
+}
+
+.row .radio_row .flex .text{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #3c3c3c;
+}
+
+.row .radio_row .flex .icon{
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.row .radio_row .flex .icon image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.refund_btn {
+  margin: 20rpx 0;
+}
+
+.refund_btn button {
+  width: 560rpx;
+  height: 80rpx;
+  font-size: 32rpx;
+  color: #fff;
+  border-radius: 56rpx;
+  padding: 0;
+  background: linear-gradient(270deg, rgba(36, 225, 226, 1) 0%, rgba(35, 194, 247, 1) 100%);
+  box-shadow: 0px 8rpx 24rpx 0px rgba(181, 239, 242, 1);
+}

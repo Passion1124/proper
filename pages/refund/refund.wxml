@@ -1,0 +1,54 @@
+<!-- refund.wxml -->
+<view class='container'>
+  <view class='row'>
+    <view class='title'>退款注意事项</view>
+    <view class='text_row'>
+      <view class='text'>1、特价优惠、预约等一并取消</view>
+      <view class='text'>2、商品一但退款，无法恢复</view>
+      <view class='text'>3、超过有效日期，无法恢复</view>
+    </view>
+  </view>
+  <view class='row'>
+    <view class='title'>退款原因</view>
+    <view class='radio_row'>
+      <view class='flex' data-text='行程有变动' bindtap='handleChangeReason'>
+        <view class='text'>行程有变动</view>
+        <view class='icon'>
+          <image src='../../img/book/cart_icon_radio_on.png' wx:if='{{reason === "行程有变动"}}'></image>
+          <image src='../../img/book/cart_icon_radio.png' wx:else></image>
+        </view>
+      </view>
+      <view class='flex' data-text='忘记使用优惠券' bindtap='handleChangeReason'>
+        <view class='text'>忘记使用优惠券</view>
+        <view class='icon'>
+          <image src='../../img/book/cart_icon_radio_on.png' wx:if='{{reason === "忘记使用优惠券"}}'></image>
+          <image src='../../img/book/cart_icon_radio.png' wx:else></image>
+        </view>
+      </view>
+      <view class='flex' data-text='选择其他旅游项目' bindtap='handleChangeReason'>
+        <view class='text'>选择其他旅游项目</view>
+        <view class='icon'>
+          <image src='../../img/book/cart_icon_radio_on.png' wx:if='{{reason === "选择其他旅游项目"}}'></image>
+          <image src='../../img/book/cart_icon_radio.png' wx:else></image>
+        </view>
+      </view>
+      <view class='flex' data-text='其他' bindtap='handleChangeReason'>
+        <view class='text'>其他</view>
+        <view class='icon'>
+          <image src='../../img/book/cart_icon_radio_on.png' wx:if='{{reason === "其他"}}'></image>
+          <image src='../../img/book/cart_icon_radio.png' wx:else></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='row border_bottom_0'>
+    <view class='title'>联系方式</view>
+    <view class='text_row'>
+      <view class='text'>退款联系人：{{name}}</view>
+      <view class='text'>联系方式：{{tel}}</view>
+    </view>
+  </view>
+  <view class='refund_btn'>
+    <button bindtap='handleOrderRefunding'>申请退款</button>
+  </view>
+</view>
