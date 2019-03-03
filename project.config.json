@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 9,
+			"current": -1,
 			"list": [
 				{
 					"id": 0,
@@ -62,44 +62,23 @@
 				},
 				{
 					"id": -1,
-					"name": "预订座位-预订确认",
-					"pathName": "pages/bookConfirm/bookConfirm",
-					"query": "mid=9e07c7c3-4594-4b3a-beac-ca419becb5f3&gid=7892be6d-b8aa-4863-bef0-550555fcdfb2",
-					"scene": null
-				},
-				{
-					"id": -1,
 					"name": "美食详情",
 					"pathName": "pages/fooddetail/fooddetail",
 					"query": "gid=7892be6d-b8aa-4863-bef0-550555fcdfb2&type=2",
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "关于",
-					"pathName": "pages/about/about",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 9,
+					"id": 6,
 					"name": "预订 - 订单详情",
 					"pathName": "pages/bookDetail/bookDetail",
-					"query": "id=48cc69c834954fa0890790e6c4e66019",
+					"query": "id=83abaf7baf3647b98c1d932622fa8eaf",
 					"scene": null
 				},
 				{
-					"id": 10,
+					"id": 7,
 					"name": "订单详情 - 旅游",
 					"pathName": "pages/orderDetail/orderDetail",
-					"query": "id=5a07c2dc7b2c445b8defb7d28f6b0521",
-					"scene": null
-				},
-				{
-					"id": 8,
-					"name": "退款申请",
-					"pathName": "pages/refund/refund",
-					"query": "orderId=5a07c2dc7b2c445b8defb7d28f6b0521&name=boli&tel=15708449685",
+					"query": "id=390d9411f6644770a433cef28b67c5ea",
 					"scene": null
 				},
 				{
@@ -107,6 +86,20 @@
 					"name": "全部订单",
 					"pathName": "pages/myOrder/myOrder",
 					"query": "orderType=0",
+					"scene": null
+				},
+				{
+					"id": 11,
+					"name": "商品列表",
+					"pathName": "pages/productList/productList",
+					"query": "type=2",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "美食套餐购买",
+					"pathName": "pages/foodchoose/foodchoose",
+					"query": "giid=ce7a2756-4040-4a54-92c0-6795821bfa5d",
 					"scene": null
 				}
 			]

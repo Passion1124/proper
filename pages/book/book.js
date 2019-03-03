@@ -146,6 +146,7 @@ Page({
     app.request(api, data, res => {
       console.log(res);
       let customerRequest = res.setting.customerRequest.split('|');
+      if (!customerRequest[0]) customerRequest = [];
       this.setData({
         setting: res.setting,
         customerRequest: customerRequest,
@@ -161,7 +162,6 @@ Page({
   },
   // 预订单预约时间v2
   getPreOrderBookTime(date) {
-    console.log(date);
     let api = 'com.ttdtrip.api.order.apis.service.PreOrderBookTimeApiService';
     let data = {
       base: app.globalData.baseBody,
@@ -201,13 +201,12 @@ Page({
     this.setData({
       stratDate: date.getFullYear() + '-' + month + '-' + day
     });
-    console.log(this.data.stratDate);
     this.getPreOrderBookTime(now);
   },
   // 获取用户优惠券订单可用
   getUserCouponUsable(item) {
     let orderMerches = {
-      qryType: item.goodsItemBase.gType,
+      qryType: 1,
       merchId: item.goodsItemInfo.giid,
       merchType: item.goodsItemBase.subType
     }
@@ -243,7 +242,8 @@ Page({
       this.data.receiverId = res.receiverId;
       let preOrderInfo = this.data.preOrderInfo;
       preOrderInfo.time = this.data.timeRange[parseInt(preOrderInfo.time)];
-      preOrderInfo.customerRequest = this.data.customerRequest.filter((item, index) => this.data.checkedCustomer[index]).reduce((pre, next) => pre + '|' + next);
+      let filterCustomer = this.data.customerRequest.filter((item, index) => this.data.checkedCustomer[index]);
+      preOrderInfo.customerRequest = filterCustomer.length ? filterCustomer.reduce((pre, next) => pre + '|' + next) : '';
       let orderMerches = this.data.type !== 'order' ? [this.data.orderMerches] : [];
       let bookOrder = {
         receiverId: res.receiverId,

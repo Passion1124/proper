@@ -19,7 +19,7 @@ Page({
       email: '',
       faxNo: '',
       addr: '',
-      addType: 0
+      addType: ''
     },
     receiverId: '',
     orderMerches: {
@@ -54,7 +54,10 @@ Page({
     coupons: [],
     selectCoupon: {},
     p_mask: false,
-    start_date: ''
+    start_date: '',
+    pickUpType: 1,
+    self_taking: '',
+    mail: ''
   },
 
   /**
@@ -131,7 +134,8 @@ Page({
       if (res.receiver) {
         let { addr, addrType, alias, email, faxNo, name, phoneNo } = res.receiver;
         this.setData({
-          receiver: { addr, addrType, alias, email, faxNo, name, phoneNo }
+          receiver: { addr, addrType, alias, email, faxNo, name, phoneNo },
+          mail: addr
         });
       }
     }, err => {
@@ -144,9 +148,21 @@ Page({
     let data = { base: app.globalData.baseBody, giId: this.data.giid, spec: 1 };
     app.request(api, data, res => {
       console.log(res);
+      let pickUpType = res.goodsItemVO.goodsItemBase.pickUpType;
+      let self_taking = this.data.self_taking;
+      let p_type = 1;
+      if (pickUpType) {
+        if (pickUpType !== 2) {
+          self_taking = res.goodsItemVO.goodsItemInfo.pickUpAddress[0];
+        } else {
+          p_type = 0;
+        }
+      }
       this.setData({
         goodsItem: res.goodsItemVO,
-        price: res.goodsItemVO.goodsItemBase.amount || res.goodsItemVO.goodsItemBase.sourceAmount
+        price: res.goodsItemVO.goodsItemBase.amount || res.goodsItemVO.goodsItemBase.sourceAmount,
+        self_taking: self_taking,
+        pickUpType: p_type
       });
       this.getGoodsDetail(res.goodsItemVO.goodsItemBase.gid);
       this.getUserCouponUsable(res.goodsItemVO.goodsItemBase.subType);
@@ -170,7 +186,7 @@ Page({
   // 获取用户优惠券订单可用
   getUserCouponUsable(merchType) {
     let orderMerches = {
-      qryType: this.data.type,
+      qryType: 1,
       merchId: this.data.giid,
       merchType: merchType
     }
@@ -233,6 +249,13 @@ Page({
     this.data.orderMerches.usingDate = this.data.useData.replace(new RegExp('-', 'g'), '');
     this.data.orderMerches.merchSpecific = this.data.merchSpecific + '&1';
     this.data.orderMerches.merchImgUrl = this.data.goods.goodsBase.poster;
+    if (this.data.goodsItem.goodsItemBase.pickUpType) {
+      this.data.receiver.addr = this.data.pickUpType ? this.data.self_taking : this.data.mail;
+      this.data.receiver.addrType = this.data.pickUpType;
+    } else {
+      this.data.receiver.addr = '';
+      this.data.receiver.addrType = '';
+    }
     this.handleSaveReceiverInfo();
   },
   // 选择使用时间改变
@@ -256,22 +279,22 @@ Page({
       ['receiver.name']: e.detail.value
     })
   },
-  // 修改姓名
+  // 修改手机号
   handleInputPhone(e) {
     this.setData({
       ['receiver.phoneNo']: e.detail.value
     })
   },
-  // 修改姓名
+  // 修改邮箱
+  handleInputEmail (e) {
+    this.setData({
+      ['receiver.email']: e.detail.value
+    })
+  },
+  // 修改接送点
   handleInputMerchSpecific(e) {
     this.setData({
       merchSpecific: e.detail.value
-    })
-  },
-  // 修改姓名
-  handleInputName(e) {
-    this.setData({
-      ['receiver.name']: e.detail.value
     })
   },
   // 点击减号
@@ -378,6 +401,32 @@ Page({
       p_mask: false
     })
   },
+  // 安全座椅减号/加号按钮点击、输入
+  bindExtMinus (e) {
+    let num = this.data.orderMerches.ext.babyChairCount;
+    if (num > 1) {
+      num--;
+    };
+    this.setData({
+      ['orderMerches.ext.babyChairCount']: num
+    })
+  },
+  bindExtPlus(e) {
+    let num = this.data.orderMerches.ext.babyChairCount;
+    num++;
+    this.setData({
+      ['orderMerches.ext.babyChairCount']: num
+    })
+  },
+  bindExtManual(e) {
+    let num = e.detail.value;
+    if (num < 0) {
+      num = 0;
+    };
+    this.setData({
+      ['orderMerches.ext.babyChairCount']: num
+    })
+  },
   getNowFormatDate() {
     var date = new Date();
     var seperator1 = "-";
@@ -392,5 +441,10 @@ Page({
     }
     var currentdate = year + seperator1 + month + seperator1 + strDate;
     return currentdate;
+  },
+  handleChangeInputMail (e) {
+    this.setData({
+      mail: e.detail.value
+    })
   }
 })

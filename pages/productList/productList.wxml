@@ -1,27 +1,31 @@
 <!-- productList.wxml -->
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container'>
-  <view class='title'>{{city}}</view>
+  <!-- <view class='title'>{{city}}</view> -->
   <scroll-view class='tab-h' scroll-x="true" scroll-with-animation="true">
     <view class='tab-item {{ currentTab === 0 ? "active" : ""}}' data-current='0' bindtap='swichNav'>
       <view class='text'>一日游</view>
       <image src='../../img/index/tabs.png'></image>
     </view>
     <view class='tab-item {{ currentTab === 1 ? "active" : ""}}' data-current='1' bindtap='swichNav'>
-      <view class='text'>美食</view>
-      <image src='../../img/index/tabs.png'></image>
-    </view>
-    <view class='tab-item {{ currentTab === 2 ? "active" : ""}}' data-current='2' bindtap='swichNav'>
       <view class='text'>交通</view>
       <image src='../../img/index/tabs.png'></image>
     </view>
-    <view class='tab-item {{ currentTab === 3 ? "active" : ""}}' data-current='3' bindtap='swichNav'>
+    <view class='tab-item {{ currentTab === 2 ? "active" : ""}}' data-current='2' bindtap='swichNav'>
       <view class='text'>玩乐</view>
+      <image src='../../img/index/tabs.png'></image>
+    </view>
+    <view class='tab-item {{ currentTab === 3 ? "active" : ""}}' data-current='3' bindtap='swichNav'>
+      <view class='text'>美食</view>
       <image src='../../img/index/tabs.png'></image>
     </view>
     <view class='tab-item {{ currentTab === 4 ? "active" : ""}}' data-current='4' bindtap='swichNav'>
       <view class='text'>购物</view>
       <image src='../../img/index/tabs.png'></image>
+    </view>
+    <view class='tabs_show_type'>
+      <image src='../../img/index/vertical.png' data-type='horizontal' bindtap='handleChangeTabsType' wx:if='{{tabs_type === "vertical"}}'></image>
+      <image src='../../img/index/horizontal.png' data-type='vertical' bindtap='handleChangeTabsType' wx:if='{{tabs_type === "horizontal"}}'></image>
     </view>
   </scroll-view>
   <swiper class='tab-content' current='{{ currentTab }}' duration='300' bindchange='switchTab' style='height:{{winHeight}}rpx'>
@@ -32,80 +36,70 @@
         <view class='{{full_day_body.sortType === 3 ? "active" : ""}}' data-sortType='3' bindtap='changeSortType'>人气最高</view>
         <view class='{{full_day_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
       </view>
-      <scroll-view scroll-y="true" class='scoll-h' data-current='0' bindscrolltolower="scrolltolower">
+      <scroll-view scroll-y="true" class='scoll-h' style='height:{{scHeight}}rpx' data-current='0' bindscrolltolower="scrolltolower">
         <view class='list_row'>
           <block wx:for='{{full_day}}' wx:key='{{index}}'>
-            <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
+            <view class='list {{tabs_type === "horizontal" ? "horizontal" : ""}}' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
                 <image class='bg' src='{{item.goodsBase.poster}}'></image>
-                <image class='top' src='../../img/index/top.png' wx:if='{{item.goodsBase.top === 1}}'></image>
-                <image class='ticket' src='../../img/index/ticket.png' wx:if='{{item.goodsBase.coupon === 1}}'></image>
-              </view>
-              <view class='title'>
-                <text>{{item.goodsInfo.name}}</text>
-              </view>
-              <view class='location'>
-                <view class='img_row'>
-                  <image src='../../img/index/small_location.png'></image>
-                </view>
-                <view class='text'>
-                  <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+                <view class='icon'>
+                  <view class='icon_left'>
+                    <image class='top' wx:if='{{ item.goodsBase.top === 1 }}' src='../../img/index/top.png'></image>
+                    <image class='group' wx:if='{{item.goodsBase.groupBuy === 1}}' src='../../img/common/group.png'></image>
+                    <image class='line_up' wx:if='{{item.goodsBase.lineUp === 1}}' src='../../img/common/line_up.png'></image>
+                    <image class='reserve' wx:if='{{item.goodsBase.reserve === 1}}' src='../../img/common/reserve.png'></image>
+                  </view>
+                  <view class='icon_right'>
+                    <image class='ticket' wx:if='{{ item.goodsBase.coupon === 1 }}' src='../../img/index/ticket.png'></image>
+                  </view>
                 </view>
               </view>
-              <view class='info'>
-                <view class='price'>
-                  <text><text>￥</text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
+              <block wx:if='{{tabs_type === "vertical"}}'>
+                <view class='title'>
+                  <text>{{item.goodsInfo.name}}</text>
                 </view>
-                <view class='star'>
-                  <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
-                    <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
-                    <image wx:else src='../../img/index/star_uncheck.png'></image>
-                  </block>
+                <view class='location'>
+                  <view class='img_row'>
+                    <image src='../../img/index/small_location.png'></image>
+                  </view>
+                  <view class='text'>
+                    <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+                  </view>
                 </view>
-              </view>
-            </view>
-          </block>
-        </view>
-      </scroll-view>
-    </swiper-item>
-    <swiper-item>
-      <view class='header'>
-        <view class='{{food_body.sortType === 1 ? "active" : ""}}' data-sortType='1'>智能推荐</view>
-        <view class='{{food_body.sortType === 2 ? "active" : ""}}' data-sortType='2'>最近距离</view>
-        <view class='{{food_body.sortType === 3 ? "active" : ""}}' data-sortType='3'>人气最高</view>
-        <view class='{{food_body.sortType === 4 ? "active" : ""}}' data-sortType='4'>好评最多</view>
-      </view>
-      <scroll-view scroll-y="true" class='scoll-h' data-current='1' bindscrolltolower="scrolltolower">
-        <view class='list_row'>
-          <block wx:for='{{food}}' wx:key='{{index}}'>
-            <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
-              <view class='img_row'>
-                <image class='bg' src='{{item.goodsBase.poster}}'></image>
-                <image class='top' src='../../img/index/top.png' wx:if='{{item.goodsBase.top === 1}}'></image>
-                <image class='ticket' src='../../img/index/ticket.png' wx:if='{{item.goodsBase.coupon === 1}}'></image>
-              </view>
-              <view class='title'>
-                <text>{{item.goodsInfo.name}}</text>
-              </view>
-              <view class='location'>
-                <view class='img_row'>
-                  <image src='../../img/index/small_location.png'></image>
+                <view class='info'>
+                  <view class='price'>
+                    <text><text>￥</text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
+                  </view>
+                  <view class='star'>
+                    <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                      <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                      <image wx:else src='../../img/index/star_uncheck.png'></image>
+                    </block>
+                  </view>
                 </view>
-                <view class='text'>
-                  <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+              </block>
+              <block wx:if='{{tabs_type === "horizontal"}}'>
+                <view class='h_main'>
+                  <view class='h_title'>{{item.goodsInfo.name}}</view>
+                  <view class='h_star'>
+                    <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                      <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                      <image wx:else src='../../img/index/star_uncheck.png'></image>
+                    </block>
+                  </view>
+                  <view class='h_location'>
+                    <view class='img_row'>
+                      <image src='../../img/index/small_location.png'></image>
+                    </view>
+                    <view class='text'>
+                      <text>{{item.goodsInfo.city}} · 距离{{dateFr.getDistance(item.distance)}}{{item.distance ? '公里' : ''}}</text>
+                    </view>
+                  </view>
+                  <view class='h_price'>
+                    <text class='{{item.goodsInfo.avgPrice ? "" : "ashy"}}'>{{item.goodsInfo.avgPrice ? item.goodsInfo.avgPrice : '暂无均价建议'}}</text>
+                  </view>
                 </view>
-              </view>
-              <view class='info'>
-                <view class='price'>
-                  <text><text>￥</text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
-                </view>
-                <view class='star'>
-                  <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
-                    <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
-                    <image wx:else src='../../img/index/star_uncheck.png'></image>
-                  </block>
-                </view>
-              </view>
+              </block>
             </view>
           </block>
         </view>
@@ -118,37 +112,70 @@
         <view class='{{traffic_body.sortType === 3 ? "active" : ""}}' data-sortType='3' bindtap='changeSortType'>人气最高</view>
         <view class='{{traffic_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
       </view>
-      <scroll-view scroll-y="true" class='scoll-h' data-current='2' bindscrolltolower="scrolltolower">
+      <scroll-view scroll-y="true" class='scoll-h' style='height:{{scHeight}}rpx' data-current='1' bindscrolltolower="scrolltolower">
         <view class='list_row'>
           <block wx:for='{{traffic}}' wx:key='{{index}}'>
-            <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
+            <view class='list {{tabs_type === "horizontal" ? "horizontal" : ""}}' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
                 <image class='bg' src='{{item.goodsBase.poster}}'></image>
-                <image class='top' src='../../img/index/top.png' wx:if='{{item.goodsBase.top === 1}}'></image>
-                <image class='ticket' src='../../img/index/ticket.png' wx:if='{{item.goodsBase.coupon === 1}}'></image>
-              </view>
-              <view class='title'>
-                <text>{{item.goodsInfo.name}}</text>
-              </view>
-              <view class='location'>
-                <view class='img_row'>
-                  <image src='../../img/index/small_location.png'></image>
-                </view>
-                <view class='text'>
-                  <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+                <view class='icon'>
+                  <view class='icon_left'>
+                    <image class='top' wx:if='{{ item.goodsBase.top === 1 }}' src='../../img/index/top.png'></image>
+                    <image class='group' wx:if='{{item.goodsBase.groupBuy === 1}}' src='../../img/common/group.png'></image>
+                    <image class='line_up' wx:if='{{item.goodsBase.lineUp === 1}}' src='../../img/common/line_up.png'></image>
+                    <image class='reserve' wx:if='{{item.goodsBase.reserve === 1}}' src='../../img/common/reserve.png'></image>
+                  </view>
+                  <view class='icon_right'>
+                    <image class='ticket' wx:if='{{ item.goodsBase.coupon === 1 }}' src='../../img/index/ticket.png'></image>
+                  </view>
                 </view>
               </view>
-              <view class='info'>
-                <view class='price'>
-                  <text><text>￥</text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
+              <block wx:if='{{tabs_type === "vertical"}}'>
+                <view class='title'>
+                  <text>{{item.goodsInfo.name}}</text>
                 </view>
-                <view class='star'>
-                  <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
-                    <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
-                    <image wx:else src='../../img/index/star_uncheck.png'></image>
-                  </block>
+                <view class='location'>
+                  <view class='img_row'>
+                    <image src='../../img/index/small_location.png'></image>
+                  </view>
+                  <view class='text'>
+                    <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+                  </view>
                 </view>
-              </view>
+                <view class='info'>
+                  <view class='price'>
+                    <text><text>￥</text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
+                  </view>
+                  <view class='star'>
+                    <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                      <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                      <image wx:else src='../../img/index/star_uncheck.png'></image>
+                    </block>
+                  </view>
+                </view>
+              </block>
+              <block wx:if='{{tabs_type === "horizontal"}}'>
+                <view class='h_main'>
+                  <view class='h_title'>{{item.goodsInfo.name}}</view>
+                  <view class='h_star'>
+                    <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                      <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                      <image wx:else src='../../img/index/star_uncheck.png'></image>
+                    </block>
+                  </view>
+                  <view class='h_location'>
+                    <view class='img_row'>
+                      <image src='../../img/index/small_location.png'></image>
+                    </view>
+                    <view class='text'>
+                      <text>{{item.goodsInfo.city}} · 距离{{dateFr.getDistance(item.distance)}}{{item.distance ? '公里' : ''}}</text>
+                    </view>
+                  </view>
+                  <view class='h_price'>
+                    <text class='{{item.goodsInfo.avgPrice ? "" : "ashy"}}'>{{item.goodsInfo.avgPrice ? item.goodsInfo.avgPrice : '暂无均价建议'}}</text>
+                  </view>
+                </view>
+              </block>
             </view>
           </block>
         </view>
@@ -161,37 +188,186 @@
         <view class='{{lark_body.sortType === 3 ? "active" : ""}}' data-sortType='3' bindtap='changeSortType'>人气最高</view>
         <view class='{{lark_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
       </view>
-      <scroll-view scroll-y="true" class='scoll-h' data-current='3' bindscrolltolower="scrolltolower">
+      <scroll-view scroll-y="true" class='scoll-h' style='height:{{scHeight}}rpx' data-current='2' bindscrolltolower="scrolltolower">
         <view class='list_row'>
           <block wx:for='{{lark}}' wx:key='{{index}}'>
-            <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
+            <view class='list {{tabs_type === "horizontal" ? "horizontal" : ""}}' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
                 <image class='bg' src='{{item.goodsBase.poster}}'></image>
-                <image class='top' src='../../img/index/top.png' wx:if='{{item.goodsBase.top === 1}}'></image>
-                <image class='ticket' src='../../img/index/ticket.png' wx:if='{{item.goodsBase.coupon === 1}}'></image>
-              </view>
-              <view class='title'>
-                <text>{{item.goodsInfo.name}}</text>
-              </view>
-              <view class='location'>
-                <view class='img_row'>
-                  <image src='../../img/index/small_location.png'></image>
-                </view>
-                <view class='text'>
-                  <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+                <view class='icon'>
+                  <view class='icon_left'>
+                    <image class='top' wx:if='{{ item.goodsBase.top === 1 }}' src='../../img/index/top.png'></image>
+                    <image class='group' wx:if='{{item.goodsBase.groupBuy === 1}}' src='../../img/common/group.png'></image>
+                    <image class='line_up' wx:if='{{item.goodsBase.lineUp === 1}}' src='../../img/common/line_up.png'></image>
+                    <image class='reserve' wx:if='{{item.goodsBase.reserve === 1}}' src='../../img/common/reserve.png'></image>
+                  </view>
+                  <view class='icon_right'>
+                    <image class='ticket' wx:if='{{ item.goodsBase.coupon === 1 }}' src='../../img/index/ticket.png'></image>
+                  </view>
                 </view>
               </view>
-              <view class='info'>
-                <view class='price'>
-                  <text><text>￥</text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
+              <block wx:if='{{tabs_type === "vertical"}}'>
+                <view class='title'>
+                  <text>{{item.goodsInfo.name}}</text>
                 </view>
-                <view class='star'>
-                  <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
-                    <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
-                    <image wx:else src='../../img/index/star_uncheck.png'></image>
-                  </block>
+                <view class='location'>
+                  <view class='img_row'>
+                    <image src='../../img/index/small_location.png'></image>
+                  </view>
+                  <view class='text'>
+                    <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+                  </view>
+                </view>
+                <view class='info'>
+                  <view class='price'>
+                    <text><text>￥</text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
+                  </view>
+                  <view class='star'>
+                    <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                      <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                      <image wx:else src='../../img/index/star_uncheck.png'></image>
+                    </block>
+                  </view>
+                </view>
+              </block>
+              <block wx:if='{{tabs_type === "horizontal"}}'>
+                <view class='h_main'>
+                  <view class='h_title'>{{item.goodsInfo.name}}</view>
+                  <view class='h_star'>
+                    <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                      <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                      <image wx:else src='../../img/index/star_uncheck.png'></image>
+                    </block>
+                  </view>
+                  <view class='h_location'>
+                    <view class='img_row'>
+                      <image src='../../img/index/small_location.png'></image>
+                    </view>
+                    <view class='text'>
+                      <text>{{item.goodsInfo.city}} · 距离{{dateFr.getDistance(item.distance)}}{{item.distance ? '公里' : ''}}</text>
+                    </view>
+                  </view>
+                  <view class='h_price'>
+                    <text class='{{item.goodsInfo.avgPrice ? "" : "ashy"}}'>{{item.goodsInfo.avgPrice ? item.goodsInfo.avgPrice : '暂无均价建议'}}</text>
+                  </view>
+                </view>
+              </block>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <view class='food_header'>
+        <view class='{{popup_type === "region" ? "active" : ""}}' data-type='region' bindtap='handleShowPopupAndMask'>
+          <view class='text'>{{region_text}}</view>
+          <view class='arrow'>
+            <image class='top' src='../../img/common/icon_rectangle_top.png'></image>
+            <image class='bottom' src='../../img/common/icon_rectangle_bottom.png'></image>
+          </view>
+        </view>
+        <view class='{{popup_type === "delicacy" ? "active" : ""}}' data-type='delicacy' bindtap='handleShowPopupAndMask'>
+          <view class='text'>{{delicacy_text}}</view>
+          <view class='arrow'>
+            <image class='top' src='../../img/common/icon_rectangle_top.png'></image>
+            <image class='bottom' src='../../img/common/icon_rectangle_bottom.png'></image>
+          </view>
+        </view>
+        <view class='{{popup_type === "preference" ? "active" : ""}}' data-type='preference' bindtap='handleShowPopupAndMask'>
+          <view class='text'>{{preference_text}}</view>
+          <view class='arrow'>
+            <image class='top' src='../../img/common/icon_rectangle_top.png'></image>
+            <image class='bottom' src='../../img/common/icon_rectangle_bottom.png'></image>
+          </view>
+        </view>
+      </view>
+      <view class='mask' wx:if='{{mask}}' bindtap='handleClickMask'></view>
+      <view class='popup' wx:if='{{popup_type}}'>
+        <view class='region' wx:if='{{popup_type === "region"}}'>
+          <view class='left'>
+            <view class='{{!food_body.areaId ? "active" : ""}}' data-areaid='' bindtap='handleClickMask'>全部区域</view>
+          </view>
+          <view class='right'>
+            <view class='{{!food_body.tradingId ? "active" : ""}}' data-tradingid='' bindtap='handleClickMask'>全部商圈</view>
+          </view>
+        </view>
+        <view class='delicacy' wx:if='{{popup_type === "delicacy"}}'>
+          <view class='{{!food_body.categoryId ? "active" : ""}}' data-categoryid='' data-text='全部美食' bindtap='handleChangeCategoryId'>全部美食</view>
+          <block wx:for='{{foodCategories}}' wx:key='{{index}}'>
+            <view class='{{ item.id === food_body.categoryId ? "active" : "" }}' data-categoryid='{{item.id}}' data-text='{{item.name}}' bindtap='handleChangeCategoryId'>{{item.name}}</view>
+          </block>
+        </view>
+        <view class='preference' wx:if='{{popup_type === "preference"}}'>
+          <view class='{{food_body.sortType === 1 ? "active" : ""}}' data-sortType='1' data-text='智能推荐' bindtap='changeSortType'>智能推荐</view>
+          <view class='{{food_body.sortType === 2 ? "active" : ""}}' data-sortType='2' data-text='最近距离' bindtap='changeSortType'>最近距离</view>
+          <view class='{{food_body.sortType === 3 ? "active" : ""}}' data-sortType='3' data-text='人气最高' bindtap='changeSortType'>人气最高</view>
+          <view class='{{food_body.sortType === 4 ? "active" : ""}}' data-sortType='4' data-text='好评最多' bindtap='changeSortType'>好评最多</view>
+        </view>
+      </view>
+      <scroll-view scroll-y="true" class='scoll-h' style='height:{{foodScHeight}}rpx' data-current='3' bindscrolltolower="scrolltolower">
+        <view class='list_row'>
+          <block wx:for='{{food}}' wx:key='{{index}}'>
+            <view class='list {{tabs_type === "horizontal" ? "horizontal" : ""}}' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
+              <view class='img_row'>
+                <image class='bg' src='{{item.goodsBase.poster}}'></image>
+                <view class='icon'>
+                  <view class='icon_left'>
+                    <image class='top' wx:if='{{ item.goodsBase.top === 1 }}' src='../../img/index/top.png'></image>
+                    <image class='group' wx:if='{{item.goodsBase.groupBuy === 1}}' src='../../img/common/group.png'></image>
+                    <image class='line_up' wx:if='{{item.goodsBase.lineUp === 1}}' src='../../img/common/line_up.png'></image>
+                    <image class='reserve' wx:if='{{item.goodsBase.reserve === 1}}' src='../../img/common/reserve.png'></image>
+                  </view>
+                  <view class='icon_right'>
+                    <image class='ticket' wx:if='{{ item.goodsBase.coupon === 1 }}' src='../../img/index/ticket.png'></image>
+                  </view>
                 </view>
               </view>
+              <block wx:if='{{tabs_type === "vertical"}}'>
+                <view class='title'>
+                  <text>{{item.goodsInfo.name}}</text>
+                </view>
+                <view class='location'>
+                  <view class='img_row'>
+                    <image src='../../img/index/small_location.png'></image>
+                  </view>
+                  <view class='text'>
+                    <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+                  </view>
+                </view>
+                <view class='info'>
+                  <view class='price'>
+                    <text><text>￥</text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
+                  </view>
+                  <view class='star'>
+                    <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                      <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                      <image wx:else src='../../img/index/star_uncheck.png'></image>
+                    </block>
+                  </view>
+                </view>
+              </block>
+              <block wx:if='{{tabs_type === "horizontal"}}'>
+                <view class='h_main'>
+                  <view class='h_title'>{{item.goodsInfo.name}}</view>
+                  <view class='h_star'>
+                    <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                      <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                      <image wx:else src='../../img/index/star_uncheck.png'></image>
+                    </block>
+                  </view>
+                  <view class='h_location'>
+                    <view class='img_row'>
+                      <image src='../../img/index/small_location.png'></image>
+                    </view>
+                    <view class='text'>
+                      <text>{{item.goodsInfo.city}} · 距离{{dateFr.getDistance(item.distance)}}{{item.distance ? '公里' : ''}}</text>
+                    </view>
+                  </view>
+                  <view class='h_price'>
+                    <text class='{{item.goodsInfo.avgPrice ? "" : "ashy"}}'>{{item.goodsInfo.avgPrice ? item.goodsInfo.avgPrice : '暂无均价建议'}}</text>
+                  </view>
+                </view>
+              </block>
             </view>
           </block>
         </view>
@@ -204,37 +380,70 @@
         <view class='{{shopping_body.sortType === 3 ? "active" : ""}}' data-sortType='3' bindtap='changeSortType'>人气最高</view>
         <view class='{{shopping_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
       </view>
-      <scroll-view scroll-y="true" class='scoll-h' data-current='4' bindscrolltolower="scrolltolower">
+      <scroll-view scroll-y="true" class='scoll-h' style='height:{{scHeight}}rpx' data-current='4' bindscrolltolower="scrolltolower">
         <view class='list_row'>
           <block wx:for='{{shopping}}' wx:key='{{index}}'>
-            <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
+            <view class='list {{tabs_type === "horizontal" ? "horizontal" : ""}}' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
                 <image class='bg' src='{{item.goodsBase.poster}}'></image>
-                <image class='top' src='../../img/index/top.png' wx:if='{{item.goodsBase.top === 1}}'></image>
-                <image class='ticket' src='../../img/index/ticket.png' wx:if='{{item.goodsBase.coupon === 1}}'></image>
-              </view>
-              <view class='title'>
-                <text>{{item.goodsInfo.name}}</text>
-              </view>
-              <view class='location'>
-                <view class='img_row'>
-                  <image src='../../img/index/small_location.png'></image>
-                </view>
-                <view class='text'>
-                  <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+                <view class='icon'>
+                  <view class='icon_left'>
+                    <image class='top' wx:if='{{ item.goodsBase.top === 1 }}' src='../../img/index/top.png'></image>
+                    <image class='group' wx:if='{{item.goodsBase.groupBuy === 1}}' src='../../img/common/group.png'></image>
+                    <image class='line_up' wx:if='{{item.goodsBase.lineUp === 1}}' src='../../img/common/line_up.png'></image>
+                    <image class='reserve' wx:if='{{item.goodsBase.reserve === 1}}' src='../../img/common/reserve.png'></image>
+                  </view>
+                  <view class='icon_right'>
+                    <image class='ticket' wx:if='{{ item.goodsBase.coupon === 1 }}' src='../../img/index/ticket.png'></image>
+                  </view>
                 </view>
               </view>
-              <view class='info'>
-                <view class='price'>
-                  <text><text>￥</text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
+              <block wx:if='{{tabs_type === "vertical"}}'>
+                <view class='title'>
+                  <text>{{item.goodsInfo.name}}</text>
                 </view>
-                <view class='star'>
-                  <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
-                    <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
-                    <image wx:else src='../../img/index/star_uncheck.png'></image>
-                  </block>
+                <view class='location'>
+                  <view class='img_row'>
+                    <image src='../../img/index/small_location.png'></image>
+                  </view>
+                  <view class='text'>
+                    <text>{{item.goodsInfo.city}} · 距离市中心{{dateFr.getDistance(item.distance)}}公里</text>
+                  </view>
                 </view>
-              </view>
+                <view class='info'>
+                  <view class='price'>
+                    <text><text>￥</text>{{item.goodsInfo ? item.goodsInfo.avgPrice : ''}}</text>
+                  </view>
+                  <view class='star'>
+                    <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                      <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                      <image wx:else src='../../img/index/star_uncheck.png'></image>
+                    </block>
+                  </view>
+                </view>
+              </block>
+              <block wx:if='{{tabs_type === "horizontal"}}'>
+                <view class='h_main'>
+                  <view class='h_title'>{{item.goodsInfo.name}}</view>
+                  <view class='h_star'>
+                    <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                      <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                      <image wx:else src='../../img/index/star_uncheck.png'></image>
+                    </block>
+                  </view>
+                  <view class='h_location'>
+                    <view class='img_row'>
+                      <image src='../../img/index/small_location.png'></image>
+                    </view>
+                    <view class='text'>
+                      <text>{{item.goodsInfo.city}} · 距离{{dateFr.getDistance(item.distance)}}{{item.distance ? '公里' : ''}}</text>
+                    </view>
+                  </view>
+                  <view class='h_price'>
+                    <text class='{{item.goodsInfo.avgPrice ? "" : "ashy"}}'>{{item.goodsInfo.avgPrice ? item.goodsInfo.avgPrice : '暂无均价建议'}}</text>
+                  </view>
+                </view>
+              </block>
             </view>
           </block>
         </view>

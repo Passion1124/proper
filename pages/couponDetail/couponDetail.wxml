@@ -1,7 +1,7 @@
 <!-- couponDetail.wxml -->
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container'>
-  <view class='page_title'>优惠券</view>
+  <!-- <view class='page_title'>优惠券</view> -->
   <view class='card'>
     <image class='bg' src='../../img/coupon/coupon_bg_normal.png'></image>
     <view class='content'>

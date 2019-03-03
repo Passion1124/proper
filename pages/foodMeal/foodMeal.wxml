@@ -13,7 +13,7 @@
         </view>
       </view>
       <view class='buy'>
-        <button>购买</button>
+        <button data-giid='{{item.goodsItemInfo.giid}}' bindtap='goToTheFoodSetDetail'>购买</button>
       </view>
     </view>
   </block>

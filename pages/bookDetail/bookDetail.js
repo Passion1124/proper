@@ -8,7 +8,9 @@ Page({
   data: {
     orderId: '',
     order: {},
-    explain: []
+    explain: [],
+    orderMerches: [],
+    result: ''
   },
 
   /**
@@ -16,6 +18,11 @@ Page({
    */
   onLoad: function (options) {
     this.data.orderId = options.id;
+    if (options.result) {
+      this.setData({
+        result: options.result
+      })
+    }
     this.handleOrderDetail();
   },
 
@@ -76,7 +83,8 @@ Page({
       let explain = res.order.preOrder.customerRequest ? res.order.preOrder.customerRequest.split('|') : [];
       this.setData({
         order: res.order,
-        explain: explain
+        explain: explain,
+        orderMerches: res.orderMerches
       });
     }, fail => {
       wx.hideLoading();

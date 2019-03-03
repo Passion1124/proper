@@ -7,7 +7,7 @@
     <view class='{{sortType === 3 ? "active" : ""}}' data-sortType='3' bindtap='changeSortType'>人气最高</view>
     <view class='{{sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
   </view>
-  <view class='list_row'>
+  <view class='list_row' wx:if='{{goods.length}}'>
     <block wx:for='{{goods}}' wx:key='{{index}}'>
       <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
         <view class='img_row'>
@@ -39,5 +39,11 @@
         </view>
       </view>
     </block>
+  </view>
+  <view class='empty' wx:if='{{!goods.length}}'>
+    <view class='image_row'>
+      <image src='../../img/common/empty_data.png'></image>
+    </view>
+    <view class='text'>暂无数据哦，快去逛逛吧～</view>
   </view>
 </view>

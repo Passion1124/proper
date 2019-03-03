@@ -1,4 +1,5 @@
 <!-- foodchoose.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container'>
   <view class='single'>
     <view class='single_text'>购买份数</view>
@@ -19,21 +20,90 @@
     </view>
   </view>
   <view class='single'>
-    <input placeholder='您的姓名' placeholder-class='ph_class'></input>
+    <input placeholder='您的姓名' value='{{receiver.name}}' placeholder-class='ph_class' bindinput='handleInputName'></input>
   </view>
   <view class='single'>
-    <input placeholder='手机号码' placeholder-class='ph_class'></input>
+    <input type='number' placeholder='手机号码' value='{{receiver.phoneNo}}' placeholder-class='ph_class' bindinput='handleInputPhone'></input>
   </view>
   <view class='single'>
-    <input placeholder='邮箱' placeholder-class='ph_class'></input>
+    <input placeholder='邮箱' value='{{receiver.email}}' placeholder-class='ph_class' bindinput='handleInputEmail'></input>
   </view>
-  <view class='price_btn'>
+  <view class='many' bindtap='clickCouponLan'>
+    <view class='text'>可用优惠券</view>
+    <view class='coupon'>
+      <view class='blue_text' wx:if='{{!selectCoupon.id && coupons.length}}'>{{coupons.length}}张</view>
+      <view class='blue_text' wx:if='{{selectCoupon.id}}'>{{selectCoupon.name}}</view>
+      <view class='blue_text' wx:if='{{!selectCoupon.id && !coupons.length}}'>无优惠券</view>
+      <view class='img_row'>
+        <image src='../../img/common/more.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='mask {{ p_mask ? "open_mask" : "close_mask"}}' bindtap='closePopup'></view>
+  <view class='coupons_box {{ p_mask ? "open_popup" : "close_popup"}}'>
+    <image class='close' src='../../img/order/pay_icon_close.png' bindtap='closePopup'></image>
+    <view class='main_row'>
+      <block wx:for="{{coupons}}" wx:key="{{index}}">
+        <view class='main' data-couponId='{{item.id}}' data-id='{{item.id}}' data-index='{{index}}' bindtap='selectedCoupon'>
+          <image class='bg' src='../../img/index/coupon_bg.png'></image>
+          <view class='content'>
+            <view class='top'>
+              <view class='logo'>
+                <image src='{{item.imgUrl}}'></image>
+              </view>
+              <view class='worth'>
+                <view class='discount'>
+                  <block wx:if='{{item.type === 0}}'>
+                    <view class='num'>
+                      <text>{{item.discount / 10}}</text>
+                    </view>
+                    <view class='fracture'>
+                      <text>/折</text>
+                    </view>
+                  </block>
+                  <block wx:if='{{item.type === 1}}'>
+                    <view class='num'>
+                      <text><text class='currency'>{{item.currency}}</text>{{item.reducePrice / 100}}</text>
+                    </view>
+                    <view class='fracture'>
+                      <text>/满{{item.sourcePrice / 100}}</text>
+                    </view>
+                  </block>
+                  <block wx:if='{{item.type === 2}}'>
+                    <view class='num'>
+                      <text><text class='currency'>{{item.currency}}</text>{{item.reducePrice / 100}}</text>
+                    </view>
+                  </block>
+                </view>
+                <view class='expiry_date'>
+                  <text>有效期至：{{dateFr.getDate(item.expireEndAt, '/')}}</text>
+                </view>
+              </view>
+            </view>
+            <view class='bottom'>
+              <view>
+                <text>{{item.name}}</text>
+              </view>
+              <view>
+                <image wx:if='{{selectCoupon.id !== item.id}}' src='../../img/order/pay_icon_check.png'></image>
+                <image wx:if='{{selectCoupon.id === item.id}}' src='../../img/order/pay_icon_checked.png'></image>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class='pay'>
     <view class='price'>
-      <text>合计</text>
-      <text>￥6.00</text>
+      <view class='pay_price'>
+        <text>合计</text>
+        <text>{{goodsItem.goodsItemBase.currency}}{{dateFr.getOrderPrice((price * orderMerches.merchCount), selectCoupon) / 100}}</text>
+      </view>
+      <view class='discount' wx:if='{{selectCoupon.id}}'>优惠 {{goodsItem.goodsItemBase.currency}}{{dateFr.getDiscountPrice((price * orderMerches.merchCount), selectCoupon) / 100}}</view>
     </view>
     <view class='btn'>
-      <button>提价订单</button>
+      <button bindtap='handleClickPaymentButton'>立即购买</button>
     </view>
   </view>
 </view>

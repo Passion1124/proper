@@ -8,8 +8,13 @@ Page({
   data: {
     city: '',
     winHeight: "", //窗口高度
+    scHeight: "", // 滚动区域的高度
+    foodScHeight: "", // 美食的滚动区域高度
     currentTab: 0, //预设当前项的值
     scrollLeft: 0, //tab标题的滚动条位置
+    mask: false,
+    popup_type: '',
+    tabs_type: 'vertical',
     full_day: [],
     full_day_body: {
       page: 1,
@@ -22,7 +27,11 @@ Page({
       page: 1,
       size: 30,
       sortType: 1,
-      type: 2
+      type: 2,
+      categoryId: '',
+      areaId: '',
+      cityId: '',
+      tradingId: ''
     },
     traffic: [],
     traffic_body: {
@@ -44,21 +53,30 @@ Page({
       size: 30,
       sortType: 1,
       type: 5
-    }
+    },
+    areaInfos: [],
+    foodCategories: [],
+    preference_text: '偏好综合',
+    delicacy_text: '全部美食',
+    region_text: '全部区域'
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.setNavigationBarTitle({
+      title: app.globalData.cityName
+    })
     this.handleHeightAuto();
     this.setData({
-      currentTab: Number(options.type) - 1,
       city: app.globalData.cityName
     });
+    this.initCurrentTab(Number(options.type));
     if (this.data.currentTab === 0) {
       this.getFullDayGoodsList();
-    }
+    };
+    this.getAreaList();
   },
 
   /**
@@ -117,9 +135,13 @@ Page({
         var clientHeight = res.windowHeight,
           clientWidth = res.windowWidth,
           rpxR = 750 / clientWidth;
-        var calc = clientHeight * rpxR - 242 - 24;
+        var calc = clientHeight * rpxR - 80;
+        var calc_sc = clientHeight * rpxR - 80 - 24 - 48;
+        var food_sc = clientHeight * rpxR - 80 - 88; 
         that.setData({
-          winHeight: calc
+          winHeight: calc,
+          scHeight: calc_sc,
+          foodScHeight: food_sc
         });
       }
     });
@@ -189,32 +211,60 @@ Page({
       console.error(err);
     })
   },
+  // 获取区域列表
+  getAreaList () {
+    let api = 'com.ttdtrip.api.config.apis.service.AreaListApiService';
+    let city = wx.getStorageSync('city');
+    let cityId = city ? city.cityId :'';
+    let data = { base: app.globalData.baseBody, cityId };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        areaInfos: res.areaInfos
+      })
+    }, e => {
+      console.error(e);
+    })
+  },
+  // 获取分类列表
+  getAreaList() {
+    let api = 'com.ttdtrip.api.config.apis.service.CategoryQryApiService';
+    let data = { base: app.globalData.baseBody };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        foodCategories: res.foodCategories
+      })
+    }, e => {
+      console.error(e);
+    })
+  },
   scrolltolower (e) {
     if (this.data.currentTab === 0 && this.isInteger(this.data.full_day.length / 30)) {
-      this.full_day_body.page++;
+      this.data.full_day_body.page++;
       this.getFullDayGoodsList();
-    } else if (this.data.currentTab === 1 && this.isInteger(this.data.food.length / 30)) {
-      this.food_body.page++;
+    } else if (this.data.currentTab === 3 && this.isInteger(this.data.food.length / 30)) {
+      this.data.food_body.page++;
       this.getFoodGoodsList();
-    } else if (this.data.currentTab === 2 && this.isInteger(this.data.traffic.length / 30)) {
-      this.traffic_body.page++;
+    } else if (this.data.currentTab === 1 && this.isInteger(this.data.traffic.length / 30)) {
+      this.data.traffic_body.page++;
       this.getTrafficGoodsList();
-    } else if (this.data.currentTab === 3 && this.isInteger(this.data.lark.length / 30)) {
-      this.lark_body.page++;
+    } else if (this.data.currentTab === 2 && this.isInteger(this.data.lark.length / 30)) {
+      this.data.lark_body.page++;
       this.getLarkGoodsList();
     } else if (this.data.currentTab === 4 && this.isInteger(this.data.shopping.length / 30)) {
-      this.shopping_body.page++;
+      this.data.shopping_body.page++;
       this.getShoppingGoodsList();
     }
   },
   handleGetGoodsList () {
     if (this.data.currentTab === 0 && !this.data.full_day.length) {
       this.getFullDayGoodsList();
-    } else if (this.data.currentTab === 1 && !this.data.food.length) {
+    } else if (this.data.currentTab === 3 && !this.data.food.length) {
       this.getFoodGoodsList();
-    } else if (this.data.currentTab === 2 && !this.data.traffic.length) {
+    } else if (this.data.currentTab === 1 && !this.data.traffic.length) {
       this.getTrafficGoodsList();
-    } else if (this.data.currentTab === 3 && !this.data.lark.length) {
+    } else if (this.data.currentTab === 2 && !this.data.lark.length) {
       this.getLarkGoodsList();
     } else if (this.data.currentTab === 4 && !this.data.shopping.length) {
       this.getShoppingGoodsList();
@@ -241,21 +291,25 @@ Page({
       });
       this.data.full_day = [];
       this.getFullDayGoodsList();
-    } else if (this.data.currentTab === 1 && this.data.food_body.sortType !== sortType) {
+    } else if (this.data.currentTab === 3 && this.data.food_body.sortType !== sortType) {
+      let text = e.currentTarget.dataset.text;
       this.setData({
         ['food_body.sortType']: Number(sortType),
-        ['food_body.page']: 1
+        ['food_body.page']: 1,
+        mask: false,
+        popup_type: '',
+        preference_text: text
       });
       this.data.food = [];
       this.getFoodGoodsList();
-    } else if (this.data.currentTab === 2 && this.data.traffic_body.sortType !== sortType) {
+    } else if (this.data.currentTab === 1 && this.data.traffic_body.sortType !== sortType) {
       this.setData({
-        ['food_body.sortType']: Number(sortType),
-        ['food_body.page']: 1
+        ['traffic_body.sortType']: Number(sortType),
+        ['traffic_body.page']: 1
       });
-      this.data.food = [];
-      this.getFoodGoodsList();
-    } else if (this.data.currentTab === 3 && this.data.lark_body.sortType !== sortType) {
+      this.data.traffic = [];
+      this.getTrafficGoodsList();
+    } else if (this.data.currentTab === 2 && this.data.lark_body.sortType !== sortType) {
       this.setData({
         ['lark_body.sortType']: Number(sortType),
         ['lark_body.page']: 1
@@ -280,5 +334,56 @@ Page({
   },
   isInteger (obj) {
     return obj % 1 === 0;
+  },
+  initCurrentTab (type) {
+    let currentTab = 0;
+    if (type === 2) {
+      currentTab = 3;
+    } else if (type === 3) {
+      currentTab = 1;
+    } else if (type === 4) {
+      currentTab = 2
+    } else if (type === 5) {
+      currentTab = 4;
+    };
+    this.setData({
+      currentTab
+    })
+  },
+  handleChangeTabsType (e) {
+    this.setData({
+      tabs_type: e.currentTarget.dataset.type
+    });
+  },
+  handleShowPopupAndMask (e) {
+    let type = e.currentTarget.dataset.type;
+    let mask = true;
+    if (this.data.popup_type === type) {
+      type = '';
+      mask = false;
+    }
+    this.setData({
+      mask: mask,
+      popup_type: type
+    })
+  },
+  handleChangeCategoryId (e) {
+    let categoryid = e.currentTarget.dataset.categoryid;
+    let text = e.currentTarget.dataset.text;
+    this.setData({
+      delicacy_text: text,
+      ['food_body.categoryId']: categoryid,
+      ['food_body.page']: 1,
+      mask: false,
+      popup_type: ''
+    });
+    this.data.food = [];
+    this.getFoodGoodsList();
+  },
+  handleClickMask () {
+    this.setData({
+      mask: false,
+      popup_type: ''
+    })
   }
 })

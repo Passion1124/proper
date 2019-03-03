@@ -142,14 +142,16 @@
     <view class='single'>
       <input value='{{preOrderInfo.phoneNo}}' placeholder='手机' placeholder-class='ph_class' data-type='phone' bindinput='handleChangeInputValue'></input>
     </view>
-    <view class='form_title no_border'>
-      <view class='title_text'>预约说明</view>
-    </view>
-    <view class='order_explain'>
-      <block wx:for='{{customerRequest}}' wx:key='{{index}}'>
-        <view class='{{checkedCustomer[index] ? "active" : ""}}' data-index='{{index}}' bindtap='handleChangeOrderExplain'>{{item}}</view>
-      </block>
-    </view>
+    <block wx:if='{{customerRequest.length}}'>
+      <view class='form_title no_border'>
+        <view class='title_text'>预约说明</view>
+      </view>
+      <view class='order_explain'>
+        <block wx:for='{{customerRequest}}' wx:key='{{index}}'>
+          <view class='{{checkedCustomer[index] ? "active" : ""}}' data-index='{{index}}' bindtap='handleChangeOrderExplain'>{{item}}</view>
+        </block>
+      </view>
+    </block>
     <view class='form_title no_border'>
       <view class='title_text'>预订说明</view>
     </view>
@@ -162,7 +164,7 @@
       <text>{{currency + (payPrice / 100) * preOrderInfo.totalCount}}</text>
     </view>
     <view class='btn'>
-      <button bindtap='handleClickPaymentButton'>提价订单</button>
+      <button bindtap='handleClickPaymentButton'>提交订单</button>
     </view>
   </view>
 </view>

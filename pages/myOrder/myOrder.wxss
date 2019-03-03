@@ -118,7 +118,7 @@
 }
 
 .order .center{
-  margin-bottom: 40rpx;
+  
 }
 
 .order .center .name{
@@ -137,10 +137,41 @@
   color: #B7B7B7;
 }
 
+.order .center .eat{
+  display: flex;
+  align-items: center;
+}
+
+.order .center .eat .tags{
+  width: 80rpx;
+  height: 46rpx;
+  line-height: 46rpx;
+  font-size: 28rpx;
+  border-radius: 4rpx;
+  background-color: #EEF2F4;
+  color: #23C2F7;
+  margin-right: 22rpx;
+  text-align: center;
+}
+
+.order .center .eat .time{
+  font-size: 48rpx;
+  line-height: 67rpx;
+  color: #3C3C3C;
+  margin-right: 18rpx;
+}
+
+.order .center .eat .date{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #8C8C8C;
+}
+
 .order .bottom{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 40rpx;
 }
 
 .order .bottom .left{
@@ -167,4 +198,82 @@
   font-size: 24rpx;
   line-height: 33rpx;
   color: #B7B7B7;
+}
+
+.filter_order_status{
+  position: fixed;
+  right: 40rpx;
+  bottom: 88rpx;
+  width: 120rpx;
+  height: 120rpx;
+  z-index: 9;
+}
+
+.filter_order_status image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.order_status_choice {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  z-index: 12;
+}
+
+.order_status_choice .list_view{
+  position: absolute;
+  right: 40rpx;
+  bottom: 88rpx;
+  width: 250rpx;
+}
+
+.order_status_choice .list_view .list{
+  padding: 0 40rpx;
+  border-radius: 16rpx;
+  background-color: #fff;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.order_status_choice .list_view .list view{
+  padding: 24rpx 0;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #3C3C3C;
+  border-bottom: 1rpx solid #E0E0E0;
+}
+
+.order_status_choice .list_view .list view.active{
+  color: #23C2F7;
+}
+
+.order_status_choice .list_view .list view:last-of-type{
+  border-bottom: 0;
+}
+
+.order_status_choice .list_view .close_circle{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 68rpx;
+  height: 68rpx;
+  border-radius: 50%;
+  background-color: #fff;
+  margin: 32rpx auto 0;
+}
+
+.order_status_choice .list_view .close_circle .icon{
+  width: 44rpx;
+  height: 44rpx;
+}
+
+.order_status_choice .list_view .close_circle .icon image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
 }

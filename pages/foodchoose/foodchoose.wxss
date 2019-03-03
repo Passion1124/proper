@@ -1,4 +1,4 @@
-.container{
+.container {
   padding: 0 40rpx;
 }
 
@@ -81,6 +81,243 @@
   color: #b7b7b7;
 }
 
+.many {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 40rpx 0;
+  border-bottom: 1rpx solid #e0e0e0;
+  box-sizing: border-box;
+}
+
+.many .text {
+  font-size: 36rpx;
+  line-height: 50rpx;
+  color: #3c3c3c;
+}
+
+.many>view:last-of-type {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.many>view:last-of-type .blue_text {
+  max-width: 420rpx;
+  height: 50rpx;
+  font-size: 36rpx;
+  line-height: 50rpx;
+  color: #23c2f7;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.many>view:last-of-type .img_row {
+  width: 28rpx;
+  height: 28rpx;
+  margin-left: 16rpx;
+}
+
+.many>view:last-of-type .img_row image {
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.pay {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 120rpx;
+  padding: 20rpx 40rpx;
+  box-sizing: border-box;
+  box-shadow: 0px -3px 14px 0px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  z-index: 9;
+}
+
+.pay .price .pay_price {
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #8c8c8c;
+}
+
+.pay .price .pay_price text:last-of-type {
+  margin-left: 8rpx;
+  color: #f97572;
+}
+
+.pay .price .discount {
+  font-size: 24rpx;
+  color: #8c8c8c;
+}
+
+.pay .btn button {
+  width: 300rpx;
+  height: 80rpx;
+  font-size: 32rpx;
+  letter-spacing: 3rpx;
+  background-color: #f97572;
+  color: #fff;
+  border-radius: 40rpx;
+}
+
+.mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 11;
+  transition: all 0.3s linear;
+}
+
+.coupons_box {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1004rpx;
+  padding: 102rpx 33rpx 0;
+  background-color: #fff;
+  border-radius: 16rpx 16rpx 0 0;
+  box-sizing: border-box;
+  transition: all 0.3s linear;
+  z-index: 12;
+}
+
+.coupons_box .close {
+  position: absolute;
+  right: 40rpx;
+  top: 40rpx;
+  width: 44rpx;
+  height: 44rpx;
+}
+
+.coupons_box .main {
+  position: relative;
+  width: 684rpx;
+  height: 238rpx;
+  margin: 0 auto 25rpx;
+}
+
+.coupons_box .main_row .main:last-of-type {
+  margin-bottom: 0;
+}
+
+.coupons_box .main .bg {
+  width: 100%;
+  height: 100%;
+}
+
+.coupons_box .main .content {
+  position: absolute;
+  left: 7rpx;
+  top: 7rpx;
+  width: 670rpx;
+  height: 224rpx;
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+
+.coupons_box .main .content .top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.coupons_box .main .content .top .logo {
+  width: 92rpx;
+  height: 92rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.coupons_box .main .content .top .logo image {
+  width: 100%;
+  height: 100%;
+}
+
+.coupons_box .main .content .top .worth {
+  text-align: right;
+}
+
+.coupons_box .main .content .top .worth .discount {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  color: #3c3c3c;
+}
+
+.coupons_box .main .content .top .worth .discount .num {
+  font-size: 62rpx;
+  line-height: 59rpx;
+  font-weight: normal;
+  margin-right: 10rpx;
+}
+
+.coupons_box .main .content .top .worth .discount .num .currency {
+  font-size: 24rpx;
+  line-height: 33rpx;
+}
+
+.coupons_box .main .content .top .worth .discount .fracture {
+  position: relative;
+  font-size: 24rpx;
+  top: -4rpx;
+}
+
+.coupons_box .main .content .top .worth .expiry_date {
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #3c3c3c;
+}
+
+.coupons_box .main .content .bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 51rpx;
+}
+
+.coupons_box .main .content .bottom view:first-of-type {
+  max-width: 377rpx;
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #666;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.coupons_box .main .content .bottom view:last-of-type image {
+  width: 36rpx;
+  height: 36rpx;
+  vertical-align: top;
+}
+
+.open_mask {
+  display: block;
+}
+
+.close_mask {
+  display: none;
+}
+
+.open_popup {
+  transform: translateY(0);
+}
+
+.close_popup {
+  transform: translateY(100%);
+}
+
 .price_btn {
   position: fixed;
   left: 0;
@@ -91,7 +328,7 @@
   width: 100%;
   height: 120rpx;
   padding: 0 40rpx;
-  box-shadow:0px -3rpx 14rpx 0px rgba(0,0,0,0.1);
+  box-shadow: 0px -3rpx 14rpx 0px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   box-sizing: border-box;
   z-index: 9;

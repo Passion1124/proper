@@ -1,6 +1,6 @@
 var DateFr = {
 
-  getDate: function (time, splitStr) {
+  getDate: function(time, splitStr) {
 
     if (!time) return '';
 
@@ -21,16 +21,16 @@ var DateFr = {
         d: d
       };
   },
-  getDistance: function (distance) {
+  getDistance: function(distance) {
     var num = distance / 1000;
     return num ? num.toFixed(1) : '';
   },
-  getSupportedLanguage: function (language) {
-    return language.reduce(function(pre, curr){
+  getSupportedLanguage: function(language) {
+    return language.reduce(function(pre, curr) {
       return pre + '/' + curr;
     })
   },
-  formatTime: function (timestamp) {
+  formatTime: function(timestamp) {
     var date = getDate(timestamp);
     var year = date.getFullYear();
     var month = date.getMonth() + 1
@@ -41,7 +41,12 @@ var DateFr = {
 
     return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
   },
-  getSureDateText: function (type) {
+  secondToDate: function(result) {
+    var m = Math.floor((result / 60 % 60)) < 10 ? '0' + Math.floor((result / 60 % 60)) : Math.floor((result / 60 % 60));
+    var s = Math.floor((result % 60)) < 10 ? '0' + Math.floor((result % 60)) : Math.floor((result % 60));
+    return m + ":" + s;
+  },
+  getSureDateText: function(type) {
     if (type === 1) {
       return '立刻确认'
     } else if (type === 2) {
@@ -52,7 +57,7 @@ var DateFr = {
       return '工作日3天内确认'
     }
   },
-  getOrderPrice: function (price, coupon) {
+  getOrderPrice: function(price, coupon) {
     if (coupon.type === 0) {
       return price - (price * (coupon.discount / 100));
     } else if (coupon.type === 1) {
@@ -70,14 +75,14 @@ var DateFr = {
       return coupon.reducePrice
     }
   },
-  getChineseDate: function (str) {
+  getChineseDate: function(str) {
     str = '' + str;
     var year = str.substring(0, 4) + '年';
     var month = str.substring(4, 6) + '月';
     var day = str.substring(6, 8) + '日';
     return year + month + day;
   },
-  getOrderDate: function (time) {
+  getOrderDate: function(time) {
     if (!time) return '';
 
     var date = getDate(time);
@@ -90,7 +95,7 @@ var DateFr = {
 
     return y + '年' + M + '月' + d + '日';
   },
-  getOrderStatus: function (status) {
+  getOrderStatus: function(status) {
     var str = '';
     switch (status) {
       case -1:
@@ -135,7 +140,7 @@ var DateFr = {
     };
     return str;
   },
-  getOrderStatusSubText: function (status) {
+  getOrderStatusSubText: function(status) {
     var str = '';
     switch (status) {
       case -1:
@@ -180,7 +185,7 @@ var DateFr = {
     };
     return str;
   },
-  getExtFieldText: function (str) {
+  getExtFieldText: function(str) {
     var obj = JSON.parse(str);
     var result = ''
     if (obj['babyChairCount']) {
@@ -188,7 +193,7 @@ var DateFr = {
     }
     return result;
   },
-  getPayTypeText: function (type) {
+  getPayTypeText: function(type) {
     var str = '';
     if (type === 1) str = '支付宝';
     if (type === 2) str = '微信';
@@ -212,9 +217,9 @@ module.exports = {
   getDiscountPrice: DateFr.getDiscountPrice,
   getChineseDate: DateFr.getChineseDate,
   getOrderStatus: DateFr.getOrderStatus,
-  getOrderStatusSubText:  DateFr.getOrderStatusSubText,
+  getOrderStatusSubText: DateFr.getOrderStatusSubText,
   getOrderDate: DateFr.getOrderDate,
   getExtFieldText: DateFr.getExtFieldText,
-  getPayTypeText: DateFr.getPayTypeText
+  getPayTypeText: DateFr.getPayTypeText,
+  secondToDate: DateFr.secondToDate
 }
-

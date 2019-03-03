@@ -76,7 +76,7 @@ Page({
   },
   getCities () {
     let data = { base: app.globalData.baseBody };
-    let api = 'com.ttdtrip.api.config.apis.service.ServiceCityQryApiService';
+    let api = 'com.ttdtrip.api.config.apis.service.ServiceCityListApiService';
     app.request(api, data, (res)=> {
       console.log(res);
       this.setData({

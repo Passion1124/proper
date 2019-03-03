@@ -1,0 +1,105 @@
+<!-- foodsetdetail.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
+<import src="../../wxParse/wxParse.wxml" />
+<view class='container'>
+  <view class='banner'>
+    <image src="{{goodsItem.goodsItemBase.poster}}"></image>
+  </view>
+  <view class='row'>
+    <view class='area'>
+      <view class='title'>{{ goodsItem.goodsItemInfo.name }}</view>
+      <view class='goods_item_price'>
+        <view class='present'>{{goodsItem.goodsItemBase.currency + (goodsItem.goodsItemBase.amount / 100)}}</view>
+        <view class='original'>{{goodsItem.goodsItemBase.currency + (goodsItem.goodsItemBase.sourceAmount / 100)}}</view>
+      </view>
+      <view class='goos_item_end'>有效期至：{{dateFr.getOrderDate(goodsItem.goodsItemBase.end)}}</view>
+    </view>
+    <view class='area'>
+      <view class='goodsInfo' bindtap='goThTheFoodDetail'>
+        <view class='poster'>
+          <image src='{{goods.goodsBase.poster}}'></image>
+        </view>
+        <view class='info'>
+          <view class='name'>{{goods.goodsInfo.name}}</view>
+          <view class='location'>{{goods.goodsInfo.city}} | 距离{{dateFr.getDistance(goods.distance)}}公里</view>
+        </view>
+      </view>
+    </view>
+    <view class='area' wx:if='{{coupons.length}}'>
+      <!-- <view class='area_title'>优惠券</view> -->
+      <view class='main_row' wx:if='{{coupons.length}}'>
+        <block wx:for="{{coupons}}" wx:key="{{index}}">
+          <view class='main' data-couponId='{{item.id}}' data-id='{{item.id}}' bindtap='goToTheCouponsDetail'>
+            <image class='bg' src='../../img/index/coupon_bg.png'></image>
+            <view class='content'>
+              <view class='top'>
+                <view class='logo'>
+                  <image src='{{item.imgUrl}}'></image>
+                </view>
+                <view class='worth'>
+                  <view class='discount'>
+                    <block wx:if='{{item.type === 0}}'>
+                      <view class='num'>
+                        <text>{{item.discount / 10}}</text>
+                      </view>
+                      <view class='fracture'>
+                        <text>/折</text>
+                      </view>
+                    </block>
+                    <block wx:if='{{item.type === 1}}'>
+                      <view class='num'>
+                        <text><text class='currency'>{{item.currency}}</text>{{item.reducePrice / 100}}</text>
+                      </view>
+                      <view class='fracture'>
+                        <text>/满{{item.sourcePrice / 100}}</text>
+                      </view>
+                    </block>
+                    <block wx:if='{{item.type === 2}}'>
+                      <view class='num'>
+                        <text><text class='currency'>{{item.currency}}</text>{{item.reducePrice / 100}}</text>
+                      </view>
+                    </block>
+                  </view>
+                  <view class='expiry_date'>
+                    <text>有效期至：{{dateFr.getDate(item.expireEndAt, '/')}}</text>
+                  </view>
+                </view>
+              </view>
+              <view class='bottom'>
+                <view>
+                  <text>{{item.name}}</text>
+                </view>
+                <view>
+                  <button wx:if='{{!hasExists[index]}}'>立即领取</button>
+                  <text class='hasExists' wx:if='{{hasExists[index]}}'>领取成功</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+    <view class='area'>
+      <view class='area_title'>套餐介绍</view>
+      <view class='introduce'>
+        <!-- <rich-text nodes='{{goods.goodsInfo.info}}'></rich-text> -->
+        <template is="wxParse" data="{{wxParseData: article.nodes}}" />
+      </view>
+    </view>
+    <!-- padding_top_0 -->
+    <view class='area border_0' wx:if='{{goodsItem.goodsItemDescs.length}}'>
+      <!-- <view class='area_title'>购买须知</view> -->
+      <view class='explain'>
+        <block wx:for="{{goodsItem.goodsItemDescs}}" wx:key='{{index}}'>
+          <view>
+            <view>{{item.title}}</view>
+            <view>{{item.info}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+  <view class='shopping_btn'>
+    <button bindtap='goToTheFoodChoose'>立即购买</button>
+  </view>
+</view>

@@ -37,6 +37,7 @@
     "pages/lineUp/lineUp",
     "pages/lineUpConfirm/lineUpConfirm",
     "pages/fooddetail/fooddetail",
+    "pages/foodsetdetail/foodsetdetail",
     "pages/foodMeal/foodMeal",
     "pages/foodchoose/foodchoose",
     "pages/refund/refund"

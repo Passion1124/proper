@@ -35,15 +35,15 @@
     <view class='tips'>安全座椅</view>
     <view class='text'>个数</view>
     <view class='copies'>
-      <view class='{{ minusStatus }}'>
+      <view class='{{ minusStatus }}' bindtap='bindExtMinus'>
         <view class='img_row'>
           <image src='../../img/common/reduce.png'></image>
         </view>
       </view>
       <view>
-        <input type='number' value='{{orderMerches.ext.babyChairCount}}' bindchange='bindManual'></input>
+        <input type='number' value='{{orderMerches.ext.babyChairCount}}' bindchange='bindExtManual'></input>
       </view>
-      <view class='{{ maxusStatus }}'>
+      <view class='{{ maxusStatus }}' bindtap='bindExtPlus'>
         <view class='img_row'>
           <image src='../../img/common/plus.png'></image>
         </view>
@@ -75,11 +75,11 @@
   </view>
   <view class='pickUp' wx:if='{{goodsItem.goodsItemBase.pickUpType}}'>
     <view class='tab-content'>
-      <view class='tab-text active' wx:if='{{goodsItem.goodsItemBase.pickUpType !== 2}}'>
+      <view class='tab-text {{pickUpType === 1 ? "active" : ""}}' wx:if='{{goodsItem.goodsItemBase.pickUpType !== 2}}' data-type='1'>
         自取
         <image src='../../img/order/detail_icon_bmline.png'></image>
       </view>
-      <view class='tab-text' wx:if='{{goodsItem.goodsItemBase.pickUpType !== 1}}'>
+      <view class='tab-text {{pickUpType === 0 ? "active" : ""}}' wx:if='{{goodsItem.goodsItemBase.pickUpType !== 1}}' data-type='0'>
         邮寄
         <image src='../../img/order/detail_icon_bmline.png'></image>
       </view>
@@ -88,14 +88,14 @@
       <block wx:for='{{goodsItem.goodsItemInfo.pickUpAddress}}' wx:key='{{index}}'>
         <view class='radio_label'>
           <view class='label'>{{item}}</view>
-          <view class='radio_border'>
+          <view class='radio_border {{ self_taking === item ? "active" : ""}}'>
             <view class='radio'></view>
           </view>
         </view>
       </block>
     </view>
     <view class='mail single' wx:if='{{goodsItem.goodsItemBase.pickUpType !== 1}}'>
-      <input placeholder-class='phcolor' placeholder='详细地址'></input>
+      <input value='{{mail}}' placeholder-class='phcolor' placeholder='详细地址' bindinput='handleChangeInputMail'></input>
     </view>
   </view>
   <view class='many' wx:if='{{useData}}' bindtap='clickCouponLan'>

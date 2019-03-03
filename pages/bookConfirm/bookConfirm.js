@@ -22,13 +22,15 @@ Page({
    */
   onLoad: function (options) {
     let bookOrder = wx.getStorageSync('bookOrder');
+    let customerRequest = bookOrder.preOrderInfo.customerRequest.split('|');
+    if (!customerRequest[0]) customerRequest = [];
     this.setData({
       preOrderInfo: bookOrder.preOrderInfo,
       receiverId: bookOrder.receiverId,
       orderMerches: bookOrder.orderMerches,
       goodsItem: bookOrder.goodsItem[0],
       currency: bookOrder.currency,
-      customerRequest: bookOrder.preOrderInfo.customerRequest.split('|'),
+      customerRequest: customerRequest,
       couponId: bookOrder.couponId || ''
     })
   },

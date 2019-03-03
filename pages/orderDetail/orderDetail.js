@@ -9,7 +9,9 @@ Page({
     orderId: '',
     order: {},
     orderMerches: [],
-    receiver: {}
+    receiver: {},
+    count_down: 1800,
+    countSetInterVal: ''
   },
 
   /**
@@ -45,7 +47,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    
+    this.endInterVal();
   },
 
   /**
@@ -79,6 +81,9 @@ Page({
         orderMerches: res.orderMerches,
         receiver: res.receiver
       });
+      if (this.data.order.orderStatus === -1 && this.data.order.timeoutStatus === 0 ) {
+        this.startInterVal();
+      }
     }, fail => {
       wx.hideLoading();
     })
@@ -109,6 +114,24 @@ Page({
       }
     });
   },
+  startInterVal () {
+    this.data.countSetInterVal = setInterval(this.setCountDown, 1000);
+  },
+  endInterVal () {
+    clearInterval(this.data.countSetInterVal);
+    this.handleOrderDetail();
+  },
+  setCountDown () {
+    let time = 1800 - (new Date().getTime() - this.data.order.createAt) / 1000;
+    time = parseInt(time);
+    if (time > 0) {
+      this.setData({
+        count_down: time
+      });
+    } else {
+      this.clearInterval();
+    }
+  },
   // 立即付款
   goToThePay() {
     wx.navigateTo({
@@ -117,8 +140,15 @@ Page({
   },
   // 再次购买
   goToTheOrder () {
+    let order = this.data.order;
+    let url = '';
+    if (order.preOrder) {
+      url = '/pages/foodchoose/foodchoose?giid=' + this.data.orderMerches[0].merchId
+    } else {
+      url = '/pages/order/order?giid=' + this.data.orderMerches[0].merchId + '&type=' + this.data.orderMerches[0].merchType;
+    }
     wx.navigateTo({
-      url: '/pages/order/order?giid=' + this.data.orderMerches[0].merchId + '&type=' + this.data.orderMerches[0].merchType,
+      url: url,
     })
   },
   // 申请退款

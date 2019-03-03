@@ -107,7 +107,7 @@
       <view class='area_title'>套餐在线预订</view>
       <view class='product'>
         <block wx:for='{{goodsItem}}' wx:key='{{index}}'>
-          <view class='list'>
+          <view class='list' data-giid='{{item.goodsItemInfo.giid}}' bindtap='goToTheFoodSetDetail'>
             <view class='poster'>
               <image src='{{item.goodsItemBase.poster}}'></image>
             </view>

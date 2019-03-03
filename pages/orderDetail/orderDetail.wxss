@@ -26,14 +26,14 @@
   color: #3C3C3C;
 }
 
-.finished .shopping {
+.finished .shopping, .pending .cancel_order {
   line-height: 78rpx;
   background-color: transparent;
   color: #3C3C3C;
   border: 1rpx solid #B7B7B7;
 }
 
-.overtime .shopping, .refund .shopping{
+.overtime .shopping, .refund .shopping, .pending .pay{
   line-height: 80rpx;
   border: 0;
   color: #fff;
@@ -51,6 +51,17 @@
   margin-top: 8rpx;
   color: #3C3C3C;
 } 
+
+.pending .subTitle{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #3C3C3C;
+  margin-top: 8rpx;
+}
+
+.pending .subTitle text{
+  color: #23C2F7;
+}
 
 .row{
   width: 100%;

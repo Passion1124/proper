@@ -56,18 +56,27 @@
     </view>
   </view>
   <block wx:for='{{orders}}' wx:key='{{index}}'>
-    <view class='order' data-id='{{item.id}}' bindtap='goToTheDetail'>
+    <view class='order' data-id='{{item.id}}' data-order='{{item}}' bindtap='goToTheDetail'>
       <view class='top'>
-        <view wx:if='{{item.preOrder}}'>{{ item.orderStatus === -1 ? dateFr.getChineseDate(item.preOrder.date) : item.name}}</view>
+        <view wx:if='{{item.preOrder}}'>{{ (item.orderStatus === -1 || !item.preOrder.time) ? dateFr.getOrderDate(item.createAt) : item.name}}</view>
         <view wx:else>{{dateFr.getOrderDate(item.createAt)}}</view>
         <view class='status {{(item.orderStatus === -1 || item.orderStatus === 6) ? "orange" : ""}} {{(item.orderStatus === 2 || item.orderStatus === 3) ? "blue" : ""}}'>{{dateFr.getOrderStatus(item.orderStatus)}}</view>
       </view>
       <view class='line'></view>
       <view class='center'>
-        <view class='name'>{{ item.preOrder ? item.preOrder.mName : item.name}}</view>
-        <view class='subTitle' wx:if='{{!item.preOrder && item.merchCount > 1}}'>该订单包含 {{item.merchCount}} 个商品</view>
+        <block wx:if='{{!item.preOrder || !item.preOrder.time}}'>
+          <view class='name'>{{ item.preOrder ? (item.preOrder.time ? item.preOrder.mName : item.name) : item.name}}</view>
+          <view class='subTitle' wx:if='{{(!item.preOrder || !item.preOrder.time) && item.merchCount > 1}}'>该订单包含 {{item.merchCount}} 个商品</view>
+        </block>
+        <block wx:else>
+          <view class='eat'>
+            <view class='tags'>就餐</view>
+            <view class='time'>{{item.preOrder.time}}</view>
+            <view class='date'>/{{dateFr.getChineseDate(item.preOrder.date)}}</view>
+          </view>
+        </block>
       </view>
-      <view class='bottom'>
+      <view class='bottom' wx:if='{{!item.preOrder || !item.preOrder.time}}'>
         <view class='left'>
           <text wx:if='{{item.orderStatus === 7 || item.orderStatus === 6 || item.orderStatus === 1}}'>{{dateFr.getOrderStatusSubText(item.orderStatus)}}</text>
           <button data-order='{{item}}' catchtap='goToTheShoppingOrPay' wx:else>{{dateFr.getOrderStatusSubText(item.orderStatus)}}</button>
@@ -78,4 +87,29 @@
       </view>
     </view>
   </block>
+  <view class='filter_order_status' bindtap='handleShowOrderStatusChoice' wx:if='{{!show_order_status_choice && (activeOrderType === "tourism" || activeOrderType === "shopping")}}'>
+    <image src='../../img/order/filter_order_status.png'></image>
+  </view>
+  <view class='order_status_choice' wx:if="{{show_order_status_choice}}">
+    <view class='list_view'>
+      <view class='list'>
+        <view data-status='-2' class='{{orderStatus === "-2" ? "active" : ""}}' bindtap='handleChangeOrderStatus'>全部</view>
+        <view data-status='-1' class='{{orderStatus === "-1" ? "active" : ""}}' bindtap='handleChangeOrderStatus'>待付款</view>
+        <view data-status='0' class='{{orderStatus === "0" ? "active" : ""}}' bindtap='handleChangeOrderStatus'>已取消</view>
+        <view data-status='1' class='{{orderStatus === "1" ? "active" : ""}}' bindtap='handleChangeOrderStatus'>待确认</view>
+        <view data-status='2' class='{{orderStatus === "2" ? "active" : ""}}' bindtap='handleChangeOrderStatus'>待发货</view>
+        <view data-status='3' class='{{orderStatus === "3" ? "active" : ""}}' bindtap='handleChangeOrderStatus'>待使用</view>
+        <view data-status='4' class='{{orderStatus === "4" ? "active" : ""}}' bindtap='handleChangeOrderStatus'>待点评</view>
+        <view data-status='5' class='{{orderStatus === "5" ? "active" : ""}}' bindtap='handleChangeOrderStatus'>已完成</view>
+        <view data-status='6' class='{{orderStatus === "6" ? "active" : ""}}' bindtap='handleChangeOrderStatus'>退款中</view>
+        <view data-status='8' class='{{orderStatus === "8" ? "active" : ""}}' bindtap='handleChangeOrderStatus'>已驳回</view>
+        <view data-status='7' class='{{orderStatus === "7" ? "active" : ""}}' bindtap='handleChangeOrderStatus'>已退款</view>
+      </view>
+      <view class='close_circle' bindtap='handleCloseOrderStatusChoicePopup'>
+        <view class='icon'>
+          <image src='../../img/order/pay_icon_close.png'></image>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

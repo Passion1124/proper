@@ -19,7 +19,8 @@ Page({
     autoplay: false,
     interval: 5000,
     duration: 1000,
-    msgCount: 0
+    msgCount: 0,
+    tabs_type: "vertical"
   },
   //事件处理函数
   bindViewTap: function() {
@@ -207,4 +208,9 @@ Page({
       url: '/pages/progList/progList?labelId=' + labelId + '&name=' + name + '&type=' + type,
     })
   },
+  handleChangeTabsType (e) {
+    this.setData({
+      tabs_type: e.currentTarget.dataset.type
+    });
+  }
 })

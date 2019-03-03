@@ -194,7 +194,7 @@
   font-size: 32rpx;
   line-height: 45rpx;
   color: #3c3c3c;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .hot_recommend {
@@ -295,6 +295,15 @@
   margin-top: 40rpx;
 }
 
+.hot_recommend .tabs_content>view .main>view.horizontal{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 40rpx 0;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
 .hot_recommend .tabs_content>view .main>view>.img_row {
   position: relative;
   width: 100%;
@@ -302,6 +311,17 @@
   border-radius: 10rpx;
   overflow: hidden;
   margin-bottom: 24rpx;
+}
+
+.hot_recommend .tabs_content>view .main>view.horizontal>.img_row{
+  width: 218rpx;
+  min-width: 218rpx;
+  height: 218rpx;
+  margin: 0 24rpx 0 0;
+}
+
+.hot_recommend .tabs_content>view .main>view.horizontal .h_main{
+  width: 443rpx;
 }
 
 .hot_recommend .tabs_content>view .main>view>.img_row .bg {
@@ -350,7 +370,7 @@
   vertical-align: top;
 }
 
-.hot_recommend .tabs_content>view .main>view .title {
+.hot_recommend .tabs_content>view .main>view .title, .hot_recommend .tabs_content>view .main>view.horizontal .h_title {
   height: 84rpx;
   font-size: 32rpx;
   line-height: 42rpx;
@@ -361,27 +381,39 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   margin-bottom: 8rpx;
+  font-weight: normal;
 }
 
-.hot_recommend .tabs_content>view .main>view .location {
+.hot_recommend .tabs_content>view .main>view.horizontal .h_title{
+  height: 92rpx;
+  font-size: 36rpx;
+  line-height: 46rpx;
+  margin-bottom: 20rpx;
+}
+
+.hot_recommend .tabs_content>view .main>view .location, .hot_recommend .tabs_content>view .main>view.horizontal .h_location {
   display: flex;
   align-items: center;
   margin-bottom: 16rpx;
 }
 
-.hot_recommend .tabs_content>view .main>view .location .img_row {
+.hot_recommend .tabs_content>view .main>view.horizontal .h_location{
+  margin-bottom: 24rpx;
+}
+
+.hot_recommend .tabs_content>view .main>view .location .img_row, .hot_recommend .tabs_content>view .main>view.horizontal .h_location .img_row{
   width: 16rpx;
   height: 16rpx;
   margin-right: 13rpx;
 }
 
-.hot_recommend .tabs_content>view .main>view .location .img_row image {
+.hot_recommend .tabs_content>view .main>view .location .img_row image, .hot_recommend .tabs_content>view .main>view.horizontal .h_location .img_row image{
   width: 100%;
   height: 100%;
   vertical-align: top;
 }
 
-.hot_recommend .tabs_content>view .main>view .location .text {
+.hot_recommend .tabs_content>view .main>view .location .text, .hot_recommend .tabs_content>view .main>view.horizontal .h_location .text{
   font-size: 20rpx;
   line-height: 28rpx;
   color: #8c8c8c;
@@ -392,7 +424,7 @@
   align-items: center;
 }
 
-.hot_recommend .tabs_content>view .main>view .info .price {
+.hot_recommend .tabs_content>view .main>view .info .price, .hot_recommend .tabs_content>view .main>view.horizontal .h_price{
   max-width: 200rpx;
   font-size: 32rpx;
   line-height: 32rpx;
@@ -402,7 +434,11 @@
   text-overflow: ellipsis;
 }
 
-.hot_recommend .tabs_content>view .main>view .info .price .ashy{
+.hot_recommend .tabs_content>view .main>view.horizontal .h_price{
+  max-width: 443rpx;
+}
+
+.hot_recommend .tabs_content>view .main>view .info .price .ashy, .hot_recommend .tabs_content>view .main>view.horizontal .h_price .ashy{
   color: #999;
 }
 
@@ -410,20 +446,25 @@
   font-size: 20rpx;
 }
 
-.hot_recommend .tabs_content>view .main>view .info .star {
+.hot_recommend .tabs_content>view .main>view .info .star, .hot_recommend .tabs_content>view .main>view.horizontal .h_star {
   flex: 1;
   height: 14rpx;
   text-align: right;
 }
 
-.hot_recommend .tabs_content>view .main>view .info .star image {
+.hot_recommend .tabs_content>view .main>view.horizontal .h_star{
+  text-align: left;
+  margin-bottom: 12rpx;
+}
+
+.hot_recommend .tabs_content>view .main>view .info .star image, .hot_recommend .tabs_content>view .main>view.horizontal .h_star image {
   width: 14rpx;
   height: 14rpx;
   margin-right: 5rpx;
   vertical-align: top;
 }
 
-.hot_recommend .tabs_content>view .main>view .info .star image:last-of-type {
+.hot_recommend .tabs_content>view .main>view .info .star image:last-of-type, .hot_recommend .tabs_content>view .main>view.horizontal .h_star image:last-of-type {
   margin-right: 0;
 }
 

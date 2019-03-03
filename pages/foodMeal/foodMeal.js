@@ -82,5 +82,11 @@ Page({
     }, e => {
       console.error(e);
     })
+  },
+  goToTheFoodSetDetail (e) {
+    let giid = e.currentTarget.dataset.giid;
+    wx.navigateTo({
+      url: '/pages/foodsetdetail/foodsetdetail?giid=' + giid,
+    })
   }
 })

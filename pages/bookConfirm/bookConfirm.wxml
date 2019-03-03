@@ -61,14 +61,16 @@
       <view class='single_text'>手机</view>
       <view class='single_left'>{{preOrderInfo.phoneNo}}</view>
     </view>
-    <view class='form_title no_border'>
-      <view class='title_text'>预约说明</view>
-    </view>
-    <view class='order_explain'>
-      <block wx:for='{{customerRequest}}' wx:key='{{index}}'>
-        <view class='active'>{{item}}</view>
-      </block>
-    </view>
+    <block wx:if='{{customerRequest.length}}'>
+      <view class='form_title no_border'>
+        <view class='title_text'>预约说明</view>
+      </view>
+      <view class='order_explain'>
+        <block wx:for='{{customerRequest}}' wx:key='{{index}}'>
+          <view class='active'>{{item}}</view>
+        </block>
+      </view>
+    </block>
   </view>
   <view class='sure_submit_btn'>
     <button bindtap='handleCreateOrderGen'>确认，下一步</button>

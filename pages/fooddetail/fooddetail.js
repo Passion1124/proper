@@ -120,6 +120,9 @@ Page({
         goods: res.goodsVO,
         imgUrls: res.goodsVO.goodsBase.pics
       });
+      wx.setNavigationBarTitle({
+        title: res.goodsVO.goodsInfo.name
+      });
       WxParse.wxParse('article', 'html', this.data.goods.goodsInfo.info, this, 5);
     }, (err) => {
       console.error(err);
@@ -360,6 +363,12 @@ Page({
     let goods = this.data.goods;
     wx.navigateTo({
       url: '/pages/book/book?mid=' + goods.goodsBase.mid + '&shopName=' + goods.goodsInfo.name + '&gid=' + goods.goodsInfo.gid,
+    })
+  },
+  goToTheFoodSetDetail (e) {
+    let giid = e.currentTarget.dataset.giid;
+    wx.navigateTo({
+      url: '/pages/foodsetdetail/foodsetdetail?giid=' + giid,
     })
   }
 })

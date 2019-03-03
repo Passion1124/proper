@@ -8,7 +8,8 @@ Page({
   data: {
     orderType: '',
     activeOrderType: 'tourism',
-    orderStatus: '',
+    orderStatus: '-2',
+    show_order_status_choice: false,
     orderOptions: [{
         label: '全部订单',
         value: 0
@@ -149,9 +150,12 @@ Page({
     let orderType = this.data.orderType;
     let activeType = this.data.activeOrderType;
     if (orderType === 0) {
+      let orderStatus = this.data.orderStatus;
       if (activeType === 'tourism') {
+        this.data.tourism.orderStatus = orderStatus !== '-2' ? parseInt(orderStatus) : "";
         this.getOrderList(this.data.tourism);
       } else if (activeType === 'shopping') {
+        this.data.shopping.orderStatus = orderStatus !== '-2' ? parseInt(orderStatus) : "";
         this.getOrderList(this.data.shopping);
       } else if (activeType === 'line') {
         this.getMyLineList(this.data.line);
@@ -188,6 +192,7 @@ Page({
     let api = 'com.ttdtrip.api.goods.apis.line.MyLineListApiService';
     let data = Object.assign({ base: app.globalData.baseBody }, obj);
     app.request(api, data, res => {
+      console.log(res);
       this.setData({
         orders: [],
         lines: res.lines,
@@ -200,6 +205,7 @@ Page({
     let api = 'com.ttdtrip.api.restaurant.apis.service.FoodOrderListApiService';
     let data = Object.assign({ base: app.globalData.base }, obj);
     app.request(api, data, res => {
+      console.log(res);
       let foodOrders = this.data.foodOrders || [];
       if (res.foodOrders) foodOrders.concat(res.foodOrders)
       this.setData({
@@ -216,8 +222,12 @@ Page({
     app.request(api, data, res => {
       console.log(res);
       let merches = res.orderMerches[0];
+      let url = '/pages/order/order?giid=' + merches.merchId + '&type=' + merches.merchType;
+      if (res.order.preOrder) {
+        url = '/pages/foodchoose/foodchoose?giid=' + merches.merchId;
+      }
       wx.navigateTo({
-        url: '/pages/order/order?giid=' + merches.merchId + '&type=' + merches.merchType,
+        url: url,
       })
     }, fail => {
       wx.hideLoading();
@@ -239,11 +249,12 @@ Page({
   // 去详情页面
   goToTheDetail (e) {
     let id = e.currentTarget.dataset.id;
+    let item = e.currentTarget.dataset.order;
     let orderType = this.data.orderType;
     let active_type = this.data.activeOrderType;
     let url = '';
     if (orderType === 0) {
-      if (active_type === 'book') {
+      if (active_type === 'book' && item.preOrder.time) {
         url = '/pages/bookDetail/bookDetail'
       } else {
         url = '/pages/orderDetail/orderDetail'
@@ -264,5 +275,25 @@ Page({
       this.handleOrderDetail(order.id);
     }
     console.log(order);
+  },
+  // 修改筛选的订单状态
+  handleChangeOrderStatus (e) {
+    let status = e.currentTarget.dataset.status;
+    this.setData({
+      orderStatus: status,
+      show_order_status_choice: false
+    });
+    this.data.orders = [];
+    this.getCheckedOrderList();
+  },
+  handleShowOrderStatusChoice () {
+    this.setData({
+      show_order_status_choice: true
+    });
+  },
+  handleCloseOrderStatusChoicePopup () {
+    this.setData({
+      show_order_status_choice: false
+    });
   }
 })
