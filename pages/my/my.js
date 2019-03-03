@@ -99,18 +99,31 @@ Page({
     if (!app.globalData.userInfo) {
       wx.navigateTo({
         url: '/pages/signIn/signIn',
-      })
+      });
+      return false;
     }
     wx.navigateTo({
       url: '/pages/account/account',
     })
   },
   goToTheMyCoupon () {
+    if (!app.globalData.userInfo) {
+      wx.navigateTo({
+        url: '/pages/signIn/signIn',
+      });
+      return false;
+    };
     wx.navigateTo({
       url: '/pages/myCoupon/myCoupon',
     })
   },
   goToTheCollection () {
+    if (!app.globalData.userInfo) {
+      wx.navigateTo({
+        url: '/pages/signIn/signIn',
+      });
+      return false;
+    };
     wx.navigateTo({
       url: '/pages/collection/collection',
     })
@@ -126,7 +139,12 @@ Page({
     })
   },
   goToTheMyOrder (e) {
-    console.log(e);
+    if (!app.globalData.userInfo) {
+      wx.navigateTo({
+        url: '/pages/signIn/signIn',
+      });
+      return false;
+    };
     let orderType = e.currentTarget.dataset.ordertype;
     wx.navigateTo({
       url: '/pages/myOrder/myOrder?orderType=' + orderType,

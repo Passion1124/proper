@@ -17,7 +17,7 @@
 
 .tabs view{
   position: relative;
-  min-width: 112rpx;
+  min-width: 120rpx;
   font-size: 28rpx;
   line-height: 40rpx;
   color: #8C8C8C;

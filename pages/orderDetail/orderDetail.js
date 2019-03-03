@@ -81,7 +81,7 @@ Page({
         orderMerches: res.orderMerches,
         receiver: res.receiver
       });
-      if (this.data.order.orderStatus === -1 && this.data.order.timeoutStatus === 0 ) {
+      if (this.data.order.orderStatus === -1 && 1800 - (new Date().getTime() - this.data.order.createAt) / 1000 > 0 ) {
         this.startInterVal();
       }
     }, fail => {
@@ -129,7 +129,7 @@ Page({
         count_down: time
       });
     } else {
-      this.clearInterval();
+      this.endInterVal();
     }
   },
   // 立即付款
