@@ -1,0 +1,56 @@
+<!-- lineUpDetail.wxml -->
+<view class='container'>
+  <view class='header'>
+    <view class='text active'>人数</view>
+    <view class='arrow'>
+      <image src='../../img/book/arrow_active.png'></image>
+    </view>
+    <view class='text active'>确认</view>
+    <view class='arrow'>
+      <image src='../../img/book/arrow_active.png'></image>
+    </view>
+    <view class='text active'>排队</view>
+  </view>
+  <view class='queue'>
+    <view class='queue_single'>排队单</view>
+    <view class='main_info'>
+      <block wx:if='{{lineStatus === "wait"}}'>
+        <view class='title'>正在排队</view>
+        <view class='subTitle'>正在排队，请稍等</view>
+      </block>
+      <block wx:if='{{lineStatus === "success"}}'>
+        <view class='title success'>{{line.fullName}}
+          <text>号</text>
+        </view>
+        <view class='subTitle'>前方排队剩余{{lineNum}}桌</view>
+      </block>
+      <block wx:if='{{lineStatus === "fail"}}'>
+        <view class='title'>提交失败</view>
+        <view class='subTitle'>网络请求失败，请重新提交</view>
+        <button class='reset_submit' bindtap='handleResetLineWait'>重新提交</button>
+      </block>
+    </view>
+    <view class='line_dashed'></view>
+    <view class='order_info'>
+      <view class='flex'>
+        <view class='o_label'>用餐总人数</view>
+        <view class='o_value'>{{num}}</view>
+      </view>
+      <view class='flex'>
+        <view class='o_label'>偏好</view>
+        <view class='o_value'>{{favorName}}</view>
+      </view>
+      <view class='flex'>
+        <view class='o_label'>包间</view>
+        <view class='o_value'>{{roomName}}</view>
+      </view>
+      <view class='flex'>
+        <view class='o_label'>联系方式</view>
+        <view class='o_value'>{{email}}</view>
+      </view>
+    </view>
+    <view class='order_btn' wx:if='{{(line.lineStatus !== 2 || line.lineStatus !== 3) && line.orderStatus === 0}}'>
+      <button>前往点菜</button>
+    </view>
+  </view>
+</view>

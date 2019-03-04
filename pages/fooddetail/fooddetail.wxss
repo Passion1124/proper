@@ -172,6 +172,7 @@
 .area .reserve .right button, .area .lineUp .right button{
   width: 154rpx;
   height: 51rpx;
+  line-height: 51rpx;
   font-size: 22rpx;
   color: #fff;
   letter-spacing: 2rpx;

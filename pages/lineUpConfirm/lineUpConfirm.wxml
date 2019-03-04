@@ -9,27 +9,27 @@
     <view class='arrow'>
       <image src='../../img/book/arrow_active.png'></image>
     </view>
-    <view class='text'>完成</view>
+    <view class='text'>排队</view>
   </view>
   <view class='book_form'>
     <view class='single'>
       <view class='single_text'>用餐总人数</view>
-      <view class='single_left'>14</view>
-    </view>
-    <view class='single'>
-      <view class='single_text'>用餐人数</view>
-      <view class='single_left'>3人</view>
-    </view>
-    <view class='single'>
-      <view class='single_text'>预订服务费</view>
-      <view class='single_left'>￥3.00/人</view>
+      <view class='single_left'>{{line.num}}</view>
     </view>
     <view class='single'>
       <view class='single_text'>偏好</view>
-      <view class='single_left'>吸烟区</view>
+      <view class='single_left'>{{line.favorName}}</view>
+    </view>
+    <view class='single'>
+      <view class='single_text'>包间</view>
+      <view class='single_left'>{{line.roomName}}</view>
+    </view>
+    <view class='single'>
+      <view class='single_text'>联系方式</view>
+      <view class='single_left'>{{line.email}}</view>
     </view>
   </view>
   <view class='sure_submit_btn'>
-    <button>信息确认</button>
+    <button bindtap='handleLine'>信息确认</button>
   </view>
 </view>

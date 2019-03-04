@@ -19,7 +19,7 @@ image {
 
 .header .active {
   color: #23c2f7;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .header .arrow {

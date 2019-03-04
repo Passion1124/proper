@@ -6,14 +6,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    line: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.setData({
+      line: wx.getStorageSync('line')
+    })
   },
 
   /**
@@ -63,5 +65,19 @@ Page({
    */
   onShareAppMessage: function () {
     
+  },
+  // 排队
+  handleLine () {
+    let api = 'com.ttdtrip.api.goods.apis.line.LineApiService';
+    let data = Object.assign({ base: app.globalData.baseBody }, this.data.line);
+    app.request(api, data, res => {
+      console.log(res);
+      let line = this.data.line;
+      wx.navigateTo({
+        url: '/pages/lineUpDetail/lineUpDetail?sn=' + res.sn + '&num=' + line.num + '&email=' + line.email + '&favorName=' + line.favorName + '&roomName=' + line.roomName,
+      })
+    }, e => {
+      console.error(e);
+    })
   }
 })

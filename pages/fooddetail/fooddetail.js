@@ -370,5 +370,12 @@ Page({
     wx.navigateTo({
       url: '/pages/foodsetdetail/foodsetdetail?giid=' + giid,
     })
+  },
+  goToTheLineUp (e) {
+    let goodsBase = this.data.goods.goodsBase;
+    let goodsInfo = this.data.goods.goodsInfo;
+    wx.navigateTo({
+      url: '/pages/lineUp/lineUp?mid=' + goodsBase.mid + '&shopName=' + goodsInfo.name + '&gid=' + goodsInfo.gid + '&onlineOrderDish=' + goodsBase.onlineOrderDish,
+    })
   }
 })

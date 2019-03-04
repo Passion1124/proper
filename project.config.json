@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 10,
 			"list": [
 				{
 					"id": 0,
@@ -100,6 +100,20 @@
 					"name": "美食套餐购买",
 					"pathName": "pages/foodchoose/foodchoose",
 					"query": "giid=ce7a2756-4040-4a54-92c0-6795821bfa5d",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "美食详情 - 排队",
+					"pathName": "pages/fooddetail/fooddetail",
+					"query": "gid=1304e214-a152-48e3-92ef-8632d320d852&type=2",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "排队完成页面",
+					"pathName": "pages/lineUpDetail/lineUpDetail",
+					"query": "sn=6399d76468a04e078d3c40a8107d48b6&num=6&email=330352812@qq.com&favorName=非吸烟区&roomName=需要",
 					"scene": null
 				}
 			]

@@ -98,7 +98,7 @@
           <view class='l_subTitle'>支持排队通知</view>
         </view>
         <view class='right'>
-          <button wx:if='{{goods.lineStatus}}'>排队</button>
+          <button bindtap='goToTheLineUp' wx:if='{{goods.lineStatus}}'>排队</button>
           <view class='text' wx:else>商户已下线，暂不能排队</view>
         </view>
       </view>

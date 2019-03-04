@@ -9,21 +9,21 @@
     <view class='arrow'>
       <image src='../../img/book/arrow.png'></image>
     </view>
-    <view class='text'>完成</view>
+    <view class='text'>排队</view>
   </view>
   <view class='book_form'>
     <view class='single'>
       <view class='single_text'>用餐人数</view>
       <view class='people_num'>
-        <view class='{{ minusStatus }}' bindtap='bindMinus'>
+        <view bindtap='bindMinus'>
           <view class='img_row'>
             <image src='../../img/common/reduce.png'></image>
           </view>
         </view>
         <view>
-          <input type='number' value='{{orderMerches.merchCount}}' bindchange='bindManual'></input>
+          <input type='number' value='{{num}}' bindchange='bindManual'></input>
         </view>
-        <view class='{{ maxusStatus }}' bindtap='bindPlus'>
+        <view bindtap='bindPlus'>
           <view class='img_row'>
             <image src='../../img/common/plus.png'></image>
           </view>
@@ -32,42 +32,47 @@
     </view>
     <view class='form_title no_border'>
       <view class='title_text'>偏好</view>
-      <view class='title_tips orange'>您的用餐人数小于4人，不可预订包间</view>
     </view>
     <view class='form_radio_ground'>
-      <view class='form_radio'>
+      <view class='form_radio' data-smock='1' bindtap='handleChangeAllowSmock'>
         <view class='radio_text'>吸烟区</view>
         <view class='radio_icon'>
-          <image src='../../img/book/cart_icon_radio_on.png'></image>
+          <image src='../../img/book/cart_icon_radio_on.png' wx:if='{{allowSmock === 1}}'></image>
+          <image src='../../img/book/cart_icon_radio.png' wx:else></image>
         </view>
       </view>
-      <view class='form_radio'>
+      <view class='form_radio' data-smock='0' bindtap='handleChangeAllowSmock'>
         <view class='radio_text'>非吸烟区</view>
         <view class='radio_icon'>
-          <image src='../../img/book/cart_icon_radio_on.png'></image>
+          <image src='../../img/book/cart_icon_radio_on.png' wx:if='{{allowSmock === 0}}'></image>
+          <image src='../../img/book/cart_icon_radio.png' wx:else></image>
         </view>
       </view>
-      <view class='form_radio'>
+      <view class='form_radio' data-smock='-1' bindtap='handleChangeAllowSmock'>
         <view class='radio_text'>不介意</view>
         <view class='radio_icon'>
-          <image src='../../img/book/cart_icon_radio_on.png'></image>
+          <image src='../../img/book/cart_icon_radio_on.png' wx:if='{{allowSmock === -1}}'></image>
+          <image src='../../img/book/cart_icon_radio.png' wx:else></image>
         </view>
       </view>
     </view>
     <view class='form_title no_border'>
       <view class='title_text'>包间</view>
+      <view class='title_tips orange' wx:if='{{tipsShow}}'>您的用餐人数小于4人，不可预订包间</view>
     </view>
     <view class='form_radio_ground'>
-      <view class='form_radio'>
-        <view class='radio_text'>不需要</view>
-        <view class='radio_icon'>
-          <image src='../../img/book/cart_icon_radio_on.png'></image>
-        </view>
-      </view>
-      <view class='form_radio'>
+      <view class='form_radio' data-box='1' bindtap='handleChangeIsBox'>
         <view class='radio_text'>需要</view>
         <view class='radio_icon'>
-          <image src='../../img/book/cart_icon_radio.png'></image>
+          <image src='../../img/book/cart_icon_radio_on.png' wx:if='{{isBox === 1}}'></image>
+          <image src='../../img/book/cart_icon_radio.png' wx:else></image>
+        </view>
+      </view>
+      <view class='form_radio' data-box='0' bindtap='handleChangeIsBox'>
+      <view class='radio_text'>不需要</view>
+        <view class='radio_icon'>
+          <image src='../../img/book/cart_icon_radio_on.png' wx:if='{{isBox === 0}}'></image>
+          <image src='../../img/book/cart_icon_radio.png' wx:else></image>
         </view>
       </view>
     </view>
@@ -76,10 +81,10 @@
       <view class='title_tips'>暂时只支持邮箱联系</view>
     </view>
     <view class='single'>
-      <input placeholder='输入联系邮箱' placeholder-class='ph_class'></input>
+      <input value='{{email}}' placeholder='输入联系邮箱' placeholder-class='ph_class' bindinput='handleInputEmail'></input>
     </view>
   </view>
   <view class='sure_submit_btn'>
-    <button>确认，下一步</button>
+    <button bindtap='handlePreJoinLineCheckApiService'>确认，下一步</button>
   </view>
 </view>

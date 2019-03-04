@@ -36,6 +36,7 @@
     "pages/bookOver/bookOver",
     "pages/lineUp/lineUp",
     "pages/lineUpConfirm/lineUpConfirm",
+    "pages/lineUpDetail/lineUpDetail",
     "pages/fooddetail/fooddetail",
     "pages/foodsetdetail/foodsetdetail",
     "pages/foodMeal/foodMeal",
