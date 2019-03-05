@@ -99,7 +99,7 @@
           <view>{{item.fullName}}</view>
           <view>已等{{dateFr.getLinePendingDateText(item.lineAt)}}</view>
         </view>
-        <view class='right' wx:if='{{item.lineStatus !== 1}}'>
+        <view class='right' wx:if='{{item.orderStatus !== 1}}'>
           <button data-sn='{{item.sn}}' catchtap='goToTheFoodOrder'>点菜</button>
         </view>
       </view>
