@@ -295,5 +295,17 @@ Page({
     this.setData({
       show_order_status_choice: false
     });
+  },
+  goToTheLineUpDetail (e) {
+    let sn = e.currentTarget.dataset.sn;
+    wx.navigateTo({
+      url: '/pages/lineUpDetail/lineUpDetail?sn=' + sn + '&skipType=order',
+    })
+  },
+  goToTheFoodOrder (e) {
+    let sn = e.currentTarget.dataset.sn;
+    wx.navigateTo({
+      url: '/pages/foodorder/foodorder?sn=' + sn
+    })
   }
 })

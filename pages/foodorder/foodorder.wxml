@@ -1,0 +1,37 @@
+<!-- foodorder.wxml -->
+<view class='container'>
+  <view class='category'>
+    <block wx:for='{{category}}' wx:key='{{index}}'>
+      <view class='{{item.foodCategoryLang.categoryId === checkCategory.categoryId ? "active" : ""}}'>{{item.foodCategoryLang.categoryName}}</view>
+    </block>
+  </view>
+  <view class='food_list'>
+    <block wx:for='{{foodList}}' wx:key='{{index}}'>
+      <view class='food'>
+        <view class='poster'>
+          <image src='{{item.foodLang.poster}}'></image>
+        </view>
+        <view class='info'>
+          <view class='name'>{{item.foodLang.foodName}}</view>
+          <view class='price_num'>
+            <view class='price'>{{item.food.currency + (item.food.price / 100)}}</view>
+            <view class='num'>
+              <view class='minus'>-</view>
+              <view class='number_inp'>0</view>
+              <view class='plus'>+</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view class='bottom_content'>
+    <view class='num_price'>
+      <view class='num'>12</view>
+      <view class='price'>￥190.8</view>
+    </view>
+    <view class='down_order'>
+      <button>去下单</button>
+    </view>
+  </view>
+</view>

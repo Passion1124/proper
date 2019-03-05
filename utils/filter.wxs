@@ -199,6 +199,22 @@ var DateFr = {
     if (type === 2) str = '微信';
     if (type === 3) str = 'apple';
     return str;
+  },
+  getLinePendingDateText: function (lineAt) {
+    var diff = (getDate().getTime() - lineAt) / 1000;
+    var d = Math.floor((diff / (3600 * 24)));
+    var h = Math.floor((diff % (3600 * 24) / 3600));
+    var m = Math.floor((diff % 3600 / 60));
+    var s = Math.floor((diff % 60)) < 10 ? '0' + Math.floor((diff % 60)) : Math.floor((diff % 60));
+    return d > 0 ? d + '天' + h + '时' + m + '分' : h + '时' + m + '分钟';
+  },
+  getLineStatusText: function (status) {
+    var str = '';
+    if (status === 1 || status === 0) str = '排队中';
+    if (status === 2) str = '已就餐';
+    if (status === 3) str = '已过号';
+    if (status === 3) str = '商户下线';
+    return str;
   }
 }
 
@@ -221,5 +237,7 @@ module.exports = {
   getOrderDate: DateFr.getOrderDate,
   getExtFieldText: DateFr.getExtFieldText,
   getPayTypeText: DateFr.getPayTypeText,
-  secondToDate: DateFr.secondToDate
+  secondToDate: DateFr.secondToDate,
+  getLinePendingDateText: DateFr.getLinePendingDateText,
+  getLineStatusText: DateFr.getLineStatusText
 }

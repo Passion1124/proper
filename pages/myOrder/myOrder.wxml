@@ -24,7 +24,7 @@
         <image src='../../img/index/tabs.png'></image>
       </view>
     </view>
-    <view class='empty' wx:if='{{!orders.length}}'>
+    <view class='empty' wx:if='{{(activeOrderType === "line" && !lines.length) || (activeOrderType === "food" && !foodOrders.length) || ((activeOrderType !== "line" && activeOrderType !== "food") && !orders.length)}}'>
       <view class='image_row'>
         <image src='../../img/common/empty_data.png'></image>
       </view>
@@ -55,7 +55,7 @@
       <view class='text'>暂无数据哦，快去逛逛吧～</view>
     </view>
   </view>
-  <block wx:for='{{orders}}' wx:key='{{index}}'>
+  <block wx:for='{{orders}}' wx:key='{{index}}' wx:if='{{activeOrderType !== "line" || activeOrderType !== "food"}}'>
     <view class='order' data-id='{{item.id}}' data-order='{{item}}' bindtap='goToTheDetail'>
       <view class='top'>
         <view wx:if='{{item.preOrder}}'>{{ (item.orderStatus === -1 || !item.preOrder.time) ? dateFr.getOrderDate(item.createAt) : item.name}}</view>
@@ -87,7 +87,25 @@
       </view>
     </view>
   </block>
-  <view class='filter_order_status' bindtap='handleShowOrderStatusChoice' wx:if='{{!show_order_status_choice && (activeOrderType === "tourism" || activeOrderType === "shopping")}}'>
+  <block wx:for='{{lines}}' wx:key="{{index}}" wx:if='{{activeOrderType === "line"}}'>
+    <view class='queue' data-sn='{{item.sn}}' bindtap='goToTheLineUpDetail'>
+      <view class='top'>
+        <view>{{item.name}}</view>
+        <view class='status {{(item.orderStatus === 1 || item.orderStatus === 0) ? "blue" : ""}}'>{{dateFr.getLineStatusText(item.orderStatus)}}</view>
+      </view>
+      <view class='line'></view>
+      <view class='bottom'>
+        <view class='left'>
+          <view>{{item.fullName}}</view>
+          <view>已等{{dateFr.getLinePendingDateText(item.lineAt)}}</view>
+        </view>
+        <view class='right' wx:if='{{item.lineStatus !== 1}}'>
+          <button data-sn='{{item.sn}}' catchtap='goToTheFoodOrder'>点菜</button>
+        </view>
+      </view>
+    </view>
+  </block>
+  <view class='filter_order_status' bindtap='handleShowOrderStatusChoice' wx:if='{{!show_order_status_choice && (activeOrderType === "tourism" || activeOrderType === "shopping") && orderType === 0}}'>
     <image src='../../img/order/filter_order_status.png'></image>
   </view>
   <view class='order_status_choice' wx:if="{{show_order_status_choice}}">

@@ -1,0 +1,175 @@
+/*隐藏滚动条*/
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+page{
+  height: 100%;
+}
+
+.container{
+  position: relative;
+  display: flex;
+  padding-bottom: 120rpx;
+  box-sizing: border-box;
+}
+
+.category{
+  width: 182rpx;
+  padding: 0 35rpx;
+  box-sizing: border-box;
+  margin-right: 24rpx;
+}
+
+.category view{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #666666;
+  margin-bottom: 56rpx;
+}
+
+.category view.active{
+  color: #3C3C3C;
+  font-weight: bold;
+}
+
+.food_list{
+  flex: 1;
+  padding-right: 30rpx;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.food_list .food{
+  display: flex;
+  align-items: center;
+  margin-bottom: 32rpx;
+  /* justify-content: space-between; */
+}
+
+.food_list .food .poster {
+  min-width: 172rpx;
+  height: 172rpx;
+  border-radius: 8rpx;
+  margin-right: 24rpx;
+  overflow: hidden;
+}
+
+.food_list .food .poster image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.food_list .food .info{
+  width: 330rpx;
+  overflow: hidden;
+}
+
+.food_list .food .info .name{
+  font-size: 32rpx;
+  line-height: 45rpx;
+  letter-spacing: 1rpx;
+  color: #3C3C3C;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+.food_list .food .info .price_num{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40rpx;
+}
+
+.food_list .food .info .price_num .price{
+  font-size: 32rpx;
+  line-height: 33rpx;
+  letter-spacing: 1rpx;
+  color: #F97572;
+}
+
+.food_list .food .info .price_num .num{
+  display: flex;
+  align-items: center;
+}
+
+.food_list .food .info .price_num .num .minus, .food_list .food .info .price_num .num .plus{
+  width: 44rpx;
+  height: 44rpx;
+  font-size: 40rpx;
+  line-height: 44rpx;
+  text-align: center;
+  color: #23C2F7;
+  border: 1rpx solid #23C2F7;
+  border-radius: 50%;
+}
+
+.food_list .food .info .price_num .num .number_inp{
+  width: 64rpx;
+  font-size: 32rpx;
+  line-height: 45rpx;
+  letter-spacing: 1rpx;
+  color: #3C3C3C;
+  text-align: center;
+}
+
+.food_list .food .info .price_num .num .plus{
+  background-color: #23C2F7;
+  color: #fff;
+}
+
+.bottom_content{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 120rpx;
+  padding: 0 40rpx;
+  background:rgba(255,255,255,1);
+  border-top:1rpx solid rgba(224,224,224,1);
+  box-sizing: border-box;
+}
+
+.bottom_content .num_price{
+  display: flex;
+  align-items: center;
+}
+
+.bottom_content .num_price .num {
+  width: 92rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 40rpx;
+  letter-spacing: 3rpx;
+  color: #23C2F7;
+  background-color: rgba(35, 194, 247, 0.1);
+  border-radius: 8rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-right: 16rpx;
+}
+
+.bottom_content .num_price .price {
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #F97572;
+  font-weight: bold;
+}
+
+.bottom_content .down_order button{
+  width: 267rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  letter-spacing: 3rpx;
+  color: #fff;
+  background-color: #F97572;
+  border-radius: 40rpx;
+}

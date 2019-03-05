@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
+			"current": 11,
 			"list": [
 				{
 					"id": 0,
@@ -114,6 +114,13 @@
 					"name": "排队完成页面",
 					"pathName": "pages/lineUpDetail/lineUpDetail",
 					"query": "sn=6399d76468a04e078d3c40a8107d48b6&num=6&email=330352812@qq.com&favorName=非吸烟区&roomName=需要",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "点菜",
+					"pathName": "pages/foodorder/foodorder",
+					"query": "sn=6399d76468a04e078d3c40a8107d48b6",
 					"scene": null
 				}
 			]
