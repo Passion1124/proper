@@ -207,7 +207,7 @@ Page({
     app.request(api, data, res => {
       console.log(res);
       let foodOrders = this.data.foodOrders || [];
-      if (res.foodOrders) foodOrders.concat(res.foodOrders)
+      if (res.foodOrders.length) foodOrders = foodOrders.concat(res.foodOrders);
       this.setData({
         orders: [],
         lines: [],

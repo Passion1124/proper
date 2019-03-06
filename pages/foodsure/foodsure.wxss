@@ -11,64 +11,39 @@ page{
 
 .container{
   position: relative;
-  display: flex;
+  padding: 40rpx 40rpx 120rpx 40rpx;
   padding-bottom: 120rpx;
   box-sizing: border-box;
 }
 
-.category{
-  width: 182rpx;
-  padding: 0 35rpx;
-  box-sizing: border-box;
-  margin-right: 24rpx;
-}
-
-.category view{
-  font-size: 28rpx;
-  line-height: 40rpx;
-  color: #666666;
-  margin-bottom: 56rpx;
-}
-
-.category view.active{
-  color: #3C3C3C;
-  font-weight: bold;
-}
-
-.food_list{
-  flex: 1;
-  padding-right: 30rpx;
-  box-sizing: border-box;
-  overflow-y: auto;
-}
-
-.food_list .food{
+.food{
   display: flex;
   align-items: center;
   margin-bottom: 32rpx;
   /* justify-content: space-between; */
 }
 
-.food_list .food .poster {
-  min-width: 172rpx;
-  height: 172rpx;
+.food .poster {
+  min-width: 112rpx;
+  height: 112rpx;
   border-radius: 8rpx;
   margin-right: 24rpx;
   overflow: hidden;
 }
 
-.food_list .food .poster image{
+.food .poster image{
   width: 100%;
   height: 100%;
   vertical-align: top;
 }
 
-.food_list .food .info{
-  width: 330rpx;
+.food .info{
+  flex: 1;
+  max-width: 600rpx;
   overflow: hidden;
 }
 
-.food_list .food .info .name{
+.food .info .name{
   font-size: 32rpx;
   line-height: 45rpx;
   letter-spacing: 1rpx;
@@ -78,32 +53,32 @@ page{
   text-overflow:ellipsis;
 }
 
-.food_list .food .info .price_num{
+.food .info .price_num{
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-top: 40rpx;
 }
 
-.food_list .food .info .price_num .price{
-  width: 150rpx;
+.food .info .price_num .price{
+  width: 450rpx;
   font-size: 32rpx;
   line-height: 33rpx;
   letter-spacing: 1rpx;
   color: #F97572;
 }
 
-.food_list .food .info .price_num .price text{
+.food .info .price_num .price text{
   width: 100%;
   word-wrap: break-word;
 }
 
-.food_list .food .info .price_num .num{
+.food .info .price_num .num{
   display: flex;
   align-items: center;
 }
 
-.food_list .food .info .price_num .num .minus, .food_list .food .info .price_num .num .plus{
+.food .info .price_num .num .minus, .food .info .price_num .num .plus{
   width: 44rpx;
   height: 44rpx;
   font-size: 40rpx;
@@ -114,7 +89,7 @@ page{
   border-radius: 50%;
 }
 
-.food_list .food .info .price_num .num .number_inp{
+.food .info .price_num .num .number_inp{
   width: 64rpx;
   font-size: 32rpx;
   line-height: 45rpx;
@@ -123,7 +98,7 @@ page{
   text-align: center;
 }
 
-.food_list .food .info .price_num .num .plus{
+.food .info .price_num .num .plus{
   background-color: #23C2F7;
   color: #fff;
 }

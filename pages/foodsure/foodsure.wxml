@@ -1,0 +1,34 @@
+<!-- foodsure.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
+<view class='container'>
+  <block wx:for='{{foodOrderBatchDetailDtos}}' wx:key='{{index}}'>
+    <view class='food'>
+      <view class='poster'>
+        <image src='{{item.foodLang.poster}}'></image>
+      </view>
+      <view class='info'>
+        <view class='name'>{{item.foodLang.foodName}}</view>
+        <view class='price_num'>
+          <view class='price'>
+            <text>{{item.food.currency + (item.food.price / 100)}}</text>
+          </view>
+          <view class='num'>
+            <view class='minus' data-num='{{item.foodOrderBatchDetail.foodNumber}}' data-food='{{item}}' bindtap='handleFoodOrderDelete'>-</view>
+            <view class='number_inp'>{{item.foodOrderBatchDetail.foodNumber}}</view>
+            <view class='plus' data-food='{{item}}' bindtap='handleFoodOrderAdd'>+</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+  <view class='bottom_content'>
+    <view class='num_price'>
+      <view class='num'>{{foodOrderBatchDetailDtos.length ? dateFr.getFoodOrderTotal(foodOrderBatchDetailDtos) : 0}}</view>
+      <view class='price' wx:if='{{foodOrderBatchDetailDtos.length}}'>{{foodOrder.payableCurrencyNoConfirm + dateFr.getFoodOrderBatchTotalPrice(foodOrderBatchDetailDtos) }}</view>
+      <view class='price' wx:else>CNY0.00</view>
+    </view>
+    <view class='down_order'>
+      <button bindtap='handleFoodOrderConfirm'>确认点菜</button>
+    </view>
+  </view>
+</view>

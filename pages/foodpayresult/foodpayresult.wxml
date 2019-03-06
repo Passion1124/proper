@@ -1,0 +1,12 @@
+<!-- foodpayresult.wxml -->
+<view class='container'>
+  <view class='row'>
+    <view class='top'>
+      <view class='icon'>
+        <image src='../../img/common/success.png'></image>
+      </view>
+      <view class='text'>点餐成功</view>
+    </view>
+    <view class='bottom'>恭喜你点餐成功</view>
+  </view>
+</view>

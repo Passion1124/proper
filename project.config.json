@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 11,
+			"current": 12,
 			"list": [
 				{
 					"id": 0,
@@ -121,6 +121,13 @@
 					"name": "点菜",
 					"pathName": "pages/foodorder/foodorder",
 					"query": "sn=6399d76468a04e078d3c40a8107d48b6",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "确认点菜",
+					"pathName": "pages/foodsure/foodsure",
+					"query": "mid=643469ba-7bed-45b5-aeb7-455ec1499e70&foodOrderId=d404aca2-b4cc-42ee-9904-3c1051cc0607&sn=6399d76468a04e078d3c40a8107d48b6",
 					"scene": null
 				}
 			]

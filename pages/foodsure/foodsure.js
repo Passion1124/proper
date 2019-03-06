@@ -9,14 +9,12 @@ Page({
    */
   data: {
     sn: '',
-    line: {},
-    category: [],
-    foodList: [],
+    mid: '',
+    foodOrderId: '',
     foodOrder: {},
     foodOrderBatchDetailDtos: [],
     foodOrderBatches: [],
-    foodOrderId: '',
-    checkCategory: ''
+    line: {}
   },
 
   /**
@@ -25,8 +23,11 @@ Page({
   onLoad: function (options) {
     this.setData({
       sn: options.sn,
+      mid: options.mid,
+      foodOrderId: options.foodOrderId
     });
     this.handleLineWait();
+    this.handleGetFoodOrderDetailList(this.data.foodOrderId);
   },
 
   /**
@@ -87,42 +88,12 @@ Page({
       this.setData({
         line: res.line
       });
-      this.getFoodCategoryList();
-    }, e => {
-      console.error(e);
-    })
-  },
-  // 查询菜品分类
-  getFoodCategoryList () {
-    let api = 'com.ttdtrip.api.restaurant.apis.service.FoodCategoryListApiService';
-    let data = { base: app.globalData.baseBody, page: 1, limit: 10, mid: this.data.line.mid };
-    app.request(api, data, res => {
-      console.log(res);
-      let checkCategory = this.data.checkCategory || res.foodCategoryDtos[0].foodCategoryLang
-      this.setData({
-        category: res.foodCategoryDtos,
-        checkCategory: checkCategory
-      });
-      this.getFoodList();
-    }, e => {
-      console.log(e);
-    })
-  },
-  // 查询菜品列表
-  getFoodList () {
-    let api = 'com.ttdtrip.api.restaurant.apis.service.FoodListApiService';
-    let data = { base: app.globalData.baseBody, categoryId: this.data.checkCategory.categoryId, page: 1, limit: 10, mid: this.data.line.mid };
-    app.request(api, data, res => {
-      console.log(res);
-      this.setData({
-        foodList: res.foodDtos
-      })
     }, e => {
       console.error(e);
     })
   },
   // 向清单中添加菜品
-  handleFoodOrderAdd (e) {
+  handleFoodOrderAdd(e) {
     let food = e.currentTarget.dataset.food.food;
     let line = this.data.line;
     let api = 'com.ttdtrip.api.restaurant.apis.service.FoodOrderBatchDetailAddApiService';
@@ -137,7 +108,7 @@ Page({
     })
   },
   // 向清单中删除菜品
-  handleFoodOrderDelete (e) {
+  handleFoodOrderDelete(e) {
     let num = e.currentTarget.dataset.num;
     if (parseInt(num) <= 0) return false;
     let food = e.currentTarget.dataset.food.food;
@@ -147,19 +118,11 @@ Page({
       console.log(res);
       let item = this.data.foodOrderBatchDetailDtos.find(item => item.foodOrderBatchDetail.foodId === food.id);
       let index = this.data.foodOrderBatchDetailDtos.findIndex(item => item.foodOrderBatchDetail.foodId === food.id);
-      if (item.foodOrderBatchDetail.foodNumber > 1) {
-        item.foodOrderBatchDetail.foodNumber--;
-        let arr_str = 'foodOrderBatchDetailDtos['+index+']';
-        this.setData({
-          [arr_str]: item
-        })
-      } else {
-        let foodOrderBatchDetailDtos = this.data.foodOrderBatchDetailDtos;
-        foodOrderBatchDetailDtos.splice(index, 1);
-        this.setData({
-          foodOrderBatchDetailDtos
-        })
-      }
+      item.foodOrderBatchDetail.foodNumber--;
+      let arr_str = 'foodOrderBatchDetailDtos[' + index + ']';
+      this.setData({
+        [arr_str]: item
+      })
     }, e => {
       console.error(e);
     })
@@ -176,28 +139,17 @@ Page({
       });
     })
   },
-  // 修改分类
-  bindChangeCategoryId (e) {
-    let category = e.currentTarget.dataset.category;
-    if (category.categoryId === this.data.checkCategory.categoryId) return false;
-    this.setData({
-      checkCategory: category
-    });
-    this.getFoodList();
-  },
-  // 点击去下单按钮
-  handleClickGoToTheOrder () {
-    if (!this.data.foodOrderId) {
-      wx.showToast({
-        title: '请选择菜品',
-        icon: 'none'
-      });
-      return false;
-    } else {
-      let line = this.data.line;
+  // 用户菜品清单确认（按批次确认）
+  handleFoodOrderConfirm () {
+    let api = 'com.ttdtrip.api.restaurant.apis.service.FoodOrderBatchConfirmApiService';
+    let data = { base: app.globalData.baseBody, foodOrderId: this.data.foodOrderId };
+    app.request(api, data, res => {
+      console.log(res);
       wx.redirectTo({
-        url: '/pages/foodsure/foodsure?mid=' + line.mid + '&sn=' + line.sn + '&foodOrderId=' + this.data.foodOrderId,
+        url: '/pages/foodpayresult/foodpayresult',
       })
-    }
+    }, e => {
+      console.error(e);
+    })
   }
 })

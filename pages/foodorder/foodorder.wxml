@@ -1,8 +1,9 @@
 <!-- foodorder.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container'>
   <view class='category'>
     <block wx:for='{{category}}' wx:key='{{index}}'>
-      <view class='{{item.foodCategoryLang.categoryId === checkCategory.categoryId ? "active" : ""}}'>{{item.foodCategoryLang.categoryName}}</view>
+      <view class='{{item.foodCategoryLang.categoryId === checkCategory.categoryId ? "active" : ""}}' data-category='{{item.foodCategoryLang}}' bindtap='bindChangeCategoryId'>{{item.foodCategoryLang.categoryName}}</view>
     </block>
   </view>
   <view class='food_list'>
@@ -14,11 +15,13 @@
         <view class='info'>
           <view class='name'>{{item.foodLang.foodName}}</view>
           <view class='price_num'>
-            <view class='price'>{{item.food.currency + (item.food.price / 100)}}</view>
+            <view class='price'>
+              <text>{{item.food.currency + (item.food.price / 100)}}</text>
+            </view>
             <view class='num'>
-              <view class='minus'>-</view>
-              <view class='number_inp'>0</view>
-              <view class='plus'>+</view>
+              <view class='minus' data-num='{{dateFr.getNowFoodOrderNum(foodOrderBatchDetailDtos, item)}}' data-food='{{item}}' bindtap='handleFoodOrderDelete'>-</view>
+              <view class='number_inp'>{{dateFr.getNowFoodOrderNum(foodOrderBatchDetailDtos, item)}}</view>
+              <view class='plus' data-food='{{item}}' bindtap='handleFoodOrderAdd'>+</view>
             </view>
           </view>
         </view>
@@ -27,11 +30,12 @@
   </view>
   <view class='bottom_content'>
     <view class='num_price'>
-      <view class='num'>12</view>
-      <view class='price'>￥190.8</view>
+      <view class='num'>{{foodOrderBatchDetailDtos.length ? dateFr.getFoodOrderTotal(foodOrderBatchDetailDtos) : 0}}</view>
+      <view class='price' wx:if='{{foodOrderBatchDetailDtos.length}}'>{{foodOrder.payableCurrencyNoConfirm + dateFr.getFoodOrderBatchTotalPrice(foodOrderBatchDetailDtos) }}</view>
+      <view class='price' wx:else>CNY0.00</view>
     </view>
     <view class='down_order'>
-      <button>去下单</button>
+      <button bindtap='handleClickGoToTheOrder'>去下单</button>
     </view>
   </view>
 </view>

@@ -42,6 +42,8 @@
     "pages/foodMeal/foodMeal",
     "pages/foodchoose/foodchoose",
     "pages/foodorder/foodorder",
+    "pages/foodsure/foodsure",
+    "pages/foodpayresult/foodpayresult",
     "pages/refund/refund"
   ],
   "window":{

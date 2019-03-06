@@ -105,6 +105,23 @@
       </view>
     </view>
   </block>
+  <block wx:for='{{foodOrders}}' wx:key='{{index}}' wx:if='{{activeOrderType === "food"}}'>
+    <view class='food'>
+      <view class='top'>
+        <view class='fullName'>排队号：{{item.lineName}}</view>
+        <view class='price orange'>{{item.payableCurrency + (item.payableAmount / 100)}}</view>
+      </view>
+      <view class='line'></view>
+      <view class='bottom'>
+        <view>桌台：{{item.tableNo || "暂无"}}</view>
+        <view>商品：{{item.foodOrderBatchDetailCount}}种商品</view>
+        <view class='flex'>
+          <view class='date'>时间：{{dateFr.formatTime(item.createAt * 1000)}}</view>
+          <view>订单详情></view>
+        </view>
+      </view>
+    </view>
+  </block>
   <view class='filter_order_status' bindtap='handleShowOrderStatusChoice' wx:if='{{!show_order_status_choice && (activeOrderType === "tourism" || activeOrderType === "shopping") && orderType === 0}}'>
     <image src='../../img/order/filter_order_status.png'></image>
   </view>

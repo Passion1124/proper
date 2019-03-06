@@ -215,6 +215,33 @@ var DateFr = {
     if (status === 3) str = '已过号';
     if (status === 3) str = '商户下线';
     return str;
+  },
+  getFoodOrderTotal: function (dots) {
+    var total = dots.map(function (item) {
+      return item.foodOrderBatchDetail.foodNumber;
+    }).reduce(function (pre, next) {
+      return pre + next;
+    });
+    return total;
+  },
+  getNowFoodOrderNum: function (dots, food) {
+    if (dots.length) {
+      var val = 0;
+      dots.forEach(function (item) {
+        if (item.foodOrderBatchDetail.foodId === food.food.id) {
+          val = item.foodOrderBatchDetail.foodNumber;
+        }
+      });
+      return val;
+    } else {
+      return 0;
+    }
+  },
+  getFoodOrderBatchTotalPrice: function (dots) {
+    var price = dots.reduce(function (pre, next) {
+      return pre + (next.foodOrderBatchDetail.foodPrice * next.foodOrderBatchDetail.foodNumber)
+    }, 0);
+    return price / 100;
   }
 }
 
@@ -238,6 +265,9 @@ module.exports = {
   getExtFieldText: DateFr.getExtFieldText,
   getPayTypeText: DateFr.getPayTypeText,
   secondToDate: DateFr.secondToDate,
-  getLinePendingDateText: DateFr.getLinePendingDateText,
-  getLineStatusText: DateFr.getLineStatusText
+  getLinePendingDateText: DateFr.getLinePendingDateText, 
+  getLineStatusText: DateFr.getLineStatusText,
+  getFoodOrderTotal: DateFr.getFoodOrderTotal,
+  getNowFoodOrderNum: DateFr.getNowFoodOrderNum,
+  getFoodOrderBatchTotalPrice: DateFr.getFoodOrderBatchTotalPrice
 }
