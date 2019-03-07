@@ -112,5 +112,11 @@ Page({
     }, e => {
       console.error(e);
     })
+  },
+  // 跳转到绑定手机号码或者邮箱页面
+  goToTheBindPhoneEmailPage () {
+    wx.navigateTo({
+      url: '/pages/bindPhoneEmail/bindPhoneEmail',
+    })
   }
 })
