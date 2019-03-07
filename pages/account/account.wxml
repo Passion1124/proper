@@ -1,13 +1,14 @@
 <!-- account.wxml -->
 <view class='container'>
   <view class='avatar' bindtap='wxChooseImage'>
-    <image src='../../img/common/avatar.png'></image>
+    <!-- http://tmp/wxf74a8f9b90f770d1.o6zAJs_-89_qO_Sk1QK6T7eNC7vk.tJnrOzhk9HIVfce42ccd54d1767a1e634b3b3d33348e.jpg -->
+    <image src='{{user.avatar || "../../img/common/avatar.png" }}' lazy-load='true'></image>
     <view class='tips'>点击更换</view>
   </view>
   <view class='single' bindtap='goToTheEditAccount'>
     <view class='left'>修改账户信息</view>
     <view class='right'>
-      <view>蒙丹</view>
+      <view>{{user.nickname || '去修改'}}</view>
       <view class='arrow'>
         <image src='../../img/common/more.png'></image>
       </view>
@@ -16,7 +17,7 @@
   <view class='single'>
     <view class='left'>绑定手机号</view>
     <view class='right'>
-      <view>15688889999</view>
+      <view>{{user.phone || '去绑定'}}</view>
       <view class='arrow'>
         <image src='../../img/common/more.png'></image>
       </view>
@@ -25,13 +26,13 @@
   <view class='single'>
     <view class='left'>绑定邮箱</view>
     <view class='right'>
-      <view>去绑定</view>
+      <view>{{user.email || '去绑定'}}</view>
       <view class='arrow'>
         <image src='../../img/common/more.png'></image>
       </view>
     </view>
   </view>
   <view class='out'>
-    <button>退出</button>
+    <button bindtap='logOut'>退出</button>
   </view>
 </view>

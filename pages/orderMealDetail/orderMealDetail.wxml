@@ -1,0 +1,34 @@
+<!-- orderMealDetail.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
+<view class='container'>
+  <view class='detail_hd'>
+    <view class='price'>{{foodOrder.payableCurrency + (foodOrder.payableAmount / 100)}}</view>
+    <view class='date'>{{dateFr.formatTime(foodOrder.createAt * 1000)}}</view>
+  </view>
+  <view class='panel'>
+    <view class='panel_hd'>预订信息</view>
+    <view class='panel_bd'>
+      <block wx:for='{{foodOrderBatchDetailDtos}}' wx:key='{{index}}'>
+        <view class='food'>
+        <view class='food_l'>
+          <view class='food_name'>{{item.foodLang.foodName}}</view>
+          <view class='food_num'>x {{item.foodOrderBatchDetail.foodNumber}}</view>
+        </view>
+        <view class='food_price'>{{item.foodOrderBatchDetail.currency + (item.foodOrderBatchDetail.payableAmount / 100)}}</view>
+      </view>
+      </block>
+    </view>
+  </view>
+  <view class='panel'>
+    <view class='panel_hd'>预定信息</view>
+    <view class='panel_bd mt_22'>
+      <view class='panel_info'>排队号：{{foodOrder.lineName}}</view>
+      <view class='panel_info'>订单号：{{foodOrder.transactionNo}}</view>
+      <view class='panel_info'>桌 台：{{foodOrder.tableNo || '暂无'}}</view>
+      <view class='panel_info'>下单时间：{{dateFr.formatTime(foodOrder.createAt * 1000)}}</view>
+    </view>
+  </view>
+  <view class='update_order'>
+    <button bindtap='goToTheFoodOrderPage'>修改订单</button>
+  </view>
+</view>

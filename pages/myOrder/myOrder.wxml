@@ -106,7 +106,7 @@
     </view>
   </block>
   <block wx:for='{{foodOrders}}' wx:key='{{index}}' wx:if='{{activeOrderType === "food"}}'>
-    <view class='food'>
+    <view class='food' data-id='{{item.id}}' bindtap='goToTheOrderMealDetailPage'>
       <view class='top'>
         <view class='fullName'>排队号：{{item.lineName}}</view>
         <view class='price orange'>{{item.payableCurrency + (item.payableAmount / 100)}}</view>

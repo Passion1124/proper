@@ -19,6 +19,7 @@
     "pages/message/message",
     "pages/account/account",
     "pages/editAccount/editAccount",
+    "pages/bindPhoneEmail/bindPhoneEmail",
     "pages/myCoupon/myCoupon",
     "pages/collection/collection",
     "pages/myOrder/myOrder",
@@ -44,6 +45,7 @@
     "pages/foodorder/foodorder",
     "pages/foodsure/foodsure",
     "pages/foodpayresult/foodpayresult",
+    "pages/orderMealDetail/orderMealDetail",
     "pages/refund/refund"
   ],
   "window":{

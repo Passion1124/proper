@@ -1,0 +1,13 @@
+<!-- bindPhoneEmail.wxml -->
+<view class='container'>
+  <view class='phone'>
+    <view>+86</view>
+    <input type='number' placeholder='输入手机号' placeholder-class='ph_class' maxlength='13'></input>
+  </view>
+  <view class='email'>
+    <input placeholder='输入邮箱' placeholder-class='ph_class'></input>
+  </view>
+  <view class='btn'>
+    <button>下一步,验证码</button>
+  </view>
+</view>

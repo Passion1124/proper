@@ -28,7 +28,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.setData({
+      userInfo: wx.getStorageSync('user')
+    })
   },
 
   /**
@@ -98,6 +100,14 @@ Page({
     let data = Object.assign({ base: app.globalData.baseBody }, this.data.userInfo);
     app.request(api, data, (res) => {
       console.log(res);
+      wx.showToast({
+        title: '修改成功',
+        icon: 'success'
+      });
+      wx.setStorageSync('user', res.user);
+      setTimeout(_ => {
+        wx.navigateBack();
+      }, 500);
     }, (err) => {
       console.error(err);
     })

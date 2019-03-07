@@ -77,7 +77,13 @@ App({
             title: res.data.ret_msg,
             icon: 'none'
           });
-          fail(res.data);
+          if (res.data.ret_code === '1099') {
+            wx.navigateTo({
+              url: '/pages/signIn/signIn',
+            })
+          } else {
+            fail(res.data);
+          }
         }
       },
       fail: function(res) {

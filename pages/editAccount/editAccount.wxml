@@ -14,11 +14,11 @@
     </view>
   </view>
   <view class='single'>
-    <view class='text'>手机号码</view>
+    <view class='text'>{{userInfo.phone || '手机号码'}}</view>
     <!-- <input type='number' placeholder-class='phcolor' placeholder='手机号码'></input> -->
   </view>
   <view class='single'>
-    <view class='text'>邮箱（接受凭证）</view>
+    <view class='text'>{{userInfo.email || '邮箱（接受凭证）'}}</view>
     <!-- <input placeholder-class='phcolor' placeholder='邮箱（接受凭证）'></input> -->
   </view>
   <view class='single'>

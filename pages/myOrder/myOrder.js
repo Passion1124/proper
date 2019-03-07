@@ -307,5 +307,11 @@ Page({
     wx.navigateTo({
       url: '/pages/foodorder/foodorder?sn=' + sn
     })
+  },
+  goToTheOrderMealDetailPage (e) {
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/orderMealDetail/orderMealDetail?id=' + id,
+    })
   }
 })

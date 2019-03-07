@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    user: {}
   },
 
   /**
@@ -27,7 +27,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    this.getUserDetail();
   },
 
   /**
@@ -64,6 +64,20 @@ Page({
   onShareAppMessage: function () {
     
   },
+  // 获取用户信息
+  getUserDetail () {
+    let api = 'com.ttdtrip.api.account.apis.service.UserDetailApiService';
+    let data = { base: app.globalData.baseBody };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        user: res.user
+      });
+      wx.setStorageSync('user', res.user);
+    }, e => {
+      console.error(e);
+    })
+  },
   wxChooseImage () {
     wx.chooseImage({
       count: 1,
@@ -82,6 +96,21 @@ Page({
   goToTheEditAccount () {
     wx.navigateTo({
       url: '/pages/editAccount/editAccount',
+    })
+  },
+  // 退出登录
+  logOut () {
+    let api = 'com.ttdtrip.api.account.apis.service.LogoutApiService';
+    let data = { base: app.globalData.baseBody };
+    app.request(api, data, res => {
+      console.log(res);
+      app.globalData.userInfo = null;
+      wx.clearStorageSync();
+      wx.switchTab({
+        url: '/pages/index/index',
+      })
+    }, e => {
+      console.error(e);
     })
   }
 })

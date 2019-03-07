@@ -16,6 +16,7 @@ Page({
     foodOrderBatchDetailDtos: [],
     foodOrderBatches: [],
     foodOrderId: '',
+    batchStatus: 0,
     checkCategory: ''
   },
 
@@ -23,10 +24,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      sn: options.sn,
-    });
+    this.data.sn = options.sn;
+    this.data.foodOrderId = options.orderId;
     this.handleLineWait();
+    if (this.data.foodOrderId) {
+      this.data.batchStatus = null;
+      this.handleGetFoodOrderDetailList(this.data.foodOrderId);
+    }
   },
 
   /**
@@ -167,7 +171,7 @@ Page({
   // 查询菜品清单详情列表
   handleGetFoodOrderDetailList(foodOrderId) {
     let api = 'com.ttdtrip.api.restaurant.apis.service.FoodOrderBatchDetailListApiService';
-    let data = { base: app.globalData.baseBody, batchStatus: 0, foodOrderId };
+    let data = { base: app.globalData.baseBody, batchStatus: this.data.batchStatus, foodOrderId };
     app.request(api, data, res => {
       this.setData({
         foodOrder: res.foodOrder,
