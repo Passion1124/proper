@@ -17,6 +17,32 @@ const formatDate = timestamp => {
   return [year, month, day].map(formatNumber).join('');
 }
 
+const userIsLogin = _ => {
+  return new Promise((resolve, reject) => {
+    let user = wx.getStorageSync('user') || '';
+    if (user) {
+      resolve();
+    } else {
+      navigateTo('/pages/signIn/signIn');
+      reject();
+    }
+  })
+}
+
+const navigateTo = url => {
+  wx.navigateTo({
+    url: url,
+  })
+}
+
+const showMessage = (title, icon) => {
+  wx.showToast({
+    title: message,
+    duration: 1500,
+    icon: icon ? icon : 'none'
+  })
+}
+
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
@@ -24,5 +50,8 @@ const formatNumber = n => {
 
 module.exports = {
   formatTime: formatTime,
-  formatDate: formatDate
+  formatDate: formatDate,
+  userIsLogin: userIsLogin,
+  navigateTo: navigateTo,
+  showMessage: showMessage
 }

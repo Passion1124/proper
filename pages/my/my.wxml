@@ -3,7 +3,7 @@
   <view class='info'>
     <view class='left'>
       <view class='login'>
-        <text bindtap='goToTheAccount'>{{ userInfo ? userInfo.nickName : '注册/登录'}}</text>
+        <text bindtap='goToTheAccount'>{{ userInfo ? userInfo.nickname : '注册/登录'}}</text>
       </view>
       <view class='collection_coupon'>
         <view class='collection' bindtap='goToTheCollection'>
@@ -18,7 +18,7 @@
     </view>
     <view class='right' bindtap='goToTheAccount'>
       <view class='avatar'>
-        <image src='{{ userInfo ? userInfo.avatarUrl : "../../img/common/avatar.png"}}'></image>
+        <image src='{{ userInfo ? userInfo.avatar : "../../img/common/avatar.png"}}'></image>
       </view>
     </view>
   </view>

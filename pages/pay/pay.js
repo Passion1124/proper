@@ -91,7 +91,7 @@ Page({
   // 获取支付配置列表
   handlePayConfigList(currency) {
     let api = 'com.ttdtrip.api.pay.apis.PayConfigListApiService';
-    let data = { base: app.globalData.baseBody, currency: currency, source: 'wx' };
+    let data = { base: app.globalData.baseBody, currency: currency, source: 'wxmini' };
     app.request(api, data, res => {
       console.log(res);
       wx.hideLoading();

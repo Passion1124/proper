@@ -80,7 +80,7 @@ Page({
       limit: 10,
       page: 1,
       size: 10,
-      userId: wx.getStorageSync('authority').myUid
+      userId: ''
     }
   },
 
@@ -109,7 +109,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.data.food.userId = wx.getStorageSync('authority').myUid;
   },
 
   /**
@@ -207,7 +207,7 @@ Page({
     app.request(api, data, res => {
       console.log(res);
       let foodOrders = this.data.foodOrders || [];
-      if (res.foodOrders.length) foodOrders = foodOrders.concat(res.foodOrders);
+      if (res.foodOrders) foodOrders = foodOrders.concat(res.foodOrders);
       this.setData({
         orders: [],
         lines: [],

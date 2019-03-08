@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    userInfo: null
   },
 
   /**
@@ -67,7 +67,7 @@ Page({
   getUserInfo(e) {
     console.log(e);
     if (e.detail.userInfo) {
-      app.globalData.userInfo = e.detail.userInfo;
+      this.data.userInfo = e.detail.userInfo;
       this.getWeChatOpenId();
     } else {
       wx.showModal({
@@ -87,7 +87,7 @@ Page({
         console.log(res);
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         if (res.code) {
-          let api = 'com.ttdtrip.api.account.apis.service.WeChatAuthApiService';
+          let api = 'com.ttdtrip.api.account.apis.service.WXMiniLoginApiService';
           let data = {
             base: app.globalData.baseBody,
             code: res.code
@@ -97,13 +97,6 @@ Page({
             this.handleSocialLogin(info);
           }, err => {
             console.error(err);
-            app.globalData.baseBody.auth = 'gWxbNvHRFszmNkJX+M+bXiYIbBaF7jiZmpKOpJEzkgU=.4a++4vNT60Tus/iZK5a/lGRAvd8PX31GNPPG76/XBWscu0oLiFVsbqtQkkhDKJaGdVmqmQNoPi7+PFLRO0WIisaEgPz4bnuSkO6QZvmUwb4RNyJsy0KzEHGyunBXQ2l/C5ChCV2Me+o=.5fca95e83696cb8ef868d20b60b5651012cfe65f';
-            app.globalData.baseBody.myUid = 'dd178d82-809f-4d88-a02e-d49b348d2f92';
-            wx.setStorageSync('authority', {
-              auth: app.globalData.baseBody.auth,
-              myUid: app.globalData.baseBody.myUid
-            });
-            wx.navigateBack();
           })
         }
       }
@@ -114,18 +107,24 @@ Page({
     let data = {
       base: app.globalData.baseBody,
       openId: info.openId,
-      source: 'WEIXIN',
-      nickname: info.nickname,
-      avatar: info.avatar
+      source: 'wxmini',
+      nickname: this.data.userInfo.nickName,
+      avatar: this.data.userInfo.avatarUrl,
+      sex: this.data.userInfo.gender,
+      province: this.data.userInfo.province,
+      city: this.data.userInfo.city,
+      country: this.data.userInfo.country
     };
     app.request(api, data, res => {
       console.log(res);
       app.globalData.baseBody.auth = res.auth;
       app.globalData.baseBody.myUid = res.user.uid;
+      app.globalData.userInfo = res.user;
       wx.setStorageSync('authority', {
         auth: app.globalData.baseBody.auth,
         myUid: app.globalData.baseBody.myUid
       });
+      wx.setStorageSync('user', res.user);
       wx.navigateBack();
     }, err => {
       console.error(err);

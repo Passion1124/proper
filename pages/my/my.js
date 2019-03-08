@@ -1,3 +1,5 @@
+import utils from '../../utils/util.js'
+
 const app = getApp();
 
 Page({
@@ -96,37 +98,19 @@ Page({
     })
   },
   goToTheAccount () {
-    if (!app.globalData.userInfo) {
-      wx.navigateTo({
-        url: '/pages/signIn/signIn',
-      });
-      return false;
-    }
-    wx.navigateTo({
-      url: '/pages/account/account',
-    })
+    utils.userIsLogin().then(_ => {
+      utils.navigateTo('/pages/account/account');
+    });
   },
   goToTheMyCoupon () {
-    if (!app.globalData.userInfo) {
-      wx.navigateTo({
-        url: '/pages/signIn/signIn',
-      });
-      return false;
-    };
-    wx.navigateTo({
-      url: '/pages/myCoupon/myCoupon',
-    })
+    utils.userIsLogin().then(_ => {
+      utils.navigateTo('/pages/myCoupon/myCoupon');
+    });
   },
   goToTheCollection () {
-    if (!app.globalData.userInfo) {
-      wx.navigateTo({
-        url: '/pages/signIn/signIn',
-      });
-      return false;
-    };
-    wx.navigateTo({
-      url: '/pages/collection/collection',
-    })
+    utils.userIsLogin().then(_ => {
+      utils.navigateTo('/pages/collection/collection');
+    });
   },
   goToTheAbout () {
     wx.navigateTo({
@@ -139,15 +123,9 @@ Page({
     })
   },
   goToTheMyOrder (e) {
-    if (!app.globalData.userInfo) {
-      wx.navigateTo({
-        url: '/pages/signIn/signIn',
-      });
-      return false;
-    };
-    let orderType = e.currentTarget.dataset.ordertype;
-    wx.navigateTo({
-      url: '/pages/myOrder/myOrder?orderType=' + orderType,
-    })
+    utils.userIsLogin().then(_ => {
+      let orderType = e.currentTarget.dataset.ordertype;
+      utils.navigateTo('/pages/myOrder/myOrder?orderType=' + orderType);
+    });
   }
 })
