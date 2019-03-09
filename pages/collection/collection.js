@@ -1,3 +1,5 @@
+import utils from '../../utils/util.js'
+
 const app = getApp();
 
 Page({
@@ -124,5 +126,17 @@ Page({
     }, (err) => {
       console.error(err);
     })
+  },
+  goToTheDetail (e) {
+    let item = e.currentTarget.dataset.item;
+    let url = '';
+    let type = item.goodsBase.type;
+    let gid = item.goodsInfo.gid;
+    if (type === '2') {
+      url = '/pages/fooddetail/fooddetail?gid=' + gid + '&type=' + type;
+    } else {
+      url = '/pages/poi_detail/poi_detail?gid=' + gid + '&type' + type;
+    }
+    utils.navigateTo(url);
   }
 })

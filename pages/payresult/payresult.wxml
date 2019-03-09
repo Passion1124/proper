@@ -1,0 +1,70 @@
+<!-- payresult.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
+<view class='container'>
+  <view class='result'>
+    <view class='top'>
+      <view class='icon'>
+        <image src='../../img/common/success.png' wx:if='{{result === "success"}}'></image>
+        <image src='../../img/common/fail.png' wx:if='{{result === "fail"}}'></image>
+      </view>
+      <view class='text fail' wx:if='{{result === "fail"}}'>付款失败</view>
+      <view class='text success' wx:if='{{result === "success"}}'>付款成功</view>
+    </view>
+    <view class='center'>
+      <view class='tips' wx:if='{{result === "fail"}}'>请在 <text class='fail'>30</text> 分钟内完成付款，否则订单会被系统自动取消</view>
+      <view class='tips' wx:if='{{result === "success"}}'>请在 <text class='fail'>8</text>  小时内确认您的订单，请前往行程查看您的商品</view>
+    </view>
+    <view class='bottom'>
+      <button wx:if='{{result === "fail"}}' bindtap='handleClickAgainPayButton'>重新付款</button>
+      <button wx:if='{{result === "success"}}' bindtap='handleClickAgainShoppingButton'>再次购买</button>
+    </view>
+  </view>
+  <view class='like'>
+    <view class='title'>
+      <text>猜你喜欢</text>
+    </view>
+    <view class='recommend' wx:if='{{goods.length}}'>
+      <block wx:for='{{goods}}' wx:key='{{index}}'>
+        <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
+          <view class='img_row'>
+            <image class='bg' src='{{item.goodsBase.poster}}'></image>
+            <view class='icon'>
+              <view class='icon_left'>
+                <image class='top' wx:if='{{ item.goodsBase.top === 1 }}' src='../../img/index/top.png'></image>
+                <image class='group' wx:if='{{item.goodsBase.groupBuy === 1}}' src='../../img/common/group.png'></image>
+                <image class='line_up' wx:if='{{item.goodsBase.lineUp === 1}}' src='../../img/common/line_up.png'></image>
+                <image class='reserve' wx:if='{{item.goodsBase.reserve === 1}}' src='../../img/common/reserve.png'></image>
+              </view>
+              <view class='icon_right'>
+                <image class='ticket' wx:if='{{ item.goodsBase.coupon === 1 }}' src='../../img/index/ticket.png'></image>
+              </view>
+            </view>
+          </view>
+          <view class='title'>
+            <text>{{item.goodsInfo.name}}</text>
+          </view>
+          <view class='location'>
+            <view class='img_row'>
+              <image src='../../img/index/small_location.png'></image>
+            </view>
+            <view class='text'>
+              <text>{{item.goodsInfo.city}} · 距离{{dateFr.getDistance(item.distance)}}{{item.distance ? '公里' : ''}}</text>
+            </view>
+          </view>
+          <view class='info'>
+            <view class='price'>
+              <text class='{{item.goodsInfo.avgPrice ? "" : "ashy"}}'><text wx:if='{{false}}'>￥</text>{{item.goodsInfo.avgPrice ? item.goodsInfo.avgPrice : '暂无均价建议'}}</text>
+            </view>
+            <view class='star'>
+              <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
+                <image wx:if='{{(item.goodsBase ? item.goodsBase.star : 0) >= sItem +  1}}' src='../../img/index/star_check.png'></image>
+                <image wx:else src='../../img/index/star_uncheck.png'></image>
+              </block>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class='recommend_empty' wx:if='{{!goods.length}}'>暂无推荐商品</view>
+  </view>
+</view>

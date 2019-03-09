@@ -30,6 +30,7 @@
     "pages/helpDetail/helpDetail",
     "pages/signIn/signIn",
     "pages/pay/pay",
+    "pages/payresult/payresult",
     "pages/childProductList/childProductList",
     "pages/morecomment/morecomment",
     "pages/book/book",

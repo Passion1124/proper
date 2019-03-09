@@ -35,7 +35,7 @@ const navigateTo = url => {
   })
 }
 
-const showMessage = (title, icon) => {
+const showMessage = (message, icon) => {
   wx.showToast({
     title: message,
     duration: 1500,

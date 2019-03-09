@@ -1,4 +1,4 @@
-.phone, .email{
+.phone, .email, .code{
   display: flex;
   align-items: center;
   width: 606rpx;
@@ -17,10 +17,27 @@
   margin-right: 20rpx;
 }
 
-.phone input, .email input{
+.phone input, .email input, .code input{
+  flex: 1;
   font-size: 34rpx;
   line-height: 48rpx;
   color: #3C3C3C;
+}
+
+.tips{
+  width: 606rpx;
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #8C8C8C;
+  margin: 40rpx auto 0;
+}
+
+.get_code{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #3C3C3C;
+  margin-top: 46rpx;
+  text-align: center;
 }
 
 .ph_class{
@@ -42,4 +59,8 @@
   background:linear-gradient(270deg,rgba(36,225,226,1) 0%,rgba(35,194,247,1) 100%);
   box-shadow:0px 16rpx 40rpx 0px rgba(205,246,249,1);
   border-radius:56rpx;
+}
+
+.binding .btn{
+  margin-top: 50rpx;
 }

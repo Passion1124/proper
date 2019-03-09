@@ -20,7 +20,8 @@ Page({
     interval: 5000,
     duration: 1000,
     msgCount: 0,
-    tabs_type: "vertical"
+    tabs_type: "vertical",
+    reqStatus: 'success'
   },
   //事件处理函数
   bindViewTap: function() {
@@ -113,15 +114,26 @@ Page({
     })
   },
   getGoodsList () {
+    this.setData({
+      reqStatus: 'loading'
+    })
     let data = { base: app.globalData.baseBody, sortType: 1, page: 1, size: 20, type: this.data.recommendType };
+    let city = wx.getStorageSync('city') || '';
+    if (city) data.cityId = city.cityId;
     let api = 'com.ttdtrip.api.goods.apis.GoodsListApiService';
     app.request(api, data, (res) => {
       console.log(res);
       this.setData({
         goodsList: res.goodsVOs.length > 20 ? res.goodsVOs.slice(0, 20) : res.goodsVOs
+      });
+      this.setData({
+        reqStatus: 'success'
       })
     }, (err) => {
       console.error(err);
+      this.setData({
+        reqStatus: 'success'
+      })
     })
   },
   getMsgCount () {

@@ -1,4 +1,6 @@
-const app = getApp()
+import utils from '../../utils/util.js'
+
+const app = getApp();
 
 Page({
 
@@ -114,9 +116,27 @@ Page({
     })
   },
   // 跳转到绑定手机号码或者邮箱页面
-  goToTheBindPhoneEmailPage () {
-    wx.navigateTo({
-      url: '/pages/bindPhoneEmail/bindPhoneEmail',
+  goToTheBindPhoneEmailPage (e) {
+    let index = e.currentTarget.dataset.index;
+    let user = this.data.user;
+    let url = '/pages/bindPhoneEmail/bindPhoneEmail?index=' + index;
+    console.log(index === '0' && user.phone);
+    if ((index === '0' && user.phone) || (index === '1' && user.email)) {
+      this.handleShowActionSheet(index, true);
+    } else {
+      utils.navigateTo(url);
+    }
+  },
+  // 展示弹窗
+  handleShowActionSheet (index, change) {
+    wx.showActionSheet({
+      itemList: ['更换'],
+      success (res) {
+        console.log(res);
+        if (res.tapIndex === 0) {
+          utils.navigateTo('/pages/bindPhoneEmail/bindPhoneEmail?index=' + index + '&change=' + change);
+        }
+      }
     })
   }
 })

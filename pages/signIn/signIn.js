@@ -1,3 +1,5 @@
+import utils from '../../utils/util.js'
+
 const app = getApp();
 
 Page({
@@ -87,6 +89,7 @@ Page({
         console.log(res);
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         if (res.code) {
+          this.showLoading();
           let api = 'com.ttdtrip.api.account.apis.service.WXMiniLoginApiService';
           let data = {
             base: app.globalData.baseBody,
@@ -97,6 +100,7 @@ Page({
             this.handleSocialLogin(info);
           }, err => {
             console.error(err);
+            this.hideLoading();
           })
         }
       }
@@ -119,15 +123,27 @@ Page({
       console.log(res);
       app.globalData.baseBody.auth = res.auth;
       app.globalData.baseBody.myUid = res.user.uid;
+      app.globalData.openId = info.openId;
       app.globalData.userInfo = res.user;
       wx.setStorageSync('authority', {
         auth: app.globalData.baseBody.auth,
-        myUid: app.globalData.baseBody.myUid
+        myUid: app.globalData.baseBody.myUid,
+        openId: info.openId
       });
       wx.setStorageSync('user', res.user);
+      utils.showMessage('登录成功', 'success');
       wx.navigateBack();
     }, err => {
       console.error(err);
+      this.hideLoading();
     })
+  },
+  showLoading () {
+    wx.showLoading({
+      title: '登录中'
+    })
+  },
+  hideLoading () {
+    wx.hideLoading();
   }
 })

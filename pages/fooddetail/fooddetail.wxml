@@ -79,7 +79,7 @@
         <view class='label'>服务语言：{{dateFr.getSupportedLanguage(goods.goodsInfo.supportedLanguage)}}</view>
       </view>
       <view class='map' wx:if='{{goods.goodsBase.local[0] !== 0 && goods.goodsBase.local[1] !== 0}}'>
-        <map id='myMap' style='width: 100%; height: 249rpx;' latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" show-location></map>
+        <map id='myMap' style='width: 100%; height: 249rpx;' latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" scale='10' show-location bindcallouttap='showMapNavigation'></map>
       </view>
     </view>
     <view class='area padding_0' wx:if='{{goods.goodsBase.lineUp || goods.goodsBase.reserve}}'>

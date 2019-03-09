@@ -5,10 +5,10 @@
     <view class='title'>亲，请尽快付款</view>
     <view class='subTitle'>支付剩余时间
       <text>{{dateFr.secondToDate(count_down)}}</text> 请尽快支付</view>
-    <button class='pay'>立即付款{{order.payCurrency + (order.payPrice / 100)}}</button>
+    <button class='pay' bindtap='goToThePayPage'>立即付款{{order.payCurrency + (order.payPrice / 100)}}</button>
     <button class='cancel_order' bindtap='handleClickOrderCancelButton'>取消订单</button>
   </view>
-  <view class='tips overtime' wx:if='{{order.orderStatus === 99}}'>
+  <view class='tips overtime' wx:if='{{order.orderStatus === 99 || isTimeOut}}'>
     <view class='title'>亲，您的订单已经超过支付时间，请重新下单</view>
     <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
   </view>

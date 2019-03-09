@@ -149,6 +149,8 @@ Page({
   getFullDayGoodsList () {
     let api = 'com.ttdtrip.api.goods.apis.GoodsListApiService';
     let data = Object.assign({ base: app.globalData.baseBody }, this.data.full_day_body);
+    let city = wx.getStorageSync('city') || '';
+    if (city) data.cityId = city.cityId;
     app.request(api, data, (res) => {
       console.log(res);
       let full_day = this.data.full_day.concat(res.goodsVOs);
@@ -162,6 +164,8 @@ Page({
   getFoodGoodsList() {
     let api = 'com.ttdtrip.api.goods.apis.GoodsListApiService';
     let data = Object.assign({ base: app.globalData.baseBody }, this.data.food_body);
+    let city = wx.getStorageSync('city') || '';
+    if (city) data.cityId = city.cityId;
     app.request(api, data, (res) => {
       console.log(res);
       let food = this.data.food.concat(res.goodsVOs);
@@ -175,6 +179,8 @@ Page({
   getTrafficGoodsList() {
     let api = 'com.ttdtrip.api.goods.apis.GoodsListApiService';
     let data = Object.assign({ base: app.globalData.baseBody }, this.data.traffic_body);
+    let city = wx.getStorageSync('city') || '';
+    if (city) data.cityId = city.cityId;
     app.request(api, data, (res) => {
       console.log(res);
       let traffic = this.data.traffic.concat(res.goodsVOs);
@@ -188,6 +194,8 @@ Page({
   getLarkGoodsList() {
     let api = 'com.ttdtrip.api.goods.apis.GoodsListApiService';
     let data = Object.assign({ base: app.globalData.baseBody }, this.data.lark_body);
+    let city = wx.getStorageSync('city') || '';
+    if (city) data.cityId = city.cityId;
     app.request(api, data, (res) => {
       console.log(res);
       let lark = this.data.lark.concat(res.goodsVOs);
@@ -201,6 +209,8 @@ Page({
   getShoppingGoodsList() {
     let api = 'com.ttdtrip.api.goods.apis.GoodsListApiService';
     let data = Object.assign({ base: app.globalData.baseBody }, this.data.shopping_body);
+    let city = wx.getStorageSync('city') || '';
+    if (city) data.cityId = city.cityId;
     app.request(api, data, (res) => {
       console.log(res);
       let shopping = this.data.shopping.concat(res.goodsVOs);

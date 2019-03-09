@@ -118,6 +118,7 @@ image{
 .card .content .image_row{
   width: 602rpx;
   height: 206rpx;
+  overflow: hidden;
 }
 
 .card .content .btn{
@@ -148,7 +149,14 @@ image{
   font-size: 36rpx;
   line-height: 50rpx;
   color: #3C3C3C;
-  margin-bottom: 40rpx;
+  margin-top: 40rpx;
+}
+
+.explain .e_desc{
+  font-size: 28rpx;
+  line-height: 48rpx;
+  color: #3C3C3C;
+  margin-top: 20rpx;
 }
 
 .explain .date{

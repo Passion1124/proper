@@ -13,6 +13,7 @@ App({
     if (authority) {
       this.globalData.baseBody.auth = authority.auth;
       this.globalData.baseBody.myUid = authority.myUid;
+      this.globalData.openId = authority.openId;
     }
     if (user) this.globalData.userInfo = user;
   },
@@ -25,6 +26,7 @@ App({
       lng: 0,
       currency: 'CNY'
     },
+    openId: '',
     cityName: '日本'
   },
   request (api, data, success, fail) {

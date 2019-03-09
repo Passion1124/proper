@@ -74,7 +74,7 @@ Page({
       base: app.globalData.baseBody,
       limit: 10,
       page: 1,
-      userId: ''
+      userId: app.globalData.userInfo.uid
     };
     app.request(api, data, (res) => {
       console.log(res);

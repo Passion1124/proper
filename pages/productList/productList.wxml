@@ -24,8 +24,8 @@
       <image src='../../img/index/tabs.png'></image>
     </view>
     <view class='tabs_show_type'>
-      <image src='../../img/index/vertical.png' data-type='horizontal' bindtap='handleChangeTabsType' wx:if='{{tabs_type === "vertical"}}'></image>
-      <image src='../../img/index/horizontal.png' data-type='vertical' bindtap='handleChangeTabsType' wx:if='{{tabs_type === "horizontal"}}'></image>
+      <image src='../../img/index/vertical.png' data-type='vertical' bindtap='handleChangeTabsType' wx:if='{{tabs_type === "horizontal"}}'></image>
+      <image src='../../img/index/horizontal.png' data-type='horizontal' bindtap='handleChangeTabsType' wx:if='{{tabs_type === "vertical"}}'></image>
     </view>
   </scroll-view>
   <swiper class='tab-content' current='{{ currentTab }}' duration='300' bindchange='switchTab' style='height:{{winHeight}}rpx'>
@@ -37,7 +37,7 @@
         <view class='{{full_day_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
       </view>
       <scroll-view scroll-y="true" class='scoll-h' style='height:{{scHeight}}rpx' data-current='0' bindscrolltolower="scrolltolower">
-        <view class='list_row'>
+        <view class='list_row' wx:if='{{full_day.length}}'>
           <block wx:for='{{full_day}}' wx:key='{{index}}'>
             <view class='list {{tabs_type === "horizontal" ? "horizontal" : ""}}' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
@@ -103,6 +103,12 @@
             </view>
           </block>
         </view>
+        <view class='empty' wx:if='{{!full_day.length}}'>
+          <view class='image_row'>
+            <image src='../../img/common/empty_data.png'></image>
+          </view>
+          <view class='text'>暂无数据哦，快去逛逛吧～</view>
+        </view>
       </scroll-view>
     </swiper-item>
     <swiper-item>
@@ -113,7 +119,7 @@
         <view class='{{traffic_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
       </view>
       <scroll-view scroll-y="true" class='scoll-h' style='height:{{scHeight}}rpx' data-current='1' bindscrolltolower="scrolltolower">
-        <view class='list_row'>
+        <view class='list_row' wx:if='{{traffic.length}}'>
           <block wx:for='{{traffic}}' wx:key='{{index}}'>
             <view class='list {{tabs_type === "horizontal" ? "horizontal" : ""}}' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
@@ -179,6 +185,12 @@
             </view>
           </block>
         </view>
+        <view class='empty' wx:if='{{!traffic.length}}'>
+          <view class='image_row'>
+            <image src='../../img/common/empty_data.png'></image>
+          </view>
+          <view class='text'>暂无数据哦，快去逛逛吧～</view>
+        </view>
       </scroll-view>
     </swiper-item>
     <swiper-item>
@@ -189,7 +201,7 @@
         <view class='{{lark_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
       </view>
       <scroll-view scroll-y="true" class='scoll-h' style='height:{{scHeight}}rpx' data-current='2' bindscrolltolower="scrolltolower">
-        <view class='list_row'>
+        <view class='list_row' wx:if='{{lark.length}}'>
           <block wx:for='{{lark}}' wx:key='{{index}}'>
             <view class='list {{tabs_type === "horizontal" ? "horizontal" : ""}}' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
@@ -255,6 +267,12 @@
             </view>
           </block>
         </view>
+        <view class='empty' wx:if='{{!lark.length}}'>
+          <view class='image_row'>
+            <image src='../../img/common/empty_data.png'></image>
+          </view>
+          <view class='text'>暂无数据哦，快去逛逛吧～</view>
+        </view>
       </scroll-view>
     </swiper-item>
     <swiper-item>
@@ -305,7 +323,7 @@
         </view>
       </view>
       <scroll-view scroll-y="true" class='scoll-h' style='height:{{foodScHeight}}rpx' data-current='3' bindscrolltolower="scrolltolower">
-        <view class='list_row'>
+        <view class='list_row' wx:if='{{food.length}}'>
           <block wx:for='{{food}}' wx:key='{{index}}'>
             <view class='list {{tabs_type === "horizontal" ? "horizontal" : ""}}' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
@@ -371,6 +389,12 @@
             </view>
           </block>
         </view>
+        <view class='empty' wx:if='{{!food.length}}'>
+          <view class='image_row'>
+            <image src='../../img/common/empty_data.png'></image>
+          </view>
+          <view class='text'>暂无数据哦，快去逛逛吧～</view>
+        </view>
       </scroll-view>
     </swiper-item>
     <swiper-item>
@@ -381,7 +405,7 @@
         <view class='{{shopping_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
       </view>
       <scroll-view scroll-y="true" class='scoll-h' style='height:{{scHeight}}rpx' data-current='4' bindscrolltolower="scrolltolower">
-        <view class='list_row'>
+        <view class='list_row' wx:if='{{shopping.length}}'>
           <block wx:for='{{shopping}}' wx:key='{{index}}'>
             <view class='list {{tabs_type === "horizontal" ? "horizontal" : ""}}' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
@@ -446,6 +470,12 @@
               </block>
             </view>
           </block>
+        </view>
+        <view class='empty' wx:if='{{!shopping.length}}'>
+          <view class='image_row'>
+            <image src='../../img/common/empty_data.png'></image>
+          </view>
+          <view class='text'>暂无数据哦，快去逛逛吧～</view>
         </view>
       </scroll-view>
     </swiper-item>

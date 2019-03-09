@@ -8,7 +8,7 @@
   </view>
   <view class='un_empty' wx:if='{{goods.length}}'>
     <block wx:for='{{goods}}' wx:key='{{index}}'>
-      <view class='main'>
+      <view class='main' data-item='{{item}}' bindtap='goToTheDetail'>
         <view class='poster'>
           <image src='{{item.goodsBase.poster}}'></image>
           <view class='white_circle'>

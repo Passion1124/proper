@@ -1,3 +1,5 @@
+import utils from '../../utils/util.js'
+
 const app = getApp();
 
 Page({
@@ -11,7 +13,8 @@ Page({
     orderMerches: [],
     receiver: {},
     count_down: 1800,
-    countSetInterVal: ''
+    countSetInterVal: '',
+    isTimeOut: false
   },
 
   /**
@@ -33,7 +36,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+
   },
 
   /**
@@ -81,11 +84,28 @@ Page({
         orderMerches: res.orderMerches,
         receiver: res.receiver
       });
-      if (this.data.order.orderStatus === -1 && 1800 - (new Date().getTime() - this.data.order.createAt) / 1000 > 0 ) {
-        this.startInterVal();
+      this.handleOrderMerchItemList();
+      if (this.data.order.orderStatus === -1) {
+        if (1800 - (new Date().getTime() - this.data.order.createAt) / 1000 > 0) {
+          this.startInterVal();
+        } else {
+          this.setData({
+            isTimeOut: true
+          });
+        }
       }
     }, fail => {
       wx.hideLoading();
+    })
+  },
+  // 商品二维码
+  handleOrderMerchItemList () {
+    let api = 'com.ttdtrip.api.order.apis.service.OrderMerchItemListApiService';
+    let data = { base: app.globalData.baseBody, page: 1, limit: 1, orderId: this.data.orderId, merchId: this.data.orderMerches[0].merchId };
+    app.request(api, data, res => {
+      console.log(res);
+    }, e => {
+      console.error(e);
     })
   },
   // 取消订单
@@ -130,6 +150,9 @@ Page({
       });
     } else {
       this.endInterVal();
+      this.setData({
+        isTimeOut: true
+      })
     }
   },
   // 立即付款
@@ -156,5 +179,13 @@ Page({
     wx.navigateTo({
       url: '/pages/refund/refund?orderId=' + this.data.orderId + '&name=' + this.data.receiver.name + '&tel=' + this.data.receiver.phoneNo,
     })
+  },
+  // 立即付款
+  goToThePayPage () {
+    let order = this.data.order;
+    let orderId = order.id;
+    let orderNo = order.orderNo;
+    let currency = order.payCurrency;
+    utils.navigateTo('/pages/pay/pay?orderId=' + orderId +'&orderNo='+ orderNo+'&currency='+ currency+'&type=1');
   }
 })

@@ -11,6 +11,6 @@
     </view>
   </view>
   <view class='pay_button'>
-    <button>确认付款</button>
+    <button bindtap='handleClickSurePay'>确认付款</button>
   </view>
 </view>

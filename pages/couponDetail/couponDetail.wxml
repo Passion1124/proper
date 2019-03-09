@@ -35,7 +35,7 @@
         </view>
       </view>
       <view class='image_row'>
-        <image src='{{coupon.photoUrl}}'></image>
+        <image mode='aspectFill' src='{{coupon.photoUrl}}'></image>
       </view>
       <view class='btn'>
         <button disabled='{{coupon.usable === 0}}' bindtap='goToTheUseing'>{{coupon.usingOnline ? '前往' : '出示'}}使用</button>
@@ -44,7 +44,9 @@
   </view>
   <view class='explain'>
     <view class='e_title'>使用说明</view>
-    <view class='date'>失效期：{{dateFr.getDate(coupon.expireEndAt, '/')}}</view>
-    <view class='careful'>使用注意：{{coupon.precaustion}}</view>
+    <view class='e_desc'>{{coupon.description || '暂无使用说明'}}</view>
+    <view class='e_title'>使用注意：</view>
+    <view class='e_desc'>{{coupon.precaustion || '暂无使用注意'}}</view>
+    <!-- <view class='careful'>使用注意：{{coupon.precaustion}}</view> -->
   </view>
 </view>

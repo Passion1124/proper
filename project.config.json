@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 15,
 			"list": [
 				{
 					"id": 0,
@@ -47,10 +47,10 @@
 					"scene": 1001
 				},
 				{
-					"id": -1,
+					"id": 1,
 					"name": "pay",
 					"pathName": "pages/pay/pay",
-					"query": "orderId=dd4c1032586c44b993bf12c4072be685&orderNo=7786598053894410240&currency=CNY&type=1",
+					"query": "orderId=898674caec7b463b8decc1ebf1108414&orderNo=7792703178127822848&currency=CNY&type=1",
 					"scene": null
 				},
 				{
@@ -131,10 +131,24 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 13,
 					"name": "修改手机或者邮箱",
 					"pathName": "pages/bindPhoneEmail/bindPhoneEmail",
-					"query": "",
+					"query": "index=0",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "poi",
+					"pathName": "pages/poi_detail/poi_detail",
+					"query": "gid=daae2ed8-6154-40b4-9916-1ebc792f3098&type=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "支付结果",
+					"pathName": "pages/payresult/payresult",
+					"query": "frompage=web&result=1&type=1&giid=abbefc0d-4770-434d-9c18-4e26ff4c304a&preOrderId=1c807864-4dac-4182-a258-3d05b1aff308&toPageType=0&orderId=e591ec90e6444ce9869d90f8cbfb2a5f",
 					"scene": null
 				}
 			]

@@ -1,3 +1,5 @@
+import utils from '../../utils/util.js'
+
 const app = getApp();
 
 Page({
@@ -132,5 +134,20 @@ Page({
     this.setData({
       ['userInfo.address']: e.detail.value
     })
+  },
+  // 跳转到绑定手机号码或者邮箱页面
+  goToTheBindPhoneEmailPage(e) {
+    let index = e.currentTarget.dataset.index;
+    let change = false;
+    let user = this.data.userInfo;
+    if (index === '0' && user.phone) {
+      change = true;
+    }
+    if (index === '1' && user.email) {
+      change = true;
+    }
+    let url = '/pages/bindPhoneEmail/bindPhoneEmail?index=' + index;
+    if (change) url = url + '&change=' + change;
+    utils.navigateTo(url);
   }
 })

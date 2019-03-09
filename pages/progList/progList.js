@@ -9,6 +9,7 @@ Page({
     sortType: 1,
     name: '',
     labelId: '',
+    cityId: '',
     type: '',
     page: 1,
     size: 30,
@@ -25,6 +26,8 @@ Page({
       labelId: options.labelId,
       type: Number(options.type)
     });
+    let city = wx.getStorageSync('city') || '';
+    if (city) this.data.cityId = city.cityId;
     wx.setNavigationBarTitle({
       title: (this.data.type === 2 ? '美食-' : '购物-') + this.data.name,
     });
@@ -87,7 +90,7 @@ Page({
   getGoodsList () {
     let _data = this.data;
     let api = 'com.ttdtrip.api.goods.apis.GoodsListApiService';
-    let data = { base: app.globalData.baseBody, page: _data.page, size: _data.size, type: _data.type, sortType: _data.sortType, labelId: _data.labelId };
+    let data = { base: app.globalData.baseBody, page: _data.page, size: _data.size, type: _data.type, sortType: _data.sortType, labelId: _data.labelId, cityId: this.data.cityId };
     app.request(api, data, res => {
       console.log(res);
       this.setData({

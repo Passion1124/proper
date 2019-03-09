@@ -13,11 +13,11 @@
       <image src='../../img/common/more.png'></image>
     </view>
   </view>
-  <view class='single'>
+  <view class='single' data-index='0' bindtap='goToTheBindPhoneEmailPage'>
     <view class='text'>{{userInfo.phone || '手机号码'}}</view>
     <!-- <input type='number' placeholder-class='phcolor' placeholder='手机号码'></input> -->
   </view>
-  <view class='single'>
+  <view class='single' data-index='1' bindtap='goToTheBindPhoneEmailPage'>
     <view class='text'>{{userInfo.email || '邮箱（接受凭证）'}}</view>
     <!-- <input placeholder-class='phcolor' placeholder='邮箱（接受凭证）'></input> -->
   </view>

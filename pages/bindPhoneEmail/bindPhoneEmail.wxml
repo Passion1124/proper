@@ -1,13 +1,26 @@
 <!-- bindPhoneEmail.wxml -->
 <view class='container'>
-  <view class='phone'>
-    <view>+86</view>
-    <input type='number' placeholder='输入手机号' placeholder-class='ph_class' maxlength='13'></input>
+  <view class='first' wx:if="{{step === 'first'}}">
+    <view class='phone' wx:if='{{index === "0"}}'>
+      <view>+86</view>
+      <input type='number' value='{{phone}}' data-type='phone' bindinput='handleInputValue' placeholder='输入手机号' placeholder-class='ph_class' maxlength='11'></input>
+    </view>
+    <view class='email' wx:if='{{index === "1"}}'>
+      <input value='{{email}}' data-type='email' bindinput='handleInputValue' placeholder='输入邮箱' placeholder-class='ph_class'></input>
+    </view>
+    <view class='btn'>
+      <button bindtap='handleClickNextButton'>下一步,验证码</button>
+    </view>
   </view>
-  <view class='email'>
-    <input placeholder='输入邮箱' placeholder-class='ph_class'></input>
-  </view>
-  <view class='btn'>
-    <button>下一步,验证码</button>
+  <view class='binding' wx:if='{{step === "binding"}}'>
+    <view class='tips' wx:if='{{index === "0"}}'>已将4位的数字验证码发送到你手机号~</view>
+    <view class='tips' wx:if='{{index === "1"}}'>已将4位的数字验证码发送到你邮箱里~</view>
+    <view class='code'>
+      <input value='{{verifyCode}}' data-type='verifyCode' bindinput='handleInputValue' type='number' placeholder='输入验证码' placeholder-class='ph_class'></input>
+    </view>
+    <view class='get_code' bindtap='handleClickAgainCode'>{{isAgainCode ? second + '秒后重新获取' : "重新获取验证码"}}</view>
+    <view class='btn'>
+      <button bindtap='handleClickBindingButton'>确认绑定</button>
+    </view>
   </view>
 </view>

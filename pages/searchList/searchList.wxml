@@ -36,7 +36,7 @@
         <view class='{{all_goods_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
       </view>
       <scroll-view scroll-y="true" class='scoll-h' data-current='0' bindscrolltolower="scrolltolower">
-        <view class='list_row'>
+        <view class='list_row' wx:if='{{all_goods.length}}'>
           <block wx:for='{{all_goods}}' wx:key='{{index}}'>
             <view class='list' data-gid='{{item.id}}' data-type='{{item.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
@@ -69,6 +69,12 @@
             </view>
           </block>
         </view>
+        <view class='empty' wx:if='{{!all_goods.length}}'>
+          <view class='image_row'>
+            <image src='../../img/common/empty_data.png'></image>
+          </view>
+          <view class='text'>暂无数据哦，快去逛逛吧～</view>
+        </view>
       </scroll-view>
     </swiper-item>
     <swiper-item>
@@ -79,7 +85,7 @@
         <view class='{{full_day_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
       </view>
       <scroll-view scroll-y="true" class='scoll-h' data-current='0' bindscrolltolower="scrolltolower">
-        <view class='list_row'>
+        <view class='list_row' wx:if='{{full_day.length}}'>
           <block wx:for='{{full_day}}' wx:key='{{index}}'>
             <view class='list' data-gid='{{item.id}}' data-type='{{item.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
@@ -112,6 +118,12 @@
             </view>
           </block>
         </view>
+        <view class='empty' wx:if='{{!full_day.length}}'>
+          <view class='image_row'>
+            <image src='../../img/common/empty_data.png'></image>
+          </view>
+          <view class='text'>暂无数据哦，快去逛逛吧～</view>
+        </view>
       </scroll-view>
     </swiper-item>
     <swiper-item>
@@ -122,7 +134,7 @@
         <view class='{{food_body.sortType === 4 ? "active" : ""}}' data-sortType='4'>好评最多</view>
       </view>
       <scroll-view scroll-y="true" class='scoll-h' data-current='1' bindscrolltolower="scrolltolower">
-        <view class='list_row'>
+        <view class='list_row' wx:if='{{food.length}}'>
           <block wx:for='{{food}}' wx:key='{{index}}'>
             <view class='list' data-gid='{{item.id}}' data-type='{{item.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
@@ -155,6 +167,12 @@
             </view>
           </block>
         </view>
+        <view class='empty' wx:if='{{!food.length}}'>
+          <view class='image_row'>
+            <image src='../../img/common/empty_data.png'></image>
+          </view>
+          <view class='text'>暂无数据哦，快去逛逛吧～</view>
+        </view>
       </scroll-view>
     </swiper-item>
     <swiper-item>
@@ -165,7 +183,7 @@
         <view class='{{traffic_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
       </view>
       <scroll-view scroll-y="true" class='scoll-h' data-current='2' bindscrolltolower="scrolltolower">
-        <view class='list_row'>
+        <view class='list_row' wx:if='{{traffic.length}}'>
           <block wx:for='{{traffic}}' wx:key='{{index}}'>
             <view class='list' data-gid='{{item.id}}' data-type='{{item.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
@@ -198,6 +216,12 @@
             </view>
           </block>
         </view>
+        <view class='empty' wx:if='{{!traffic.length}}'>
+          <view class='image_row'>
+            <image src='../../img/common/empty_data.png'></image>
+          </view>
+          <view class='text'>暂无数据哦，快去逛逛吧～</view>
+        </view>
       </scroll-view>
     </swiper-item>
     <swiper-item>
@@ -208,7 +232,7 @@
         <view class='{{lark_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
       </view>
       <scroll-view scroll-y="true" class='scoll-h' data-current='3' bindscrolltolower="scrolltolower">
-        <view class='list_row'>
+        <view class='list_row' wx:if='{{lark.length}}'>
           <block wx:for='{{lark}}' wx:key='{{index}}'>
             <view class='list' data-gid='{{item.id}}' data-type='{{item.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
@@ -241,6 +265,12 @@
             </view>
           </block>
         </view>
+        <view class='empty' wx:if='{{!lark.length}}'>
+          <view class='image_row'>
+            <image src='../../img/common/empty_data.png'></image>
+          </view>
+          <view class='text'>暂无数据哦，快去逛逛吧～</view>
+        </view>
       </scroll-view>
     </swiper-item>
     <swiper-item>
@@ -251,7 +281,7 @@
         <view class='{{shopping_body.sortType === 4 ? "active" : ""}}' data-sortType='4' bindtap='changeSortType'>好评最多</view>
       </view>
       <scroll-view scroll-y="true" class='scoll-h' data-current='4' bindscrolltolower="scrolltolower">
-        <view class='list_row'>
+        <view class='list_row' wx:if='{{shopping.length}}'>
           <block wx:for='{{shopping}}' wx:key='{{index}}'>
             <view class='list' data-gid='{{item.id}}' data-type='{{item.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
@@ -283,6 +313,12 @@
               </view>
             </view>
           </block>
+        </view>
+        <view class='empty' wx:if='{{!shopping.length}}'>
+          <view class='image_row'>
+            <image src='../../img/common/empty_data.png'></image>
+          </view>
+          <view class='text'>暂无数据哦，快去逛逛吧～</view>
         </view>
       </scroll-view>
     </swiper-item>

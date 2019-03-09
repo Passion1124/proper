@@ -20,22 +20,9 @@ Page({
     autoplay: false,
     interval: 5000,
     duration: 1000,
-    latitude: 23.099994,
-    longitude: 113.324520,
-    markers: [{
-      id: 1,
-      latitude: 23.099994,
-      longitude: 113.324520,
-      name: 'T.I.T 创意园',
-      desc: 'sssssss',
-      callout: {
-        content: '123',
-        display: 'ALWAYS',
-        padding: '5',
-        borderRadius: 8,
-        fontSize: 16
-      }
-    }],
+    latitude: 0,
+    longitude: 0,
+    markers: [],
     comment: [],
     commentCount: 0,
     coupons: [],
@@ -119,6 +106,9 @@ Page({
         imgUrls: res.goodsVO.goodsBase.pics,
         goodsItemCount: res.itemCount
       });
+      if (res.goodsVO.goodsBase.local[0] || res.goodsVO.goodsBase.local[1]) {
+        this.changeMapDat();
+      }
       WxParse.wxParse('article', 'html', this.data.goods.goodsInfo.info, this, 5);
     }, (err) => {
       console.error(err);
@@ -247,6 +237,32 @@ Page({
       console.error(err);
     })
   },
+  // 修改地图数据
+  changeMapDat () {
+    let goods = this.data.goods;
+    let longitude = goods.goodsBase.local[0];
+    let latitude = goods.goodsBase.local[1];
+    let markers = {
+      id: 1, latitude, longitude,
+      name: goods.goodsInfo.address,
+      desc: goods.goodsInfo.name,
+      title: goods.goodsInfo.name,
+      callout: {
+        content: goods.goodsInfo.address,
+        display: 'ALWAYS',
+        padding: '10',
+        borderRadius: 8,
+        fontSize: 16
+      }
+    }
+    console.log(markers);
+    this.setData({
+      longitude,
+      latitude,
+      markers: [markers]
+    })
+    // this.data.latitude
+  },
   // 修改已经领取优惠券
   changeHasExistsCoupon (couponId) {
     let index = this.data.coupons.findIndex(item => item.id === couponId);
@@ -262,20 +278,18 @@ Page({
       phoneNumber: phone,
     })
   },
-  showMapNavigation () {
-    wx.getLocation({
-      success: function (res) {
-        console.log(res);
-        const latitude = res.latitude
-        const longitude = res.longitude
-        wx.openLocation({
-          latitude,
-          longitude,
-          scale: 18,
-          name: '保利心语',
-          address: '天府二街'
-        })
-      },
+  showMapNavigation (e) {
+    console.log(e);
+    let latitude = this.data.latitude;
+    let longitude = this.data.longitude;
+    let name = this.data.markers[0].title;
+    let address = this.data.markers[0].name;
+    wx.openLocation({
+      latitude,
+      longitude,
+      scale: 10,
+      name,
+      address
     })
   },
   goToTheGoodsItemDetail (e) {

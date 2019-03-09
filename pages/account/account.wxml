@@ -14,7 +14,7 @@
       </view>
     </view>
   </view>
-  <view class='single' bindtap='goToTheBindPhoneEmailPage'>
+  <view class='single' data-index='0' bindtap='goToTheBindPhoneEmailPage'>
     <view class='left'>绑定手机号</view>
     <view class='right'>
       <view>{{user.phone || '去绑定'}}</view>
@@ -23,7 +23,7 @@
       </view>
     </view>
   </view>
-  <view class='single' bindtap='goToTheBindPhoneEmailPage'>
+  <view class='single' data-index='1' bindtap='goToTheBindPhoneEmailPage'>
     <view class='left'>绑定邮箱</view>
     <view class='right'>
       <view>{{user.email || '去绑定'}}</view>
