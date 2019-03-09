@@ -20,7 +20,7 @@
       <block wx:for='{{goods}}' wx:key='{{index}}'>
         <view class='list' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
           <view class='img_row'>
-            <image class='bg' src='{{item.goodsBase.poster}}'></image>
+            <image mode='aspectFill' class='bg' src='{{item.goodsBase.poster + "?x-oss-process=image/resize,w_400"}}'></image>
             <view class='icon'>
               <view class='icon_left'>
                 <image class='top' wx:if='{{ item.goodsBase.top === 1 }}' src='../../img/index/top.png'></image>

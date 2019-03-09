@@ -30,7 +30,7 @@
     <swiper indicator-dots="{{indicatorDots}}" indicator-color='rgba(187,187,187,1)' indicator-active-color='#0000FF' autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular='true'>
       <block wx:for="{{bannerInfo}}" wx:key="{{index}}">
         <swiper-item>
-          <image src="{{item.imgUrl + '?x-oss-process=image/resize,w_700'}}" class="slide-image swiper_img" />
+          <image mode='aspectFill' src="{{item.imgUrl + '?x-oss-process=image/resize,w_700'}}" class="slide-image swiper_img" />
         </swiper-item>
       </block>
     </swiper>

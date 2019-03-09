@@ -36,6 +36,11 @@ Page({
     });
     if (app.globalData.userInfo) {
       this.getUserCount();
+    } else {
+      this.setData({
+        favorCount: 0,
+        couponCount: 0
+      })
     }
   },
 
