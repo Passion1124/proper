@@ -111,6 +111,7 @@ Page({
     let data = {
       base: app.globalData.baseBody,
       openId: info.openId,
+      unionid: info.unionid,
       source: 'wxmini',
       nickname: this.data.userInfo.nickName,
       avatar: this.data.userInfo.avatarUrl,
