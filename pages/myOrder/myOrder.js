@@ -130,14 +130,14 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    this.handlePullDownRefresh();
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
+    this.handleReachBottom();
   },
 
   /**
@@ -146,6 +146,7 @@ Page({
   onShareAppMessage: function() {
 
   },
+  // 获取选中的订单列表
   getCheckedOrderList() {
     let orderType = this.data.orderType;
     let activeType = this.data.activeOrderType;
@@ -180,11 +181,17 @@ Page({
     }, obj);
     app.request(api, data, res => {
       console.log(res);
+      let orders = obj.page === 1 ? [] : this.data.orders;
+      orders = orders.concat(res.orders || []);
       this.setData({
-        orders: this.data.orders.concat(res.orders)
-      })
+        orders,
+        lines: [],
+        foodOrders: []
+      });
+      wx.stopPullDownRefresh();
     }, e => {
       console.error(e);
+      wx.stopPullDownRefresh();
     })
   },
   // 获取排队列表
@@ -193,11 +200,17 @@ Page({
     let data = Object.assign({ base: app.globalData.baseBody }, obj);
     app.request(api, data, res => {
       console.log(res);
+      let lines = obj.page === 1 ? [] : this.data.lines;
+      lines = lines.concat(res.lines || []);
       this.setData({
         orders: [],
-        lines: res.lines,
+        lines,
         foodOrders: []
-      })
+      });
+      wx.stopPullDownRefresh();
+    }, e => {
+      console.error(e);
+      wx.stopPullDownRefresh();
     })
   },
   // 获取点菜列表
@@ -206,14 +219,77 @@ Page({
     let data = Object.assign({ base: app.globalData.base }, obj);
     app.request(api, data, res => {
       console.log(res);
-      let foodOrders = this.data.foodOrders || [];
-      if (res.foodOrders) foodOrders = foodOrders.concat(res.foodOrders);
+      let foodOrders = obj.page === 1 ? [] : this.data.foodOrders;
+      foodOrders = foodOrders.concat(res.foodOrders || []);
       this.setData({
         orders: [],
         lines: [],
         foodOrders
-      })
+      });
+      wx.stopPullDownRefresh();
+    }, e => {
+      console.error(e);
+      wx.stopPullDownRefresh();
     })
+  },
+  // 下拉刷新获取数据
+  handlePullDownRefresh () {
+    let orderType = this.data.orderType;
+    let activeType = this.data.activeOrderType;
+    if (orderType === 0) {
+      let orderStatus = this.data.orderStatus;
+      if (activeType === 'tourism') {
+        this.data.tourism.page = 1;
+      } else if (activeType === 'shopping') {
+        this.data.shopping.page = 1;
+      } else if (activeType === 'line') {
+        this.data.line.page = 1;
+      } else if (activeType === 'book') {
+        this.data.book.page = 1;
+      } else if (activeType === 'food') {
+        this.data.food.page = 1;
+      }
+    } else if (orderType === 1) {
+      this.data.pending.page = 1;
+    } else if (orderType === 2) {
+      this.data.use.page = 1;
+    } else if (orderType === 3) {
+      this.data.comment.page = 1;
+    }
+    this.getCheckedOrderList();
+  },
+  // 上拉加载获取数据
+  handleReachBottom () {
+    let orderType = this.data.orderType;
+    let activeType = this.data.activeOrderType;
+    if (orderType === 0) {
+      let orderStatus = this.data.orderStatus;
+      if (activeType === 'tourism' && this.isInteger(this.data.orders.length / this.data.tourism.size)) {
+        this.data.tourism.page++;
+        this.getCheckedOrderList();
+      } else if (activeType === 'shopping' && this.isInteger(this.data.orders.length / this.data.shopping.size)) {
+        this.data.shopping.page++;
+        this.getCheckedOrderList();
+      } else if (activeType === 'line' && this.isInteger(this.data.orders.length / this.data.line.size)) {
+        this.data.line.page++;
+        this.getCheckedOrderList();
+      } else if (activeType === 'book' && this.isInteger(this.data.orders.length / this.data.book.size)) {
+        this.data.book.page++;
+        this.getCheckedOrderList();
+      } else if (activeType === 'food' && this.isInteger(this.data.orders.length / this.data.food.size)) {
+        this.data.food.page++;
+        this.getCheckedOrderList();
+      }
+    } else if (orderType === 1 && this.isInteger(this.data.orders.length / this.data.pending.size)) {
+      this.data.pending.page++;
+      this.getCheckedOrderList();
+    } else if (orderType === 2 && this.isInteger(this.data.orders.length / this.data.use.size)) {
+      this.data.use.page++;
+      this.getCheckedOrderList();
+    } else if (orderType === 3 && this.isInteger(this.data.orders.length / this.data.comment.size)) {
+      this.data.comment.page++;
+      this.getCheckedOrderList();
+    }
   },
   // 获取订单详情接口
   handleOrderDetail(orderId) {
@@ -284,7 +360,7 @@ Page({
       show_order_status_choice: false
     });
     this.data.orders = [];
-    this.getCheckedOrderList();
+    this.handlePullDownRefresh();
   },
   handleShowOrderStatusChoice () {
     this.setData({
@@ -313,5 +389,8 @@ Page({
     wx.navigateTo({
       url: '/pages/orderMealDetail/orderMealDetail?id=' + id,
     })
+  },
+  isInteger(obj) {
+    return obj % 1 === 0;
   }
 })

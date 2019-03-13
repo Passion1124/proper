@@ -21,6 +21,7 @@ page{
   padding: 0 35rpx;
   box-sizing: border-box;
   margin-right: 24rpx;
+  overflow-y: auto;
 }
 
 .category view{

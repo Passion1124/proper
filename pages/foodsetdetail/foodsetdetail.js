@@ -1,3 +1,5 @@
+import utils from '../../utils/util.js'
+
 const app = getApp();
 
 var WxParse = require('../../wxParse/wxParse.js');
@@ -175,8 +177,12 @@ Page({
   },
   // 跳转到子商品购买页面
   goToTheFoodChoose () {
-    wx.navigateTo({
-      url: '/pages/foodchoose/foodchoose?giid=' + this.data.giid,
+    utils.userIsLogin().then(_ => {
+      wx.navigateTo({
+        url: '/pages/foodchoose/foodchoose?giid=' + this.data.giid,
+      })
+    }).catch(_ => {
+      console.log('unLogin');
     })
   }
 })

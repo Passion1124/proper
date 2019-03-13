@@ -1,3 +1,5 @@
+import utils from '../../utils/util.js'
+
 //获取应用实例
 const app = getApp();
 
@@ -14,6 +16,7 @@ Page({
     favor: false,
     goods: {},
     goodsItem: [],
+    setting: {},
     goodsItemCount: 0,
     imgUrls: [],
     indicatorDots: true,
@@ -114,6 +117,7 @@ Page({
         this.changeMapDat();
       }
       WxParse.wxParse('article', 'html', this.data.goods.goodsInfo.info, this, 5);
+      this.getPreOrderSetting(res.goodsVO.goodsBase.mid);
     }, (err) => {
       console.error(err);
     })
@@ -198,11 +202,15 @@ Page({
   },
   // 点击收藏按钮
   handleSetGoodsFavor() {
-    if (this.data.favor) {
-      this.handleGoodsUnFavor();
-    } else {
-      this.handleGoodsFavor();
-    }
+    utils.userIsLogin().then(_ => {
+      if (this.data.favor) {
+        this.handleGoodsUnFavor();
+      } else {
+        this.handleGoodsFavor();
+      }
+    }).catch(_ => {
+      console.log('unLogin');
+    })
   },
   // 收藏商品
   handleGoodsFavor() {
@@ -277,6 +285,23 @@ Page({
       }
     }, err => {
       console.error(err);
+    })
+  },
+  // 预订单设置查询
+  getPreOrderSetting(mid) {
+    let api = 'com.ttdtrip.api.order.apis.service.PreOrderSettingApiService';
+    let data = {
+      base: app.globalData.baseBody,
+      mid
+    };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        setting: res.setting
+      });
+      // this.initPreOrderBookTime();
+    }, e => {
+      console.error(e);
     })
   },
   // 是否领取优惠券
@@ -374,9 +399,13 @@ Page({
     })
   },
   goToTheBookPage() {
-    let goods = this.data.goods;
-    wx.navigateTo({
-      url: '/pages/book/book?mid=' + goods.goodsBase.mid + '&shopName=' + goods.goodsInfo.name + '&gid=' + goods.goodsInfo.gid,
+    utils.userIsLogin().then(_ => {
+      let goods = this.data.goods;
+      wx.navigateTo({
+        url: '/pages/book/book?mid=' + goods.goodsBase.mid + '&shopName=' + goods.goodsInfo.name + '&gid=' + goods.goodsInfo.gid,
+      })
+    }).catch(_ => {
+      console.log('unLogin');
     })
   },
   goToTheFoodSetDetail (e) {
@@ -386,10 +415,14 @@ Page({
     })
   },
   goToTheLineUp (e) {
-    let goodsBase = this.data.goods.goodsBase;
-    let goodsInfo = this.data.goods.goodsInfo;
-    wx.navigateTo({
-      url: '/pages/lineUp/lineUp?mid=' + goodsBase.mid + '&shopName=' + goodsInfo.name + '&gid=' + goodsInfo.gid + '&onlineOrderDish=' + goodsBase.onlineOrderDish,
+    utils.userIsLogin().then(_ => {
+      let goodsBase = this.data.goods.goodsBase;
+      let goodsInfo = this.data.goods.goodsInfo;
+      wx.navigateTo({
+        url: '/pages/lineUp/lineUp?mid=' + goodsBase.mid + '&shopName=' + goodsInfo.name + '&gid=' + goodsInfo.gid + '&onlineOrderDish=' + goodsBase.onlineOrderDish,
+      })
+    }).catch(_ => {
+      console.log('unLogin');
     })
   }
 })

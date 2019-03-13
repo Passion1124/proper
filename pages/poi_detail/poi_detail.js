@@ -1,3 +1,5 @@
+import utils from '../../utils/util.js'
+
 //获取应用实例
 const app = getApp();
 
@@ -159,11 +161,15 @@ Page({
   },
   // 点击收藏按钮
   handleSetGoodsFavor () {
-    if (this.data.favor) {
-      this.handleGoodsUnFavor();
-    } else {
-      this.handleGoodsFavor();
-    }
+    utils.userIsLogin().then(_ => {
+      if (this.data.favor) {
+        this.handleGoodsUnFavor();
+      } else {
+        this.handleGoodsFavor();
+      }
+    }).catch(_ => {
+      console.log('unLogin');
+    })
   },
   // 收藏商品
   handleGoodsFavor() {
@@ -293,9 +299,13 @@ Page({
     })
   },
   goToTheGoodsItemDetail (e) {
-    let giid = e.currentTarget.dataset.giid;
-    wx.navigateTo({
-      url: '/pages/goodItemDetail/goodItemDetail?giid=' + giid + '&gid=' + this.data.gid + '&type=' + this.data.type,
+    utils.userIsLogin().then(_ => {
+      let giid = e.currentTarget.dataset.giid;
+      wx.navigateTo({
+        url: '/pages/goodItemDetail/goodItemDetail?giid=' + giid + '&gid=' + this.data.gid + '&type=' + this.data.type,
+      })
+    }).catch(_ => {
+      console.log('unLogin');
     })
   },
   goToTheCouponsDetail (e) {

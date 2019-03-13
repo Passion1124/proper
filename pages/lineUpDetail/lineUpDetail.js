@@ -18,10 +18,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      sn: options.sn,
-      skipType: options.skipType
-    });
+    let data = { sn: options.sn };
+    if (options.skipType) data.skipType = options.skipType;
+    this.setData(data);
     this.handleLineWait();
   },
 

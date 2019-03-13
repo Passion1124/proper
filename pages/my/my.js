@@ -105,16 +105,22 @@ Page({
   goToTheAccount () {
     utils.userIsLogin().then(_ => {
       utils.navigateTo('/pages/account/account');
+    }).catch(_ => {
+      console.log('unLogin');
     });
   },
   goToTheMyCoupon () {
     utils.userIsLogin().then(_ => {
       utils.navigateTo('/pages/myCoupon/myCoupon');
+    }).catch(_ => {
+      console.log('unLogin');
     });
   },
   goToTheCollection () {
     utils.userIsLogin().then(_ => {
       utils.navigateTo('/pages/collection/collection');
+    }).catch(_ => {
+      console.log('unLogin');
     });
   },
   goToTheAbout () {
@@ -131,6 +137,8 @@ Page({
     utils.userIsLogin().then(_ => {
       let orderType = e.currentTarget.dataset.ordertype;
       utils.navigateTo('/pages/myOrder/myOrder?orderType=' + orderType);
+    }).catch(_ => {
+      console.log('unLogin');
     });
   }
 })

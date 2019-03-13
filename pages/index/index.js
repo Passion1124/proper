@@ -1,3 +1,5 @@
+import utils from '../../utils/util.js'
+
 //index.js
 //获取应用实例
 const app = getApp()
@@ -208,8 +210,10 @@ Page({
     })
   },
   goToTheMessage () {
-    wx.navigateTo({
-      url: '/pages/message/message',
+    utils.userIsLogin().then(_ => {
+      wx.navigateTo({
+        url: '/pages/message/message',
+      })
     })
   },
   goToTheProgList (e) {

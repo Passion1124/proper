@@ -155,7 +155,7 @@ Page({
         currency: res.setting.currency,
         ['preOrderInfo.priceEachOne']: res.setting.priceEachOne
       });
-      this.initPreOrderBookTime();
+      // this.initPreOrderBookTime();
     }, e => {
       console.error(e);
     })
@@ -175,6 +175,9 @@ Page({
       });
     }, e => {
       console.log(e);
+      this.setData({
+        timeRange: []
+      });
     });
   },
   // 最近使用的收货信息
@@ -193,7 +196,8 @@ Page({
     })
   },
   initPreOrderBookTime () {
-    let timestamp = new Date().getTime() + this.data.setting.preOrderDays * 24 * 3600 * 1000;
+    // this.data.setting.preOrderDays * 
+    let timestamp = new Date().getTime() + 24 * 3600 * 1000;
     let date = new Date(timestamp);
     let month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
     let day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();

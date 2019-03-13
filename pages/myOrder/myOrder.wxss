@@ -6,7 +6,19 @@
 }
 
 .container{
-  padding: 0 40rpx 40rpx;
+  position: relative;
+  padding: 80rpx 40rpx 40rpx;
+}
+
+.all_order{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+  z-index: 9;
 }
 
 .tabs{

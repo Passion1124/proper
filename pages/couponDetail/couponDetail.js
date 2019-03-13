@@ -1,3 +1,5 @@
+import utils from '../../utils/util.js'
+
 const app = getApp();
 
 Page({
@@ -145,26 +147,21 @@ Page({
     })
   },
   handleUserCouponReceive() {
-    if (!app.globalData.userInfo) {
-      wx.showToast({
-        title: '您未登录，暂时无法领取',
-        icon: 'none'
-      });
-      return false;
-    }
-    let api = 'com.ttdtrip.api.order.apis.service.UserCouponReceiveApiService';
-    let data = {
-      base: app.globalData.baseBody,
-      couponId: this.data.couponId,
-      receiveSource: 'other'
-    };
-    app.request(api, data, res => {
-      console.log(res);
-      this.setData({
-        hasExists: true
-      });
-    }, err => {
-      console.error(err);
+    utils.userIsLogin().then(_ => {
+      let api = 'com.ttdtrip.api.order.apis.service.UserCouponReceiveApiService';
+      let data = {
+        base: app.globalData.baseBody,
+        couponId: this.data.couponId,
+        receiveSource: 'other'
+      };
+      app.request(api, data, res => {
+        console.log(res);
+        this.setData({
+          hasExists: true
+        });
+      }, err => {
+        console.error(err);
+      })
     })
   },
   goToTheUseing() {

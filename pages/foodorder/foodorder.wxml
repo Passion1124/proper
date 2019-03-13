@@ -7,26 +7,28 @@
     </block>
   </view>
   <view class='food_list'>
-    <block wx:for='{{foodList}}' wx:key='{{index}}'>
-      <view class='food'>
-        <view class='poster'>
-          <image src='{{item.foodLang.poster}}'></image>
-        </view>
-        <view class='info'>
-          <view class='name'>{{item.foodLang.foodName}}</view>
-          <view class='price_num'>
-            <view class='price'>
-              <text>{{item.food.currency + (item.food.price / 100)}}</text>
-            </view>
-            <view class='num'>
-              <view class='minus' data-num='{{dateFr.getNowFoodOrderNum(foodOrderBatchDetailDtos, item)}}' data-food='{{item}}' bindtap='handleFoodOrderDelete'>-</view>
-              <view class='number_inp'>{{dateFr.getNowFoodOrderNum(foodOrderBatchDetailDtos, item)}}</view>
-              <view class='plus' data-food='{{item}}' bindtap='handleFoodOrderAdd'>+</view>
+    <scroll-view scroll-y='{{true}}'>
+      <block wx:for='{{foodList}}' wx:key='{{index}}'>
+        <view class='food'>
+          <view class='poster'>
+            <image src='{{item.foodLang.poster}}'></image>
+          </view>
+          <view class='info'>
+            <view class='name'>{{item.foodLang.foodName}}</view>
+            <view class='price_num'>
+              <view class='price'>
+                <text>{{item.food.currency + (item.food.price / 100)}}</text>
+              </view>
+              <view class='num'>
+                <view class='minus' data-num='{{dateFr.getNowFoodOrderNum(foodOrderBatchDetailDtos, item)}}' data-food='{{item}}' bindtap='handleFoodOrderDelete'>-</view>
+                <view class='number_inp'>{{dateFr.getNowFoodOrderNum(foodOrderBatchDetailDtos, item)}}</view>
+                <view class='plus' data-food='{{item}}' bindtap='handleFoodOrderAdd'>+</view>
+              </view>
             </view>
           </view>
         </view>
-      </view>
-    </block>
+      </block>
+    </scroll-view>
   </view>
   <view class='bottom_content'>
     <view class='num_price'>

@@ -33,7 +33,7 @@ App({
     wx.request({
       url: this.globalData.baseUrl,
       data: data,
-      header: this.getJson({ api: api, data: data }),
+      header: this.getJson({ apiname: api, data: data }),
       method: 'POST',
       dataType: 'json',
       responseType: 'text',
@@ -66,7 +66,7 @@ App({
       'Content-Type': 'application/json',
       'X-Ca-Appid': 'ttd1',
       'X-Ca-Version': '1.0',
-      'X-Ca-Api': opt.api,
+      'X-Ca-Api': opt.apiname,
       'X-Ca-Timestamp': new Date().getTime(),
       'X-Ca-Nonce': 'e807f1fcf82d132f9byh987bjn98', //随便给个
       'X-Ca-Signature': '',

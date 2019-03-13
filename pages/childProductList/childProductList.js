@@ -1,3 +1,5 @@
+import utils from '../../utils/util.js'
+
 const app = getApp();
 
 Page({
@@ -79,9 +81,13 @@ Page({
     })
   },
   goToTheGoodsItemDetail (e) {
-    let giid = e.currentTarget.dataset.giid;
-    wx.navigateTo({
-      url: '/pages/goodItemDetail/goodItemDetail?giid=' + giid + '&gid=' + this.data.gid + '&type=' + this.data.type,
+    utils.userIsLogin().then(_ => {
+      let giid = e.currentTarget.dataset.giid;
+      wx.navigateTo({
+        url: '/pages/goodItemDetail/goodItemDetail?giid=' + giid + '&gid=' + this.data.gid + '&type=' + this.data.type,
+      })
+    }).catch(_ => {
+      console.log('unLogin');
     })
   }
 })
