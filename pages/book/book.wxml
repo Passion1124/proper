@@ -155,8 +155,7 @@
     <view class='form_title no_border'>
       <view class='title_text'>预订说明</view>
     </view>
-    <view class='order_explain_tips'>请按照用餐人数下单，本产品为二次确认产品（不是能下单就一定有位，收到确认短信，只是确认收到需求，确认需求后店家确定座位情况），若预定失败（满座，政策等原因），会为您安排退款。 因餐厅比较热门，为了能够提升预定的成功率，请在备注里勾选可以接受同一个别的时间段用餐。
-    </view>
+    <view class='order_explain_tips'>{{setting.orderDesc}}</view>
   </view>
   <view class='price_btn'>
     <view class='price'>

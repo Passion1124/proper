@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 15,
+			"current": 2,
 			"list": [
 				{
 					"id": 0,
@@ -54,10 +54,10 @@
 					"scene": null
 				},
 				{
-					"id": 4,
+					"id": 2,
 					"name": "预订座位-预订",
 					"pathName": "pages/book/book",
-					"query": "mid=9e07c7c3-4594-4b3a-beac-ca419becb5f3&shopName=东京拉面(新宿店)&gid=7892be6d-b8aa-4863-bef0-550555fcdfb2",
+					"query": "mid=19a7e0c1-a595-49a2-80a4-1eb8701eb93b&shopName=野马的烤肉店哦哦哦啊啊啊&gid=3346f874-0db7-4afb-aa95-9ac5dfa110ff",
 					"scene": null
 				},
 				{
@@ -145,10 +145,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 15,
 					"name": "支付结果",
 					"pathName": "pages/payresult/payresult",
-					"query": "frompage=web&result=1&type=1&giid=abbefc0d-4770-434d-9c18-4e26ff4c304a&preOrderId=1c807864-4dac-4182-a258-3d05b1aff308&toPageType=0&orderId=e591ec90e6444ce9869d90f8cbfb2a5f",
+					"query": "preOrderId=16699423-a404-40ed-8dc4-fd659d70c55a&orderId=e56406a02e6d4ee4b411d4f35caeae8c&giid=5f491a99-b465-4c24-9878-ddf17b34f7e0",
 					"scene": null
 				}
 			]

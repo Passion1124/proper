@@ -1,4 +1,5 @@
 import md5 from '../../utils/md5.js'
+import utils from '../../utils/util.js'
 
 const app = getApp();
 
@@ -288,16 +289,28 @@ Page({
   },
   // 点击去付款按钮
   handleClickPaymentButton() {
-    if (this.data.type !== 'order') {
-      let item = this.data.goodsItem.find(item => item.goodsItemInfo.giid === this.data.type);
-      this.data.orderMerches.merchType = item.goodsItemBase.subType;
-      this.data.orderMerches.merchName = item.goodsItemInfo.name;
-      this.data.orderMerches.merchImgUrl = item.goodsItemBase.poster;
-      this.data.orderMerches.merchId = item.goodsItemInfo.giid;
-      this.data.orderMerches.merchCount = this.data.preOrderInfo.totalCount;
-      this.data.orderMerches.usingDate = this.data.preOrderInfo.date.replace(new RegExp('-', 'g'), '');
+    if (!this.data.preOrderInfo.date) {
+      utils.showMessage('请选择用餐日期');
+    } else if (!this.data.preOrderInfo.time) {
+      utils.showMessage('请选择用餐时间');
+    } else if (!this.data.preOrderInfo.contactor) {
+      utils.showMessage('请输入您的姓名');
+    } else if (!this.data.preOrderInfo.mail) {
+      utils.showMessage('请输入您的邮箱');
+    } else if (!this.data.preOrderInfo.phoneNo) {
+      utils.showMessage('请输入您的手机号码');
+    } else {
+      if (this.data.type !== 'order') {
+        let item = this.data.goodsItem.find(item => item.goodsItemInfo.giid === this.data.type);
+        this.data.orderMerches.merchType = item.goodsItemBase.subType;
+        this.data.orderMerches.merchName = item.goodsItemInfo.name;
+        this.data.orderMerches.merchImgUrl = item.goodsItemBase.poster;
+        this.data.orderMerches.merchId = item.goodsItemInfo.giid;
+        this.data.orderMerches.merchCount = this.data.preOrderInfo.totalCount;
+        this.data.orderMerches.usingDate = this.data.preOrderInfo.date.replace(new RegExp('-', 'g'), '');
+      }
+      this.handleSaveReceiverInfo();
     }
-    this.handleSaveReceiverInfo();
   },
   // 点击减号
   bindMinus: function () {
