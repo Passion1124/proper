@@ -1,6 +1,6 @@
 <!-- myOrder.wxml -->
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
-<view class='container'>
+<view class='container {{ orderType === 0 ? "" : "padding_top_0"}}'>
   <view class='all_order' wx:if='{{orderType === 0}}'>
     <view class='tabs'>
       <view class='{{ activeOrderType=== "tourism" ? "active" : ""}}' data-type='tourism' bindtap='handleChangeActiveOrderType'>
