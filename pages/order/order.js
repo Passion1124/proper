@@ -1,4 +1,5 @@
 import md5 from '../../utils/md5.js'
+import utils from '../../utils/util.js'
 
 const app = getApp();
 
@@ -244,19 +245,31 @@ Page({
   },
   // 点击去付款按钮
   handleClickPaymentButton () {
-    this.data.orderMerches.merchType = this.data.goodsItem.goodsItemBase.subType;
-    this.data.orderMerches.merchName = this.data.goodsItem.goodsItemInfo.name;
-    this.data.orderMerches.usingDate = this.data.useData.replace(new RegExp('-', 'g'), '');
-    this.data.orderMerches.merchSpecific = this.data.merchSpecific + '&1';
-    this.data.orderMerches.merchImgUrl = this.data.goods.goodsBase.poster;
-    if (this.data.goodsItem.goodsItemBase.pickUpType) {
-      this.data.receiver.addr = this.data.pickUpType ? this.data.self_taking : this.data.mail;
-      this.data.receiver.addrType = this.data.pickUpType;
+    if (!this.data.useData) {
+      utils.showMessage('请选择使用时间');
+    } else if (!this.data.receiver.name) {
+      utils.showMessage('请输入您的姓名');
+    } else if (!this.data.receiver.alias) {
+      utils.showMessage('请选择您的称谓');
+    } else if (!this.data.receiver.phoneNo) {
+      utils.showMessage('请输入您的手机号码');
+    } else if (!this.data.receiver.email) {
+      utils.showMessage('请输入您的邮箱');
     } else {
-      this.data.receiver.addr = '';
-      this.data.receiver.addrType = '';
+      this.data.orderMerches.merchType = this.data.goodsItem.goodsItemBase.subType;
+      this.data.orderMerches.merchName = this.data.goodsItem.goodsItemInfo.name;
+      this.data.orderMerches.usingDate = this.data.useData.replace(new RegExp('-', 'g'), '');
+      this.data.orderMerches.merchSpecific = this.data.merchSpecific + '&1';
+      this.data.orderMerches.merchImgUrl = this.data.goods.goodsBase.poster;
+      if (this.data.goodsItem.goodsItemBase.pickUpType) {
+        this.data.receiver.addr = this.data.pickUpType ? this.data.self_taking : this.data.mail;
+        this.data.receiver.addrType = this.data.pickUpType;
+      } else {
+        this.data.receiver.addr = '';
+        this.data.receiver.addrType = '';
+      }
+      this.handleSaveReceiverInfo();
     }
-    this.handleSaveReceiverInfo();
   },
   // 选择使用时间改变
   bindDateChange: function (e) {
