@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 16,
 			"list": [
 				{
 					"id": 0,
@@ -149,6 +149,13 @@
 					"name": "支付结果",
 					"pathName": "pages/payresult/payresult",
 					"query": "preOrderId=16699423-a404-40ed-8dc4-fd659d70c55a&orderId=e56406a02e6d4ee4b411d4f35caeae8c&giid=5f491a99-b465-4c24-9878-ddf17b34f7e0",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "评论",
+					"pathName": "pages/comment/comment",
+					"query": "target=3346f874-0db7-4afb-aa95-9ac5dfa110ff&orderId=6a90fea3ef05426ba5e97c65f1eb65ba",
 					"scene": null
 				}
 			]

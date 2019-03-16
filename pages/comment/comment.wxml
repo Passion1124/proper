@@ -1,4 +1,34 @@
 <!-- comment.wxml -->
-<view class='comment'>
-
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
+<view class='container'>
+  <view class='star'>
+    <view class='title'>来个五星好评吧！~</view>
+    <view class='stra_row'>
+      <block wx:for='{{5}}' wx:key='{{index}}'>
+        <view class='icon' data-index='{{index + 1}}' bindtap='handleUpdateStar'>
+          <image src='../../img/comment/staron.png' wx:if='{{ star >= index + 1 }}'></image>
+          <image src='../../img/comment/staroff.png' wx:else></image>
+        </view>
+      </block>
+    </view> 
+  </view>
+  <view class='comment_text'>
+    <textarea value='{{comment}}' placeholder='这里好玩吗？大家期待您点评' placeholder-class='ph_class' bindinput='handleInputComment'></textarea>
+  </view>
+  <view class='upload'>
+    <view class='title'>共可上传9张图片，期待您的美拍</view>
+    <view class='file_row'>
+      <block wx:for='{{pics}}' wx:key='{{index}}'>
+        <view class='file'>
+          <image src='{{item}}'></image>
+        </view>
+      </block>
+      <view class='file' bindtap='handleClickFileInput' wx:if='{{pics.length < 9}}'>
+        <image src='../../img/comment/upload.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='btn'>
+    <button>发表</button>
+  </view>
 </view>

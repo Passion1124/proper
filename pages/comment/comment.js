@@ -8,7 +8,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    star: 0,
+    comment: '',
+    target: '',
+    pics: []
   },
 
   /**
@@ -65,5 +68,32 @@ Page({
    */
   onShareAppMessage: function () {
     
+  },
+  // 修改评分
+  handleUpdateStar (e) {
+    let index = e.currentTarget.dataset.index;
+    this.setData({
+      star: index
+    })
+  },
+  // 同步评论内容
+  handleInputComment (e) {
+    this.setData({
+      comment: e.detail.value
+    })
+  },
+  // 选择图片
+  handleClickFileInput () {
+    let _this = this;
+    wx.chooseImage({
+      count: 9 - this.data.pics.length,
+      success: function(res) {
+        console.log(res);
+        let pics = _this.data.pics.concat(res.tempFilePaths);
+        _this.setData({
+          pics: pics
+        })
+      },
+    })
   }
 })

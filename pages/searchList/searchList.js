@@ -134,7 +134,8 @@ Page({
     let data = Object.assign({base: app.globalData.baseBody, searchKey: this.data.searchKey}, this.data.all_goods_body);
     app.request(api, data, (res) => {
       console.log(res);
-      let all_goods = this.data.all_goods.concat(res.results);
+      let all_goods = this.data.all_goods_body.page === 1 ? [] : this.data.all_goods;
+      all_goods = all_goods.concat(res.results);
       this.setData({
         all_goods: all_goods
       })
@@ -147,7 +148,8 @@ Page({
     let data = Object.assign({ base: app.globalData.baseBody, searchKey: this.data.searchKey }, this.data.full_day_body);
     app.request(api, data, (res) => {
       console.log(res);
-      let full_day = this.data.full_day.concat(res.results);
+      let full_day = this.data.full_day_body.page === 1 ? [] : this.data.full_day;
+      full_day = full_day.concat(res.results);
       this.setData({
         full_day: full_day
       })
@@ -160,7 +162,8 @@ Page({
     let data = Object.assign({ base: app.globalData.baseBody, searchKey: this.data.searchKey }, this.data.food_body);
     app.request(api, data, (res) => {
       console.log(res);
-      let food = this.data.food.concat(res.results);
+      let food = this.data.food_body.page === 1 ? [] : this.data.food;
+      food = food.concat(res.results);
       this.setData({
         food: food
       })
@@ -173,7 +176,8 @@ Page({
     let data = Object.assign({ base: app.globalData.baseBody, searchKey: this.data.searchKey }, this.data.traffic_body);
     app.request(api, data, (res) => {
       console.log(res);
-      let traffic = this.data.traffic.concat(res.results);
+      let traffic = this.data.traffic_body.page === 1 ? [] : this.data.traffic;
+      traffic = traffic.concat(res.results);
       this.setData({
         traffic: traffic
       })
@@ -186,7 +190,8 @@ Page({
     let data = Object.assign({ base: app.globalData.baseBody, searchKey: this.data.searchKey }, this.data.lark_body);
     app.request(api, data, (res) => {
       console.log(res);
-      let lark = this.data.lark.concat(res.results);
+      let lark = this.data.lark_body.page === 1 ? [] : this.data.lark;
+      lark = lark.concat(res.results);
       this.setData({
         lark: lark
       })
@@ -199,7 +204,8 @@ Page({
     let data = Object.assign({ base: app.globalData.baseBody, searchKey: this.data.searchKey }, this.data.shopping_body);
     app.request(api, data, (res) => {
       console.log(res);
-      let shopping = this.data.shopping.concat(res.results);
+      let shopping = this.data.shopping_body.page === 1 ? [] : this.data.shopping;
+      shopping = shopping.concat(res.results);
       this.setData({
         shopping: shopping
       })
@@ -209,22 +215,22 @@ Page({
   },
   scrolltolower(e) {
     if (this.data.currentTab === 0 && this.isInteger(this.data.all_goods.length / 30)) {
-      this.all_goods_body.page++;
+      this.data.all_goods_body.page++;
       this.getAllGoodsList();
     } else if (this.data.currentTab === 1 && this.isInteger(this.data.full_day.length / 30)) {
-      this.full_day_body.page++;
+      this.data.full_day_body.page++;
       this.getFullDayGoodsList();
     } else if (this.data.currentTab === 2 && this.isInteger(this.data.food.length / 30)) {
-      this.food_body.page++;
+      this.data.food_body.page++;
       this.getFoodGoodsList();
     } else if (this.data.currentTab === 3 && this.isInteger(this.data.traffic.length / 30)) {
-      this.traffic_body.page++;
+      this.data.traffic_body.page++;
       this.getTrafficGoodsList();
     } else if (this.data.currentTab === 4 && this.isInteger(this.data.lark.length / 30)) {
-      this.lark_body.page++;
+      this.data.lark_body.page++;
       this.getLarkGoodsList();
     } else if (this.data.currentTab === 5 && this.isInteger(this.data.shopping.length / 30)) {
-      this.shopping_body.page++;
+      this.data.shopping_body.page++;
       this.getShoppingGoodsList();
     }
   },
@@ -305,8 +311,9 @@ Page({
   goToThePoiDetail(e) {
     let gid = e.currentTarget.dataset.gid;
     let type = e.currentTarget.dataset.type;
+    let url = type === 2 ? '/pages/fooddetail/fooddetail' : '/pages/poi_detail/poi_detail';
     wx.navigateTo({
-      url: '/pages/poi_detail/poi_detail?gid=' + gid + '&type=' + type,
+      url: url + '?gid=' + gid + '&type=' + type,
     })
   },
   isInteger(obj) {
