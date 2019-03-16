@@ -334,13 +334,15 @@ Page({
     let orderType = this.data.orderType;
     let active_type = this.data.activeOrderType;
     let url = '';
-    if (orderType === 0) {
-      if (active_type === 'book' && item.preOrder.time) {
+    if (item.orderType === 1) {
+      url = '/pages/orderDetail/orderDetail'
+    } else {
+      if (item.preOrder.time) {
         url = '/pages/bookDetail/bookDetail'
       } else {
         url = '/pages/orderDetail/orderDetail'
       }
-    };
+    }
     wx.navigateTo({
       url: url + '?id=' + id,
     });
