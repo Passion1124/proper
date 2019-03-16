@@ -37,7 +37,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 5,
 			"list": [
 				{
 					"id": 0,
@@ -68,17 +68,17 @@
 					"scene": null
 				},
 				{
-					"id": 6,
+					"id": 4,
 					"name": "预订 - 订单详情",
 					"pathName": "pages/bookDetail/bookDetail",
-					"query": "id=83abaf7baf3647b98c1d932622fa8eaf",
+					"query": "id=5a56956530be49e180686b284937cbd0&result=1",
 					"scene": null
 				},
 				{
-					"id": 7,
+					"id": 5,
 					"name": "订单详情 - 旅游",
 					"pathName": "pages/orderDetail/orderDetail",
-					"query": "id=390d9411f6644770a433cef28b67c5ea",
+					"query": "id=6a90fea3ef05426ba5e97c65f1eb65ba",
 					"scene": null
 				},
 				{

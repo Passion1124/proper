@@ -194,7 +194,7 @@ Page({
   // 生成订单
   handleCreateOrderGen() {
     let api = 'com.ttdtrip.api.order.apis.service.OrderGenApiService';
-    let p_data = { orderType: 1, receiverId: this.data.receiverId, orderMerches: this.data.orderMerches, preOrderInfo: this.data.preOrderInfo };
+    let p_data = { orderType: 0, receiverId: this.data.receiverId, orderMerches: this.data.orderMerches, preOrderInfo: this.data.preOrderInfo };
     if (this.data.selectCoupon.couponId) {
       p_data.couponId = this.data.selectCoupon.couponId;
     };

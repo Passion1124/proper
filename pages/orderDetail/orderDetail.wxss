@@ -20,6 +20,24 @@
   box-sizing: border-box;
 }
 
+.tips .comment_row{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.tips .comment_row button{
+  width: 240rpx;
+  height: 64rpx;
+  line-height: 62rpx;
+  font-size: 28rpx;
+  color: #3C3C3C;
+  letter-spacing: 2rpx;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 50rpx;
+  background-color: transparent;
+}
+
 .tips .title{
   font-size: 32rpx;
   line-height: 50rpx;

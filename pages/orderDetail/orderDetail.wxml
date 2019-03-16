@@ -16,9 +16,13 @@
     <view class='title'>亲，该订单已取消，可以选择再次购买</view>
     <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
   </view>
-  <view class='tips finished' wx:if='{{order.orderStatus === 2}}'>
+  <view class='tips finished' wx:if='{{order.orderStatus === 2 || order.orderStatus === 4}}'>
     <view class='title'>感谢您使用妥妥的，期待您下次光临</view>
-    <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
+    <button class='shopping' bindtap='goToTheOrder' wx:if='{{order.orderStatus === 2}}'>再次购买</button>
+    <view class='comment_row' wx:if='{{order.orderStatus === 4}}'>
+      <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
+      <button class='comment' bindtap='goToTheOrder'>前往评价</button>
+    </view>
   </view>
   <view class='tips tbc' wx:if='{{order.orderStatus === 1}}'>
     <view class='title'>亲，我们正在核实您的商品，请耐心等待</view>
@@ -39,7 +43,7 @@
           <view class='c_title'>{{item.merchName}}</view>
           <view class='c_subInfo'>
             <text>{{item.currency + (item.payPrice / 100)}}</text>
-            <text wx:if='{{item.extField}}'> / {{dateFr.getExtFieldText(item.extField)}}</text>
+            <!-- <text wx:if='{{item.extField}}'> / {{dateFr.getExtFieldText(item.extField)}}</text> -->
             <text> / 份数:{{item.merchCount}}</text>
           </view>
           <view class='c_date'>有效期至：{{dateFr.getChineseDate(item.usingEndDate)}}</view>

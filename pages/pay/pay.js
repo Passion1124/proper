@@ -88,7 +88,7 @@ Page({
       console.log(res);
       this.setData({
         order: res.order,
-        orderMerches: res.orderMerches[0]
+        orderMerches: res.orderMerches[0] || ""
       });
       this.handlePayConfigList(res.order.payCurrency);
     }, fail => {
@@ -157,14 +157,30 @@ Page({
     let data = { base: app.globalData.baseBody, preOrderId: this.data.payOrder.id, payerId: app.globalData.userInfo.uid };
     app.request(api, data, res => {
       console.log(res);
-      utils.navigateTo('/pages/payresult/payresult?preOrderId=' + this.data.payOrder.id + '&orderId=' + this.data.orderId + '&giid=' + this.data.orderMerches.merchId);
+      let url = '';
+      if (this.data.orderMerches) {
+        url = '/pages/payresult/payresult?preOrderId=' + this.data.payOrder.id + '&orderId=' + this.data.orderId + '&giid=' + this.data.orderMerches.merchId;
+      } else {
+        url = '/pages/bookDetail/bookDetail?result=1&id=' + this.data.orderId
+      }
+      wx.redirectTo({
+        url: url,
+      })
     }, e => {
       console.error(e);
       this.data.count++;
       if (this.data.count <= 5) {
         this.handlePayOrderSync();
       } else {
-        utils.navigateTo('/pages/payresult/payresult?preOrderId=' + this.data.payOrder.id + '&orderId=' + this.data.orderId + '&giid=' + this.data.orderMerches.merchId);
+        let url = '';
+        if (this.data.orderMerches) {
+          url = '/pages/payresult/payresult?preOrderId=' + this.data.payOrder.id + '&orderId=' + this.data.orderId + '&giid=' + this.data.orderMerches.merchId;
+        } else {
+          url = '/pages/bookDetail/bookDetail?result=1&id=' + this.data.orderId
+        }
+        wx.redirectTo({
+          url: url,
+        })
       }
     })
   },

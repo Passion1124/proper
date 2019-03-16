@@ -48,7 +48,6 @@ Page({
     payPrice: 0,
     currency: '',
     coupons: [],
-    maxNum: 10,
     selectCoupon: {},
     stratDate: ''
   },
@@ -156,7 +155,7 @@ Page({
         currency: res.setting.currency,
         ['preOrderInfo.priceEachOne']: res.setting.priceEachOne
       });
-      // this.initPreOrderBookTime();
+      this.initPreOrderBookTime();
     }, e => {
       console.error(e);
     })
@@ -319,58 +318,31 @@ Page({
     if (num > 1) {
       num--;
     }
-    // 只有大于一件的时候，才能normal状态，否则disable状态  
-    var minusStatus = num <= 1 ? 'disabled' : 'normal';
-    // 只有小于库存的时候，才能normal状态，否则disable状态  
-    var maxusStatus = num < this.data.maxNum ? 'normal' : 'disabled';
     var merchCount = 'preOrderInfo.totalCount';
     // 将数值与状态写回  
     this.setData({
-      [merchCount]: num,
-      minusStatus: minusStatus,
-      maxusStatus: maxusStatus
+      [merchCount]: num
     });
   },
   // 点击加号
   bindPlus: function () {
     var num = this.data.preOrderInfo.totalCount;
-    if (num < this.data.maxNum) {
-      num++;
-    } else {
-      wx.showToast({
-        title: '仅剩' + this.data.maxNum + '件',
-        icon: 'none'
-      })
-    }
-    // 只有大于一件的时候，才能normal状态，否则disable状态  
-    var minusStatus = num < 1 ? 'disabled' : 'normal';
-    // 只有小于库存的时候，才能normal状态，否则disable状态  
-    var maxusStatus = num < this.data.maxNum ? 'normal' : 'disabled';
+    num++;
     // 将数值与状态写回  
     var merchCount = 'preOrderInfo.totalCount';
     this.setData({
-      [merchCount]: num,
-      minusStatus: minusStatus,
-      maxusStatus: maxusStatus
+      [merchCount]: num
     });
   },
   // 输入框事件
   bindManual: function (e) {
     var num = e.detail.value;
-    var minusStatus = num < 1 ? 'disabled' : 'normal';
-    // 只有小于库存的时候，才能normal状态，否则disable状态  
-    var maxusStatus = num < this.data.maxNum ? 'normal' : 'disabled';
-    if (num > this.data.maxNum) {
-      num = this.data.maxNum;
-    }
     if (num < 1) {
       num = 1;
     }
     var merchCount = 'preOrderInfo.totalCount';
     this.setData({
-      [merchCount]: num,
-      minusStatus: minusStatus,
-      maxusStatus: maxusStatus
+      [merchCount]: num
     })
   },
   // 修改用餐日期

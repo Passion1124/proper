@@ -18,6 +18,7 @@ Page({
    */
   onLoad: function (options) {
     this.data.orderId = options.id;
+    console.log(options)
     if (options.result) {
       this.setData({
         result: options.result

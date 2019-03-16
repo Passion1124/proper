@@ -206,7 +206,9 @@
 }
 
 .order .bottom .left{
-  
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
 .queue .bottom .left {
@@ -250,11 +252,17 @@
 .order .bottom button{
   width: 154rpx;
   height: 55rpx;
+  line-height: 53rpx;
   font-size: 22rpx;
   color: #666666;
   border-radius: 31rpx;
   border:1rpx solid rgba(183,183,183,1);
   background-color: #fff;
+  margin: 0;
+}
+
+.order .bottom button + button{
+  margin-left: 20rpx;
 }
 
 .order .bottom .left text{

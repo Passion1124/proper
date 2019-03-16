@@ -80,6 +80,7 @@
         <view class='left'>
           <text wx:if='{{item.orderStatus === 7 || item.orderStatus === 6 || item.orderStatus === 1}}'>{{dateFr.getOrderStatusSubText(item.orderStatus)}}</text>
           <button data-order='{{item}}' catchtap='goToTheShoppingOrPay' wx:else>{{dateFr.getOrderStatusSubText(item.orderStatus)}}</button>
+          <button data-order='{{item}}' catchtap='goToTheComment' wx:if='{{item.orderStatus === 4}}'>前往评价</button>
         </view>
         <view class='right'>
           <view class='detail'>订单详情></view>

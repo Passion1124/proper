@@ -58,6 +58,19 @@ image {
   margin-top: 24rpx;
 }
 
+.result .reset_btn button{
+  width: 240rpx;
+  height: 64rpx;
+  line-height: 62rpx;
+  font-size: 28rpx;
+  color: #666;
+  letter-spacing: 2rpx;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 50rpx;
+  background-color: #fff;
+  margin-top: 60rpx;
+}
+
 .row_inner{
   width: 100%;
   padding: 0 40rpx;

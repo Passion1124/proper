@@ -15,12 +15,22 @@
     </view>
     <view class='result'>
       <view class='title'>
-        <view class='icon'>
+        <view class='icon' wx:if='{{order.payStatus === 1 }}'>
           <image src='../../img/common/success.png'></image>
+          <!-- <image src='../../img/common/fail.png' wx:else></image> -->
         </view>
-        <view class='text'>等待商家的确认</view>
+        <view class='text'>
+          <text wx:if='{{order.payStatus === 1 }}'>等待商家的确认</text>
+          <text wx:else>支付未完成</text>
+        </view>
       </view>
-      <view class='subTitle'>您的预订已通知商家，请等待商家的确认</view>
+      <view class='subTitle'>
+        <text wx:if='{{order.payStatus === 1 }}'>您的预订已通知商家，请等待商家的确认</text>
+        <text wx:else>请重新支付，我们将保留30分钟后自动取消</text>
+      </view>
+      <view class='reset_btn' wx:if='{{order.payStatus !== 1 }}'>
+        <button bindtap='goToThePay'>重新支付</button>
+      </view>
     </view>
   </block>
   <view class='row_inner'>

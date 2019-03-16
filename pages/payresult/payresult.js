@@ -128,6 +128,10 @@ Page({
   },
   // 点击再次购买
   handleClickAgainShoppingButton () {
-    utils.navigateTo('/pages/order/order?giid=' + this.data.giid + '&type=' + this.data.goodsItem.goodsItemBase.gType);
+    let url = '/pages/order/order?giid=' + this.data.giid + '&type=' + this.data.goodsItem.goodsItemBase.gType;
+    if (this.data.goodsItem.goodsItemBase.gType === 2) {
+      url = '/pages/foodchoose/foodchoose?giid=' + this.data.giid;
+    }
+    utils.navigateTo(url);
   }
 })

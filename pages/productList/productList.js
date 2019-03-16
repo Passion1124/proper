@@ -153,7 +153,8 @@ Page({
     if (city) data.cityId = city.cityId;
     app.request(api, data, (res) => {
       console.log(res);
-      let full_day = this.data.full_day.concat(res.goodsVOs);
+      let full_day = this.data.full_day_body.page === 1 ? [] : this.data.full_day;
+      full_day = full_day.concat(res.goodsVOs);
       this.setData({
         full_day: full_day
       })
@@ -168,7 +169,8 @@ Page({
     if (city) data.cityId = city.cityId;
     app.request(api, data, (res) => {
       console.log(res);
-      let food = this.data.food.concat(res.goodsVOs);
+      let food = this.data.food_body.page === 1 ? [] : this.data.food;
+      food = food.concat(res.goodsVOs);
       this.setData({
         food: food
       })
@@ -183,7 +185,8 @@ Page({
     if (city) data.cityId = city.cityId;
     app.request(api, data, (res) => {
       console.log(res);
-      let traffic = this.data.traffic.concat(res.goodsVOs);
+      let traffic = this.data.traffic_body.page === 1 ? [] : this.data.traffic;
+      traffic = traffic.concat(res.goodsVOs);
       this.setData({
         traffic: traffic
       })
@@ -198,7 +201,8 @@ Page({
     if (city) data.cityId = city.cityId;
     app.request(api, data, (res) => {
       console.log(res);
-      let lark = this.data.lark.concat(res.goodsVOs);
+      let lark = this.data.lark_body.page === 1 ? [] : this.data.lark;
+      lark = lark.concat(res.goodsVOs);
       this.setData({
         lark: lark
       })
@@ -213,7 +217,8 @@ Page({
     if (city) data.cityId = city.cityId;
     app.request(api, data, (res) => {
       console.log(res);
-      let shopping = this.data.shopping.concat(res.goodsVOs);
+      let shopping = this.data.shopping_body.page === 1 ? [] : this.data.shopping;
+      shopping = shopping.concat(res.goodsVOs);
       this.setData({
         shopping: shopping
       })
@@ -338,8 +343,9 @@ Page({
   goToThePoiDetail(e) {
     let gid = e.currentTarget.dataset.gid;
     let type = e.currentTarget.dataset.type;
+    let url = type === 2 ? '/pages/fooddetail/fooddetail' : '/pages/poi_detail/poi_detail';
     wx.navigateTo({
-      url: '/pages/poi_detail/poi_detail?gid=' + gid + '&type=' + type,
+      url: url + '?gid=' + gid + '&type=' + type,
     })
   },
   isInteger (obj) {

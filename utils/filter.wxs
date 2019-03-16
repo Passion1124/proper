@@ -58,6 +58,9 @@ var DateFr = {
     }
   },
   getOrderPrice: function(price, coupon) {
+    if (price < 100) {
+      return price;
+    }
     if (coupon.type === 0) {
       return price - (price * (coupon.discount / 100));
     } else if (coupon.type === 1) {
@@ -69,6 +72,9 @@ var DateFr = {
     }
   },
   getDiscountPrice: function(price, coupon) {
+    if (price < 100) {
+      return 0;
+    }
     if (coupon.type === 0) {
       return price * (coupon.discount / 100)
     } else if (coupon.type === 1 || coupon.type === 2) {

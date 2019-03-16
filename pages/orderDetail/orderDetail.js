@@ -187,5 +187,9 @@ Page({
     let orderNo = order.orderNo;
     let currency = order.payCurrency;
     utils.navigateTo('/pages/pay/pay?orderId=' + orderId +'&orderNo='+ orderNo+'&currency='+ currency+'&type=1');
+  },
+  // 前往评价
+  goToTheComment () {
+    utils.navigateTo('/pages/comment/comment?target=' + this.data.orderMerches[0].poiId + '&orderId=' + this.data.orderId)
   }
 })

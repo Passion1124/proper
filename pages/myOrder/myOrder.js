@@ -1,3 +1,5 @@
+import utils from '../../utils/util.js'
+
 const app = getApp();
 
 Page({
@@ -292,19 +294,22 @@ Page({
     }
   },
   // 获取订单详情接口
-  handleOrderDetail(orderId) {
+  handleOrderDetail(orderId, type) {
     let api = 'com.ttdtrip.api.order.apis.service.OrderDetailApiService';
     let data = { base: app.globalData.baseBody, orderId };
     app.request(api, data, res => {
       console.log(res);
       let merches = res.orderMerches[0];
-      let url = '/pages/order/order?giid=' + merches.merchId + '&type=' + merches.merchType;
-      if (res.order.preOrder) {
-        url = '/pages/foodchoose/foodchoose?giid=' + merches.merchId;
+      let url = '';
+      if (type === 'comment') {
+        url = '/pages/comment/comment?target=' + merches.poiId + '&orderId=' + orderId;
+      } else {
+        url = '/pages/order/order?giid=' + merches.merchId + '&type=' + merches.merchType;
+        if (res.order.preOrder) {
+          url = '/pages/foodchoose/foodchoose?giid=' + merches.merchId;
+        }
       }
-      wx.navigateTo({
-        url: url,
-      })
+      utils.navigateTo(url);
     }, fail => {
       wx.hideLoading();
     })
@@ -348,7 +353,7 @@ Page({
         url: '/pages/pay/pay?orderId=' + order.id + '&orderNo=' + order.orderNo,
       })
     } else {
-      this.handleOrderDetail(order.id);
+      this.handleOrderDetail(order.id, 'pay');
     }
     console.log(order);
   },
@@ -392,5 +397,10 @@ Page({
   },
   isInteger(obj) {
     return obj % 1 === 0;
+  },
+  // 前往评价
+  goToTheComment(e) {
+    let order = e.currentTarget.dataset.order;
+    this.handleOrderDetail(order.id, 'comment');
   }
 })
