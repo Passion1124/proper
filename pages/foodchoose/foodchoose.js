@@ -333,6 +333,6 @@ Page({
     var d = date.getDate();
     if (m < 10) m = "0" + m;
     if (d < 10) d = "0" + d;
-    return y + m + d;
+    return '' + y + m + d;
   }
 })
