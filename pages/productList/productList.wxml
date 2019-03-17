@@ -103,7 +103,7 @@
             </view>
           </block>
         </view>
-        <view class='empty' wx:if='{{!full_day.length}}'>
+        <view class='empty' wx:if='{{!full_day.length && !full_day_body.isFirst}}'>
           <view class='image_row'>
             <image src='../../img/common/empty_data.png'></image>
           </view>
@@ -185,7 +185,7 @@
             </view>
           </block>
         </view>
-        <view class='empty' wx:if='{{!traffic.length}}'>
+        <view class='empty' wx:if='{{!traffic.length && !traffic_body.isFirst}}'>
           <view class='image_row'>
             <image src='../../img/common/empty_data.png'></image>
           </view>
@@ -267,7 +267,7 @@
             </view>
           </block>
         </view>
-        <view class='empty' wx:if='{{!lark.length}}'>
+        <view class='empty' wx:if='{{!lark.length && !lark_body.isFirst}}'>
           <view class='image_row'>
             <image src='../../img/common/empty_data.png'></image>
           </view>
@@ -389,7 +389,7 @@
             </view>
           </block>
         </view>
-        <view class='empty' wx:if='{{!food.length}}'>
+        <view class='empty' wx:if='{{!food.length && !food_body.isFirst}}'>
           <view class='image_row'>
             <image src='../../img/common/empty_data.png'></image>
           </view>
@@ -471,7 +471,7 @@
             </view>
           </block>
         </view>
-        <view class='empty' wx:if='{{!shopping.length}}'>
+        <view class='empty' wx:if='{{!shopping.length && !shopping_body.isFirst}}'>
           <view class='image_row'>
             <image src='../../img/common/empty_data.png'></image>
           </view>

@@ -20,7 +20,8 @@ Page({
       page: 1,
       size: 30,
       sortType: 1,
-      type: 1
+      type: 1,
+      isFirst: true
     },
     food: [],
     food_body: {
@@ -31,28 +32,32 @@ Page({
       categoryId: '',
       areaId: '',
       cityId: '',
-      tradingId: ''
+      tradingId: '',
+      isFirst: true
     },
     traffic: [],
     traffic_body: {
       page: 1,
       size: 30,
       sortType: 1,
-      type: 3
+      type: 3,
+      isFirst: true
     },
     lark: [],
     lark_body: {
       page: 1,
       size: 30,
       sortType: 1,
-      type: 4
+      type: 4,
+      isFirst: true
     },
     shopping: [],
     shopping_body: {
       page: 1,
       size: 30,
       sortType: 1,
-      type: 5
+      type: 5,
+      isFirst: true
     },
     areaInfos: [],
     foodCategories: [],
@@ -156,10 +161,12 @@ Page({
       let full_day = this.data.full_day_body.page === 1 ? [] : this.data.full_day;
       full_day = full_day.concat(res.goodsVOs);
       this.setData({
-        full_day: full_day
+        full_day: full_day,
+        ['full_day_body.isFirst']: false
       })
     }, (err) => {
       console.error(err);
+      this.setData({ ['full_day_body.isFirst']: false });
     })
   },
   getFoodGoodsList() {
@@ -172,10 +179,12 @@ Page({
       let food = this.data.food_body.page === 1 ? [] : this.data.food;
       food = food.concat(res.goodsVOs);
       this.setData({
-        food: food
+        food: food,
+        ['food_body.isFirst']: false
       })
     }, (err) => {
       console.error(err);
+      this.setData({ ['food_body.isFirst']: false });
     })
   },
   getTrafficGoodsList() {
@@ -188,10 +197,12 @@ Page({
       let traffic = this.data.traffic_body.page === 1 ? [] : this.data.traffic;
       traffic = traffic.concat(res.goodsVOs);
       this.setData({
-        traffic: traffic
+        traffic: traffic,
+        ['traffic_body.isFirst']: false
       })
     }, (err) => {
       console.error(err);
+      this.setData({ ['traffic_body.isFirst']: false });
     })
   },
   getLarkGoodsList() {
@@ -204,10 +215,12 @@ Page({
       let lark = this.data.lark_body.page === 1 ? [] : this.data.lark;
       lark = lark.concat(res.goodsVOs);
       this.setData({
-        lark: lark
+        lark: lark,
+        ['lark_body.isFirst']: false
       })
     }, (err) => {
       console.error(err);
+      this.setData({ ['lark_body.isFirst']: false });
     })
   },
   getShoppingGoodsList() {
@@ -220,10 +233,12 @@ Page({
       let shopping = this.data.shopping_body.page === 1 ? [] : this.data.shopping;
       shopping = shopping.concat(res.goodsVOs);
       this.setData({
-        shopping: shopping
+        shopping: shopping,
+        ['shopping_body.isFirst']: false
       })
     }, (err) => {
       console.error(err);
+      this.setData({ ['shopping_body.isFirst']: false });
     })
   },
   // 获取区域列表

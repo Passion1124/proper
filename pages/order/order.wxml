@@ -5,7 +5,7 @@
   <view class='many'>
     <view class='text'>选择使用时间</view>
     <view class='date'>
-      <picker mode='date' start='2019-02-18' value='{{useData}}' bindchange="bindDateChange">
+      <picker mode='date' start='{{start_date}}' value='{{useData}}' bindchange="bindDateChange">
         <view class='blue_text'>{{useData}}</view>
       </picker>
       <view class='img_row'>

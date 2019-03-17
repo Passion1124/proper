@@ -296,8 +296,12 @@ Page({
       utils.showMessage('请输入您的姓名');
     } else if (!this.data.preOrderInfo.mail) {
       utils.showMessage('请输入您的邮箱');
+    } else if (this.data.preOrderInfo.mail && !utils.validateEmail(this.data.preOrderInfo.mail)) {
+      utils.showMessage('请输入正确的邮箱');
     } else if (!this.data.preOrderInfo.phoneNo) {
       utils.showMessage('请输入您的手机号码');
+    } else if (this.data.preOrderInfo.phoneNo && !utils.validatePhone(this.data.preOrderInfo.phoneNo)) {
+      utils.showMessage('请输入正确的手机号码');
     } else {
       if (this.data.type !== 'order') {
         let item = this.data.goodsItem.find(item => item.goodsItemInfo.giid === this.data.type);

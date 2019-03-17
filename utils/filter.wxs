@@ -101,7 +101,7 @@ var DateFr = {
 
     return y + '年' + M + '月' + d + '日';
   },
-  getOrderStatus: function(status) {
+  getOrderStatus: function (status, preOrder) {
     var str = '';
     switch (status) {
       case -1:
@@ -117,7 +117,7 @@ var DateFr = {
         str = '待发货';
         break;
       case 3:
-        str = '待使用';
+        str = preOrder ? '待就餐' : '待使用';
         break;
       case 4:
         str = '待点评';

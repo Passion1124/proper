@@ -73,7 +73,8 @@ Page({
     this.data.type = options.type;
     this.setData({
       start_date: this.getNowFormatDate()
-    })
+    });
+    console.log(this.data.start_date);
     this.getReceiverLatest();
     this.getGoodsItemDetail();
   },
@@ -253,8 +254,12 @@ Page({
       utils.showMessage('请选择您的称谓');
     } else if (!this.data.receiver.phoneNo) {
       utils.showMessage('请输入您的手机号码');
+    } else if (this.data.receiver.phoneNo && !utils.validatePhone(this.data.receiver.phoneNo)) {
+      utils.showMessage('请输入正确的手机号码');
     } else if (!this.data.receiver.email) {
       utils.showMessage('请输入您的邮箱');
+    } else if (this.data.receiver.email && !utils.validateEmail(this.data.receiver.email)) {
+      utils.showMessage('请输入正确的邮箱');
     } else if ((this.data.goodsItem.goodsItemBase.subType === 11 || this.data.goodsItem.goodsItemBase.subType === 12) && !this.data.merchSpecific) {
       utils.showMessage('请输入接送点');
     } else {

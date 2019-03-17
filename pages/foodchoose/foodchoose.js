@@ -211,15 +211,27 @@ Page({
   },
   // 点击去付款按钮
   handleClickPaymentButton() {
-    this.data.orderMerches.merchType = this.data.goodsItem.goodsItemBase.subType;
-    this.data.orderMerches.merchName = this.data.goodsItem.goodsItemInfo.name;
-    this.data.orderMerches.usingDate = this.getUsingDate(this.data.goodsItem.goodsItemBase.end);
-    this.data.orderMerches.merchSpecific = "";
-    this.data.orderMerches.merchImgUrl = this.data.goods.goodsBase.poster;
-    this.data.preOrderInfo.date = this.getUsingDate(this.data.goodsItem.goodsItemBase.start);
-    this.data.preOrderInfo.mid = this.data.goods.goodsBase.mid;
-    this.data.preOrderInfo.mName = this.data.goods.goodsInfo.name;
-    this.handleSaveReceiverInfo();
+    if (!this.data.receiver.name) {
+      utils.showMessage('请输入您的姓名');
+    } else if (!this.data.receiver.email) {
+      utils.showMessage('请输入您的邮箱');
+    } else if (this.data.receiver.email && !utils.validateEmail(this.data.receiver.email)) {
+      utils.showMessage('请输入正确的邮箱');
+    } else if (!this.data.receiver.phoneNo) {
+      utils.showMessage('请输入您的手机号码');
+    } else if (this.data.receiver.phoneNo && !utils.validatePhone(this.data.receiver.phoneNo)) {
+      utils.showMessage('请输入正确的手机号码');
+    } else {
+      this.data.orderMerches.merchType = this.data.goodsItem.goodsItemBase.subType;
+      this.data.orderMerches.merchName = this.data.goodsItem.goodsItemInfo.name;
+      this.data.orderMerches.usingDate = this.getUsingDate(this.data.goodsItem.goodsItemBase.end);
+      this.data.orderMerches.merchSpecific = "";
+      this.data.orderMerches.merchImgUrl = this.data.goods.goodsBase.poster;
+      this.data.preOrderInfo.date = this.getUsingDate(this.data.goodsItem.goodsItemBase.start);
+      this.data.preOrderInfo.mid = this.data.goods.goodsBase.mid;
+      this.data.preOrderInfo.mName = this.data.goods.goodsInfo.name;
+      this.handleSaveReceiverInfo();
+    }
   },
   // 修改姓名
   handleInputName(e) {

@@ -60,7 +60,7 @@
       <view class='top'>
         <view wx:if='{{item.preOrder}}'>{{ (item.orderStatus === -1 || !item.preOrder.time) ? dateFr.getOrderDate(item.createAt) : item.name}}</view>
         <view wx:else>{{dateFr.getOrderDate(item.createAt)}}</view>
-        <view class='status {{(item.orderStatus === -1 || item.orderStatus === 6) ? "orange" : ""}} {{(item.orderStatus === 2 || item.orderStatus === 3) ? "blue" : ""}}'>{{dateFr.getOrderStatus(item.orderStatus)}}</view>
+        <view class='status {{(item.orderStatus === -1 || item.orderStatus === 6) ? "orange" : ""}} {{(item.orderStatus === 2 || item.orderStatus === 3) ? "blue" : ""}}'>{{dateFr.getOrderStatus(item.orderStatus, item.preOrder)}}</view>
       </view>
       <view class='line'></view>
       <view class='center'>
