@@ -244,7 +244,7 @@ Page({
     app.request(api, data, res => {
       console.log(res);
       this.data.receiverId = res.receiverId;
-      let preOrderInfo = this.data.preOrderInfo;
+      let preOrderInfo = Object.assign({}, this.data.preOrderInfo);
       preOrderInfo.time = this.data.timeRange[parseInt(preOrderInfo.time)];
       let filterCustomer = this.data.customerRequest.filter((item, index) => this.data.checkedCustomer[index]);
       preOrderInfo.customerRequest = filterCustomer.length ? filterCustomer.reduce((pre, next) => pre + '|' + next) : '';
