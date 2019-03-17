@@ -88,7 +88,7 @@ page{
 
 .food_list .food .info .price_num .price{
   width: 150rpx;
-  font-size: 32rpx;
+  font-size: 22rpx;
   line-height: 33rpx;
   letter-spacing: 1rpx;
   color: #F97572;

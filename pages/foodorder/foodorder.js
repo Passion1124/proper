@@ -99,7 +99,7 @@ Page({
   // 查询菜品分类
   getFoodCategoryList () {
     let api = 'com.ttdtrip.api.restaurant.apis.service.FoodCategoryListApiService';
-    let data = { base: app.globalData.baseBody, page: 1, limit: 10, mid: this.data.line.mid };
+    let data = { base: app.globalData.baseBody, page: 1, limit: 30, mid: this.data.line.mid };
     app.request(api, data, res => {
       console.log(res);
       let checkCategory = this.data.checkCategory || res.foodCategoryDtos[0].foodCategoryLang
@@ -115,7 +115,7 @@ Page({
   // 查询菜品列表
   getFoodList () {
     let api = 'com.ttdtrip.api.restaurant.apis.service.FoodListApiService';
-    let data = { base: app.globalData.baseBody, categoryId: this.data.checkCategory.categoryId, page: 1, limit: 10, mid: this.data.line.mid };
+    let data = { base: app.globalData.baseBody, categoryId: this.data.checkCategory.categoryId, page: 1, limit: 30, mid: this.data.line.mid };
     app.request(api, data, res => {
       console.log(res);
       this.setData({

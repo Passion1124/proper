@@ -34,7 +34,7 @@
     <view class='num_price'>
       <view class='num'>{{foodOrderBatchDetailDtos.length ? dateFr.getFoodOrderTotal(foodOrderBatchDetailDtos) : 0}}</view>
       <view class='price' wx:if='{{foodOrderBatchDetailDtos.length}}'>{{foodOrder.payableCurrencyNoConfirm + dateFr.getFoodOrderBatchTotalPrice(foodOrderBatchDetailDtos) }}</view>
-      <view class='price' wx:else>CNY0.00</view>
+      <view class='price' wx:else>JPY0.00</view>
     </view>
     <view class='down_order'>
       <button bindtap='handleClickGoToTheOrder'>去下单</button>

@@ -247,7 +247,8 @@ var DateFr = {
     var price = dots.reduce(function (pre, next) {
       return pre + (next.foodOrderBatchDetail.foodPrice * next.foodOrderBatchDetail.foodNumber)
     }, 0);
-    return price / 100;
+    var result = price / 100 >= 1 ? parseInt(price / 100) : (price / 100).toFixed(2);
+    return result;
   }
 }
 

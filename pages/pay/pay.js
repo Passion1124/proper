@@ -145,6 +145,7 @@ Page({
         },
         fail(res) {
           console.error(res);
+          utils.showMessage('取消支付');
         }
       })
     }, e => {

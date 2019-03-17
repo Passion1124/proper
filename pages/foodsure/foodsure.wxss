@@ -11,6 +11,7 @@ page{
 
 .container{
   position: relative;
+  height: auto;
   padding: 40rpx 40rpx 120rpx 40rpx;
   padding-bottom: 120rpx;
   box-sizing: border-box;
