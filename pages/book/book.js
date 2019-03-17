@@ -205,7 +205,7 @@ Page({
     this.setData({
       stratDate: date.getFullYear() + '-' + month + '-' + day
     });
-    this.getPreOrderBookTime(now);
+    // this.getPreOrderBookTime(now);
   },
   // 获取用户优惠券订单可用
   getUserCouponUsable(item) {

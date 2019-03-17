@@ -73,8 +73,8 @@
           <view class='info'>
             <view class='info_name'>{{ item.goodsItemInfo.name}}</view>
             <view class='price'>
-              <view class='present'>{{item.goodsItemBase.currency + item.goodsItemBase.amount / 100}}</view>
-              <view class='original'>{{item.goodsItemBase.currency + item.goodsItemBase.sourceAmount / 100}}</view>
+              <view class='present'>{{item.goodsItemBase.currency}}{{item.goodsItemBase.amount ? item.goodsItemBase.amount / 100 : item.goodsItemBase.sourceAmount / 100 }}</view>
+              <view class='original' wx:if='{{item.goodsItemBase.amount && item.goodsItemBase.amount !== item.goodsItemBase.sourceAmount}}'>{{item.goodsItemBase.currency}}{{item.goodsItemBase.sourceAmount / 100 }}</view>
             </view>
             <!-- <view class='order_date'>最早可预订11月25日</view> -->
           </view>

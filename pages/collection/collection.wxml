@@ -21,7 +21,7 @@
         <view class='title'>{{item.goodsInfo.name}}</view>
         <view class='price_star'>
           <view class='price'>
-            <text class='unit'></text>{{item.goodsInfo.avgPrice}}
+            <text class='{{item.goodsInfo.avgPrice ? "" : "ashy"}}'>{{item.goodsInfo.avgPrice ? item.goodsInfo.avgPrice : '暂无均价建议'}}</text>
           </view>
           <view class='star'>
             <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>

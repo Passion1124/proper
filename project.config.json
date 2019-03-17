@@ -37,13 +37,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 16,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
-					"name": "ORDER",
+					"name": "order",
 					"pathName": "pages/order/order",
-					"query": "giid=2eeb67f8-1739-4a53-96bc-efaed7c8821d&type=1",
+					"query": "giid=32b7946f-98e1-4987-a4fa-42683ce81f02&type=1",
 					"scene": 1001
 				},
 				{

@@ -86,13 +86,23 @@
 }
 
 .main .price_star .price{
+  flex: 1;
   font-size: 32rpx;
   line-height: 44rpx;
   color: #F97572;
+  padding-right: 20rpx;
+  box-sizing: border-box;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
 
-.main .price_star .price text{
+/* .main .price_star .price text{
   font-size: 24rpx;
+} */
+
+.main .price_star .price .ashy{
+  color: #999;
 }
 
 .main .price_star .star{

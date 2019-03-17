@@ -255,6 +255,8 @@ Page({
       utils.showMessage('请输入您的手机号码');
     } else if (!this.data.receiver.email) {
       utils.showMessage('请输入您的邮箱');
+    } else if ((this.data.goodsItem.goodsItemBase.subType === 11 || this.data.goodsItem.goodsItemBase.subType === 12) && !this.data.merchSpecific) {
+      utils.showMessage('请输入接送点');
     } else {
       this.data.orderMerches.merchType = this.data.goodsItem.goodsItemBase.subType;
       this.data.orderMerches.merchName = this.data.goodsItem.goodsItemInfo.name;
@@ -264,6 +266,10 @@ Page({
       if (this.data.goodsItem.goodsItemBase.pickUpType) {
         this.data.receiver.addr = this.data.pickUpType ? this.data.self_taking : this.data.mail;
         this.data.receiver.addrType = this.data.pickUpType;
+        if (!this.data.receiver.addr) {
+          utils.showMessage('请输入邮寄地址');
+          return false;
+        }
       } else {
         this.data.receiver.addr = '';
         this.data.receiver.addrType = '';
@@ -458,6 +464,19 @@ Page({
   handleChangeInputMail (e) {
     this.setData({
       mail: e.detail.value
+    })
+  },
+  handleChangeSelfTaking (e) {
+    let item = e.currentTarget.dataset.item;
+    this.setData({
+      self_taking: item
+    });
+  },
+  // 修改邮寄类型
+  handleUpdatePickUpType (e) {
+    let type = e.currentTarget.dataset.type;
+    this.setData({
+      pickUpType: parseInt(type)
     })
   }
 })

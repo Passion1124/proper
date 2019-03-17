@@ -316,6 +316,7 @@
 }
 
 .tab-content .list_row>view .title, .tab-content .list_row>view.horizontal .h_title{
+  height: 84rpx;
   font-size: 32rpx;
   line-height: 42rpx;
   color: #3C3C3C;

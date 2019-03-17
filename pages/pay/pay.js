@@ -35,7 +35,7 @@ Page({
    */
   onReady: function () {
     wx.showLoading({
-      title: '拼命加载中。。',
+      title: '拼命加载中',
     });
   },
 
