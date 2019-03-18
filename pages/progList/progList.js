@@ -13,6 +13,7 @@ Page({
     type: '',
     page: 1,
     size: 30,
+    isFirst: true,
     goods: []
   },
 
@@ -94,11 +95,13 @@ Page({
     app.request(api, data, res => {
       console.log(res);
       this.setData({
-        goods: this.data.goods.concat(res.goodsVOs)
+        goods: this.data.goods.concat(res.goodsVOs),
+        isFirst: false
       });
       wx.stopPullDownRefresh();
     }, err => {
       console.error(err);
+      this.setData({ isFirst: false });
       wx.stopPullDownRefresh();
     })
   },
