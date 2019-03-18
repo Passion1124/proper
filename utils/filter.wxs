@@ -249,6 +249,21 @@ var DateFr = {
     }, 0);
     var result = price / 100 >= 1 ? parseInt(price / 100) : (price / 100).toFixed(2);
     return result;
+  },
+  getOrderPageUseDateText: function (type) {
+    var str = '';
+    if (type === 11 || type === 12 || type === 34) {
+      str = '出行'
+    } else if (type === 31 || type === 32 || type === 35) {
+      str = '领取'
+    } else if (type === 33) {
+      str = '接机'
+    } else if (type === 38) {
+      str = '送机'
+    } else if (type === 36 || type === 37 || type === 41 || type === 42 || type === 43) {
+      str = '使用'
+    }
+    return str + '日期'
   }
 }
 
@@ -276,5 +291,6 @@ module.exports = {
   getLineStatusText: DateFr.getLineStatusText,
   getFoodOrderTotal: DateFr.getFoodOrderTotal,
   getNowFoodOrderNum: DateFr.getNowFoodOrderNum,
-  getFoodOrderBatchTotalPrice: DateFr.getFoodOrderBatchTotalPrice
+  getFoodOrderBatchTotalPrice: DateFr.getFoodOrderBatchTotalPrice,
+  getOrderPageUseDateText: DateFr.getOrderPageUseDateText
 }

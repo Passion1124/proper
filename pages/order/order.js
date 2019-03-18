@@ -20,8 +20,11 @@ Page({
       email: '',
       faxNo: '',
       addr: '',
-      addType: ''
+      addType: '',
+      enName: ''
     },
+    surname: '',
+    en_name: '',
     receiverId: '',
     orderMerches: {
       merchId: '',
@@ -30,10 +33,35 @@ Page({
       merchImgUrl: '',
       merchSpecific: '',
       usingDate: '',
-      ext: {
-        babyChairCount: 0
-      },
+      ext: {},
       merchCount: 1
+    },
+    // 旅游扩展信息
+    orderTravelMerch: {
+      upPlace: '',
+      downPlace: '',
+      travelDate: '',
+      upTime: '',
+      carNum: 1,
+      chairNum: 0
+    },
+    // 交通扩展信息
+    orderTrafficMerch: {
+      upPlace: '',
+      downPlace: '',
+      flyNum: '',
+      upDate: '',
+      upTime: '',
+      carNum: 1,
+      chairNum: 0
+    },
+    // 玩乐扩展信息
+    orderPlayMerch: {
+      usingDate: '',
+      downPlace: '',
+      plan: '',
+      startTime: '',
+      endTime: ''
     },
     useData: '',
     merchSpecific: '',
@@ -58,7 +86,10 @@ Page({
     start_date: '',
     pickUpType: 1,
     self_taking: '',
-    mail: ''
+    mail: '',
+    tourism: [11, 12],
+    traffic: [31, 32, 33, 34, 35, 38],
+    play: [36, 37, 41, 42, 43]
   },
 
   /**
@@ -133,10 +164,14 @@ Page({
     app.request(api, data, res => {
       console.log(res);
       if (res.receiver) {
-        let { addr, addrType, alias, email, faxNo, name, phoneNo } = res.receiver;
+        let { addr, addrType, alias, email, faxNo, name, phoneNo, enName } = res.receiver;
+        let surname = enName.split('|')[1];
+        let en_name = enName.split('|')[0];
         this.setData({
           receiver: { addr, addrType, alias, email, faxNo, name, phoneNo },
-          mail: addrType ? addr : ''
+          mail: addrType ? '' : addr,
+          surname,
+          en_name
         });
       }
     }, err => {
@@ -216,6 +251,7 @@ Page({
   // 保存收货信息
   handleSaveReceiverInfo () {
     let api = 'com.ttdtrip.api.order.apis.service.ReceiverSaveApiService';
+    this.data.receiver.enName = this.data.en_name + '|' + this.data.surname;
     let data = Object.assign({ base: app.globalData.baseBody }, this.data.receiver);
     app.request(api, data, res => {
       console.log(res);
@@ -228,7 +264,7 @@ Page({
   // 生成订单
   handleCreateOrderGen () {
     let api = 'com.ttdtrip.api.order.apis.service.OrderGenApiService';
-    let p_data = { orderType: 1, receiverId: this.data.receiverId, orderMerches: this.data.orderMerches };
+    let p_data = { orderType: 1, orderFrom: 1, receiverId: this.data.receiverId, orderMerches: this.data.orderMerches };
     if (this.data.selectCoupon.couponId) {
       p_data.couponId = this.data.selectCoupon.couponId;
     };
@@ -245,12 +281,19 @@ Page({
   },
   // 点击去付款按钮
   handleClickPaymentButton () {
+    let type = this.data.goodsItem.goodsItemBase.subType;
     if (!this.data.useData) {
-      utils.showMessage('请选择使用时间');
+      utils.showMessage('请选择日期');
+    } else if (!this.data.orderTravelMerch.upTime && type === 11) {
+      utils.showMessage('请选择上车时间');
+    } else if (!this.data.orderTravelMerch.upPlace && (type === 11 || type === 12)) {
+      utils.showMessage('请选择上车地点');
+    } else if (!this.data.orderTravelMerch.downPlace && type === 11) {
+      utils.showMessage('请选择下车地点');
+    } else if (!this.data.orderTrafficMerch.upPlace && type === 31) {
+      utils.showMessage('请选择领取地点');
     } else if (!this.data.receiver.name) {
       utils.showMessage('请输入您的姓名');
-    } else if (!this.data.receiver.alias) {
-      utils.showMessage('请选择您的称谓');
     } else if (!this.data.receiver.phoneNo) {
       utils.showMessage('请输入您的手机号码');
     } else if (this.data.receiver.phoneNo && !utils.validatePhone(this.data.receiver.phoneNo)) {
@@ -259,8 +302,6 @@ Page({
       utils.showMessage('请输入您的邮箱');
     } else if (this.data.receiver.email && !utils.validateEmail(this.data.receiver.email)) {
       utils.showMessage('请输入正确的邮箱');
-    } else if ((this.data.goodsItem.goodsItemBase.subType === 11 || this.data.goodsItem.goodsItemBase.subType === 12) && !this.data.merchSpecific) {
-      utils.showMessage('请输入接送点');
     } else {
       this.data.orderMerches.merchType = this.data.goodsItem.goodsItemBase.subType;
       this.data.orderMerches.merchName = this.data.goodsItem.goodsItemInfo.name;
@@ -278,6 +319,16 @@ Page({
         this.data.receiver.addr = '';
         this.data.receiver.addrType = '';
       }
+      if (type === 11 || type === 12) {
+        this.data.orderTravelMerch.travelDate = new Date(this.data.useData).getTime();
+        this.data.orderTravelMerch.carNum = this.data.orderMerches.merchCount;
+        this.data.orderMerches.orderTravelMerch = this.data.orderTravelMerch;
+      }
+      if (type === 31) {
+        this.data.orderTrafficMerch.upDate = new Date(this.data.useData).getTime();
+        this.data.orderTrafficMerch.carNum = this.data.orderMerches.merchCount;
+        this.data.orderMerches.orderTrafficMerch = this.data.orderTrafficMerch;
+      }
       this.handleSaveReceiverInfo();
     }
   },
@@ -286,8 +337,53 @@ Page({
     this.setData({
       useData: e.detail.value
     });
-    console.log(this.data.useData);
     this.getMerchInventoryl();
+  },
+  // 修改上车时间
+  bindUpTimeChange (e) {
+    let value = '';
+    if (this.data.goodsItem.goodsItemBase.subType === 11) value = 'orderTravelMerch.upTime';
+    this.setData({
+      [value]: e.detail.value
+    });
+  },
+  // 修改上车地点
+  bindUpPlaceChange (e) {
+    let value = '';
+    let type = this.data.goodsItem.goodsItemBase.subType;
+    if (this.data.tourism.indexOf(type) !== -1) value = 'orderTravelMerch.upPlace';
+    this.setData({
+      [value]: e.detail.value
+    });
+  },
+  // 修改下车地点
+  bindDownPlaceChange (e) {
+    let value = '';
+    if (this.data.goodsItem.goodsItemBase.subType === 11) value = 'orderTravelMerch.downPlace';
+    this.setData({
+      [value]: e.detail.value
+    });
+  },
+  // 修改领取地点
+  bindReceivePlace (e) {
+    this.setData({
+      ['orderTrafficMerch.upPlace']: this.data.goodsItem.goodsItemInfo.infoExt.address[parseInt(e.detail.value)]
+    })
+  },
+  // Copy上车地点
+  handleCopyUpPlace () {
+    let value = this.data.orderTravelMerch.upPlace;
+    this.setData({
+      ['orderTravelMerch.downPlace']: value
+    });
+  },
+  // 修改英文名称
+  bindEnNameChange (e) {
+    let type = parseInt(e.currentTarget.dataset.type);
+    let str = type ? 'surname' : 'en_name';
+    this.setData({
+      [str]: e.detail.value
+    });
   },
   // 修改称谓
   bindGenderChange: function (e) {
@@ -327,16 +423,10 @@ Page({
     if (num > 1) {
       num--;
     }
-    // 只有大于一件的时候，才能normal状态，否则disable状态  
-    var minusStatus = num <= 1 ? 'disabled' : 'normal';
-    // 只有小于库存的时候，才能normal状态，否则disable状态  
-    var maxusStatus = num < this.data.maxNum ? 'normal' : 'disabled';
     var merchCount = 'orderMerches.merchCount';
     // 将数值与状态写回  
     this.setData({
-      [merchCount]: num,
-      minusStatus: minusStatus,
-      maxusStatus: maxusStatus
+      [merchCount]: num
     });
   },
   // 点击加号
@@ -350,24 +440,15 @@ Page({
         icon: 'none'
       })
     }
-    // 只有大于一件的时候，才能normal状态，否则disable状态  
-    var minusStatus = num < 1 ? 'disabled' : 'normal';
-    // 只有小于库存的时候，才能normal状态，否则disable状态  
-    var maxusStatus = num < this.data.maxNum ? 'normal' : 'disabled';
     // 将数值与状态写回  
     var merchCount = 'orderMerches.merchCount';
     this.setData({
-      [merchCount]: num,
-      minusStatus: minusStatus,
-      maxusStatus: maxusStatus
+      [merchCount]: num
     });
   },
   // 输入框事件
   bindManual: function (e) {
     var num = e.detail.value;
-    var minusStatus = num < 1 ? 'disabled' : 'normal';
-    // 只有小于库存的时候，才能normal状态，否则disable状态  
-    var maxusStatus = num < this.data.maxNum ? 'normal' : 'disabled';
     if (num > this.data.maxNum) {
       num = this.data.maxNum;
     }
@@ -376,9 +457,7 @@ Page({
     }
     var merchCount = 'orderMerches.merchCount';
     this.setData({
-      [merchCount]: num,
-      minusStatus: minusStatus,
-      maxusStatus: maxusStatus
+      [merchCount]: num
     })
   },
   // 选中的优惠券

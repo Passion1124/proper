@@ -23,6 +23,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '拼命加载中',
+    });
     this.data.orderId = options.orderId;
     this.data.orderNo = options.orderNo;
     this.data.currency = options.currency;
@@ -34,9 +37,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    wx.showLoading({
-      title: '拼命加载中',
-    });
+    
   },
 
   /**
