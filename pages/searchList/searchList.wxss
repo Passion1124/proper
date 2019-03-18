@@ -185,6 +185,10 @@
   font-size: 20rpx;
 }
 
+.tab-content .list_row>view .info .price .ashy{
+  color: #999;
+}
+
 .tab-content .list_row>view .info .star{
   flex: 1;
   height: 14rpx;

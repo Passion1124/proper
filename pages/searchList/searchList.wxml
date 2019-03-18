@@ -52,12 +52,12 @@
                   <image src='../../img/index/small_location.png'></image>
                 </view>
                 <view class='text'>
-                  <text>{{item.city}} · 距离市中心{{dateFr.getDistance(item.geoDistance)}}公里</text>
+                  <text>{{item.city}} · 距离{{dateFr.getDistance(item.geoDistance)}}{{item.geoDistance ? '公里' : ''}}</text>
                 </view>
               </view>
               <view class='info'>
                 <view class='price'>
-                  <text>{{item.desc ? item.desc.avgPrice : ''}}</text>
+                  <text class='{{item.desc.avgPrice ? "" : "ashy"}}'>{{item.desc.avgPrice ? item.desc.avgPrice : '暂无均价建议'}}</text>
                 </view>
                 <view class='star'>
                   <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
@@ -69,7 +69,7 @@
             </view>
           </block>
         </view>
-        <view class='empty' wx:if='{{!all_goods.length}}'>
+        <view class='empty' wx:if='{{!all_goods.length && !all_goods_body.isFirst}}'>
           <view class='image_row'>
             <image src='../../img/common/empty_data.png'></image>
           </view>
@@ -101,12 +101,12 @@
                   <image src='../../img/index/small_location.png'></image>
                 </view>
                 <view class='text'>
-                  <text>{{item.city}} · 距离市中心{{dateFr.getDistance(item.geoDistance)}}公里</text>
+                  <text>{{item.city}} · 距离{{dateFr.getDistance(item.geoDistance)}}{{item.geoDistance ? '公里' : ''}}</text>
                 </view>
               </view>
               <view class='info'>
                 <view class='price'>
-                  <text>{{item.desc ? item.desc.avgPrice : ''}}</text>
+                  <text class='{{item.desc.avgPrice ? "" : "ashy"}}'>{{item.desc.avgPrice ? item.desc.avgPrice : '暂无均价建议'}}</text>
                 </view>
                 <view class='star'>
                   <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
@@ -118,7 +118,7 @@
             </view>
           </block>
         </view>
-        <view class='empty' wx:if='{{!full_day.length}}'>
+        <view class='empty' wx:if='{{!full_day.length && !full_day_body.isFirst}}'>
           <view class='image_row'>
             <image src='../../img/common/empty_data.png'></image>
           </view>
@@ -150,12 +150,12 @@
                   <image src='../../img/index/small_location.png'></image>
                 </view>
                 <view class='text'>
-                  <text>{{item.city}} · 距离市中心{{dateFr.getDistance(item.geoDistance)}}公里</text>
+                  <text>{{item.city}} · 距离{{dateFr.getDistance(item.geoDistance)}}{{item.geoDistance ? '公里' : ''}}</text>
                 </view>
               </view>
               <view class='info'>
                 <view class='price'>
-                  <text>{{item.desc ? item.desc.avgPrice : ''}}</text>
+                  <text class='{{item.desc.avgPrice ? "" : "ashy"}}'>{{item.desc.avgPrice ? item.desc.avgPrice : '暂无均价建议'}}</text>
                 </view>
                 <view class='star'>
                   <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
@@ -167,7 +167,7 @@
             </view>
           </block>
         </view>
-        <view class='empty' wx:if='{{!food.length}}'>
+        <view class='empty' wx:if='{{!food.length && !food_body.isFirst}}'>
           <view class='image_row'>
             <image src='../../img/common/empty_data.png'></image>
           </view>
@@ -199,12 +199,12 @@
                   <image src='../../img/index/small_location.png'></image>
                 </view>
                 <view class='text'>
-                  <text>{{item.city}} · 距离市中心{{dateFr.getDistance(item.geoDistance)}}公里</text>
+                  <text>{{item.city}} · 距离{{dateFr.getDistance(item.geoDistance)}}{{item.geoDistance ? '公里' : ''}}</text>
                 </view>
               </view>
               <view class='info'>
                 <view class='price'>
-                  <text>{{item.desc ? item.desc.avgPrice : ''}}</text>
+                  <text class='{{item.desc.avgPrice ? "" : "ashy"}}'>{{item.desc.avgPrice ? item.desc.avgPrice : '暂无均价建议'}}</text>
                 </view>
                 <view class='star'>
                   <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
@@ -216,7 +216,7 @@
             </view>
           </block>
         </view>
-        <view class='empty' wx:if='{{!traffic.length}}'>
+        <view class='empty' wx:if='{{!traffic.length && !traffic_body.isFirst}}'>
           <view class='image_row'>
             <image src='../../img/common/empty_data.png'></image>
           </view>
@@ -248,12 +248,12 @@
                   <image src='../../img/index/small_location.png'></image>
                 </view>
                 <view class='text'>
-                  <text>{{item.city}} · 距离市中心{{dateFr.getDistance(item.geoDistance)}}公里</text>
+                  <text>{{item.city}} · 距离{{dateFr.getDistance(item.geoDistance)}}{{item.geoDistance ? '公里' : ''}}</text>
                 </view>
               </view>
               <view class='info'>
                 <view class='price'>
-                  <text>{{item.desc ? item.desc.avgPrice : ''}}</text>
+                  <text class='{{item.desc.avgPrice ? "" : "ashy"}}'>{{item.desc.avgPrice ? item.desc.avgPrice : '暂无均价建议'}}</text>
                 </view>
                 <view class='star'>
                   <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
@@ -265,7 +265,7 @@
             </view>
           </block>
         </view>
-        <view class='empty' wx:if='{{!lark.length}}'>
+        <view class='empty' wx:if='{{!lark.length && !lark_body.isFirst}}'>
           <view class='image_row'>
             <image src='../../img/common/empty_data.png'></image>
           </view>
@@ -297,12 +297,12 @@
                   <image src='../../img/index/small_location.png'></image>
                 </view>
                 <view class='text'>
-                  <text>{{item.city}} · 距离市中心{{dateFr.getDistance(item.geoDistance)}}公里</text>
+                  <text>{{item.city}} · 距离{{dateFr.getDistance(item.geoDistance)}}{{item.geoDistance ? '公里' : ''}}</text>
                 </view>
               </view>
               <view class='info'>
                 <view class='price'>
-                  <text>{{item.desc ? item.desc.avgPrice : ''}}</text>
+                  <text class='{{item.desc.avgPrice ? "" : "ashy"}}'>{{item.desc.avgPrice ? item.desc.avgPrice : '暂无均价建议'}}</text>
                 </view>
                 <view class='star'>
                   <block wx:for='{{5}}' wx:key='{{sIndex}}' wx:for-index='sIndex' wx:for-item='sItem'>
@@ -314,7 +314,7 @@
             </view>
           </block>
         </view>
-        <view class='empty' wx:if='{{!shopping.length}}'>
+        <view class='empty' wx:if='{{!shopping.length && !shopping_body.isFirst}}'>
           <view class='image_row'>
             <image src='../../img/common/empty_data.png'></image>
           </view>

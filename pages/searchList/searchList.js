@@ -15,42 +15,48 @@ Page({
       page: 1,
       size: 30,
       sortType: 1,
-      goodsType: 0
+      goodsType: 0,
+      isFirst: true
     },
     full_day: [],
     full_day_body: {
       page: 1,
       size: 30,
       sortType: 1,
-      goodsType: 1
+      goodsType: 1,
+      isFirst: true
     },
     food: [],
     food_body: {
       page: 1,
       size: 30,
       sortType: 1,
-      goodsType: 2
+      goodsType: 2,
+      isFirst: true
     },
     traffic: [],
     traffic_body: {
       page: 1,
       size: 30,
       sortType: 1,
-      goodsType: 3
+      goodsType: 3,
+      isFirst: true
     },
     lark: [],
     lark_body: {
       page: 1,
       size: 30,
       sortType: 1,
-      goodsType: 4
+      goodsType: 4,
+      isFirst: true
     },
     shopping: [],
     shopping_body: {
       page: 1,
       size: 30,
       sortType: 1,
-      goodsType: 5
+      goodsType: 5,
+      isFirst: true
     }
   },
 
@@ -137,10 +143,12 @@ Page({
       let all_goods = this.data.all_goods_body.page === 1 ? [] : this.data.all_goods;
       all_goods = all_goods.concat(res.results);
       this.setData({
-        all_goods: all_goods
+        all_goods: all_goods,
+        ['all_goods_body.isFirst']: false
       })
     }, (err) => {
       console.error(err);
+      this.setData({ ['all_goods_body.isFirst']: false })
     })
   },
   getFullDayGoodsList() {
@@ -151,10 +159,12 @@ Page({
       let full_day = this.data.full_day_body.page === 1 ? [] : this.data.full_day;
       full_day = full_day.concat(res.results);
       this.setData({
-        full_day: full_day
+        full_day: full_day,
+        ['full_day_body.isFirst']: false
       })
     }, (err) => {
       console.error(err);
+      this.setData({ ['full_day_body.isFirst']: false })
     })
   },
   getFoodGoodsList() {
@@ -165,10 +175,12 @@ Page({
       let food = this.data.food_body.page === 1 ? [] : this.data.food;
       food = food.concat(res.results);
       this.setData({
-        food: food
+        food: food,
+        ['food_body.isFirst']: false
       })
     }, (err) => {
       console.error(err);
+      this.setData({ ['food_body.isFirst']: false })
     })
   },
   getTrafficGoodsList() {
@@ -179,10 +191,12 @@ Page({
       let traffic = this.data.traffic_body.page === 1 ? [] : this.data.traffic;
       traffic = traffic.concat(res.results);
       this.setData({
-        traffic: traffic
+        traffic: traffic,
+        ['traffic_body.isFirst']: false
       })
     }, (err) => {
       console.error(err);
+      this.setData({ ['traffic_body.isFirst']: false })
     })
   },
   getLarkGoodsList() {
@@ -193,10 +207,12 @@ Page({
       let lark = this.data.lark_body.page === 1 ? [] : this.data.lark;
       lark = lark.concat(res.results);
       this.setData({
-        lark: lark
+        lark: lark,
+        ['lark_body.isFirst']: false
       })
     }, (err) => {
       console.error(err);
+      this.setData({ ['lark_body.isFirst']: false })
     })
   },
   getShoppingGoodsList() {
@@ -207,10 +223,12 @@ Page({
       let shopping = this.data.shopping_body.page === 1 ? [] : this.data.shopping;
       shopping = shopping.concat(res.results);
       this.setData({
-        shopping: shopping
+        shopping: shopping,
+        ['shopping_body.isFirst']: false
       })
     }, (err) => {
       console.error(err);
+      this.setData({ ['shopping_body.isFirst']: false })
     })
   },
   scrolltolower(e) {
