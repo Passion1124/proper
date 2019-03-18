@@ -74,7 +74,6 @@ Page({
     this.setData({
       start_date: this.getNowFormatDate()
     });
-    console.log(this.data.start_date);
     this.getReceiverLatest();
     this.getGoodsItemDetail();
   },
@@ -137,7 +136,7 @@ Page({
         let { addr, addrType, alias, email, faxNo, name, phoneNo } = res.receiver;
         this.setData({
           receiver: { addr, addrType, alias, email, faxNo, name, phoneNo },
-          mail: addr
+          mail: addrType ? addr : ''
         });
       }
     }, err => {
