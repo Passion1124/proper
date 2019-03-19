@@ -264,6 +264,13 @@ var DateFr = {
       str = '使用'
     }
     return str + '日期'
+  },
+  getReceiverEnglishNameText: function (enName) {
+    if (enName) {
+      return enName.split('|')[1] + ' ' + enName.split('|')[0];
+    } else {
+      return '';
+    }
   }
 }
 
@@ -292,5 +299,6 @@ module.exports = {
   getFoodOrderTotal: DateFr.getFoodOrderTotal,
   getNowFoodOrderNum: DateFr.getNowFoodOrderNum,
   getFoodOrderBatchTotalPrice: DateFr.getFoodOrderBatchTotalPrice,
-  getOrderPageUseDateText: DateFr.getOrderPageUseDateText
+  getOrderPageUseDateText: DateFr.getOrderPageUseDateText,
+  getReceiverEnglishNameText: DateFr.getReceiverEnglishNameText
 }

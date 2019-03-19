@@ -37,13 +37,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 5,
 			"list": [
 				{
 					"id": 0,
 					"name": "order",
 					"pathName": "pages/order/order",
-					"query": "giid=27d25a7f-9f68-4300-989c-1bd6ee270938&type=3",
+					"query": "giid=a98aa676-568f-4a74-8209-2e938abde249&type=4",
 					"scene": 1001
 				},
 				{
@@ -78,7 +78,7 @@
 					"id": 5,
 					"name": "订单详情 - 旅游",
 					"pathName": "pages/orderDetail/orderDetail",
-					"query": "id=6a90fea3ef05426ba5e97c65f1eb65ba",
+					"query": "id=de495717c5274e4a9b96b35f97f8ad97",
 					"scene": null
 				},
 				{

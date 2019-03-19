@@ -1,7 +1,7 @@
 <!-- orderDetail.wxml -->
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container'>
-  <view class='tips pending' wx:if='{{order.orderStatus === -1}}'>
+  <view class='tips pending' wx:if='{{order.orderStatus === -1 && !isTimeOut}}'>
     <view class='title'>亲，请尽快付款</view>
     <view class='subTitle'>支付剩余时间
       <text>{{dateFr.secondToDate(count_down)}}</text> 请尽快支付</view>
@@ -46,10 +46,33 @@
             <!-- <text wx:if='{{item.extField}}'> / {{dateFr.getExtFieldText(item.extField)}}</text> -->
             <text> / 份数:{{item.merchCount}}</text>
           </view>
-          <view class='c_date'>有效期至：{{dateFr.getChineseDate(item.usingEndDate)}}</view>
+          <view class='c_date' wx:if='{{false}}'>有效期至：{{dateFr.getChineseDate(item.usingEndDate)}}</view>
         </view>
       </view>
     </block>
+    <view class='commodity_other_info'>
+      <block wx:if='{{orderMerches[0].orderPlayMerch}}'>
+        <view class='text'>{{dateFr.getOrderPageUseDateText(orderMerches[0].subType)}}：{{ dateFr.getDate(orderMerches[0].orderPlayMerch.usingDate, '-')}}</view>
+        <view class='text' wx:if='{{orderMerches[0].orderPlayMerch.startTime && orderMerches[0].orderPlayMerch.endTime}}'>时段：{{orderMerches[0].orderPlayMerch.startTime + ' - ' + orderMerches[0].orderPlayMerch.endTime}}</view>
+        <view class='text' wx:if='{{orderMerches[0].orderPlayMerch.plan}}'>场次：{{orderMerches[0].orderPlayMerch.plan}}</view>
+        <view class='text'>购买数量：{{orderMerches[0].merchCount}}</view>
+      </block>
+      <block wx:if='{{orderMerches[0].orderTravelMerch}}'>
+        <view class='text'>{{dateFr.getOrderPageUseDateText(orderMerches[0].subType)}}：{{ dateFr.getDate(orderMerches[0].orderTravelMerch.travelDate, '-')}}</view>
+        <view class='text' wx:if='{{orderMerches[0].orderTravelMerch.upTime}}'>上车时间：{{ orderMerches[0].orderTravelMerch.upTime }}</view>
+        <view class='text'>上车地点：{{ orderMerches[0].orderTravelMerch.upPlace }}</view>
+        <view class='text' wx:if='{{orderMerches[0].orderTravelMerch.downPlace}}'>下车地点：{{ orderMerches[0].orderTravelMerch.downPlace }}</view>
+        <view class='text'>所需车辆：{{orderMerches[0].merchCount}}</view>
+      </block>
+      <block wx:if='{{orderMerches[0].orderTrafficMerch}}'>
+        <view class='text'>{{dateFr.getOrderPageUseDateText(orderMerches[0].subType)}}：{{dateFr.getDate(orderMerches[0].orderTrafficMerch.upDate, '-')}}</view>
+        <view class='text' wx:if='{{orderMerches[0].orderTrafficMerch.flyNum}}'>航班号：{{orderMerches[0].orderTrafficMerch.flyNum}}</view>
+        <view class='text' wx:if='{{orderMerches[0].orderTrafficMerch.upTime}}'>上车时间：{{orderMerches[0].orderTrafficMerch.upTime}}</view>
+        <view class='text' wx:if='{{orderMerches[0].orderTrafficMerch.upPlace}}'>{{ (orderMerches[0].subType === 31 || orderMerches[0].subType === 32) ? "领取地点" : "上车地点"}}：{{orderMerches[0].orderTrafficMerch.upPlace}}</view>
+        <view class='text' wx:if='{{orderMerches[0].orderTrafficMerch.downPlace}}'>下车地点：{{orderMerches[0].orderTrafficMerch.downPlace}}</view>
+        <view class='text'>{{ (orderMerches[0].subType === 31 || orderMerches[0].subType === 32) ? "购买数量" : "所需车辆"}}：{{orderMerches[0].merchCount}}</view>
+      </block>
+    </view>
   </view>
   <view class='row'>
     <view class='text'>订单编号：{{order.orderNo}}</view>
@@ -61,6 +84,8 @@
     <view class='text'>退款时间：{{dateFr.formatTime(order.refundReqAt)}}</view>
   </view>
   <view class='row'>
+    <view class='text'>中文姓名：{{receiver.name}}</view>
+    <view class='text' wx:if='{{receiver.enName}}'>英文名字：{{dateFr.getReceiverEnglishNameText(receiver.enName)}}</view>
     <view class='text'>手机：{{receiver.phoneNo}}</view>
     <view class='text'>邮箱：{{receiver.email}}</view>
     <view class='text' wx:if='{{receiver.faxNo}}'>传真：{{receiver.faxNo}}</view>

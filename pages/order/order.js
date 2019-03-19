@@ -89,7 +89,8 @@ Page({
     mail: '',
     tourism: [11, 12],
     traffic: [31, 32, 33, 34, 35, 38],
-    play: [36, 37, 41, 42, 43]
+    play: [36, 37, 41, 42, 43],
+    time_interval: ''
   },
 
   /**
@@ -282,16 +283,31 @@ Page({
   // 点击去付款按钮
   handleClickPaymentButton () {
     let type = this.data.goodsItem.goodsItemBase.subType;
+    // 旅游
+    let orderTravelMerch = this.data.orderTravelMerch;
+    // 交通
+    let orderTrafficMerch = this.data.orderTrafficMerch;
+    // 玩乐
+    let orderPlayMerch = this.data.orderPlayMerch;
     if (!this.data.useData) {
       utils.showMessage('请选择日期');
-    } else if (!this.data.orderTravelMerch.upTime && type === 11) {
+    } else if ((!orderTravelMerch.upTime && type === 11) || (!orderTrafficMerch.upTime && (type === 38 || type === 34))) {
       utils.showMessage('请选择上车时间');
-    } else if (!this.data.orderTravelMerch.upPlace && (type === 11 || type === 12)) {
+    } else if ((!orderTravelMerch.upPlace && (type === 11 || type === 12)) || (!orderTrafficMerch.upPlace && (type === 38 || type === 34))) {
       utils.showMessage('请选择上车地点');
-    } else if (!this.data.orderTravelMerch.downPlace && type === 11) {
+    } else if ((!orderTravelMerch.downPlace && type === 11) || (!orderTrafficMerch.downPlace && type === 34)) {
       utils.showMessage('请选择下车地点');
-    } else if (!this.data.orderTrafficMerch.upPlace && type === 31) {
-      utils.showMessage('请选择领取地点');
+    } else if (!orderTrafficMerch.upPlace && (type === 31 || type === 32)) {
+      let msg = type === 31 ? '请选择领取地点' : '请输入领取地点';
+      utils.showMessage(msg);
+    } else if (!orderTrafficMerch.flyNum && (type === 33 || type === 38)) {
+      utils.showMessage('请输入航班号');
+    } else if (!orderTrafficMerch.downPlace && type === 33) {
+      utils.showMessage('请输入目的地');
+    } else if (!orderPlayMerch.plan && (type === 36 || type === 42)) {
+      utils.showMessage('请选择场次');
+    } else if (!this.data.time_interval && type === 37) {
+      utils.showMessage('请选择时段');
     } else if (!this.data.receiver.name) {
       utils.showMessage('请输入您的姓名');
     } else if (!this.data.receiver.phoneNo) {
@@ -319,15 +335,19 @@ Page({
         this.data.receiver.addr = '';
         this.data.receiver.addrType = '';
       }
-      if (type === 11 || type === 12) {
+      if (this.data.tourism.indexOf(type) !== -1) {
         this.data.orderTravelMerch.travelDate = new Date(this.data.useData).getTime();
         this.data.orderTravelMerch.carNum = this.data.orderMerches.merchCount;
         this.data.orderMerches.orderTravelMerch = this.data.orderTravelMerch;
       }
-      if (type === 31) {
+      if (this.data.traffic.indexOf(type) !== -1) {
         this.data.orderTrafficMerch.upDate = new Date(this.data.useData).getTime();
         this.data.orderTrafficMerch.carNum = this.data.orderMerches.merchCount;
         this.data.orderMerches.orderTrafficMerch = this.data.orderTrafficMerch;
+      }
+      if (this.data.play.indexOf(type) !== -1) {
+        this.data.orderPlayMerch.usingDate = new Date(this.data.useData).getTime();
+        this.data.orderMerches.orderPlayMerch = this.data.orderPlayMerch;
       }
       this.handleSaveReceiverInfo();
     }
@@ -342,16 +362,21 @@ Page({
   // 修改上车时间
   bindUpTimeChange (e) {
     let value = '';
-    if (this.data.goodsItem.goodsItemBase.subType === 11) value = 'orderTravelMerch.upTime';
+    let type = this.data.goodsItem.goodsItemBase.subType;
+    if (this.data.tourism.indexOf(type) !== -1) value = 'orderTravelMerch.upTime';
+    else if (this.data.traffic.indexOf(type) !== -1) value = 'orderTrafficMerch.upTime';
+    else if (this.data.play.indexOf(type) !== -1) value = 'orderPlayMerch.upTime';
     this.setData({
       [value]: e.detail.value
     });
   },
-  // 修改上车地点
+  // 修改上车地点/领取地点
   bindUpPlaceChange (e) {
     let value = '';
     let type = this.data.goodsItem.goodsItemBase.subType;
     if (this.data.tourism.indexOf(type) !== -1) value = 'orderTravelMerch.upPlace';
+    else if (this.data.traffic.indexOf(type) !== -1) value = 'orderTrafficMerch.upPlace';
+    else if (this.data.play.indexOf(type) !== -1) value = 'orderPlayMerch.upPlace';
     this.setData({
       [value]: e.detail.value
     });
@@ -359,22 +384,54 @@ Page({
   // 修改下车地点
   bindDownPlaceChange (e) {
     let value = '';
-    if (this.data.goodsItem.goodsItemBase.subType === 11) value = 'orderTravelMerch.downPlace';
+    let type = this.data.goodsItem.goodsItemBase.subType;
+    if (this.data.tourism.indexOf(type) !== -1) value = 'orderTravelMerch.downPlace';
+    else if (this.data.traffic.indexOf(type) !== -1) value = 'orderTrafficMerch.downPlace';
+    else if (this.data.play.indexOf(type) !== -1) value = 'orderPlayMerch.downPlace';
     this.setData({
       [value]: e.detail.value
     });
   },
-  // 修改领取地点
+  // 选择领取地点
   bindReceivePlace (e) {
     this.setData({
       ['orderTrafficMerch.upPlace']: this.data.goodsItem.goodsItemInfo.infoExt.address[parseInt(e.detail.value)]
     })
   },
+  // 选择场次
+  bindScenePlan (e) {
+    this.setData({
+      ['orderPlayMerch.plan']: this.data.goodsItem.goodsItemInfo.infoExt.scene[parseInt(e.detail.value)]
+    })
+  },
+  // 选择时段
+  bindTimeInterval (e) {
+    let time_interval = this.data.goodsItem.goodsItemBase.ext.preOrderTime[parseInt(e.detail.value)];
+    this.setData({
+      time_interval,
+      ['orderPlayMerch.startTime']: time_interval.split(' - ')[0],
+      ['orderPlayMerch.endTime']: time_interval.split(' - ')[1]
+    })
+  },
+  // 修改航班号
+  bindFlyNumChange (e) {
+    this.setData({
+      ['orderTrafficMerch.flyNum']: e.detail.value
+    })
+  },
   // Copy上车地点
   handleCopyUpPlace () {
-    let value = this.data.orderTravelMerch.upPlace;
+    let value = '', str = '';
+    let type = this.data.goodsItem.goodsItemBase.subType;
+    if (this.data.tourism.indexOf(type) !== -1) {
+      value = this.data.orderTravelMerch.upPlace;
+      str = 'orderTravelMerch.downPlace'
+    } else if (this.data.traffic.indexOf(type) !== -1) {
+      value = this.data.orderTrafficMerch.upPlace;
+      str = 'orderTrafficMerch.downPlace'
+    }
     this.setData({
-      ['orderTravelMerch.downPlace']: value
+      [str]: value
     });
   },
   // 修改英文名称

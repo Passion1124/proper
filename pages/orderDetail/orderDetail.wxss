@@ -94,8 +94,13 @@
   margin-bottom: 40rpx;
 }
 
+.row .commodity_other_info{
+  margin-top: 26rpx;
+}
+
 .row .commodity .poster{
   width: 172rpx;
+  min-width: 172rpx;
   height: 172rpx;
   border-radius: 8rpx;
   margin-right: 24rpx;
@@ -108,12 +113,21 @@
   vertical-align: top;
 }
 
+.row .commodity .info{
+  flex: 1;
+  max-width: 480rpx;
+}
+
 .row .commodity .info .c_title{
+  width: 100%;
   font-size: 32rpx;
   line-height: 45rpx;
   letter-spacing: 1rpx;
   color: #3C3C3C;
   margin-bottom: 32rpx;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
 
 .row .commodity .info .c_subInfo, .row .commodity .info .c_date{

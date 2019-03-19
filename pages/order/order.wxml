@@ -13,17 +13,6 @@
       </view>
     </view>
   </view>
-  <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 31}}'>
-    <view class='text'>领取地点</view>
-    <view class='date'>
-      <picker mode='selector' range='{{goodsItem.goodsItemInfo.infoExt.address}}' value='{{orderTrafficMerch.upPlace}}' bindchange="bindReceivePlace">
-        <view class='blue_text'>{{orderTrafficMerch.upPlace ||'选择领取地点'}}</view>
-      </picker>
-      <view class='img_row'>
-        <image src='../../img/common/more.png'></image>
-      </view>
-    </view>
-  </view>
   <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 11}}'>
     <view class='text'>上车时间</view>
     <view class='date'>
@@ -48,10 +37,82 @@
       <button bindtap='handleCopyUpPlace'>同上车地点</button>
     </view>
   </view>
+  <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 38 || goodsItem.goodsItemBase.subType === 34}}'>
+    <view class='text'>上车时间</view>
+    <view class='date'>
+      <picker mode='time' value='{{orderTrafficMerch.upTime}}' bindchange="bindUpTimeChange">
+        <view class='blue_text'>{{orderTrafficMerch.upTime ||'选择上车时间'}}</view>
+      </picker>
+      <view class='img_row'>
+        <image src='../../img/common/more.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 31 || goodsItem.goodsItemBase.subType === 32}}'>
+    <view class='text'>领取地点</view>
+    <view class='receive' wx:if='{{goodsItem.goodsItemBase.subType === 31}}'>
+      <picker mode='selector' range='{{goodsItem.goodsItemInfo.infoExt.address}}' value='{{orderTrafficMerch.upPlace}}' bindchange="bindReceivePlace">
+        <view class='blue_text'>{{orderTrafficMerch.upPlace ||'选择领取地点'}}</view>
+      </picker>
+      <view class='img_row'>
+        <image src='../../img/common/more.png'></image>
+      </view>
+    </view>
+    <view class='receive' wx:if='{{goodsItem.goodsItemBase.subType === 32}}'>
+      <input placeholder='请输入领取地点' placeholder-class='phcolor' value='{{orderTrafficMerch.upPlace}}' bindinput='bindUpPlaceChange'></input>
+    </view>
+  </view>
+  <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 38 || goodsItem.goodsItemBase.subType === 34}}'>
+    <view class='text'>上车地点</view>
+    <view class='upPlace'>
+      <input placeholder-class='phcolor' placeholder='请输入上车地点' value='{{orderTrafficMerch.upPlace}}' bindinput='bindUpPlaceChange'></input>
+    </view>
+  </view>
+  <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 34}}'>
+    <view class='text'>下车地点</view>
+    <view class='downPlace'>
+      <input placeholder-class='phcolor' placeholder='请输入下车地点' value='{{orderTrafficMerch.downPlace}}' bindinput='bindDownPlaceChange'></input>
+      <button bindtap='handleCopyUpPlace'>同上车地点</button>
+    </view>
+  </view>
+  <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 33 || goodsItem.goodsItemBase.subType === 38}}'>
+    <view class='text'>航班号</view>
+    <view class='downPlace'>
+      <input placeholder-class='phcolor' placeholder='输入航班号，如“CA1234”' value='{{orderTrafficMerch.flyNum}}' bindinput='bindFlyNumChange'></input>
+    </view>
+  </view>
+  <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 33}}'>
+    <view class='text'>目的地</view>
+    <view class='downPlace'>
+      <input placeholder-class='phcolor' placeholder='请输入目的地' value='{{orderTrafficMerch.downPlace}}' bindinput='bindDownPlaceChange'></input>
+    </view>
+  </view>
+  <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 36 || goodsItem.goodsItemBase.subType === 42}}'>
+    <view class='text'>场次</view>
+    <view class='scene'>
+      <picker mode='selector' range='{{goodsItem.goodsItemInfo.infoExt.scene}}' value='{{orderPlayMerch.plan}}' bindchange="bindScenePlan">
+        <view class='blue_text'>{{orderPlayMerch.plan ||'选择场次'}}</view>
+      </picker>
+      <view class='img_row'>
+        <image src='../../img/common/more.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 37}}'>
+    <view class='text'>时段</view>
+    <view class='time_interval'>
+      <picker mode='selector' range='{{goodsItem.goodsItemBase.ext.preOrderTime}}' value='{{time_interval}}' bindchange="bindTimeInterval">
+        <view class='blue_text'>{{time_interval ||'选择时段'}}</view>
+      </picker>
+      <view class='img_row'>
+        <image src='../../img/common/more.png'></image>
+      </view>
+    </view>
+  </view>
   <view class='many'>
-    <view class='text' wx:if='{{goodsItem.goodsItemBase.subType === 11}}'>所需车辆</view>
+    <view class='text' wx:if='{{goodsItem.goodsItemBase.subType === 11 || goodsItem.goodsItemBase.subType === 33 || goodsItem.goodsItemBase.subType === 34 || goodsItem.goodsItemBase.subType === 38}}'>所需车辆</view>
     <view class='text' wx:if='{{goodsItem.goodsItemBase.subType === 12}}'>乘车人</view>
-    <view class='text' wx:if='{{goodsItem.goodsItemBase.subType === 31}}'>购买数量</view>
+    <view class='text' wx:if='{{goodsItem.goodsItemBase.subType === 31 || goodsItem.goodsItemBase.subType === 32 || goodsItem.goodsItemBase.subType === 36 || goodsItem.goodsItemBase.subType === 37 || goodsItem.goodsItemBase.subType === 41 || goodsItem.goodsItemBase.subType === 42}}'>购买数量</view>
     <view class='copies'>
       <view bindtap='bindMinus'>
         <view class='img_row'>
