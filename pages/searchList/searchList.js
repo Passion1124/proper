@@ -238,13 +238,13 @@ Page({
     } else if (this.data.currentTab === 1 && this.isInteger(this.data.full_day.length / 30)) {
       this.data.full_day_body.page++;
       this.getFullDayGoodsList();
-    } else if (this.data.currentTab === 2 && this.isInteger(this.data.food.length / 30)) {
+    } else if (this.data.currentTab === 4 && this.isInteger(this.data.food.length / 30)) {
       this.data.food_body.page++;
       this.getFoodGoodsList();
-    } else if (this.data.currentTab === 3 && this.isInteger(this.data.traffic.length / 30)) {
+    } else if (this.data.currentTab === 2 && this.isInteger(this.data.traffic.length / 30)) {
       this.data.traffic_body.page++;
       this.getTrafficGoodsList();
-    } else if (this.data.currentTab === 4 && this.isInteger(this.data.lark.length / 30)) {
+    } else if (this.data.currentTab === 3 && this.isInteger(this.data.lark.length / 30)) {
       this.data.lark_body.page++;
       this.getLarkGoodsList();
     } else if (this.data.currentTab === 5 && this.isInteger(this.data.shopping.length / 30)) {
@@ -257,11 +257,11 @@ Page({
       this.getAllGoodsList();
     } else if (this.data.currentTab === 1 && !this.data.full_day.length) {
       this.getFullDayGoodsList();
-    } else if (this.data.currentTab === 2 && !this.data.food.length) {
+    } else if (this.data.currentTab === 4 && !this.data.food.length) {
       this.getFoodGoodsList();
-    } else if (this.data.currentTab === 3 && !this.data.traffic.length) {
+    } else if (this.data.currentTab === 2 && !this.data.traffic.length) {
       this.getTrafficGoodsList();
-    } else if (this.data.currentTab === 4 && !this.data.lark.length) {
+    } else if (this.data.currentTab === 3 && !this.data.lark.length) {
       this.getLarkGoodsList();
     } else if (this.data.currentTab === 5 && !this.data.shopping.length) {
       this.getShoppingGoodsList();
@@ -296,21 +296,21 @@ Page({
       });
       this.data.full_day = [];
       this.getFullDayGoodsList();
-    } else if (this.data.currentTab === 2 && this.data.food_body.sortType !== sortType) {
+    } else if (this.data.currentTab === 4 && this.data.food_body.sortType !== sortType) {
       this.setData({
         ['food_body.sortType']: Number(sortType),
         ['food_body.page']: 1
       });
       this.data.food = [];
       this.getFoodGoodsList();
-    } else if (this.data.currentTab === 3 && this.data.traffic_body.sortType !== sortType) {
+    } else if (this.data.currentTab === 2 && this.data.traffic_body.sortType !== sortType) {
       this.setData({
         ['food_body.sortType']: Number(sortType),
         ['food_body.page']: 1
       });
       this.data.food = [];
       this.getFoodGoodsList();
-    } else if (this.data.currentTab === 4 && this.data.lark_body.sortType !== sortType) {
+    } else if (this.data.currentTab === 3 && this.data.lark_body.sortType !== sortType) {
       this.setData({
         ['lark_body.sortType']: Number(sortType),
         ['lark_body.page']: 1

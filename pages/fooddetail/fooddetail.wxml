@@ -6,7 +6,7 @@
     <swiper indicator-dots="{{indicatorDots}}" indicator-color='rgba(187,187,187,1)' indicator-active-color='#0000FF' autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular='true'>
       <block wx:for="{{imgUrls}}" wx:key="{{index}}">
         <swiper-item>
-          <image src="{{item}}" class="slide-image swiper_img" />
+          <image src="{{item + '?x-oss-process=image/resize,w_600'}}" class="slide-image swiper_img" />
         </swiper-item>
       </block>
     </swiper>
@@ -109,7 +109,7 @@
         <block wx:for='{{goodsItem}}' wx:key='{{index}}'>
           <view class='list' data-giid='{{item.goodsItemInfo.giid}}' bindtap='goToTheFoodSetDetail'>
             <view class='poster'>
-              <image src='{{item.goodsItemBase.poster}}'></image>
+              <image src='{{item.goodsItemBase.poster + "?x-oss-process=image/resize,w_200"}}'></image>
             </view>
             <view class='info'>
               <view class='info_name'>{{item.goodsItemInfo.name}}</view>

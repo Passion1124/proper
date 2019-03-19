@@ -220,14 +220,17 @@
 }
 
 .hot_recommend .tabs_title .tabs_title_text {
+  flex: 1;
+  padding-right: 30rpx;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .hot_recommend .tabs_title .tabs_title_text view {
   position: relative;
   padding-bottom: 22rpx;
-  margin-right: 50rpx;
+  /* margin-right: 50rpx; */
 }
 
 .hot_recommend .tabs_title .tabs_title_text view:last-of-type {
