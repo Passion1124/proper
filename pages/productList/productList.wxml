@@ -41,7 +41,7 @@
           <block wx:for='{{full_day}}' wx:key='{{index}}'>
             <view class='list {{tabs_type === "horizontal" ? "horizontal" : ""}}' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
-                <image class='bg' src='{{item.goodsBase.poster}}'></image>
+                <image class='bg' src='{{item.goodsBase.poster + "?x-oss-process=image/resize,w_400"}}'></image>
                 <view class='icon'>
                   <view class='icon_left'>
                     <image class='top' wx:if='{{ item.goodsBase.top === 1 }}' src='../../img/index/top.png'></image>
@@ -123,7 +123,7 @@
           <block wx:for='{{traffic}}' wx:key='{{index}}'>
             <view class='list {{tabs_type === "horizontal" ? "horizontal" : ""}}' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
-                <image class='bg' src='{{item.goodsBase.poster}}'></image>
+                <image class='bg' src='{{item.goodsBase.poster + "?x-oss-process=image/resize,w_400"}}'></image>
                 <view class='icon'>
                   <view class='icon_left'>
                     <image class='top' wx:if='{{ item.goodsBase.top === 1 }}' src='../../img/index/top.png'></image>
@@ -205,7 +205,7 @@
           <block wx:for='{{lark}}' wx:key='{{index}}'>
             <view class='list {{tabs_type === "horizontal" ? "horizontal" : ""}}' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
-                <image class='bg' src='{{item.goodsBase.poster}}'></image>
+                <image class='bg' src='{{item.goodsBase.poster + "?x-oss-process=image/resize,w_400"}}'></image>
                 <view class='icon'>
                   <view class='icon_left'>
                     <image class='top' wx:if='{{ item.goodsBase.top === 1 }}' src='../../img/index/top.png'></image>
@@ -327,7 +327,7 @@
           <block wx:for='{{food}}' wx:key='{{index}}'>
             <view class='list {{tabs_type === "horizontal" ? "horizontal" : ""}}' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
-                <image class='bg' src='{{item.goodsBase.poster}}'></image>
+                <image class='bg' src='{{item.goodsBase.poster + "?x-oss-process=image/resize,w_400"}}'></image>
                 <view class='icon'>
                   <view class='icon_left'>
                     <image class='top' wx:if='{{ item.goodsBase.top === 1 }}' src='../../img/index/top.png'></image>
@@ -409,7 +409,7 @@
           <block wx:for='{{shopping}}' wx:key='{{index}}'>
             <view class='list {{tabs_type === "horizontal" ? "horizontal" : ""}}' data-gid='{{item.goodsInfo.gid}}' data-type='{{item.goodsInfo.type}}' bindtap='goToThePoiDetail'>
               <view class='img_row'>
-                <image class='bg' src='{{item.goodsBase.poster}}'></image>
+                <image class='bg' src='{{item.goodsBase.poster + "?x-oss-process=image/resize,w_400"}}'></image>
                 <view class='icon'>
                   <view class='icon_left'>
                     <image class='top' wx:if='{{ item.goodsBase.top === 1 }}' src='../../img/index/top.png'></image>

@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "预定信息"
+  "navigationBarTitleText": "预定信息",
+  "usingComponents": {
+    "pinyin": "js-pinyin"
+  }
 }
