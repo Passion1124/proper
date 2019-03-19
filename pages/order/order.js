@@ -1,5 +1,6 @@
 import md5 from '../../utils/md5.js'
 import utils from '../../utils/util.js'
+import pinyin from '../../utils/pinyin.js'
 
 const app = getApp();
 
@@ -114,7 +115,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+    console.log(pinyin.pinyin.getFullChars('管理员'));
   },
 
   /**
@@ -166,8 +167,8 @@ Page({
       console.log(res);
       if (res.receiver) {
         let { addr, addrType, alias, email, faxNo, name, phoneNo, enName } = res.receiver;
-        let surname = enName.split('|')[1];
-        let en_name = enName.split('|')[0];
+        let surname = enName.split('|')[1] || '';
+        let en_name = enName.split('|')[0] || '';
         this.setData({
           receiver: { addr, addrType, alias, email, faxNo, name, phoneNo },
           mail: addrType ? '' : addr,
@@ -309,7 +310,7 @@ Page({
     } else if (!this.data.time_interval && type === 37) {
       utils.showMessage('请选择时段');
     } else if (!this.data.receiver.name) {
-      utils.showMessage('请输入您的姓名');
+      utils.showMessage('请输入中文姓名');
     } else if (!this.data.receiver.phoneNo) {
       utils.showMessage('请输入您的手机号码');
     } else if (this.data.receiver.phoneNo && !utils.validatePhone(this.data.receiver.phoneNo)) {
@@ -433,6 +434,22 @@ Page({
     this.setData({
       [str]: value
     });
+  },
+  // 转为英文姓名
+  handleTransformEnglishName () {
+    let cName = this.data.receiver.name;
+    if (cName.length < 2) {
+      utils.showMessage('中文姓名不能少于两个字');
+    } else if (!this.isChinese(cName)) {
+      utils.showMessage('请输入中文的姓名');
+    } else {
+      let surname = pinyin.pinyin.getFullChars(cName.substring(0, 1));
+      let en_name = pinyin.pinyin.getFullChars(cName.substring(1));
+      this.setData({
+        surname,
+        en_name
+      })
+    }
   },
   // 修改英文名称
   bindEnNameChange (e) {
@@ -618,5 +635,10 @@ Page({
     this.setData({
       pickUpType: parseInt(type)
     })
+  },
+  // 判断是否为汉字
+  isChinese (str) {
+    let reg = new RegExp(/^[\u4e00-\u9fa5]+$/);
+    return reg.test(str);
   }
 })

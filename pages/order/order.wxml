@@ -161,7 +161,7 @@
     <view class='text'>中文姓名</view>
     <view class='cName'>
       <input placeholder-class='phcolor' value='{{receiver.name}}' placeholder='中文姓名' bindinput='handleInputName'></input>
-      <button>转为英文姓名</button>
+      <button bindtap='handleTransformEnglishName'>转为英文姓名</button>
     </view>
   </view>
   <view class='english_name'>
