@@ -5,6 +5,12 @@ const app = getApp();
 
 var WxParse = require('../../wxParse/wxParse.js');
 
+const overlayAnimation = wx.createAnimation({
+  duration: 300,
+  timingFunction: 'linear',
+  delay: 0
+});
+
 Page({
 
   /**
@@ -29,7 +35,13 @@ Page({
     comment: [],
     commentCount: 0,
     coupons: [],
-    hasExists: []
+    hasExists: [],
+    foodDtos: [],
+    preOrderGoodsItem: [],
+    preOrderTotal: 0,
+    foodDtosShow: {},
+    overlay: false,
+    overlayStatus: 'normal'
   },
 
   /**
@@ -42,6 +54,7 @@ Page({
     });
     this.getGoodsDetail();
     this.getGoodsItemList();
+    this.getPreOrderGoodsItemList();
     this.getCommentList();
     this.getCommentCount();
     this.getFavorCheckList();
@@ -53,7 +66,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    
   },
 
   /**
@@ -118,11 +131,12 @@ Page({
       }
       WxParse.wxParse('article', 'html', this.data.goods.goodsInfo.info, this, 5);
       this.getPreOrderSetting(res.goodsVO.goodsBase.mid);
+      this.getFoodSpecialList();
     }, (err) => {
       console.error(err);
     })
   },
-  // 子商品列表
+  // 美食套餐列表
   getGoodsItemList() {
     let api = 'com.ttdtrip.api.goods.apis.GoodsItemListApiService';
     let data = {
@@ -138,6 +152,44 @@ Page({
         goodsItem: res.goodsItemVOS,
         goodsItemCount: res.total
       });
+    }, e => {
+      console.error(e);
+    })
+  },
+  // 代预定列表
+  getPreOrderGoodsItemList () {
+    let api = 'com.ttdtrip.api.goods.apis.GoodsItemListApiService';
+    let data = {
+      base: app.globalData.baseBody,
+      gid: this.data.gid,
+      subType: 23,
+      page: 1,
+      size: 2
+    };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        preOrderGoodsItem: res.goodsItemVOS,
+        preOrderTotal: res.total
+      });
+    }, e => {
+      console.error(e);
+    })
+  },
+  // 特色菜列表
+  getFoodSpecialList () {
+    let api = 'com.ttdtrip.api.restaurant.apis.service.FoodSpecialListApiService';
+    let data = {
+      base: app.globalData.baseBody,
+      mid: this.data.goods.goodsBase.mid,
+      page: 1,
+      size: 100
+    };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        foodDtos: res.foodDtos
+      })
     }, e => {
       console.error(e);
     })
@@ -375,12 +427,7 @@ Page({
       address
     })
   },
-  goToTheGoodsItemDetail(e) {
-    let giid = e.currentTarget.dataset.giid;
-    wx.navigateTo({
-      url: '/pages/goodItemDetail/goodItemDetail?giid=' + giid + '&gid=' + this.data.gid + '&type=' + this.data.type,
-    })
-  },
+  // 去优惠券详情页面
   goToTheCouponsDetail(e) {
     let couponId = e.currentTarget.dataset.couponid;
     let id = e.currentTarget.dataset.id;
@@ -388,16 +435,19 @@ Page({
       url: '/pages/couponDetail/couponDetail?couponId=' + couponId + '&source=poi_detail&id=' + id,
     })
   },
+  // 去套餐列表页面
   goToTheFoodMealList(e) {
     wx.navigateTo({
       url: '/pages/foodMeal/foodMeal?gid=' + this.data.gid + '&type=' + this.data.type,
     })
   },
+  // 去评论页面
   goToTheCommentList() {
     wx.navigateTo({
       url: '/pages/morecomment/morecomment?target=' + this.data.gid,
     })
   },
+  // 去预定页面
   goToTheBookPage() {
     utils.userIsLogin().then(_ => {
       let goods = this.data.goods;
@@ -408,12 +458,14 @@ Page({
       console.log('unLogin');
     })
   },
+  // 去套餐详情页面
   goToTheFoodSetDetail (e) {
     let giid = e.currentTarget.dataset.giid;
     wx.navigateTo({
       url: '/pages/foodsetdetail/foodsetdetail?giid=' + giid,
     })
   },
+  // 去排队页面
   goToTheLineUp (e) {
     utils.userIsLogin().then(_ => {
       let goodsBase = this.data.goods.goodsBase;
@@ -424,5 +476,30 @@ Page({
     }).catch(_ => {
       console.log('unLogin');
     })
+  },
+  // 点击特色菜
+  handleClickFoodDtos (e) {
+    let item = e.currentTarget.dataset.item;
+    this.setData({
+      overlay: true,
+      foodDtosShow: item
+    });
+    WxParse.wxParse('foodDtosDesc', 'html', this.data.foodDtosShow.foodLang.foodDescription, this, 5);
+    setTimeout(_ => {
+      this.setData({
+        overlayStatus: "show"
+      })
+    }, 300);
+  },
+  // 点击特色菜弹窗
+  handleClickOverlayRow () {
+    this.setData({
+      overlayStatus: "normal"
+    })
+    setTimeout(_ => {
+      this.setData({
+        overlay: false
+      })
+    }, 300);
   }
 })

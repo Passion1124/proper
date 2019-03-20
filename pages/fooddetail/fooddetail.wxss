@@ -1,3 +1,10 @@
+/*隐藏滚动条*/
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
 .banner {
   width: 100%;
   height: 655rpx;
@@ -135,7 +142,7 @@
   color: #484848;
 }
 
-.area .reserve, .area .lineUp{
+.area .reserve, .area .lineUp {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -144,43 +151,43 @@
   border-bottom: 1rpx solid #e0e0e0;
 }
 
-.area .lineUp{
+.area .lineUp {
   border-bottom: 0;
 }
 
-.area .reserve .left, .area .lineUp .left{
+.area .reserve .left, .area .lineUp .left {
   flex: 1;
 }
 
-.area .reserve .left .l_title, .area .lineUp .left .l_title{
+.area .reserve .left .l_title, .area .lineUp .left .l_title {
   font-size: 32rpx;
   line-height: 45rpx;
-  color: #3C3C3C;
+  color: #3c3c3c;
   margin-bottom: 20rpx;
 }
 
-.area .reserve .left .l_subTitle, .area .lineUp .left .l_subTitle{
+.area .reserve .left .l_subTitle, .area .lineUp .left .l_subTitle {
   font-size: 24rpx;
   line-height: 33rpx;
-  color: #666666;
+  color: #666;
 }
 
-.area .reserve .right, .area .lineUp .right{
+.area .reserve .right, .area .lineUp .right {
   max-width: 160rpx;
 }
 
-.area .reserve .right button, .area .lineUp .right button{
+.area .reserve .right button, .area .lineUp .right button {
   width: 154rpx;
   height: 51rpx;
   line-height: 51rpx;
   font-size: 22rpx;
   color: #fff;
   letter-spacing: 2rpx;
-  background-color: #23C2F7;
+  background-color: #23c2f7;
   border-radius: 31rpx;
 }
 
-.area .reserve .right .text, .area .lineUp .right .text{
+.area .reserve .right .text, .area .lineUp .right .text {
   font-size: 24rpx;
   line-height: 33rpx;
   color: #8c8c8c;
@@ -209,43 +216,43 @@
   margin-right: 24rpx;
 }
 
-.area .product>view .poster image{
+.area .product>view .poster image {
   width: 100%;
   height: 100%;
   vertical-align: top;
 }
 
-.area .product>view .info{
+.area .product>view .info {
   flex: 1;
 }
 
-.area .product>view .info .info_name{
+.area .product>view .info .info_name {
   font-size: 32rpx;
   line-height: 45rpx;
-  color: #3C3C3C;
+  color: #3c3c3c;
   letter-spacing: 1rpx;
 }
 
-.area .product>view .info .price{
+.area .product>view .info .price {
   display: flex;
   align-items: center;
   margin: 8rpx 0;
 }
 
-.area .product>view .info .price view{
+.area .product>view .info .price view {
   font-size: 24rpx;
   line-height: 33rpx;
   letter-spacing: 1rpx;
-  color: #F97572;
+  color: #f97572;
   margin-right: 8rpx;
 }
 
-.area .product>view .info .price view.original{
+.area .product>view .info .price view.original {
   color: #666;
   text-decoration: line-through;
 }
 
-.area .product>view .info .date{
+.area .product>view .info .date {
   font-size: 24rpx;
   line-height: 33rpx;
   color: #666;
@@ -256,6 +263,119 @@
   line-height: 32rpx;
   color: #23c2f7;
   margin-top: 20rpx;
+}
+
+.area .help_booking>view {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 40rpx 0;
+  border-bottom: 1rpx solid #e0e0e0;
+  box-sizing: border-box;
+}
+
+.area .help_booking>view:last-of-type{
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.area .help_booking>view:first-of-type{
+  padding-top: 0;
+}
+
+.area .help_booking>view .left {
+  flex: 1;
+}
+
+.area .help_booking>view .left .title{
+  width: 100%;
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #3C3C3C;
+  letter-spacing: 1rpx;
+  margin-bottom: 10rpx;
+}
+
+.area .help_booking>view .left .info{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #666666;
+  margin-bottom: 10rpx;
+}
+
+.area .help_booking>view .left .price{
+  display:flex;
+  align-items:center;
+}
+
+.area .help_booking>view .left .price .present{
+  font-size:24rpx;
+  line-height:33rpx;
+  letter-spacing:1rpx;
+  color:#f97572;
+  margin-right:8rpx;
+}
+
+.area .help_booking>view .left .price .original{
+  font-size:24rpx;
+  line-height:33rpx;
+  letter-spacing:1rpx;
+  color: #666;
+  text-decoration: line-through;
+}
+
+.area .help_booking>view .right button{
+  width: 154rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  font-size: 22rpx;
+  letter-spacing: 2rpx;
+  color: #fff;
+  background-color: #F97572;
+  border-radius: 31rpx;
+  padding: 0;
+}
+
+.area scroll-view{
+  width: 100%;
+}
+
+.area .foodDtos_row{
+  display: flex;
+}
+
+.area .foodDtos_row .foodDtos{
+  width: 280rpx;
+  margin-right: 28rpx;
+}
+
+.area .foodDtos_row .foodDtos:last-of-type{
+  margin-right: 0;
+}
+
+.area .foodDtos_row .foodDtos .poster{
+  width: 280rpx;
+  height: 210rpx;
+  border-radius: 12rpx;
+  background-color: #D8D8D8;
+  overflow: hidden;
+}
+
+.area .foodDtos_row .foodDtos .poster image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.area .foodDtos_row .foodDtos .foodDtosName{
+  width: 100%;
+  font-size: 30rpx;
+  color: #3c3c3c;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 18rpx;
 }
 
 .area .comment .user_info {
@@ -439,8 +559,8 @@
   margin: 25rpx auto 0;
 }
 
-.main_row .main:last-of-type {
-  margin-bottom: 0;
+.main_row .main:first-of-type {
+  margin-top: 0;
 }
 
 .main_row .main .bg {
@@ -547,4 +667,71 @@
   font-size: 24rpx;
   line-height: 33rpx;
   color: #8c8c8c;
+}
+
+.overlay{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  opacity: 0;
+  z-index: 66;
+  transition: all .3s linear;
+}
+
+.overlay.show {
+  background-color: rgba(0, 0, 0, .6);
+  opacity: 1;
+}
+
+.overlay .inner{
+  width: 640rpx;
+  height: 1000rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.overlay .inner scroll-view{
+  width: 100%;
+  height: 100%;
+}
+
+.overlay .inner .inner_poster{
+  width: 100%;
+  height: 480rpx;
+}
+
+.overlay .inner .inner_poster image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.overlay .inner .inner_main{
+  padding: 0 40rpx;
+}
+
+.overlay .inner .inner_main .title{
+  font-size: 36rpx;
+  line-height: 42rpx;
+  color: #3C3C3C;
+  margin-top: 40rpx;
+}
+
+.overlay .inner .inner_main .price{
+  font-size: 30rpx;
+  line-height: 42rpx;
+  color: #f97572;
+  margin: 20rpx 0;
+}
+
+.overlay .inner .inner_main .desc .WxEmojiView{
+  font-size: 28rpx;
+  line-height: 40rpx;
 }

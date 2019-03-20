@@ -6,7 +6,7 @@
     <swiper indicator-dots="{{indicatorDots}}" indicator-color='rgba(187,187,187,1)' indicator-active-color='#0000FF' autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular='true'>
       <block wx:for="{{imgUrls}}" wx:key="{{index}}">
         <swiper-item>
-          <image src="{{item + '?x-oss-process=image/resize,w_600'}}" class="slide-image swiper_img" />
+          <image mode='aspectFill' src="{{item + '?x-oss-process=image/resize,w_600'}}" class="slide-image swiper_img" />
         </swiper-item>
       </block>
     </swiper>
@@ -19,13 +19,13 @@
     <view class='area'>
       <view class='title'>{{ goods.goodsInfo.name }}</view>
       <view class='subTitle'>{{ goods.goodsInfo.category}} | 人均{{goods.goodsInfo.avgPrice}}</view>
-      <view class='food_price_box'>
+      <view class='food_price_box' wx:if='{{goods.goodsInfo.dPrice}}'>
         <view class='icon'>
           <image src='../../img/food/fooddetail_icon_sunshine.png'></image>
         </view>
         <view class='price'>日均价{{ goods.goodsInfo.dPrice }}</view>
       </view>
-      <view class='food_price_box'>
+      <view class='food_price_box' wx:if='{{goods.goodsInfo.nPrice}}'>
         <view class='icon'>
           <image src='../../img/food/fooddetail_icon_night.png'></image>
         </view>
@@ -103,19 +103,34 @@
         </view>
       </view>
     </view>
+    <view class='area' wx:if='{{foodDtos.length}}'>
+      <view class='area_title'>特色菜推荐</view>
+      <scroll-view scroll-x='{{true}}'>
+        <view class='foodDtos_row'>
+          <block wx:for='{{foodDtos}}' wx:key='{{index}}'>
+            <view class='foodDtos' data-item='{{item}}' bindtap='handleClickFoodDtos'>
+              <view class='poster'>
+                <image mode='aspectFill' src='{{item.foodLang.poster + "?x-oss-process=image/resize,w_200"}}'></image>
+              </view>
+              <view class='foodDtosName'>{{item.foodLang.foodName}}</view>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+    </view>
     <view class='area' wx:if='{{goodsItem.length}}'>
       <view class='area_title'>套餐在线预订</view>
       <view class='product'>
         <block wx:for='{{goodsItem}}' wx:key='{{index}}'>
           <view class='list' data-giid='{{item.goodsItemInfo.giid}}' bindtap='goToTheFoodSetDetail'>
             <view class='poster'>
-              <image src='{{item.goodsItemBase.poster + "?x-oss-process=image/resize,w_200"}}'></image>
+              <image mode='aspectFill' src='{{item.goodsItemBase.poster + "?x-oss-process=image/resize,w_200"}}'></image>
             </view>
             <view class='info'>
               <view class='info_name'>{{item.goodsItemInfo.name}}</view>
               <view class='price'>
                 <view class='present'>{{item.goodsItemBase.currency}}{{item.goodsItemBase.amount ? item.goodsItemBase.amount / 100 : item.goodsItemBase.sourceAmount / 100 }}</view>
-                  <view class='original' wx:if='{{item.goodsItemBase.amount && item.goodsItemBase.amount !== item.goodsItemBase.sourceAmount}}'>{{item.goodsItemBase.currency}}{{item.goodsItemBase.sourceAmount / 100 }}</view>
+                <view class='original' wx:if='{{item.goodsItemBase.amount && item.goodsItemBase.amount !== item.goodsItemBase.sourceAmount}}'>{{item.goodsItemBase.currency}}{{item.goodsItemBase.sourceAmount / 100 }}</view>
               </view>
               <view class='date'>有效期至：{{dateFr.getDate(item.goodsItemBase.end, '/')}}</view>
             </view>
@@ -123,6 +138,28 @@
         </block>
       </view>
       <view class='product_num' bindtap='goToTheFoodMealList'>查看全部{{goodsItemCount}}个套餐</view>
+    </view>
+    <view class='area' wx:if='{{preOrderGoodsItem.length}}'>
+      <view class='area_title'>用餐代预定</view>
+      <view class='help_booking'>
+        <block wx:for='{{preOrderGoodsItem}}' wx:key='{{index}}'>
+          <view class='list'>
+            <view class='left'>
+              <view class='title'>{{item.goodsItemInfo.name}}</view>
+              <view class='info'>可订{{item.goodsItemBase.preOrderDays}}日内 | 中文预定</view>
+              <view class='price'>
+                <view class='present'>{{item.goodsItemBase.currency}}{{item.goodsItemBase.amount ? item.goodsItemBase.amount / 100 : item.goodsItemBase.sourceAmount / 100 }}/人</view>
+                <view class='original' wx:if='{{item.goodsItemBase.amount && item.goodsItemBase.amount !== item.goodsItemBase.sourceAmount}}'>{{item.goodsItemBase.currency}}{{item.goodsItemBase.sourceAmount / 100 }}/人</view>
+              </view>
+            </view>
+            <view class='right'>
+              <button>预定</button>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+    <view class='area' wx:if='{{coupons.length}}'>
       <view class='main_row' wx:if='{{coupons.length}}'>
         <block wx:for="{{coupons}}" wx:key="{{index}}">
           <view class='main' data-couponId='{{item.id}}' data-id='{{item.id}}' bindtap='goToTheCouponsDetail'>
@@ -235,6 +272,22 @@
           </view>
         </block>
       </view>
+    </view>
+  </view>
+  <view class='overlay {{overlayStatus === "show" ? "show" : ""}}' animation='{{overlayAnimation}}' bindtap='handleClickOverlayRow' wx:if='{{overlay}}'>
+    <view class='inner'>
+      <scroll-view scroll-y='{{true}}'>
+        <view class='inner_poster'>
+          <image mode='aspectFill' src='{{foodDtosShow.foodLang.poster + "?x-oss-process=image/resize,w_600"}}'></image>
+        </view>
+        <view class='inner_main'>
+          <view class='title'>{{foodDtosShow.foodLang.foodName}}</view>
+          <view class='price'>{{foodDtosShow.food.currency + foodDtosShow.food.price / 100}}</view>
+          <view class='desc'>
+            <template is="wxParse" data="{{wxParseData: foodDtosDesc.nodes}}"/>
+          </view>
+        </view>
+      </scroll-view>
     </view>
   </view>
 </view>

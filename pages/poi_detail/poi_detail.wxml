@@ -6,7 +6,7 @@
     <swiper indicator-dots="{{indicatorDots}}" indicator-color='rgba(187,187,187,1)' indicator-active-color='#0000FF' autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular='true'>
       <block wx:for="{{imgUrls}}" wx:key="{{index}}">
         <swiper-item>
-          <image src="{{item + '?x-oss-process=image/resize,w_600'}}" class="slide-image swiper_img" />
+          <image mode='aspectFill' src="{{item + '?x-oss-process=image/resize,w_600'}}" class="slide-image swiper_img" />
         </swiper-item>
       </block>
     </swiper>
