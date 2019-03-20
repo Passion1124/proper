@@ -22,6 +22,10 @@ image{
   height: 757rpx;
 }
 
+.card.normal{
+  height: 522rpx;
+}
+
 .card .bg{
   width: 100%;
   height: 100%;

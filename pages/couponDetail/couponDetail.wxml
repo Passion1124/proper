@@ -2,8 +2,8 @@
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container'>
   <!-- <view class='page_title'>优惠券</view> -->
-  <view class='card'>
-    <image class='bg' src='../../img/coupon/coupon_bg_normal.png'></image>
+  <view class='card {{coupon.usingOnline ? "normal" : ""}}'>
+    <image class='bg' src='{{coupon.usingOnline ? "../../img/coupon/coupon_bg_normal.png" : "../../img/coupon/coupon_bg_long.png"}}'></image>
     <view class='content'>
       <view class='top'>
         <view class='logo'>
@@ -34,7 +34,7 @@
           <button wx:else bindtap='handleUserCouponReceive'>立即领取</button>
         </view>
       </view>
-      <view class='image_row'>
+      <view class='image_row' wx:if='{{!coupon.usingOnline}}'>
         <image mode='aspectFill' src='{{coupon.photoUrl}}'></image>
       </view>
       <view class='btn'>
@@ -45,7 +45,7 @@
   <view class='explain'>
     <view class='e_title'>使用说明</view>
     <view class='e_desc'>{{coupon.description || '暂无使用说明'}}</view>
-    <view class='e_title'>使用注意：</view>
+    <view class='e_title'>使用注意</view>
     <view class='e_desc'>{{coupon.precaustion || '暂无使用注意'}}</view>
     <!-- <view class='careful'>使用注意：{{coupon.precaustion}}</view> -->
   </view>

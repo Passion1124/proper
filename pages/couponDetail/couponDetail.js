@@ -58,7 +58,11 @@ Page({
    */
   onUnload: function() {
     let pages = getCurrentPages();
-    pages[pages.length - 2].changeHasExistsCoupon(this.data.couponId);
+    let prePage = pages[pages.length - 2];
+    console.log(typeof prePage.changeHasExistsCoupon);
+    if (typeof prePage.changeHasExistsCoupon === 'function') {
+      prePage.changeHasExistsCoupon(this.data.couponId);
+    }
   },
 
   /**

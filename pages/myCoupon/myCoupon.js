@@ -89,12 +89,14 @@ Page({
     app.request(api, data, (res) => {
       console.log(res);
       if (this.data.body.qryType === 1) {
+        let use = this.data.body.page === 1 ? [] : this.data.use;
         this.setData({
-          use: this.data.use.concat(res.coupons)
+          use: use.concat(res.coupons)
         })
       } else if (this.data.body.qryType === 2) {
+        let expire = this.data.body.page === 1 ? [] : this.data.expire;
         this.setData({
-          expire: this.data.expire.concat(res.coupons)
+          expire: expire.concat(res.coupons)
         })
       }
       wx.stopPullDownRefresh();
