@@ -258,6 +258,9 @@ Page({
     } else {
       this.data.receiver.enName = "";
     }
+    if (this.data.goodsItem.goodsItemBase.vouchWay === 3) {
+      this.data.receiver.addrType = 1;
+    }
     let data = Object.assign({ base: app.globalData.baseBody }, this.data.receiver);
     app.request(api, data, res => {
       console.log(res);
@@ -278,9 +281,11 @@ Page({
     let data = Object.assign({ base: app.globalData.baseBody }, p_data, { sn });
     app.request(api, data, res => {
       console.log(res);
-      wx.navigateTo({
-        url: '/pages/pay/pay?orderId=' + res.orderId + '&orderNo=' + res.orderNo + '&currency=' + res.currency + '&type=' + this.data.type,
-      })
+      if (this.data.price * this.data.orderMerches.merchCount) {
+        utils.navigateTo('/pages/pay/pay?orderId=' + res.orderId + '&orderNo=' + res.orderNo + '&currency=' + res.currency + '&type=' + this.data.type);
+      } else {
+        utils.navigateTo('/pages/payresult/payresult?orderId=' + res.orderId + '&giid=' + this.data.giid);
+      }
     }, err => {
       console.error(err);
     })

@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 12,
 			"list": [
 				{
 					"id": 0,
@@ -125,24 +125,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "编辑账户",
-					"pathName": "pages/editAccount/editAccount",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 13,
-					"name": "修改手机或者邮箱",
-					"pathName": "pages/bindPhoneEmail/bindPhoneEmail",
-					"query": "index=0",
-					"scene": null
-				},
-				{
-					"id": -1,
+					"id": 12,
 					"name": "poi",
 					"pathName": "pages/poi_detail/poi_detail",
-					"query": "gid=daae2ed8-6154-40b4-9916-1ebc792f3098&type=1",
+					"query": "gid=a48235d9-6058-4e84-8741-86dceaf5833b&type=1",
 					"scene": null
 				},
 				{

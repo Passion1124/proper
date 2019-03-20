@@ -24,7 +24,7 @@ Page({
     this.data.giid = options.giid;
     this.data.preOrderId = options.preOrderId;
     this.data.orderId = options.orderId;
-    this.handlePayOrderSync();
+    if (this.data.preOrderId) this.handlePayOrderSync();
     this.getGoodsItemDetail();
     this.getRGoodsList();
   },
