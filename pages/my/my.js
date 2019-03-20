@@ -32,7 +32,7 @@ Page({
    */
   onShow: function () {
     this.setData({
-      userInfo: app.globalData.userInfo
+      userInfo: wx.getStorageSync('user')
     });
     if (app.globalData.userInfo) {
       this.getUserCount();
