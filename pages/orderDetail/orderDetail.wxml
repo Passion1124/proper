@@ -17,7 +17,7 @@
     <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
   </view>
   <view class='tips finished' wx:if='{{order.orderStatus === 2 || order.orderStatus === 4}}'>
-    <view class='title'>感谢您使用妥妥的，期待您下次光临</view>
+    <view class='title'>感谢您使用妥妥得，期待您下次光临</view>
     <button class='shopping' bindtap='goToTheOrder' wx:if='{{order.orderStatus === 2}}'>再次购买</button>
     <view class='comment_row' wx:if='{{order.orderStatus === 4}}'>
       <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
@@ -79,8 +79,8 @@
     <view class='text'>下单时间：{{dateFr.formatTime(order.createAt)}}</view>
   </view>
   <view class='row' wx:if="{{order.orderStatus === 6}}">
-    <view class='text'>支付方式：{{dateFr.getPayTypeText(order.payType)}}</view>
-    <view class='text'>支付时间：{{dateFr.formatTime(order.payAt)}}</view>
+    <view class='text' wx:if='{{order.payPrice}}'>支付方式：{{dateFr.getPayTypeText(order.payType)}}</view>
+    <view class='text' wx:if='{{order.payAt}}'>支付时间：{{dateFr.formatTime(order.payAt)}}</view>
     <view class='text'>退款时间：{{dateFr.formatTime(order.refundReqAt)}}</view>
   </view>
   <view class='row'>

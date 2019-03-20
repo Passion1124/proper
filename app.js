@@ -1,5 +1,6 @@
 //app.js
 import md5 from './utils/md5.js'
+import utils from './utils/util.js'
 App({
   onLaunch: function() {
     var city = wx.getStorageSync('city') || '';
@@ -42,15 +43,15 @@ App({
           success(res.data);
         } else {
           console.log(res.data.ret_msg);
-          wx.showToast({
-            title: res.data.ret_msg,
-            icon: 'none'
-          });
           if (res.data.ret_code === '1099') {
+            utils.showMessage(res.data.ret_msg);
             wx.navigateTo({
               url: '/pages/signIn/signIn',
-            })
+            });
           } else {
+            if (res.data.ret_code !== '1113') {
+              utils.showMessage(res.data.ret_msg);
+            }
             fail(res.data);
           }
         }

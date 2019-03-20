@@ -115,7 +115,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    console.log(pinyin.pinyin.getFullChars('管理员'));
+    
   },
 
   /**
@@ -253,7 +253,11 @@ Page({
   // 保存收货信息
   handleSaveReceiverInfo () {
     let api = 'com.ttdtrip.api.order.apis.service.ReceiverSaveApiService';
-    this.data.receiver.enName = this.data.en_name + '|' + this.data.surname;
+    if (this.data.en_name && this.data.surname) {
+      this.data.receiver.enName = this.data.en_name + '|' + this.data.surname;
+    } else {
+      this.data.receiver.enName = "";
+    }
     let data = Object.assign({ base: app.globalData.baseBody }, this.data.receiver);
     app.request(api, data, res => {
       console.log(res);
@@ -393,11 +397,16 @@ Page({
       [value]: e.detail.value
     });
   },
-  // 选择领取地点
+  // 选择领取地点/上车地点
   bindReceivePlace (e) {
+    let value = '';
+    let type = this.data.goodsItem.goodsItemBase.subType;
+    if (this.data.tourism.indexOf(type) !== -1) value = 'orderTravelMerch.upPlace';
+    else if (this.data.traffic.indexOf(type) !== -1) value = 'orderTrafficMerch.upPlace';
+    else if (this.data.play.indexOf(type) !== -1) value = 'orderPlayMerch.upPlace';
     this.setData({
-      ['orderTrafficMerch.upPlace']: this.data.goodsItem.goodsItemInfo.infoExt.address[parseInt(e.detail.value)]
-    })
+      [value]: this.data.goodsItem.goodsItemInfo.infoExt.address[parseInt(e.detail.value)]
+    });
   },
   // 选择场次
   bindScenePlan (e) {

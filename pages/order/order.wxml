@@ -26,7 +26,15 @@
   </view>
   <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 11 || goodsItem.goodsItemBase.subType === 12}}'>
     <view class='text'>上车地点</view>
-    <view class='upPlace'>
+    <view class='upPlace' wx:if='{{goodsItem.goodsItemInfo.infoExt.address.length}}'>
+      <picker mode='selector' range='{{goodsItem.goodsItemInfo.infoExt.address}}' value='{{orderTravelMerch.upPlace}}' bindchange="bindReceivePlace">
+        <view class='blue_text'>{{orderTravelMerch.upPlace ||'选择上车地点'}}</view>
+      </picker>
+      <view class='img_row'>
+        <image src='../../img/common/more.png'></image>
+      </view>
+    </view>
+    <view class='upPlace' wx:else>
       <input placeholder-class='phcolor' placeholder='请输入上车地点' value='{{orderTravelMerch.upPlace}}' bindinput='bindUpPlaceChange'></input>
     </view>
   </view>

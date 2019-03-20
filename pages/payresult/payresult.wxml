@@ -12,7 +12,7 @@
     </view>
     <view class='center'>
       <view class='tips' wx:if='{{result === "fail"}}'>请在 <text class='fail'>30</text> 分钟内完成付款，否则订单会被系统自动取消</view>
-      <view class='tips' wx:if='{{result === "success"}}'>请{{dateFr.getSureDateText(goodsItem.goodsItemBase.confirmType)}}您的订单，请前往行程查看您的商品</view>
+      <view class='tips' wx:if='{{result === "success"}}'>将 {{dateFr.getSureDateText(goodsItem.goodsItemBase.confirmType)}}您的订单，请前往行程</view>
     </view>
     <view class='bottom'>
       <button wx:if='{{result === "fail"}}' bindtap='handleClickAgainPayButton'>重新付款</button>

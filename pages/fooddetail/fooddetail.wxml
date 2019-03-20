@@ -86,7 +86,7 @@
       <view class='reserve' wx:if='{{goods.goodsBase.reserve}}'>
         <view class='left'>
           <view class='l_title'>预订</view>
-          <view class='l_subTitle'>提前{{setting.preOrderDays}}天预定 | 中文预订</view>
+          <view class='l_subTitle'>提前{{setting.preOrderDays || 0}}天预定 | 中文预订</view>
         </view>
         <view class='right'>
           <button bindtap='goToTheBookPage'>预订</button>
