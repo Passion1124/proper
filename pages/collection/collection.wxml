@@ -13,8 +13,8 @@
           <image src='{{item.goodsBase.poster}}'></image>
           <view class='white_circle'>
             <view class='collection_row'>
-              <image src='../../img/common/collection.png' data-gid='{{item.goodsInfo.gid}}' data-index='{{index}}' bindtap='handleGoodsUnFavorApiService' wx:if='{{item.favor}}'></image>
-              <image src='../../img/common/uncollection.png' data-gid='{{item.goodsInfo.gid}}' data-index='{{index}}' bindtap='handleGoodsFavorApiService' wx:else></image>
+              <image src='../../img/common/collection.png' data-gid='{{item.goodsInfo.gid}}' data-index='{{index}}' catchtap='handleGoodsUnFavorApiService' wx:if='{{item.favor}}'></image>
+              <image src='../../img/common/uncollection.png' data-gid='{{item.goodsInfo.gid}}' data-index='{{index}}' catchtap='handleGoodsFavorApiService' wx:else></image>
             </view>
           </view>
         </view>

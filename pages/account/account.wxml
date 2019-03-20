@@ -1,8 +1,7 @@
 <!-- account.wxml -->
 <view class='container'>
   <view class='avatar' bindtap='wxChooseImage'>
-    <!-- http://tmp/wxf74a8f9b90f770d1.o6zAJs_-89_qO_Sk1QK6T7eNC7vk.tJnrOzhk9HIVfce42ccd54d1767a1e634b3b3d33348e.jpg -->
-    <image src='{{user.avatar || "../../img/common/avatar.png" }}' lazy-load='true'></image>
+    <image src='{{user.avatar ? user.avatar + "?x-oss-process=image/resize,w_200" : "../../img/common/avatar.png" }}' lazy-load='true'></image>
     <view class='tips'>点击更换</view>
   </view>
   <view class='single' bindtap='goToTheEditAccount'>

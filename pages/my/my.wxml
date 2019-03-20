@@ -18,7 +18,7 @@
     </view>
     <view class='right' bindtap='goToTheAccount'>
       <view class='avatar'>
-        <image src='{{ userInfo ? userInfo.avatar : "../../img/common/avatar.png"}}'></image>
+        <image src='{{ userInfo ? userInfo.avatar + "?x-oss-process=image/resize,w_200" : "../../img/common/avatar.png"}}'></image>
       </view>
     </view>
   </view>
