@@ -19,7 +19,7 @@ Page({
     setting: {},
     goodsItemCount: 0,
     imgUrls: [],
-    indicatorDots: true,
+    indicatorDots: false,
     autoplay: false,
     interval: 5000,
     duration: 1000,
