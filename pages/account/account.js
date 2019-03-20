@@ -132,7 +132,8 @@ Page({
     app.request(api, data, res => {
       console.log(res);
       app.globalData.userInfo = null;
-      wx.clearStorageSync();
+      wx.removeStorageSync('user');
+      wx.removeStorageSync('authority');
       wx.switchTab({
         url: '/pages/index/index',
       })
