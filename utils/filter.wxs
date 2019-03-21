@@ -67,7 +67,7 @@ var DateFr = {
       return price;
     }
     if (coupon.type === 0) {
-      return price - (price * (coupon.discount / 100));
+      return price * (coupon.discount / 100);
     } else if (coupon.type === 1) {
       return price - coupon.reducePrice
     } else if (coupon.type === 2) {
@@ -81,7 +81,7 @@ var DateFr = {
       return 0;
     }
     if (coupon.type === 0) {
-      return price * (coupon.discount / 100)
+      return price - price * (coupon.discount / 100)
     } else if (coupon.type === 1 || coupon.type === 2) {
       return coupon.reducePrice
     }

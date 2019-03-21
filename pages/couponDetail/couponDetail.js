@@ -180,7 +180,7 @@ Page({
       };
     } else {
       if (this.data.hasExists) {
-        url = '/pages/showCoupon/showCoupon?img=' + this.coupon.photoUrl;
+        url = '/pages/showCoupon/showCoupon?img=' + this.data.coupon.photoUrl;
       } else {
         wx.showToast({
           title: '您还未领取优惠券，暂时不能使用',
