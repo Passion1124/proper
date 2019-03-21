@@ -159,30 +159,14 @@ Page({
     let data = { base: app.globalData.baseBody, preOrderId: this.data.payOrder.id, payerId: app.globalData.userInfo.uid };
     app.request(api, data, res => {
       console.log(res);
-      let url = '';
-      if (this.data.orderMerches) {
-        url = '/pages/payresult/payresult?preOrderId=' + this.data.payOrder.id + '&orderId=' + this.data.orderId + '&giid=' + this.data.orderMerches.merchId;
-      } else {
-        url = '/pages/bookDetail/bookDetail?result=1&id=' + this.data.orderId
-      }
-      wx.redirectTo({
-        url: url,
-      })
+      this.handlePayOverRedirect();
     }, e => {
       console.error(e);
       this.data.count++;
       if (this.data.count <= 5) {
         this.handlePayOrderSync();
       } else {
-        let url = '';
-        if (this.data.orderMerches) {
-          url = '/pages/payresult/payresult?preOrderId=' + this.data.payOrder.id + '&orderId=' + this.data.orderId + '&giid=' + this.data.orderMerches.merchId;
-        } else {
-          url = '/pages/bookDetail/bookDetail?result=1&id=' + this.data.orderId
-        }
-        wx.redirectTo({
-          url: url,
-        })
+        this.handlePayOverRedirect();
       }
     })
   },
@@ -199,5 +183,21 @@ Page({
         this.handlePrePayOrder();
       }
     }
+  },
+  // 支付完成之后的跳转
+  handlePayOverRedirect () {
+    let url = '';
+    if (this.data.orderMerches) {
+      if (this.data.orderMerches.orderRestaurantProviderMerch) {
+        url = '/pages/orderBookDetail/orderBookDetail?result=1&id=' + this.data.orderId;
+      } else {
+        url = '/pages/payresult/payresult?preOrderId=' + this.data.payOrder.id + '&orderId=' + this.data.orderId + '&giid=' + this.data.orderMerches.merchId;
+      }
+    } else {
+      url = '/pages/bookDetail/bookDetail?result=1&id=' + this.data.orderId
+    }
+    wx.redirectTo({
+      url: url,
+    })
   }
 })

@@ -7,6 +7,10 @@
   padding-bottom: 0 !important;
 }
 
+.padding_top_0 {
+  padding-top: 0 !important;
+}
+
 .border_bottom_0{
   border-bottom: 0 !important;
 }

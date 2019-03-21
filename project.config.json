@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 16,
+			"current": 17,
 			"list": [
 				{
 					"id": 0,
@@ -51,7 +51,7 @@
 					"id": 1,
 					"name": "pay",
 					"pathName": "pages/pay/pay",
-					"query": "orderId=898674caec7b463b8decc1ebf1108414&orderNo=7792703178127822848&currency=CNY&type=1",
+					"query": "orderId=3cd2146c42d54fc0923af36d8de16dee&orderNo=7797094172028817408&currency=CNY&type=undefined",
 					"scene": null
 				},
 				{
@@ -157,6 +157,13 @@
 					"name": "代预定信息",
 					"pathName": "pages/insteadBook/insteadBook",
 					"query": "mid=2432272d-ff6b-46ad-a195-a186e88d60a4&shopName=livia0307添加的餐厅&gid=727175c5-e5d6-4373-a2e3-14daa1758e05&giid=a8d567a9-03f3-4784-bb82-7c4dc868f79d",
+					"scene": null
+				},
+				{
+					"id": 17,
+					"name": "代预订详情页面",
+					"pathName": "pages/orderBookDetail/orderBookDetail",
+					"query": "result=1&id=3cd2146c42d54fc0923af36d8de16dee",
 					"scene": null
 				}
 			]

@@ -45,7 +45,6 @@ Page({
       mName: '',
       mid: '',
       userUpTime: '',
-      upTime: '',
       needAssign: 0,
       remark: ''
     },
@@ -57,7 +56,9 @@ Page({
     setting: {},
     p_mask: false,
     stratDate: '',
-    timeRange: []
+    timeRange: [],
+    useData: '',
+    useTime: ''
   },
 
   /**
@@ -66,6 +67,7 @@ Page({
   onLoad: function (options) {
     let{ mid, shopName, gid, giid } = options;
     this.setData({ mid, shopName, gid, giid });
+    this.data.orderMerches.merchId = options.giid;
     this.getGoodsItemDetail();
     this.getReceiverLatest();
     this.getPreOrderSetting();
@@ -149,7 +151,7 @@ Page({
         goodsItem: res.goodsItemVO,
         price: res.goodsItemVO.goodsItemBase.amount || res.goodsItemVO.goodsItemBase.sourceAmount
       });
-      // this.getGoodsDetail(res.goodsItemVO.goodsItemBase.gid);
+      this.getGoodsDetail(res.goodsItemVO.goodsItemBase.gid);
       this.getUserCouponUsable(res.goodsItemVO.goodsItemBase.subType);
     }, err => {
       console.error(err);
@@ -244,14 +246,32 @@ Page({
     } else {
       this.data.receiver.enName = "";
     }
-    if (this.data.goodsItem.goodsItemBase.vouchWay === 3) {
-      this.data.receiver.addrType = 1;
-    }
+    this.data.receiver.addrType = "";
     let data = Object.assign({ base: app.globalData.baseBody }, this.data.receiver);
     app.request(api, data, res => {
       console.log(res);
       this.data.receiverId = res.receiverId;
       this.handleCreateOrderGen();
+    }, err => {
+      console.error(err);
+    })
+  },
+  // 生成订单
+  handleCreateOrderGen() {
+    let api = 'com.ttdtrip.api.order.apis.service.OrderGenApiService';
+    let p_data = { orderType: 1, orderFrom: 1, orderCategory: 2, receiverId: this.data.receiverId, orderMerches: this.data.orderMerches };
+    if (this.data.selectCoupon.couponId) {
+      p_data.couponId = this.data.selectCoupon.couponId;
+    };
+    let sn = md5(p_data + new Date().getTime());
+    let data = Object.assign({ base: app.globalData.baseBody }, p_data, { sn });
+    app.request(api, data, res => {
+      console.log(res);
+      if (this.data.price * this.data.orderMerches.merchCount) {
+        utils.navigateTo('/pages/pay/pay?orderId=' + res.orderId + '&orderNo=' + res.orderNo + '&currency=' + res.currency + '&type=' + this.data.type);
+      } else {
+        utils.navigateTo('/pages/payresult/payresult?orderId=' + res.orderId + '&giid=' + this.data.giid);
+      }
     }, err => {
       console.error(err);
     })
@@ -269,27 +289,66 @@ Page({
     });
     // this.getPreOrderBookTime(now);
   },
+  // 点击去付款按钮
+  handleClickPaymentButton () {
+    if (!this.data.useData) {
+      utils.showMessage('请选择日期');
+    } else if (!this.data.useTime) {
+      utils.showMessage('请选择时间');
+    } else if (!this.data.receiver.name) {
+      utils.showMessage('请输入中文姓名');
+    } else if (!this.data.surname) {
+      utils.showMessage('请输入英文姓');
+    } else if (!this.data.en_name) {
+      utils.showMessage('请输入英文名');
+    } else if (!this.data.receiver.phoneNo) {
+      utils.showMessage('请输入您的手机号码');
+    } else if (this.data.receiver.phoneNo && !utils.validatePhone(this.data.receiver.phoneNo)) {
+      utils.showMessage('请输入正确的手机号码');
+    } else if (!this.data.receiver.email) {
+      utils.showMessage('请输入您的邮箱');
+    } else if (this.data.receiver.email && !utils.validateEmail(this.data.receiver.email)) {
+      utils.showMessage('请输入正确的邮箱');
+    } else {
+      this.data.orderMerches.merchType = this.data.goodsItem.goodsItemBase.subType;
+      this.data.orderMerches.merchName = this.data.goodsItem.goodsItemInfo.name;
+      this.data.orderMerches.usingDate = this.data.useData.replace(new RegExp('-', 'g'), '');
+      this.data.orderMerches.merchSpecific = this.data.goodsItem.goodsItemInfo.subInfo;
+      this.data.orderMerches.merchImgUrl = this.data.goods.goodsBase.poster;
+      this.data.orderRestaurantProviderMerch.mid = this.data.mid;
+      this.data.orderRestaurantProviderMerch.mName = this.data.shopName;
+      this.data.orderRestaurantProviderMerch.userUpTime = new Date(this.data.useData + ' ' + this.data.useTime).getTime();
+      this.data.orderMerches.orderRestaurantProviderMerch = this.data.orderRestaurantProviderMerch;
+      this.handleSaveReceiverInfo();
+    }
+  },
   // 选择日期改变
   bindDateChange: function (e) {
     this.setData({
       useData: e.detail.value,
       timeRange: [],
-      ['orderRestaurantProviderMerch.upTime']: ''
+      useTime: ''
     });
     this.getRestProviderOrderBookTime(e.detail.value.replace(/-/g, ''));
   },
   // 选择时间
   bindUpTimeChange (e) {
     this.setData({
-      ['orderRestaurantProviderMerch.upTime']: this.data.timeRange[e.detail.value]
+      useTime: this.data.timeRange[e.detail.value]
     });
   },
   // 调配时间
   bindNeedAssignTime (e) {
     let needAssign = this.data.orderRestaurantProviderMerch.needAssign;
     this.setData({
-      ['orderRestaurantProviderMerch.needAssign']: !needAssign
+      ['orderRestaurantProviderMerch.needAssign']: needAssign ? 0 : 1
     });
+  },
+  // 备注修改
+  bindRemarkChange (e) {
+    this.setData({
+      ['orderRestaurantProviderMerch.remark']: e.detail.value
+    })
   },
   // 转为英文姓名
   handleTransformEnglishName() {

@@ -50,7 +50,8 @@
     "pages/refund/refund",
     "pages/comment/comment",
     "pages/insteadFood/insteadFood",
-    "pages/insteadBook/insteadBook"
+    "pages/insteadBook/insteadBook",
+    "pages/orderBookDetail/orderBookDetail"
   ],
   "window":{
     "backgroundTextStyle":"light",

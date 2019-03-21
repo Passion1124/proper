@@ -106,7 +106,17 @@ var DateFr = {
 
     return y + '年' + M + '月' + d + '日';
   },
-  getOrderStatus: function (status, preOrder) {
+  getOrderTime: function (time) {
+    if (!time) return '';
+
+    var date = getDate(time);
+    var h = date.getHours();
+    var m = date.getMinutes();
+    if (h < 10) h = "0" + h;
+    if (m < 10) m = '0' + m;
+    return h + ':' + m;
+  },
+  getOrderStatus: function (status, item) {
     var str = '';
     switch (status) {
       case -1:
@@ -122,7 +132,7 @@ var DateFr = {
         str = '待发货';
         break;
       case 3:
-        str = preOrder ? '待就餐' : '待使用';
+        str = (item.preOrder || item.providerOrderInfo) ? '待就餐' : '待使用';
         break;
       case 4:
         str = '待点评';
@@ -298,6 +308,7 @@ module.exports = {
   getOrderStatus: DateFr.getOrderStatus,
   getOrderStatusSubText: DateFr.getOrderStatusSubText,
   getOrderDate: DateFr.getOrderDate,
+  getOrderTime: DateFr.getOrderTime,
   getExtFieldText: DateFr.getExtFieldText,
   getPayTypeText: DateFr.getPayTypeText,
   secondToDate: DateFr.secondToDate,

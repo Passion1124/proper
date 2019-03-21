@@ -335,7 +335,11 @@ Page({
     let active_type = this.data.activeOrderType;
     let url = '';
     if (item.orderType === 1) {
-      url = '/pages/orderDetail/orderDetail'
+      if (item.providerOrderInfo) {
+        url = '/pages/orderBookDetail/orderBookDetail'
+      } else {
+        url = '/pages/orderDetail/orderDetail'
+      }
     } else {
       if (item.preOrder.time) {
         url = '/pages/bookDetail/bookDetail'

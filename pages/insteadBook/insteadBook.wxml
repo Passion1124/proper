@@ -1,7 +1,7 @@
 <!-- insteadBook.wxml -->
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
-<view class='container'>
-  <view class='many eat'>
+<view class='container padding_top_0'>
+  <view class='many eat padding_top_0'>
     <view class='left'>
       <view class='many border_bottom_0'>
         <view class='text'>用餐时间</view>
@@ -19,9 +19,9 @@
         </picker>
       </view>
       <view class='many'>
-        <picker mode='selector' range='{{timeRange}}' value='{{orderRestaurantProviderMerch.upTime}}' bindchange="bindUpTimeChange">
+        <picker mode='selector' range='{{timeRange}}' value='{{useTime}}' bindchange="bindUpTimeChange">
           <view class='picker'>
-            <view class='picker_text {{orderRestaurantProviderMerch.upTime ? "blue_text" : ""}}'>{{orderRestaurantProviderMerch.upTime ||'选择时间'}}</view>
+            <view class='picker_text {{useTime ? "blue_text" : ""}}'>{{useTime ||'选择时间'}}</view>
             <view class='img_row'>
               <image src='../../img/common/more.png'></image>
             </view>
@@ -61,7 +61,7 @@
     <view class='remark_text'>备注</view>
     <view class='remark_0'></view>
     <view class='remark_input'>
-      <input placeholder='（选填）输入用餐禁忌，如海鲜过敏，需要包房等' placeholder-class='phcolor' value='{{orderRestaurantProviderMerch.remark}}' maxlength='100'></input>
+      <input placeholder='（选填）输入用餐禁忌，如海鲜过敏，需要包房等' placeholder-class='phcolor' value='{{orderRestaurantProviderMerch.remark}}' bindinput='bindRemarkChange' maxlength='100'></input>
     </view>
   </view>
   <view class='many'>
