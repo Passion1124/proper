@@ -57,6 +57,11 @@ var DateFr = {
       return '工作日3天内确认'
     }
   },
+  getScheduledTime: function (arr) {
+    return arr.reduce(function (pre, next) {
+      return pre + '、' + next;
+    });
+  },
   getOrderPrice: function(price, coupon) {
     if (price < 100) {
       return price;
@@ -302,5 +307,6 @@ module.exports = {
   getNowFoodOrderNum: DateFr.getNowFoodOrderNum,
   getFoodOrderBatchTotalPrice: DateFr.getFoodOrderBatchTotalPrice,
   getOrderPageUseDateText: DateFr.getOrderPageUseDateText,
-  getReceiverEnglishNameText: DateFr.getReceiverEnglishNameText
+  getReceiverEnglishNameText: DateFr.getReceiverEnglishNameText,
+  getScheduledTime: DateFr.getScheduledTime
 }

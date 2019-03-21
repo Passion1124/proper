@@ -153,7 +153,7 @@
               </view>
             </view>
             <view class='right'>
-              <button>预定</button>
+              <button data-giid='{{item.goodsItemInfo.giid}}' bindtap='goToTheInsteadFoodPage'>预定</button>
             </view>
           </view>
         </block>

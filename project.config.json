@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 12,
+			"current": 16,
 			"list": [
 				{
 					"id": 0,
@@ -143,6 +143,20 @@
 					"name": "评论",
 					"pathName": "pages/comment/comment",
 					"query": "target=3346f874-0db7-4afb-aa95-9ac5dfa110ff&orderId=6a90fea3ef05426ba5e97c65f1eb65ba",
+					"scene": null
+				},
+				{
+					"id": 15,
+					"name": "代预定",
+					"pathName": "pages/insteadFood/insteadFood",
+					"query": "giid=a8d567a9-03f3-4784-bb82-7c4dc868f79d",
+					"scene": null
+				},
+				{
+					"id": 16,
+					"name": "代预定信息",
+					"pathName": "pages/insteadBook/insteadBook",
+					"query": "mid=2432272d-ff6b-46ad-a195-a186e88d60a4&shopName=livia0307添加的餐厅&gid=727175c5-e5d6-4373-a2e3-14daa1758e05&giid=a8d567a9-03f3-4784-bb82-7c4dc868f79d",
 					"scene": null
 				}
 			]

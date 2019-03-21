@@ -1,0 +1,40 @@
+<!-- insteadFood.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
+<import src="../../wxParse/wxParse.wxml" />
+<view class='container'>
+  <view class='row'>
+    <view class='area'>
+      <view class='title'>{{ goodsItem.goodsItemInfo.name }}</view>
+      <view class='goods_item_price'>
+        <view class='present'>{{goodsItem.goodsItemBase.currency + ((goodsItem.goodsItemBase.amount ? goodsItem.goodsItemBase.amount : goodsItem.goodsItemBase.sourceAmount) / 100)}}/人</view>
+        <view class='original' wx:if='{{goodsItem.goodsItemBase.amount}}'>{{goodsItem.goodsItemBase.currency + (goodsItem.goodsItemBase.sourceAmount / 100)}}/人</view>
+      </view>
+      <view class='goos_item_end'>有效期至：{{dateFr.getOrderDate(goodsItem.goodsItemBase.end)}}</view>
+    </view>
+    <view class='area border_0 padding_bottom_0' wx:if='{{goodsItem.goodsItemInfo.info}}'>
+      <view class='area_title'>预定餐介绍</view>
+      <view class='introduce'>
+        <!-- <rich-text nodes='{{goods.goodsInfo.info}}'></rich-text> -->
+        <template is="wxParse" data="{{wxParseData: article.nodes}}" />
+      </view>
+    </view>
+    <view class='area'>
+      <view class='tips_title'>预定时段</view>
+      <view class='tips_text'>{{dateFr.getScheduledTime(goodsItem.goodsItemBase.ext.preOrderTime)}}</view>
+    </view>
+    <view class='area'>
+      <view class='tips_title'>提前预订天数</view>
+      <view class='tips_text'>{{goodsItem.goodsItemBase.preOrderDays}}天内可提前预订</view>
+    </view>
+    <view class='area'>
+      <view class='tips_title'>确认时间</view>
+      <view class='tips_text'>{{dateFr.getSureDateText(goodsItem.goodsItemBase.confirmType)}}</view>
+    </view>
+  </view>
+  <view class='fixed_tips'>
+    <view class='price'>{{goodsItem.goodsItemBase.currency}} {{(goodsItem.goodsItemBase.amount ? goodsItem.goodsItemBase.amount : goodsItem.goodsItemBase.sourceAmount) / 100}}/人</view>
+    <view class='btn'>
+      <button bindtap='goToTheInsteadBookPage'>去预定</button>
+    </view>
+  </view>
+</view>

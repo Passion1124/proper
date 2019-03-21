@@ -1,0 +1,179 @@
+<!-- insteadBook.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
+<view class='container'>
+  <view class='many eat'>
+    <view class='left'>
+      <view class='many border_bottom_0'>
+        <view class='text'>用餐时间</view>
+      </view>
+    </view>
+    <view class='eat_time'>
+      <view class='many'>
+        <picker mode='date' start='{{stratDate}}' value='{{useData}}' bindchange="bindDateChange">
+          <view class='picker'>
+            <view class='picker_text {{useData ? "blue_text" : ""}}'>{{useData ||'选择日期'}}</view>
+            <view class='img_row'>
+              <image src='../../img/common/more.png'></image>
+            </view>
+          </view>
+        </picker>
+      </view>
+      <view class='many'>
+        <picker mode='selector' range='{{timeRange}}' value='{{orderRestaurantProviderMerch.upTime}}' bindchange="bindUpTimeChange">
+          <view class='picker'>
+            <view class='picker_text {{orderRestaurantProviderMerch.upTime ? "blue_text" : ""}}'>{{orderRestaurantProviderMerch.upTime ||'选择时间'}}</view>
+            <view class='img_row'>
+              <image src='../../img/common/more.png'></image>
+            </view>
+          </view>
+        </picker>
+      </view>
+      <view class='many padding_bottom_0 border_bottom_0' bindtap='bindNeedAssignTime'>
+        <view class='blend_time'>可调配至其他时间</view>
+        <view class='checkbox {{orderRestaurantProviderMerch.needAssign ? "active" : ""}}'>
+          <image src='http://s.ttd-trip.com/images/book/book_icon_checked.png' wx:if='{{orderRestaurantProviderMerch.needAssign}}'></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='many'>
+    <view class='double_text'>
+      <view class='title'>用餐人数</view>
+      <view class='subTitle'>预订{{goodsItem.goodsItemBase.ext.preOrderDinerMin}}人起售，最多{{goodsItem.goodsItemBase.ext.preOrderDinerMax}}人</view>
+    </view>
+    <view class='copies'>
+      <view bindtap='bindMinus'>
+        <view class='img_row'>
+          <image src='../../img/common/reduce.png'></image>
+        </view>
+      </view>
+      <view>
+        <input type='number' value='{{orderMerches.merchCount}}' bindchange='bindManual'></input>
+      </view>
+      <view bindtap='bindPlus'>
+        <view class='img_row'>
+          <image src='../../img/common/plus.png'></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='many padding_bottom_0'>
+    <view class='remark_text'>备注</view>
+    <view class='remark_0'></view>
+    <view class='remark_input'>
+      <input placeholder='（选填）输入用餐禁忌，如海鲜过敏，需要包房等' placeholder-class='phcolor' value='{{orderRestaurantProviderMerch.remark}}' maxlength='100'></input>
+    </view>
+  </view>
+  <view class='many'>
+    <view class='tips'>联系人</view>
+    <view class='text'>中文姓名</view>
+    <view class='cName'>
+      <input placeholder-class='phcolor' value='{{receiver.name}}' placeholder='中文姓名' bindinput='handleInputName'></input>
+      <button bindtap='handleTransformEnglishName'>转为英文姓名</button>
+    </view>
+  </view>
+  <view class='english_name'>
+    <view class='surname'>
+      <view class='text'>英文姓</view>
+      <view class='input_row'>
+        <input placeholder='英文姓' placeholder-class='phcolor' value='{{surname}}' data-type='1' bindinput='bindEnNameChange'></input>
+      </view>
+    </view>
+    <view class='en_name'>
+      <view class='text'>英文名</view>
+      <view class='input_row'>
+        <input placeholder='英文名' placeholder-class='phcolor' value='{{en_name}}' data-type='0' bindinput='bindEnNameChange'></input>
+      </view>
+    </view>
+  </view>
+  <view class='many'>
+    <view class='text'>手机号</view>
+    <view class='phoneNo'>
+      <input type='number' placeholder-class='phcolor' value='{{receiver.phoneNo}}' placeholder='手机号（以便紧急情况联系）' bindinput='handleInputPhone'></input>
+    </view>
+  </view>
+  <view class='many'>
+    <view class='text'>邮箱</view>
+    <view class='email'>
+      <input placeholder-class='phcolor' value='{{receiver.email}}' placeholder='邮箱' bindinput='handleInputEmail'></input>
+    </view>
+  </view>
+  <view class='many' bindtap='clickCouponLan'>
+    <view class='text' style='width: 180rpx;'>可用优惠券</view>
+    <view class='coupon'>
+      <view class='blue_text' wx:if='{{!selectCoupon.id && coupons.length}}'>{{coupons.length}}张</view>
+      <view class='blue_text' wx:if='{{selectCoupon.id}}'>{{selectCoupon.name}}</view>
+      <view class='blue_text' wx:if='{{!selectCoupon.id && !coupons.length}}'>无优惠券</view>
+      <view class='img_row'>
+        <image src='../../img/common/more.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='mask {{ p_mask ? "open_mask" : "close_mask"}}' bindtap='closePopup'></view>
+  <view class='coupons_box {{ p_mask ? "open_popup" : "close_popup"}}'>
+    <image class='close' src='../../img/order/pay_icon_close.png' bindtap='closePopup'></image>
+    <view class='main_row'>
+      <block wx:for="{{coupons}}" wx:key="{{index}}">
+        <view class='main' data-couponId='{{item.id}}' data-id='{{item.id}}' data-index='{{index}}' bindtap='selectedCoupon'>
+          <image class='bg' src='../../img/index/coupon_bg.png'></image>
+          <view class='content'>
+            <view class='top'>
+              <view class='logo'>
+                <image src='{{item.imgUrl}}'></image>
+              </view>
+              <view class='worth'>
+                <view class='discount'>
+                  <block wx:if='{{item.type===0 }}'>
+                    <view class='num'>
+                      <text>{{item.discount / 10}}</text>
+                    </view>
+                    <view class='fracture'>
+                      <text>/折</text>
+                    </view>
+                  </block>
+                  <block wx:if='{{item.type===1 }}'>
+                    <view class='num'>
+                      <text><text class='currency'>{{item.currency}}</text>{{item.reducePrice / 100}}</text>
+                    </view>
+                    <view class='fracture'>
+                      <text>/满{{item.sourcePrice / 100}}</text>
+                    </view>
+                  </block>
+                  <block wx:if='{{item.type===2 }}'>
+                    <view class='num'>
+                      <text><text class='currency'>{{item.currency}}</text>{{item.reducePrice / 100}}</text>
+                    </view>
+                  </block>
+                </view>
+                <view class='expiry_date'>
+                  <text>有效期至：{{dateFr.getDate(item.expireEndAt,'/')}}</text>
+                </view>
+              </view>
+            </view>
+            <view class='bottom'>
+              <view>
+                <text>{{item.name}}</text>
+              </view>
+              <view>
+                <image wx:if='{{selectCoupon.id !==item.id}}' src='../../img/order/pay_icon_check.png'></image>
+                <image wx:if='{{selectCoupon.id===item.id}}' src='../../img/order/pay_icon_checked.png'></image>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class='pay'>
+    <view class='price'>
+      <view class='pay_price'>
+        <text>合计</text>
+        <text>{{goodsItem.goodsItemBase.currency}}{{dateFr.getOrderPrice((price * orderMerches.merchCount), selectCoupon) / 100}}</text>
+      </view>
+      <view class='discount' wx:if='{{selectCoupon.id}}'>优惠 {{goodsItem.goodsItemBase.currency}}{{dateFr.getDiscountPrice((price * orderMerches.merchCount), selectCoupon) / 100}}</view>
+    </view>
+    <view class='btn'>
+      <button bindtap='handleClickPaymentButton'>去付款</button>
+    </view>
+  </view>
+</view>

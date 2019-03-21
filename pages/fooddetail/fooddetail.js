@@ -477,6 +477,15 @@ Page({
       console.log('unLogin');
     })
   },
+  // 去代预定页面
+  goToTheInsteadFoodPage (e) {
+    utils.userIsLogin().then(_ => {
+      let giid = e.currentTarget.dataset.giid;
+      utils.navigateTo('/pages/insteadFood/insteadFood?giid=' + giid);
+    }).catch(_ => {
+      console.log('unLogin')
+    })
+  },
   // 点击特色菜
   handleClickFoodDtos (e) {
     let item = e.currentTarget.dataset.item;

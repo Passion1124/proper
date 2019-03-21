@@ -48,12 +48,14 @@
     "pages/foodpayresult/foodpayresult",
     "pages/orderMealDetail/orderMealDetail",
     "pages/refund/refund",
-    "pages/comment/comment"
+    "pages/comment/comment",
+    "pages/insteadFood/insteadFood",
+    "pages/insteadBook/insteadBook"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "",
+    "navigationBarTitleText": "妥妥得",
     "navigationBarTextStyle":"black"
   },
   "tabBar": {
