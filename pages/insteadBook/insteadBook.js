@@ -149,7 +149,8 @@ Page({
       console.log(res);
       this.setData({
         goodsItem: res.goodsItemVO,
-        price: res.goodsItemVO.goodsItemBase.amount || res.goodsItemVO.goodsItemBase.sourceAmount
+        price: res.goodsItemVO.goodsItemBase.amount || res.goodsItemVO.goodsItemBase.sourceAmount,
+        maxNum: res.goodsItemVO.goodsItemBase.ext.preOrderDinerMax
       });
       this.getGoodsDetail(res.goodsItemVO.goodsItemBase.gid);
       this.getUserCouponUsable(res.goodsItemVO.goodsItemBase.subType);
@@ -195,7 +196,7 @@ Page({
     let data = { base: app.globalData.baseBody, itemValues: {}, merchId: this.data.giid, merchType: this.data.goodsItem.goodsItemBase.subType };
     app.request(api, data, res => {
       console.log(res);
-      this.data.maxNum = res.merchInventory.consumableCount;
+      // this.data.maxNum = res.merchInventory.consumableCount;
     }, err => {
       console.error(err);
     })
@@ -420,7 +421,7 @@ Page({
       num++;
     } else {
       wx.showToast({
-        title: '仅剩' + this.data.maxNum + '件',
+        title: '用餐人数最多' + this.data.maxNum + '人',
         icon: 'none'
       })
     }
