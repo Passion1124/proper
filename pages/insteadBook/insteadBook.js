@@ -319,7 +319,7 @@ Page({
       this.data.orderMerches.merchImgUrl = this.data.goods.goodsBase.poster;
       this.data.orderRestaurantProviderMerch.mid = this.data.mid;
       this.data.orderRestaurantProviderMerch.mName = this.data.shopName;
-      this.data.orderRestaurantProviderMerch.userUpTime = new Date(this.data.useData + ' ' + this.data.useTime).getTime();
+      this.data.orderRestaurantProviderMerch.userUpTime = new Date(this.data.useData.replace(/\-/g, "/") + ' ' + this.data.useTime).getTime();
       console.log(this.data.orderRestaurantProviderMerch);
       this.data.orderMerches.orderRestaurantProviderMerch = this.data.orderRestaurantProviderMerch;
       this.handleSaveReceiverInfo();
