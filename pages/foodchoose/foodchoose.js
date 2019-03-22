@@ -1,4 +1,5 @@
 import md5 from '../../utils/md5.js'
+import utils from '../../utils/util.js'
 
 const app = getApp();
 
@@ -182,6 +183,8 @@ Page({
   // 保存收货信息
   handleSaveReceiverInfo() {
     let api = 'com.ttdtrip.api.order.apis.service.ReceiverSaveApiService';
+    this.data.receiver.addr = '';
+    this.data.receiver.addrType = '';
     let data = Object.assign({ base: app.globalData.baseBody }, this.data.receiver);
     app.request(api, data, res => {
       console.log(res);

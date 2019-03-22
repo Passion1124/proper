@@ -9,8 +9,8 @@
     <view class='area'>
       <view class='title'>{{ goodsItem.goodsItemInfo.name }}</view>
       <view class='goods_item_price'>
-        <view class='present'>{{goodsItem.goodsItemBase.currency + (goodsItem.goodsItemBase.amount / 100)}}</view>
-        <view class='original'>{{goodsItem.goodsItemBase.currency + (goodsItem.goodsItemBase.sourceAmount / 100)}}</view>
+        <view class='present'>{{goodsItem.goodsItemBase.currency}}{{goodsItem.goodsItemBase.amount ? goodsItem.goodsItemBase.amount / 100 : goodsItem.goodsItemBase.sourceAmount / 100}}</view>
+        <view class='original' wx:if='{{goodsItem.goodsItemBase.amount && goodsItem.goodsItemBase.amount !== goodsItem.goodsItemBase.sourceAmount}}'>{{goodsItem.goodsItemBase.currency + (goodsItem.goodsItemBase.sourceAmount / 100)}}</view>
       </view>
       <view class='goos_item_end'>有效期至：{{dateFr.getOrderDate(goodsItem.goodsItemBase.end)}}</view>
     </view>
