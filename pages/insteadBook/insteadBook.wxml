@@ -9,7 +9,7 @@
     </view>
     <view class='eat_time'>
       <view class='many'>
-        <picker mode='date' start='{{stratDate}}' value='{{useData}}' bindchange="bindDateChange">
+        <picker mode='date' start='{{stratDate}}' end='{{endDate}}' value='{{useData}}' bindchange="bindDateChange">
           <view class='picker'>
             <view class='picker_text {{useData ? "blue_text" : ""}}'>{{useData ||'选择日期'}}</view>
             <view class='img_row'>

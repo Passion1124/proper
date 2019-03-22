@@ -14,7 +14,8 @@ Page({
     receiver: {},
     count_down: 1800,
     countSetInterVal: '',
-    isTimeOut: false
+    isTimeOut: false,
+    merchItems: {}
   },
 
   /**
@@ -104,6 +105,19 @@ Page({
     let data = { base: app.globalData.baseBody, page: 1, limit: 1, orderId: this.data.orderId, merchId: this.data.orderMerches[0].merchId };
     app.request(api, data, res => {
       console.log(res);
+      this.data.merchItems = res.merchItems[0];
+    }, e => {
+      console.error(e);
+    })
+  },
+  // 商品使用
+  handleOrderUsed () {
+    let api = 'com.ttdtrip.api.order.apis.service.OrderUsedApiService';
+    let merchItems = this.data.merchItems;
+    let data = { base: app.globalData.baseBody, orderId: merchItems.orderId, merchId: merchItems.merchId, merchItemId: merchItems.id };
+    app.request(api, data, res => {
+      console.log(res);
+      this.handleOrderDetail();
     }, e => {
       console.error(e);
     })

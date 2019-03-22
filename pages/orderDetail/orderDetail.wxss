@@ -81,6 +81,42 @@
   color: #23C2F7;
 }
 
+.confirm{
+  width: 100%;
+  padding: 60rpx 0 49rpx;
+  background:linear-gradient(270deg,rgba(36,225,226,1) 0%,rgba(35,194,247,1) 100%);
+  box-shadow:0px 16rpx 40rpx 0px rgba(205,246,249,1);
+  border-radius: 16rpx;
+  margin: 80rpx 0;
+}
+
+.confirm .ticket-offline .ticket-offline-name{
+  font-size: 36rpx;
+  line-height: 50rpx;
+  color: #fff;
+  text-align: center;
+}
+
+.confirm .ticket-offline .ticket-offline_expire {
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #fff;
+  text-align: center;
+  margin: 8rpx 0 40rpx;
+}
+
+.confirm .ticket-offline .ticket-offline_btn button {
+  width: 480rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #23C2F7;
+  letter-spacing: 3rpx;
+  font-size: 32rpx;
+  border-radius: 50rpx;
+  background-color: #fff;
+}
+
+
 .row{
   width: 100%;
   padding: 40rpx 0;

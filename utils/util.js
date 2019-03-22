@@ -9,12 +9,14 @@ const formatTime = date => {
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
-const formatDate = timestamp => {
+const formatDate = (timestamp, join) => {
   const date = new Date(timestamp);
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  return [year, month, day].map(formatNumber).join('');
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+  if (month < 10) month = '0' + month;
+  if (day < 10) day = '0' + day;
+  return [year, month, day].map(formatNumber).join(join || '');
 }
 
 const userIsLogin = _ => {

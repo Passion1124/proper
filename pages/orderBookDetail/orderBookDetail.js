@@ -160,7 +160,7 @@ Page({
     let order = this.data.order;
     let orderMerches = this.data.orderMerches[0];
     let orderRestaurantProviderMerch = orderMerches.orderRestaurantProviderMerch;
-    let url = '/pages/pages/insteadBook/insteadBook?mid=' + orderRestaurantProviderMerch.mid + '&shopName=' + orderRestaurantProviderMerch.mName + '&gid=' + orderMerches.poiId + '&giid=' + orderMerches.merchId;
+    let url = '/pages/insteadBook/insteadBook?mid=' + orderRestaurantProviderMerch.mid + '&shopName=' + orderRestaurantProviderMerch.mName + '&gid=' + orderMerches.poiId + '&giid=' + orderMerches.merchId;
     wx.navigateTo({
       url: url,
     })

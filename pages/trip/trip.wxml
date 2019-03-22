@@ -16,44 +16,22 @@
     </view>
   </view>
   <view class='un_empty' wx:if='{{trips.length}}'>
-    <view class='list'>
-      <view class='date'>2018-10-01（今天）</view>
-      <view class='order'>
-        <view class='content'>
-          <view class='title'>日本东京+大阪7日自由行爆预热…</view>
-          <view class='subTitle'>
-            <view class='expiry_date'>有效期至2018-12-12</view>
-            <view class='order_detail'>订单详情></view>
-          </view>
-        </view>
-        <view class='content'>
-          <view class='title'>日本东京+大阪7日自由行爆预热…</view>
-          <view class='subTitle'>
-            <view class='expiry_date'>有效期至2018-12-12</view>
-            <view class='order_detail'>订单详情></view>
-          </view>
+    <block wx:for='{{trips}}' wx:key='{{index}}'>
+      <view class='list' wx:if='{{trips[index - 1].usingDate !== item.usingDate || !index}}'>
+        <view class='date' wx:if='{{trips[index - 1].usingDate !== item.usingDate}}'>{{item.usingDate}}</view>
+        <view class='order'>
+          <block wx:for='{{trips}}' wx:for-item='trip' wx:for-index='idx' wx:key='{{idx}}'>
+            <view class='content' data-id='{{trip.orderId}}' bindtap='goToTheOrderDetail' wx:if='{{trips[idx - 1].usingDate === trip.usingDate || !idx}}'>
+              <view class='title'>{{trip.merchName}}</view>
+              <view class='subTitle'>
+                <view class='expiry_date'>有效期至{{trip.usingEndDate}}</view>
+                <view class='order_detail'>订单详情></view>
+              </view>
+            </view>
+          </block>
         </view>
       </view>
-    </view>
-    <view class='list'>
-      <view class='date'>2018-10-01（今天）</view>
-      <view class='order'>
-        <view class='content'>
-          <view class='title'>日本东京+大阪7日自由行爆预热…</view>
-          <view class='subTitle'>
-            <view class='expiry_date'>有效期至2018-12-12</view>
-            <view class='order_detail'>订单详情></view>
-          </view>
-        </view>
-        <view class='content'>
-          <view class='title'>日本东京+大阪7日自由行爆预热…</view>
-          <view class='subTitle'>
-            <view class='expiry_date'>有效期至2018-12-12</view>
-            <view class='order_detail'>订单详情></view>
-          </view>
-        </view>
-      </view>
-    </view>
+    </block>
   </view>
   <view class='like'>
     <view class='title'>

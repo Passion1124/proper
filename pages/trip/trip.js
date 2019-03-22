@@ -1,3 +1,5 @@
+import utils from '../../utils/util.js'
+
 const app = getApp();
 
 Page({
@@ -15,9 +17,6 @@ Page({
    */
   onLoad: function (options) {
     this.getRGoodsList();
-    if (app.globalData.userInfo) {
-      this.getUserItineraryList();
-    }
   },
 
   /**
@@ -31,7 +30,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    if (app.globalData.userInfo) {
+      this.getUserItineraryList();
+    }
   },
 
   /**
@@ -106,5 +107,8 @@ Page({
     wx.navigateTo({
       url: '/pages/productList/productList?type=1'
     })
+  },
+  goToTheOrderDetail (e) {
+    utils.navigateTo('/pages/orderDetail/orderDetail?id=' + e.currentTarget.dataset.id);
   }
 })

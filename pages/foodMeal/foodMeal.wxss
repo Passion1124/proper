@@ -65,6 +65,7 @@ image {
 .container .meal .buy button {
   width: 154rpx;
   height: 48rpx;
+  line-height: 48rpx;
   font-size: 22rpx;
   color: #fff;
   background: #f97572;

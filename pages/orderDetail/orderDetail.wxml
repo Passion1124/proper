@@ -32,6 +32,15 @@
     <view class='subTitle'>金额将在7个工作日内原路退</view>
     <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
   </view>
+  <view class='confirm' wx:if='{{order.orderStatus === 3}}'>
+    <view class='ticket-offline' wx:if='{{orderMerches[0].vouchWay === 3}}'>
+      <view class='ticket-offline-name'>{{orderMerches[0].merchName}}</view>
+      <view class='ticket-offline_expire'>有效期至{{orderMerches[0].usingEndDate}}</view>
+      <view class='ticket-offline_btn'>
+        <button bindtap='handleOrderUsed'>面对面确认</button>
+      </view>
+    </view>
+  </view>
   <view class='row'>
     <view class='title'>购买商品</view>
     <block wx:for='{{orderMerches}}' wx:key='{{index}}'>
@@ -78,10 +87,10 @@
     <view class='text'>订单编号：{{order.orderNo}}</view>
     <view class='text'>下单时间：{{dateFr.formatTime(order.createAt)}}</view>
   </view>
-  <view class='row' wx:if="{{order.orderStatus === 6}}">
+  <view class='row' wx:if="{{order.payStatus === 1}}">
     <view class='text' wx:if='{{order.payPrice}}'>支付方式：{{dateFr.getPayTypeText(order.payType)}}</view>
     <view class='text' wx:if='{{order.payAt}}'>支付时间：{{dateFr.formatTime(order.payAt)}}</view>
-    <view class='text'>退款时间：{{dateFr.formatTime(order.refundReqAt)}}</view>
+    <view class='text' wx:if='{{order.refundReqAt}}'>退款时间：{{dateFr.formatTime(order.refundReqAt)}}</view>
   </view>
   <view class='row'>
     <view class='text'>中文姓名：{{receiver.name}}</view>
@@ -108,9 +117,9 @@
       <view class='orange'>实付：{{order.payCurrency + (order.payPrice / 100)}}</view>
     </view>
   </view>
-  <view class='row' wx:if='{{order.orderStatus === 2}}'>
+  <view class='row' wx:if='{{order.orderStatus === 2 || order.orderStatus === 3}}'>
     <view class='other flex'>
-      <view class='refund' bindtap='goToTheRefund' wx:if='{{order.refundStatus < 1 }}'>申请退款</view>
+      <view class='refund' bindtap='goToTheRefund' wx:if='{{order.refundStatus < 1 &&  order.orderStatus !== 3 }}'>申请退款</view>
       <view class='shopping'>
         <button bindtap='goToTheOrder'>再次购买</button>
       </view>

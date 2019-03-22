@@ -56,6 +56,7 @@ Page({
     setting: {},
     p_mask: false,
     stratDate: '',
+    endDate: '',
     timeRange: [],
     useData: '',
     useTime: ''
@@ -155,6 +156,7 @@ Page({
       this.getGoodsDetail(res.goodsItemVO.goodsItemBase.gid);
       this.getUserCouponUsable(res.goodsItemVO.goodsItemBase.subType);
       this.getMerchInventoryl();
+      this.initPreOrderBookTime();
     }, err => {
       console.error(err);
     })
@@ -213,7 +215,7 @@ Page({
       this.setData({
         setting: res.setting
       });
-      this.initPreOrderBookTime();
+      // this.initPreOrderBookTime();
     }, e => {
       console.error(e);
     })
@@ -281,13 +283,15 @@ Page({
   // 初始化页面获取日期选择的起始时间
   initPreOrderBookTime() {
     // this.data.setting.preOrderDays * 
-    let timestamp = new Date().getTime() + 24 * 3600 * 1000;
-    let date = new Date(timestamp);
-    let month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
-    let day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
-    let now = date.getFullYear() + month + day;
+    // let timestamp = new Date().getTime() + 24 * 3600 * 1000;
+    // let date = new Date(timestamp);
+    // let month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
+    // let day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+    // let now = date.getFullYear() + month + day;
     this.setData({
-      stratDate: date.getFullYear() + '-' + month + '-' + day
+      // stratDate: date.getFullYear() + '-' + month + '-' + day
+      stratDate: utils.formatDate(this.data.goodsItem.goodsItemBase.start, '-'),
+      endDate: utils.formatDate(this.data.goodsItem.goodsItemBase.end, '-')
     });
     // this.getPreOrderBookTime(now);
   },
