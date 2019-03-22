@@ -293,9 +293,9 @@
     <view class='price'>
       <view class='pay_price'>
         <text>合计</text>
-        <text>{{goodsItem.goodsItemBase.currency}}{{dateFr.getOrderPrice((price * orderMerches.merchCount), selectCoupon) / 100}}</text>
+        <text>{{goodsItem.goodsItemBase.currency}}{{dateFr.getOrderPrice((price * orderMerches.merchCount), selectCoupon)}}</text>
       </view>
-      <view class='discount' wx:if='{{selectCoupon.id}}'>优惠 {{goodsItem.goodsItemBase.currency}}{{dateFr.getDiscountPrice((price * orderMerches.merchCount), selectCoupon) / 100}}</view>
+      <view class='discount' wx:if='{{selectCoupon.id}}'>优惠 {{goodsItem.goodsItemBase.currency}}{{dateFr.getDiscountPrice((price * orderMerches.merchCount), selectCoupon)}}</view>
     </view>
     <view class='btn'>
       <button bindtap='handleClickPaymentButton'>去付款</button>

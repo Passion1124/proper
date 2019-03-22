@@ -63,28 +63,45 @@ var DateFr = {
     });
   },
   getOrderPrice: function(price, coupon) {
-    if (price < 100) {
-      return price;
-    }
+    var result = '';
     if (coupon.type === 0) {
-      return price * (coupon.discount / 100);
+      result = price * (coupon.discount / 100);
     } else if (coupon.type === 1) {
-      return price - coupon.reducePrice
+      result = price - coupon.reducePrice
     } else if (coupon.type === 2) {
-      return price - coupon.reducePrice >= 0 ? price - coupon.reducePrice : 0
+      result = price - coupon.reducePrice >= 0 ? price - coupon.reducePrice : 0
     } else {
-      return price
+      result = price
     }
+    if (price <= 1) {
+      result = 0.01;
+    } else {
+      if (parseFloat((result / 100).toFixed(2)) === result / 100) {
+        result = (result / 100).toFixed(2);
+      } else {
+        result = parseFloat((result / 100).toFixed(2)) + 0.01;
+      }
+    }
+    return result;
   },
   getDiscountPrice: function(price, coupon) {
-    if (price < 100) {
-      return 0;
-    }
+    var result = 0;
     if (coupon.type === 0) {
-      return price - price * (coupon.discount / 100)
+      result = price - price * (coupon.discount / 100)
     } else if (coupon.type === 1 || coupon.type === 2) {
-      return coupon.reducePrice
+      result = coupon.reducePrice
     }
+    console.log(result);
+    if (price <= 1) {
+      result = 0.00;
+    } else {
+      if (parseFloat((result / 100).toFixed(2)) === result / 100) {
+        result = (result / 100).toFixed(2);
+      } else {
+        result = parseFloat((result / 100).toFixed(2)) - 0.01;
+      }
+    }
+    return result;
   },
   getChineseDate: function(str) {
     str = '' + str;
