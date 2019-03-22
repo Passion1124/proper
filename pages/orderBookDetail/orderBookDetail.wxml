@@ -41,7 +41,7 @@
       <button class='shopping' bindtap='goToTheOrder' wx:if='{{order.orderStatus === 2}}'>再次购买</button>
       <view class='comment_row' wx:if='{{order.orderStatus === 4}}'>
         <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
-        <button class='comment' bindtap='goToTheOrder'>前往评价</button>
+        <button class='comment' bindtap='goToTheComment'>前往评价</button>
       </view>
     </view>
     <view class='tips tbc' wx:if='{{order.orderStatus === 1}}'>
@@ -65,7 +65,7 @@
         <view>用餐人：{{orderMerches[0].merchCount}}</view>
       </view>
       <view class='text'>
-        <view>服务费：{{order.payCurrency + (order.payPrice / order.merchCount) / 100}}/人</view>
+        <view>服务费：{{order.payCurrency + ((order.sourcePrice - order.discountPrice) / order.merchCount) / 100}}/人</view>
       </view>
       <view class='text flex' wx:if='{{order.providerOrderInfo.remark}}'>
         <view>备注：</view>
@@ -115,12 +115,12 @@
       </view>
       <view class='text flex'>
         <view>优惠：</view>
-        <view class='orange t_right'>{{order.payCurrency + (order.discountPrice / 100)}}</view>
+        <view class='orange t_right'>{{order.payCurrency + ((order.discountPrice + order.couponPrice) / 100)}}</view>
       </view>
     </view>
     <view class='area'>
       <view class='text t_right orange'>
-        <view>实付：{{order.payCurrency + (order.payPrice / 100)}}</view>
+        <view>实付：{{order.payCurrency + (order.paidPrice / 100)}}</view>
       </view>
       <view class='text t_right orange' wx:if='{{false}}'>
         <view>已退款：CNY20222</view>

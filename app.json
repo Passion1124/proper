@@ -51,7 +51,8 @@
     "pages/comment/comment",
     "pages/insteadFood/insteadFood",
     "pages/insteadBook/insteadBook",
-    "pages/orderBookDetail/orderBookDetail"
+    "pages/orderBookDetail/orderBookDetail",
+    "pages/webview/webview"
   ],
   "window":{
     "backgroundTextStyle":"light",

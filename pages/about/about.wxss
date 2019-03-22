@@ -1,0 +1,87 @@
+image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.container{
+  padding: 0 40rpx;
+}
+
+.top{
+  margin: 100rpx 0 88rpx;
+}
+
+.top .logo{
+  width: 166rpx;
+  height: 166rpx;
+  margin: 0 auto;
+}
+
+.top .pageTitle{
+  font-size: 56rpx;
+  line-height: 78rpx;
+  color: #333333;
+  letter-spacing: 1rpx;
+  text-align: center;
+  margin-top: 24rpx;
+}
+
+.top .version{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #666666;
+  text-align: center;
+}
+
+.center .official{
+  display: flex;
+  align-items: center;
+  padding: 40rpx 0;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.center .official .icon{
+  width: 44rpx;
+  height: 44rpx;
+  margin-right: 24rpx;
+}
+
+.center .official .text{
+  flex: 1;
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #3C3C3C;
+}
+
+.center .official .more{
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.bottom_content{
+  position: absolute;
+  left: 0;
+  bottom: 40rpx;
+  width: 100%;
+  text-align: center;
+}
+
+.bottom_content .footer_text{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #8C8C8C;
+  letter-spacing: 2rpx;
+  margin-bottom: 15rpx;
+}
+
+.bottom_content  .register-message{
+  font-size: 26rpx;
+  line-height: 33rpx;
+  color: #999;
+}
+
+.bottom_content  .register-message .text-infoactive{
+  color: #23C2F7;
+  text-decoration: underline;
+}

@@ -1,2 +1,29 @@
 <!-- about.wxml -->
-<view class='container'>关于</view>
+<view class='container'>
+  <view class='top'>
+    <view class='logo'>
+      <image src='../../img/about/about_icon_logo.png'></image>
+    </view>
+    <view class='pageTitle'>妥妥得</view>
+    <view class='version'>版本：V1.1</view>
+  </view>
+  <view class='center'>
+    <view class='official' bindtap='goToTheOfficialPage'>
+      <view class='icon'>
+        <image src='../../img/about/about_icon_web.png'></image>
+      </view>
+      <view class='text'>访问官网</view>
+      <view class='more'>
+        <image src='../../img/common/more.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='bottom_content'>
+    <view class='footer_text'>上海弘乐国际旅行社有限公司</view>
+    <view class='register-message'>
+      <text class='text-infoactive' bindtap='goToTheServicePage'>《妥妥得旅行用户服务协议》</text>
+      <text class='text-info'>和</text>
+      <text class='text-infoactive' bindtap='goToThePrivacyPage'>《妥妥得旅行用户隐私协议》</text>
+    </view>
+  </view>
+</view>

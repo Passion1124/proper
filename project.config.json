@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 17,
 			"list": [
 				{
 					"id": 0,
@@ -157,6 +157,13 @@
 					"name": "代预订详情页面",
 					"pathName": "pages/orderBookDetail/orderBookDetail",
 					"query": "result=1&id=3cd2146c42d54fc0923af36d8de16dee",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "关于",
+					"pathName": "pages/about/about",
+					"query": "",
 					"scene": null
 				}
 			]

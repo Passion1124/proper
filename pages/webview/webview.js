@@ -1,5 +1,3 @@
-import utils from '../../utils/util.js'
-
 const app = getApp();
 
 Page({
@@ -8,14 +6,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    url: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.setData({
+      url: options.url
+    });
   },
 
   /**
@@ -65,14 +65,5 @@ Page({
    */
   onShareAppMessage: function () {
     
-  },
-  goToTheServicePage () {
-    utils.navigateTo('/pages/webview/webview?url=https://www.ttd-trip.com/protocol/protocol.html');
-  },
-  goToThePrivacyPage () {
-    utils.navigateTo('/pages/webview/webview?url=https://www.ttd-trip.com/protocol/privacy.html')
-  },
-  goToTheOfficialPage () {
-    utils.navigateTo('/pages/webview/webview?url=http://www.ttd-trip.com/views/index.html');
   }
 })

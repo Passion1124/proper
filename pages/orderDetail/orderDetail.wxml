@@ -21,7 +21,7 @@
     <button class='shopping' bindtap='goToTheOrder' wx:if='{{order.orderStatus === 2}}'>再次购买</button>
     <view class='comment_row' wx:if='{{order.orderStatus === 4}}'>
       <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
-      <button class='comment' bindtap='goToTheOrder'>前往评价</button>
+      <button class='comment' bindtap='goToTheComment'>前往评价</button>
     </view>
   </view>
   <view class='tips tbc' wx:if='{{order.orderStatus === 1}}'>

@@ -158,12 +158,9 @@ Page({
   // 再次购买
   goToTheOrder() {
     let order = this.data.order;
-    let url = '';
-    if (order.preOrder) {
-      url = '/pages/foodchoose/foodchoose?giid=' + this.data.orderMerches[0].merchId
-    } else {
-      url = '/pages/order/order?giid=' + this.data.orderMerches[0].merchId + '&type=' + this.data.orderMerches[0].merchType;
-    }
+    let orderMerches = this.data.orderMerches[0];
+    let orderRestaurantProviderMerch = orderMerches.orderRestaurantProviderMerch;
+    let url = '/pages/pages/insteadBook/insteadBook?mid=' + orderRestaurantProviderMerch.mid + '&shopName=' + orderRestaurantProviderMerch.mName + '&gid=' + orderMerches.poiId + '&giid=' + orderMerches.merchId;
     wx.navigateTo({
       url: url,
     })
