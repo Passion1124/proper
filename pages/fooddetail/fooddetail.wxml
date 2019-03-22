@@ -137,7 +137,7 @@
           </view>
         </block>
       </view>
-      <view class='product_num' bindtap='goToTheFoodMealList'>查看全部{{goodsItemCount}}个套餐</view>
+      <view class='product_num' bindtap='goToTheFoodMealList' wx:if='{{goodsItemCount > 1}}'>查看全部{{goodsItemCount}}个套餐</view>
     </view>
     <view class='area' wx:if='{{preOrderGoodsItem.length}}'>
       <view class='area_title'>用餐代预定</view>

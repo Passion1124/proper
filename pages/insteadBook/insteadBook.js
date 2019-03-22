@@ -153,6 +153,7 @@ Page({
       });
       this.getGoodsDetail(res.goodsItemVO.goodsItemBase.gid);
       this.getUserCouponUsable(res.goodsItemVO.goodsItemBase.subType);
+      this.getMerchInventoryl();
     }, err => {
       console.error(err);
     })
@@ -318,6 +319,7 @@ Page({
       this.data.orderRestaurantProviderMerch.mid = this.data.mid;
       this.data.orderRestaurantProviderMerch.mName = this.data.shopName;
       this.data.orderRestaurantProviderMerch.userUpTime = new Date(this.data.useData + ' ' + this.data.useTime).getTime();
+      console.log(this.data.orderRestaurantProviderMerch);
       this.data.orderMerches.orderRestaurantProviderMerch = this.data.orderRestaurantProviderMerch;
       this.handleSaveReceiverInfo();
     }
@@ -336,6 +338,12 @@ Page({
     this.setData({
       useTime: this.data.timeRange[e.detail.value]
     });
+  },
+  // 点击选择时间
+  bindUpTimeClick (e) {
+    if (!this.data.useData) {
+      utils.showMessage('请选择日期');
+    }
   },
   // 调配时间
   bindNeedAssignTime (e) {

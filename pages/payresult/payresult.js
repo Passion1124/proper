@@ -95,6 +95,7 @@ Page({
     let api = 'com.ttdtrip.api.goods.apis.GoodsItemDetailApiService';
     let data = { base: app.globalData.baseBody, spec: 1, giid: this.data.giid };
     app.request(api, data, res => {
+      console.log(res);
       this.setData({
         goodsItem: res.goodsItemVO
       })

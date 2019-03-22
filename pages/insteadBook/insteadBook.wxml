@@ -19,7 +19,7 @@
         </picker>
       </view>
       <view class='many'>
-        <picker mode='selector' range='{{timeRange}}' value='{{useTime}}' bindchange="bindUpTimeChange">
+        <picker mode='selector' range='{{timeRange}}' value='{{useTime}}' bindchange="bindUpTimeChange" disabled='{{!useData}}' bindtap='bindUpTimeClick'>
           <view class='picker'>
             <view class='picker_text {{useTime ? "blue_text" : ""}}'>{{useTime ||'选择时间'}}</view>
             <view class='img_row'>
@@ -48,7 +48,7 @@
         </view>
       </view>
       <view>
-        <input type='number' value='{{orderMerches.merchCount}}' bindchange='bindManual'></input>
+        <input type='number' value='{{orderMerches.merchCount}}' bindchange='bindManual' disabled='{{true}}'></input>
       </view>
       <view bindtap='bindPlus'>
         <view class='img_row'>
@@ -168,9 +168,9 @@
     <view class='price'>
       <view class='pay_price'>
         <text>合计</text>
-        <text>{{goodsItem.goodsItemBase.currency}}{{dateFr.getOrderPrice((price * orderMerches.merchCount), selectCoupon) / 100}}</text>
+        <text>{{goodsItem.goodsItemBase.currency}}{{dateFr.getOrderPrice((price * orderMerches.merchCount), selectCoupon)}}</text>
       </view>
-      <view class='discount' wx:if='{{selectCoupon.id}}'>优惠 {{goodsItem.goodsItemBase.currency}}{{dateFr.getDiscountPrice((price * orderMerches.merchCount), selectCoupon) / 100}}</view>
+      <view class='discount' wx:if='{{selectCoupon.id}}'>优惠 {{goodsItem.goodsItemBase.currency}}{{dateFr.getDiscountPrice((price * orderMerches.merchCount), selectCoupon)}}</view>
     </view>
     <view class='btn'>
       <button bindtap='handleClickPaymentButton'>去付款</button>

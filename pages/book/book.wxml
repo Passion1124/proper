@@ -19,15 +19,25 @@
       <view class='single_text'>用餐日期</view>
       <view class='single_left'>
         <picker mode='date' start='{{stratDate}}' value='{{preOrderInfo.date}}' bindchange='handleChangeDate'>
-          <view>{{preOrderInfo.date}}</view>
+          <view class='picker'>
+            <view class='picker_text'>{{preOrderInfo.date}}</view>
+            <view class='img_row'>
+              <image src='../../img/common/more.png'></image>
+            </view>
+          </view>
         </picker>
       </view>
     </view>
     <view class='single'>
       <view class='single_text'>用餐时间</view>
       <view class='single_left'>
-        <picker mode='selector' range='{{timeRange}}' value='{{preOrderInfo.time}}' bindchange='handleChangeTime'>
-          <view>{{timeRange[preOrderInfo.time]}}</view>
+        <picker mode='selector' range='{{timeRange}}' value='{{preOrderInfo.time}}' bindchange='handleChangeTime' disabled='{{!preOrderInfo.date}}' bindtap='handleClickEatTime'>
+          <view class='picker'>
+            <view class='picker_text'>{{timeRange[preOrderInfo.time]}}</view>
+            <view class='img_row'>
+              <image src='../../img/common/more.png'></image>
+            </view>
+          </view>
         </picker>
       </view>
     </view>
@@ -134,13 +144,13 @@
       <view class='title_text'>联系方式</view>
     </view>
     <view class='single'>
-      <input value='{{preOrderInfo.contactor}}' placeholder='输入您的姓名' placeholder-class='ph_class' data-type='name' bindinput='handleChangeInputValue'></input>
+      <input value='{{preOrderInfo.contactor}}' placeholder='输入您的姓名' placeholder-class='ph_class' data-type='name' bindinput='handleChangeInputValue' maxlength='50'></input>
     </view>
     <view class='single'>
-      <input value='{{preOrderInfo.mail}}' placeholder='邮箱' placeholder-class='ph_class' data-type='mail' bindinput='handleChangeInputValue'></input>
+      <input value='{{preOrderInfo.mail}}' placeholder='邮箱' placeholder-class='ph_class' data-type='mail' bindinput='handleChangeInputValue' maxlength='50'></input>
     </view>
     <view class='single'>
-      <input value='{{preOrderInfo.phoneNo}}' placeholder='手机' placeholder-class='ph_class' data-type='phone' bindinput='handleChangeInputValue'></input>
+      <input value='{{preOrderInfo.phoneNo}}' placeholder='手机' placeholder-class='ph_class' data-type='phone' bindinput='handleChangeInputValue' maxlength='50'></input>
     </view>
     <block wx:if='{{customerRequest.length}}'>
       <view class='form_title no_border'>

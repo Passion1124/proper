@@ -363,6 +363,12 @@ Page({
       ['preOrderInfo.time']: e.detail.value
     });
   },
+  // 点击用餐时间
+  handleClickEatTime (e) {
+    if (!this.data.preOrderInfo.date) {
+      utils.showMessage('请选择用餐日期');
+    }
+  },
   // 修改包间
   handleChangeBox (e) {
     let box = parseInt(e.currentTarget.dataset.box);

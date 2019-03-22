@@ -49,7 +49,7 @@ App({
               url: '/pages/signIn/signIn',
             });
           } else {
-            if (res.data.ret_code !== '1113') {
+            if (res.data.ret_code !== '1113' && res.data.ret_code !== '9008') {
               utils.showMessage(res.data.ret_msg);
             }
             fail(res.data);

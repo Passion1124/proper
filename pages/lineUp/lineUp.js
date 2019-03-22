@@ -1,3 +1,5 @@
+import utils from '../../utils/util.js'
+
 const app = getApp();
 
 Page({
@@ -113,21 +115,27 @@ Page({
   },
   //排队前桌台检查
   handlePreJoinLineCheckApiService () {
-    let api = 'com.ttdtrip.api.order.apis.service.PreJoinLineCheckApiService';
-    let data = { base: app.globalData.baseBody, mid: this.data.mid, isBox: this.data.isBox, allowSmock: this.data.allowSmock, num: this.data.num };
-    app.request(api, data, res => {
-      console.log(res);
-      let smock = this.data.allowSmock;
-      let favorName = smock ? (smock === 1 ? '吸烟区' : '不介意') : '非吸烟区';
-      let roomName = this.data.isBox ? '需要' : '不需要';
-      let obj = { mid: this.data.mid, name: this.data.name, num: this.data.num, box: this.data.isBox, smoke: this.data.allowSmock, email: this.data.email, onlineOrderDish: this.data.onlineOrderDish, poiId: this.data.gid, lan: 'zh-cn', favorName, roomName };
-      wx.setStorageSync('line', obj);
-      wx.navigateTo({
-        url: '/pages/lineUpConfirm/lineUpConfirm',
+    if (!this.data.email) {
+      utils.showMessage('请输入您的邮箱');
+    } else if (this.data.email && !utils.validateEmail(this.data.email)) {
+      utils.showMessage('请输入正确的邮箱');
+    } else {
+      let api = 'com.ttdtrip.api.order.apis.service.PreJoinLineCheckApiService';
+      let data = { base: app.globalData.baseBody, mid: this.data.mid, isBox: this.data.isBox, allowSmock: this.data.allowSmock, num: this.data.num };
+      app.request(api, data, res => {
+        console.log(res);
+        let smock = this.data.allowSmock;
+        let favorName = smock ? (smock === 1 ? '吸烟区' : '不介意') : '非吸烟区';
+        let roomName = this.data.isBox ? '需要' : '不需要';
+        let obj = { mid: this.data.mid, name: this.data.name, num: this.data.num, box: this.data.isBox, smoke: this.data.allowSmock, email: this.data.email, onlineOrderDish: this.data.onlineOrderDish, poiId: this.data.gid, lan: 'zh-cn', favorName, roomName };
+        wx.setStorageSync('line', obj);
+        wx.navigateTo({
+          url: '/pages/lineUpConfirm/lineUpConfirm',
+        })
+      }, e => {
+        console.error(e);
       })
-    }, e => {
-      console.error(e);
-    })
+    }
   },
   // 点击减号
   bindMinus: function () {

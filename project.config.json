@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 17,
+			"current": -1,
 			"list": [
 				{
 					"id": 0,
@@ -105,13 +105,6 @@
 				},
 				{
 					"id": -1,
-					"name": "美食详情 - 排队",
-					"pathName": "pages/fooddetail/fooddetail",
-					"query": "gid=1304e214-a152-48e3-92ef-8632d320d852&type=2",
-					"scene": null
-				},
-				{
-					"id": -1,
 					"name": "排队完成页面",
 					"pathName": "pages/lineUpDetail/lineUpDetail",
 					"query": "sn=6399d76468a04e078d3c40a8107d48b6&num=6&email=330352812@qq.com&favorName=非吸烟区&roomName=需要",
@@ -132,10 +125,10 @@
 					"scene": null
 				},
 				{
-					"id": 15,
+					"id": 13,
 					"name": "支付结果",
 					"pathName": "pages/payresult/payresult",
-					"query": "preOrderId=16699423-a404-40ed-8dc4-fd659d70c55a&orderId=e56406a02e6d4ee4b411d4f35caeae8c&giid=5f491a99-b465-4c24-9878-ddf17b34f7e0",
+					"query": "preOrderId=aef3978b-e880-4f74-88e9-4f75284434df&orderId=4a4940ba7c1549caaa6431e25f855705&giid=d2c556c9-8055-41a3-8236-72b1c10c3cd1",
 					"scene": null
 				},
 				{

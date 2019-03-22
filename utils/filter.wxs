@@ -76,10 +76,10 @@ var DateFr = {
     if (price <= 1) {
       result = 0.01;
     } else {
-      if (parseFloat((result / 100).toFixed(2)) === result / 100) {
-        result = (result / 100).toFixed(2);
+      if (Math.floor(result) / 100 === result / 100) {
+        result = result / 100;
       } else {
-        result = parseFloat((result / 100).toFixed(2)) + 0.01;
+        result = Math.floor(result) / 100 + 0.01;
       }
     }
     return result;
@@ -91,14 +91,13 @@ var DateFr = {
     } else if (coupon.type === 1 || coupon.type === 2) {
       result = coupon.reducePrice
     }
-    console.log(result);
     if (price <= 1) {
       result = 0.00;
     } else {
-      if (parseFloat((result / 100).toFixed(2)) === result / 100) {
-        result = (result / 100).toFixed(2);
+      if (Math.floor(result) / 100 === result / 100) {
+        result = result / 100;
       } else {
-        result = parseFloat((result / 100).toFixed(2)) - 0.01;
+        result = Math.floor(result) / 100;
       }
     }
     return result;

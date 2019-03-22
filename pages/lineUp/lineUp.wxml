@@ -81,7 +81,7 @@
       <view class='title_tips'>暂时只支持邮箱联系</view>
     </view>
     <view class='single'>
-      <input value='{{email}}' placeholder='输入联系邮箱' placeholder-class='ph_class' bindinput='handleInputEmail'></input>
+      <input value='{{email}}' placeholder='输入联系邮箱' placeholder-class='ph_class' bindinput='handleInputEmail' maxlength='length'></input>
     </view>
   </view>
   <view class='sure_submit_btn'>
