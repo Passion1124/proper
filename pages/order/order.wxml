@@ -35,13 +35,13 @@
       </view>
     </view>
     <view class='upPlace' wx:else>
-      <input placeholder-class='phcolor' placeholder='请输入上车地点' value='{{orderTravelMerch.upPlace}}' bindinput='bindUpPlaceChange'></input>
+      <input placeholder-class='phcolor' placeholder='请输入上车地点' value='{{orderTravelMerch.upPlace}}' bindinput='bindUpPlaceChange' maxlength='50'></input>
     </view>
   </view>
   <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 11}}'>
     <view class='text'>下车地点</view>
     <view class='downPlace'>
-      <input placeholder-class='phcolor' placeholder='请输入下车地点' value='{{orderTravelMerch.downPlace}}' bindinput='bindDownPlaceChange'></input>
+      <input placeholder-class='phcolor' placeholder='请输入下车地点' value='{{orderTravelMerch.downPlace}}' bindinput='bindDownPlaceChange' maxlength='50'></input>
       <button bindtap='handleCopyUpPlace'>同上车地点</button>
     </view>
   </view>
@@ -58,7 +58,7 @@
   </view>
   <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 31 || goodsItem.goodsItemBase.subType === 32}}'>
     <view class='text'>领取地点</view>
-    <view class='receive' wx:if='{{goodsItem.goodsItemBase.subType === 31}}'>
+    <view class='receive' wx:if='{{goodsItem.goodsItemInfo.infoExt.address.length}}'>
       <picker mode='selector' range='{{goodsItem.goodsItemInfo.infoExt.address}}' value='{{orderTrafficMerch.upPlace}}' bindchange="bindReceivePlace">
         <view class='blue_text'>{{orderTrafficMerch.upPlace ||'选择领取地点'}}</view>
       </picker>
@@ -66,33 +66,33 @@
         <image src='../../img/common/more.png'></image>
       </view>
     </view>
-    <view class='receive' wx:if='{{goodsItem.goodsItemBase.subType === 32}}'>
-      <input placeholder='请输入领取地点' placeholder-class='phcolor' value='{{orderTrafficMerch.upPlace}}' bindinput='bindUpPlaceChange'></input>
+    <view class='receive' wx:else>
+      <input placeholder='请输入领取地点' placeholder-class='phcolor' value='{{orderTrafficMerch.upPlace}}' bindinput='bindUpPlaceChange' maxlength='50'></input>
     </view>
   </view>
   <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 38 || goodsItem.goodsItemBase.subType === 34}}'>
     <view class='text'>上车地点</view>
     <view class='upPlace'>
-      <input placeholder-class='phcolor' placeholder='请输入上车地点' value='{{orderTrafficMerch.upPlace}}' bindinput='bindUpPlaceChange'></input>
+      <input placeholder-class='phcolor' placeholder='请输入上车地点' value='{{orderTrafficMerch.upPlace}}' bindinput='bindUpPlaceChange' maxlength='50'></input>
     </view>
   </view>
   <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 34}}'>
     <view class='text'>下车地点</view>
     <view class='downPlace'>
-      <input placeholder-class='phcolor' placeholder='请输入下车地点' value='{{orderTrafficMerch.downPlace}}' bindinput='bindDownPlaceChange'></input>
+      <input placeholder-class='phcolor' placeholder='请输入下车地点' value='{{orderTrafficMerch.downPlace}}' bindinput='bindDownPlaceChange' maxlength='50'></input>
       <button bindtap='handleCopyUpPlace'>同上车地点</button>
     </view>
   </view>
   <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 33 || goodsItem.goodsItemBase.subType === 38}}'>
     <view class='text'>航班号</view>
     <view class='downPlace'>
-      <input placeholder-class='phcolor' placeholder='输入航班号，如“CA1234”' value='{{orderTrafficMerch.flyNum}}' bindinput='bindFlyNumChange'></input>
+      <input placeholder-class='phcolor' placeholder='输入航班号，如“CA1234”' value='{{orderTrafficMerch.flyNum}}' bindinput='bindFlyNumChange' maxlength='20'></input>
     </view>
   </view>
   <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 33}}'>
     <view class='text'>目的地</view>
     <view class='downPlace'>
-      <input placeholder-class='phcolor' placeholder='请输入目的地' value='{{orderTrafficMerch.downPlace}}' bindinput='bindDownPlaceChange'></input>
+      <input placeholder-class='phcolor' placeholder='请输入目的地' value='{{orderTrafficMerch.downPlace}}' bindinput='bindDownPlaceChange' maxlength='50'></input>
     </view>
   </view>
   <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 36 || goodsItem.goodsItemBase.subType === 42}}'>
@@ -147,7 +147,7 @@
         </view>
       </view>
       <view>
-        <input type='number' value='{{orderMerches.ext.babyChairCount}}' bindchange='bindExtManual'></input>
+        <input type='number' value='{{orderMerches.ext.babyChairCount}}' bindchange='bindExtManual' maxlength='50'></input>
       </view>
       <view class='{{ maxusStatus }}' bindtap='bindExtPlus'>
         <view class='img_row'>
@@ -168,7 +168,7 @@
     <view class='tips'>联系人</view>
     <view class='text'>中文姓名</view>
     <view class='cName'>
-      <input placeholder-class='phcolor' value='{{receiver.name}}' placeholder='中文姓名' bindinput='handleInputName'></input>
+      <input placeholder-class='phcolor' value='{{receiver.name}}' placeholder='中文姓名' bindinput='handleInputName' maxlength='50'></input>
       <button bindtap='handleTransformEnglishName'>转为英文姓名</button>
     </view>
   </view>
@@ -176,26 +176,26 @@
     <view class='surname'>
       <view class='text'>英文姓</view>
       <view class='input_row'>
-        <input placeholder='英文姓' placeholder-class='phcolor' value='{{surname}}' data-type='1' bindinput='bindEnNameChange'></input>
+        <input placeholder='英文姓' placeholder-class='phcolor' value='{{surname}}' data-type='1' bindinput='bindEnNameChange' maxlength='50'></input>
       </view>
     </view>
     <view class='en_name'>
       <view class='text'>英文名</view>
       <view class='input_row'>
-        <input placeholder='英文名' placeholder-class='phcolor' value='{{en_name}}' data-type='0' bindinput='bindEnNameChange'></input>
+        <input placeholder='英文名' placeholder-class='phcolor' value='{{en_name}}' data-type='0' bindinput='bindEnNameChange' maxlength='50'></input>
       </view>
     </view>
   </view>
   <view class='many'>
     <view class='text'>手机号</view>
     <view class='phoneNo'>
-      <input type='number' placeholder-class='phcolor' value='{{receiver.phoneNo}}' placeholder='手机号（以便紧急情况联系）' bindinput='handleInputPhone'></input>
+      <input type='number' placeholder-class='phcolor' value='{{receiver.phoneNo}}' placeholder='手机号（以便紧急情况联系）' bindinput='handleInputPhone' maxlength='50'></input>
     </view>
   </view>
   <view class='many'>
     <view class='text'>邮箱</view>
     <view class='email'>
-      <input placeholder-class='phcolor' value='{{receiver.email}}' placeholder='邮箱' bindinput='handleInputEmail'></input>
+      <input placeholder-class='phcolor' value='{{receiver.email}}' placeholder='邮箱' bindinput='handleInputEmail' maxlength='50'></input>
     </view>
   </view>
   <view class='pickUp' wx:if='{{goodsItem.goodsItemBase.pickUpType}}'>
@@ -220,7 +220,7 @@
       </block>
     </view>
     <view class='mail single' wx:if='{{goodsItem.goodsItemBase.pickUpType !==1 && pickUpType===0 }}'>
-      <input value='{{mail}}' placeholder-class='phcolor' placeholder='详细地址' bindinput='handleChangeInputMail'></input>
+      <input value='{{mail}}' placeholder-class='phcolor' placeholder='详细地址' bindinput='handleChangeInputMail' maxlength='50'></input>
     </view>
   </view>
   <view class='many' wx:if='{{useData}}' bindtap='clickCouponLan'>
