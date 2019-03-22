@@ -36,10 +36,8 @@ Page({
    */
   onLoad: function(options) {
     console.log(options);
-    this.setData({
-      gid: options.gid,
-      type: options.type
-    });
+    this.data.gid = options.gid;
+    this.data.type = options.type;
     this.getGoodsDetail();
     this.getCommentList();
     this.getCommentCount();
