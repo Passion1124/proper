@@ -233,10 +233,8 @@ var DateFr = {
   getPayTypeText: function(type) {
     var str = '';
     if (type === 1) str = '支付宝';
-    if (type === 2) str = '微信';
+    if (type === 2 || type === 4 || type === 5) str = '微信';
     if (type === 3) str = 'apple';
-    if (type === 4) str = '微信H5';
-    if (type === 5) str = '小程序'; 
     return str;
   },
   getLinePendingDateText: function (lineAt) {

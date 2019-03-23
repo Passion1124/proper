@@ -128,7 +128,7 @@
         </view>
       </view>
       <view>
-        <input type='number' value='{{orderMerches.merchCount}}' bindchange='bindManual'></input>
+        <input type='number' value='{{orderMerches.merchCount}}' disabled='{{true}}' bindchange='bindManual'></input>
       </view>
       <view bindtap='bindPlus'>
         <view class='img_row'>

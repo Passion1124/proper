@@ -46,7 +46,7 @@
     <block wx:for='{{orderMerches}}' wx:key='{{index}}'>
       <view class='commodity flex'>
         <view class='poster'>
-          <image src='{{item.merchImgUrl}}'></image>
+          <image mode='aspectFill' src='{{item.merchImgUrl}}'></image>
         </view>
         <view class='info'>
           <view class='c_title'>{{item.merchName}}</view>

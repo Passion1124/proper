@@ -99,8 +99,8 @@
 
 .un_empty .list .order .content{
   width: 632rpx;
-  height: 191rpx;
-  padding: 40rpx 24rpx 0 40rpx;
+  /* height: 191rpx; */
+  padding: 40rpx;
   border-radius: 8rpx;
   border: 1rpx solid #B7B7B7;
   margin-bottom: 20rpx;

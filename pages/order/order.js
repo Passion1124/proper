@@ -66,7 +66,7 @@ Page({
     },
     useData: '',
     merchSpecific: '',
-    maxNum: 100,
+    maxNum: 10,
     minusStatus: 'disabled',
     maxusStatus: 'normal',
     genderRange: [
@@ -245,7 +245,7 @@ Page({
     let data = { base: app.globalData.baseBody, itemValues: {}, merchId: this.data.giid, merchType: this.data.goodsItem.goodsItemBase.subType };
     app.request(api, data, res => {
       console.log(res);
-      this.data.maxNum = res.merchInventory.consumableCount;
+      // this.data.maxNum = res.merchInventory.consumableCount;
     }, err => {
       console.error(err);
     })
