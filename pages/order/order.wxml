@@ -56,7 +56,7 @@
       </view>
     </view>
   </view>
-  <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 31 || goodsItem.goodsItemBase.subType === 32}}'>
+  <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 31 || goodsItem.goodsItemBase.subType === 35 || goodsItem.goodsItemBase.subType === 32}}'>
     <view class='text'>领取地点</view>
     <view class='receive' wx:if='{{goodsItem.goodsItemInfo.infoExt.address.length}}'>
       <picker mode='selector' range='{{goodsItem.goodsItemInfo.infoExt.address}}' value='{{orderTrafficMerch.upPlace}}' bindchange="bindReceivePlace">
@@ -106,7 +106,7 @@
       </view>
     </view>
   </view>
-  <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 37}}'>
+  <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 37 || goodsItem.goodsItemBase.subType === 43}}'>
     <view class='text'>时段</view>
     <view class='time_interval'>
       <picker mode='selector' range='{{goodsItem.goodsItemBase.ext.preOrderTime}}' value='{{time_interval}}' bindchange="bindTimeInterval">
@@ -120,7 +120,7 @@
   <view class='many'>
     <view class='text' wx:if='{{goodsItem.goodsItemBase.subType === 11 || goodsItem.goodsItemBase.subType === 33 || goodsItem.goodsItemBase.subType === 34 || goodsItem.goodsItemBase.subType === 38}}'>所需车辆</view>
     <view class='text' wx:if='{{goodsItem.goodsItemBase.subType === 12}}'>乘车人</view>
-    <view class='text' wx:if='{{goodsItem.goodsItemBase.subType === 31 || goodsItem.goodsItemBase.subType === 32 || goodsItem.goodsItemBase.subType === 36 || goodsItem.goodsItemBase.subType === 37 || goodsItem.goodsItemBase.subType === 41 || goodsItem.goodsItemBase.subType === 42}}'>购买数量</view>
+    <view class='text' wx:if='{{goodsItem.goodsItemBase.subType === 31 || goodsItem.goodsItemBase.subType === 35 || goodsItem.goodsItemBase.subType === 32 || goodsItem.goodsItemBase.subType === 36 || goodsItem.goodsItemBase.subType === 37 || goodsItem.goodsItemBase.subType === 41 || goodsItem.goodsItemBase.subType === 42 || goodsItem.goodsItemBase.subType === 43}}'>购买数量</view>
     <view class='copies'>
       <view bindtap='bindMinus'>
         <view class='img_row'>

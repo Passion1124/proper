@@ -28,7 +28,7 @@
       <view class='panel_info'>下单时间：{{dateFr.formatTime(foodOrder.createAt * 1000)}}</view>
     </view>
   </view>
-  <view class='update_order'>
+  <view class='update_order' wx:if='{{false}}'>
     <button bindtap='goToTheFoodOrderPage'>修改订单</button>
   </view>
 </view>
