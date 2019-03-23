@@ -73,13 +73,15 @@ var DateFr = {
     } else {
       result = price
     }
-    if (price <= 1) {
-      result = 0.01;
-    } else {
-      if (Math.floor(result) / 100 === result / 100) {
-        result = result / 100;
+    if (result) {
+      if (price <= 1) {
+        result = 0.01;
       } else {
-        result = Math.floor(result) / 100 + 0.01;
+        if (Math.floor(result) / 100 === result / 100) {
+          result = result / 100;
+        } else {
+          result = Math.floor(result) / 100 + 0.01;
+        }
       }
     }
     return result;
@@ -91,14 +93,18 @@ var DateFr = {
     } else if (coupon.type === 1 || coupon.type === 2) {
       result = coupon.reducePrice
     }
-    if (price <= 1) {
-      result = 0.00;
-    } else {
-      if (Math.floor(result) / 100 === result / 100) {
-        result = result / 100;
+    if (price >= result) {
+      if (price <= 1) {
+        result = 0.00;
       } else {
-        result = Math.floor(result) / 100;
+        if (Math.floor(result) / 100 === result / 100) {
+          result = result / 100;
+        } else {
+          result = Math.floor(result) / 100;
+        }
       }
+    } else {
+      result = price / 100;
     }
     return result;
   },
