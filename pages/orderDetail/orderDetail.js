@@ -117,6 +117,7 @@ Page({
     let data = { base: app.globalData.baseBody, orderId: merchItems.orderId, merchId: merchItems.merchId, merchItemId: merchItems.id };
     app.request(api, data, res => {
       console.log(res);
+      utils.showMessage('订单完成');
       this.handleOrderDetail();
     }, e => {
       console.error(e);

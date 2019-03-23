@@ -268,7 +268,6 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
 }
 
 .area .comment .main .img_row image {
@@ -276,6 +275,7 @@
   height: 212rpx;
   border-radius: 8rpx;
   margin-bottom: 16rpx;
+  margin-right: 16rpx;
 }
 
 .area .see {
