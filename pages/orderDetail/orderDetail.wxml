@@ -42,7 +42,7 @@
     </view>
   </view>
   <view class='row'>
-    <view class='title'>购买商品</view>
+    <view class='title'>商品信息</view>
     <block wx:for='{{orderMerches}}' wx:key='{{index}}'>
       <view class='commodity flex'>
         <view class='poster'>
