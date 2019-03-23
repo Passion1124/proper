@@ -73,6 +73,6 @@ Page({
     utils.navigateTo('/pages/webview/webview?url=https://www.ttd-trip.com/protocol/privacy.html')
   },
   goToTheOfficialPage () {
-    utils.navigateTo('/pages/webview/webview?url=http://www.ttd-trip.com/views/index.html');
+    utils.navigateTo('/pages/webview/webview?url=https://www.ttd-trip.com/views/index.html');
   }
 })

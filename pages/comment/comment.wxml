@@ -29,6 +29,6 @@
     </view>
   </view>
   <view class='btn'>
-    <button>发表</button>
+    <button bindtap='handleClickCommentButton'>发表</button>
   </view>
 </view>

@@ -1,4 +1,6 @@
 import utils from '../../utils/util.js'
+import md5 from '../../utils/md5.js'
+import uploadImage from '../../utils/uploadAli/uploadFile.js'
 
 const app = getApp();
 
@@ -11,14 +13,17 @@ Page({
     star: 0,
     comment: '',
     target: '',
-    pics: []
+    pics: [],
+    orderId: '',
+    commentId: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.data.target = options.target;
+    this.data.orderId = options.orderId;
   },
 
   /**
@@ -89,11 +94,64 @@ Page({
       count: 9 - this.data.pics.length,
       success: function(res) {
         console.log(res);
-        let pics = _this.data.pics.concat(res.tempFilePaths);
-        _this.setData({
-          pics: pics
+        res.tempFilePaths.forEach((item, index) => {
+          uploadImage(item, 'comment/', url => {
+            let pics = _this.data.pics;
+            pics.push(url);
+            _this.setData({
+              pics: pics
+            })
+          })
         })
       },
     })
+  },
+  // 发表评论
+  handleCommentAdd () {
+    let api = 'com.ttdtrip.api.comment.apis.CommentAddApiService';
+    let data = { base: app.globalData.baseBody, target: this.data.target, star: this.data.star, pics: this.data.pics, type: 'poi', comment: this.data.comment };
+    data.sn = md5(data + new Date().getTime());
+    console.log(data);
+    app.request(api, data, res => {
+      console.log(res);
+      this.data.commentId = res.commentVO.uuid;
+      this.handleOrderEvaluate();
+      this.handleGoodsReport();
+    }, e => {
+      console.error(e);
+    })
+  },
+  //上报
+  handleGoodsReport () {
+    let api = 'com.ttdtrip.api.goods.apis.GoodsReportApiService';
+    let data = { base: app.globalData.baseBody, gid: this.data.target, type: 'comment'};
+    app.request(api, data, res => {
+      console.log(res);
+    }, e => {
+      console.error(e);
+    })
+  },
+  // 订单评论
+  handleOrderEvaluate () {
+    let api = 'com.ttdtrip.api.order.apis.service.OrderEvaluateApiService';
+    let data = { base: app.globalData.baseBody, commentId: this.data.commentId, merchId: this.data.target, orderId: this.data.orderId };
+    app.request(api, data, res => {
+      console.log(res);
+      setTimeout(_ => {
+        wx.navigateBack();
+      }, 500);
+    }, e => {
+      console.error(e);
+    })
+  },
+  // 点击发表按钮
+  handleClickCommentButton () {
+    if (!this.data.star) {
+      utils.showMessage('请选择评分');
+    } else if (!this.data.comment) {
+      utils.showMessage('请输入评论');
+    } else {
+      this.handleCommentAdd();
+    }
   }
 })
