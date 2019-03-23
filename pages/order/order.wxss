@@ -112,7 +112,7 @@ input {
 }
 
 .many>view:last-of-type .blue_text {
-  /* max-width: 420rpx; */
+  max-width: 440rpx;
   flex: 1;
   height: 50rpx;
   font-size: 36rpx;

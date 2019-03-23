@@ -258,9 +258,7 @@ Page({
     } else {
       this.data.receiver.enName = "";
     }
-    if (this.data.goodsItem.goodsItemBase.vouchWay === 3) {
-      this.data.receiver.addrType = 1;
-    }
+    this.data.receiver.addrType = this.data.goodsItem.goodsItemBase.pickUpType ? this.data.receiver.addrType : 1;
     let data = Object.assign({ base: app.globalData.baseBody }, this.data.receiver);
     app.request(api, data, res => {
       console.log(res);
@@ -524,7 +522,7 @@ Page({
       num++;
     } else {
       wx.showToast({
-        title: '仅剩' + this.data.maxNum + '件',
+        title: '最多可购买' + this.data.maxNum + '件',
         icon: 'none'
       })
     }
