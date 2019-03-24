@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 15,
+			"current": 18,
 			"list": [
 				{
 					"id": 0,
@@ -164,6 +164,13 @@
 					"name": "关于",
 					"pathName": "pages/about/about",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "核销页面",
+					"pathName": "pages/ticket/ticket",
+					"query": "orderId=a97da913e1f843a99b2ea9934a45497e&merchId=bc007b71-75a4-47f3-a2d5-5d9604015ebe",
 					"scene": null
 				}
 			]

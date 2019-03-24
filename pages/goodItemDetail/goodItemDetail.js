@@ -88,6 +88,7 @@ Page({
       this.setData({
         goodsItem: res.goodsItemVO
       });
+      console.log(this.data.goodsItem.goodsItemBase.vouchWay);
       WxParse.wxParse('article', 'html', this.data.goodsItem.goodsItemInfo.info, this, 5);
     }, (err) => {
       console.error(err);

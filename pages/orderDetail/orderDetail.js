@@ -15,7 +15,7 @@ Page({
     count_down: 1800,
     countSetInterVal: '',
     isTimeOut: false,
-    merchItems: {}
+    merchItems: []
   },
 
   /**
@@ -23,7 +23,6 @@ Page({
    */
   onLoad: function (options) {
     this.data.orderId = options.id;
-    this.handleOrderDetail();
   },
 
   /**
@@ -37,7 +36,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.handleOrderDetail();
   },
 
   /**
@@ -102,10 +101,12 @@ Page({
   // 商品二维码
   handleOrderMerchItemList () {
     let api = 'com.ttdtrip.api.order.apis.service.OrderMerchItemListApiService';
-    let data = { base: app.globalData.baseBody, page: 1, limit: 1, orderId: this.data.orderId, merchId: this.data.orderMerches[0].merchId };
+    let data = { base: app.globalData.baseBody, page: 1, limit: 10, orderId: this.data.orderId, merchId: this.data.orderMerches[0].merchId };
     app.request(api, data, res => {
       console.log(res);
-      this.data.merchItems = res.merchItems[0];
+      this.setData({
+        merchItems: res.merchItems
+      });
     }, e => {
       console.error(e);
     })
@@ -113,7 +114,7 @@ Page({
   // 商品使用
   handleOrderUsed () {
     let api = 'com.ttdtrip.api.order.apis.service.OrderUsedApiService';
-    let merchItems = this.data.merchItems;
+    let merchItems = this.data.merchItems[0];
     let data = { base: app.globalData.baseBody, orderId: merchItems.orderId, merchId: merchItems.merchId, merchItemId: merchItems.id };
     app.request(api, data, res => {
       console.log(res);
@@ -206,5 +207,9 @@ Page({
   // 前往评价
   goToTheComment () {
     utils.navigateTo('/pages/comment/comment?target=' + this.data.orderMerches[0].poiId + '&orderId=' + this.data.orderId)
+  },
+  // 去核销券页面
+  goToTheTicketPage () {
+    utils.navigateTo('/pages/ticket/ticket?orderId=' + this.data.orderId + '&merchId=' + this.data.orderMerches[0].merchId);
   }
 })

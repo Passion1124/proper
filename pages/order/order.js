@@ -312,9 +312,9 @@ Page({
       utils.showMessage('请输入航班号');
     } else if (!orderTrafficMerch.downPlace && type === 33) {
       utils.showMessage('请输入目的地');
-    } else if (!orderPlayMerch.plan && (type === 36 || type === 42)) {
+    } else if (!orderPlayMerch.plan && (type === 36 || type === 42) && this.data.goodsItem.goodsItemInfo.infoExt.scene.length) {
       utils.showMessage('请选择场次');
-    } else if (!this.data.time_interval && type === 37) {
+    } else if (!this.data.time_interval && (type === 37 || type === 43) && this.data.goodsItem.goodsItemBase.ext.preOrderTime.length) {
       utils.showMessage('请选择时段');
     } else if (!this.data.receiver.name) {
       utils.showMessage('请输入中文姓名');

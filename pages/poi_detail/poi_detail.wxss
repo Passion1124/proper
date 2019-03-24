@@ -274,8 +274,8 @@
   width: 212rpx;
   height: 212rpx;
   border-radius: 8rpx;
-  margin-bottom: 16rpx;
-  margin-right: 16rpx;
+  margin-bottom: 10rpx;
+  margin-right: 10rpx;
 }
 
 .area .see {

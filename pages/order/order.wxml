@@ -95,7 +95,7 @@
       <input placeholder-class='phcolor' placeholder='请输入目的地' value='{{orderTrafficMerch.downPlace}}' bindinput='bindDownPlaceChange' maxlength='50'></input>
     </view>
   </view>
-  <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 36 || goodsItem.goodsItemBase.subType === 42}}'>
+  <view class='many' wx:if='{{(goodsItem.goodsItemBase.subType === 36 || goodsItem.goodsItemBase.subType === 42) && goodsItem.goodsItemInfo.infoExt.scene.length}}'>
     <view class='text'>场次</view>
     <view class='scene'>
       <picker mode='selector' range='{{goodsItem.goodsItemInfo.infoExt.scene}}' value='{{orderPlayMerch.plan}}' bindchange="bindScenePlan">
@@ -106,7 +106,7 @@
       </view>
     </view>
   </view>
-  <view class='many' wx:if='{{goodsItem.goodsItemBase.subType === 37 || goodsItem.goodsItemBase.subType === 43}}'>
+  <view class='many' wx:if='{{(goodsItem.goodsItemBase.subType === 37 || goodsItem.goodsItemBase.subType === 43) && goodsItem.goodsItemBase.ext.preOrderTime.length}}'>
     <view class='text'>时段</view>
     <view class='time_interval'>
       <picker mode='selector' range='{{goodsItem.goodsItemBase.ext.preOrderTime}}' value='{{time_interval}}' bindchange="bindTimeInterval">

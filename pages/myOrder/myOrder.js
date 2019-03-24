@@ -97,7 +97,7 @@ Page({
     this.setData({
       orderType: orderType
     });
-    this.getCheckedOrderList();
+    // this.getCheckedOrderList();
   },
 
   /**
@@ -112,6 +112,7 @@ Page({
    */
   onShow: function() {
     this.data.food.userId = wx.getStorageSync('authority').myUid;
+    this.handlePullDownRefresh();
   },
 
   /**

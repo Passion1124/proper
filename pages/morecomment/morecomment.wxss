@@ -75,12 +75,13 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 
 .comment .main .img_row image {
   width: 212rpx;
   height: 212rpx;
   border-radius: 8rpx;
-  margin-bottom: 16rpx;
+  margin-bottom: 10rpx;
+  margin-right: 10rpx;
 }

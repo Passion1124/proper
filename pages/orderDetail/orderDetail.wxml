@@ -16,9 +16,9 @@
     <view class='title'>亲，该订单已取消，可以选择再次购买</view>
     <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
   </view>
-  <view class='tips finished' wx:if='{{order.orderStatus === 2 || order.orderStatus === 4}}'>
+  <view class='tips finished' wx:if='{{order.orderStatus === 2 || order.orderStatus === 4 || order.orderStatus === 5}}'>
     <view class='title'>感谢您使用妥妥得，期待您下次光临</view>
-    <button class='shopping' bindtap='goToTheOrder' wx:if='{{order.orderStatus === 2}}'>再次购买</button>
+    <button class='shopping' bindtap='goToTheOrder' wx:if='{{order.orderStatus === 2 || order.orderStatus === 5}}'>再次购买</button>
     <view class='comment_row' wx:if='{{order.orderStatus === 4}}'>
       <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
       <button class='comment' bindtap='goToTheComment'>前往评价</button>
@@ -32,8 +32,28 @@
     <view class='subTitle'>金额将在7个工作日内原路退</view>
     <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
   </view>
-  <view class='confirm' wx:if='{{order.orderStatus === 3}}'>
-    <view class='ticket-offline' wx:if='{{orderMerches[0].vouchWay === 3}}'>
+  <view class='ticket-nums' bindtap='goToTheTicketPage' wx:if='{{merchItems.length > 1 && merchItems[0].vouchWay && order.orderStatus === 3}}'>
+    <view class='text'>您有{{merchItems.length}}张核销验券</view>
+    <view class='arrow'>
+      <image src='../../img/order/order_icon_arrow.png'></image>
+    </view>
+  </view>
+  <view class='confirm {{merchItems[0].vouchWay === 1 ? "other" : ""}}' wx:if='{{order.orderStatus === 3 && merchItems.length === 1 && merchItems[0].vouchWay}}'>
+    <view class='ticket-num' wx:if='{{merchItems[0].vouchWay === 1}}'>
+      <view class='ticket-num_tt'>{{merchItems[0].code}}</view>
+      <view class='ticket-num_ft'>
+        <view class='ticket-num_name'>{{orderMerches[0].merchName}}</view>
+        <view class='ticket-num_expire'>有效期至{{orderMerches[0].usingEndDate}}</view>
+      </view>
+    </view>
+    <view class='ticket-qr' wx:if='{{merchItems[0].vouchWay === 2}}'>
+      <view class='ticket-qr_icon'>
+        <image src='../../img/order/order_icon_qr.png'></image>
+      </view>
+      <view class='ticket-qr_name'>{{orderMerches[0].merchName}}</view>
+      <view class='ticket-qr_expire'>有效期至{{orderMerches[0].usingEndDate}}</view>
+    </view>
+    <view class='ticket-offline' wx:if='{{merchItems[0].vouchWay === 3}}'>
       <view class='ticket-offline-name'>{{orderMerches[0].merchName}}</view>
       <view class='ticket-offline_expire'>有效期至{{orderMerches[0].usingEndDate}}</view>
       <view class='ticket-offline_btn'>

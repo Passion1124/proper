@@ -289,7 +289,7 @@ var DateFr = {
   },
   getOrderPageUseDateText: function (type) {
     var str = '';
-    if (type === 11 || type === 12 || type === 34) {
+    if (type === 11 || type === 12 || type === 34 || type === 37 || type === 43) {
       str = '出行'
     } else if (type === 31 || type === 32 || type === 35) {
       str = '领取'
@@ -297,7 +297,7 @@ var DateFr = {
       str = '接机'
     } else if (type === 38) {
       str = '送机'
-    } else if (type === 36 || type === 37 || type === 41 || type === 42 || type === 43) {
+    } else if (type === 36 || type === 41 || type === 42) {
       str = '使用'
     }
     return str + '日期'

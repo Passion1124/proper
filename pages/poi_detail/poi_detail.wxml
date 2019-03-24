@@ -159,7 +159,7 @@
             <view class='text'>{{item.comment}}</view>
             <view class='img_row' wx:if='{{item.pics.length}}'>
               <block wx:for='{{item.pics}}' wx:key='{{pIndex}}' wx:for-item='pItem' wx:for-index='pIndex'>
-                <image src='{{pItem}}'></image>
+                <image mode='aspectFill' src='{{pItem}}'></image>
               </block>
             </view>
           </view>
