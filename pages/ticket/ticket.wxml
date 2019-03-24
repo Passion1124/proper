@@ -1,4 +1,26 @@
 <!-- ticket.wxml -->
 <view class='container'>
-
+  <block wx:for='{{merchItems}}' wx:key='{{index}}'>
+    <view class='ticket-num' wx:if='{{item.vouchWay === 1}}'>
+      <view class='ticket-num_tt'>{{item.code}}</view>
+      <view class='ticket-num_ft'>
+        <view class='ticket-num_name'>{{orderMerches[0].merchName}}</view>
+        <view class='ticket-num_expire'>有效期至{{orderMerches[0].usingEndDate}}</view>
+      </view>
+    </view>
+    <view class='ticket-qr' wx:if='{{item.vouchWay === 2}}'>
+      <view class='ticket-qr_icon'>
+        <image src='../../img/order/order_icon_qr.png'></image>
+      </view>
+      <view class='ticket-qr_name'>{{orderMerches[0].merchName}}</view>
+      <view class='ticket-qr_expire'>有效期至{{orderMerches[0].usingEndDate}}</view>
+    </view>
+    <view class='ticket-offline' wx:if='{{item.vouchWay === 3}}'>
+      <view class='ticket-offline-name'>{{orderMerches[0].merchName}}</view>
+      <view class='ticket-offline_expire'>有效期至{{orderMerches[0].usingEndDate}}</view>
+      <view class='ticket-offline_btn'>
+        <button data-item='{{item}}' bindtap='handleOrderUsed'>面对面确认</button>
+      </view>
+    </view>
+  </block>
 </view>

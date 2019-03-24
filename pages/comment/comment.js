@@ -137,6 +137,7 @@ Page({
     let data = { base: app.globalData.baseBody, commentId: this.data.commentId, merchId: this.data.target, orderId: this.data.orderId };
     app.request(api, data, res => {
       console.log(res);
+      utils.showMessage('完成评论');
       setTimeout(_ => {
         wx.navigateBack();
       }, 500);
