@@ -34,19 +34,19 @@
     <view class='order_info'>
       <view class='flex'>
         <view class='o_label'>用餐总人数</view>
-        <view class='o_value'>{{line.num}}</view>
+        <view class='o_value'>{{num || line.num}}</view>
       </view>
       <view class='flex'>
         <view class='o_label'>偏好</view>
-        <view class='o_value'>{{line.smoke ? (line.smoke === 1 ? "吸烟区" : "非吸烟区") : "不介意"}}</view>
+        <view class='o_value'>{{ favorName || (line.smoke !== -1 ? (line.smoke ? "吸烟区" : "非吸烟区") : "不介意")}}</view>
       </view>
       <view class='flex'>
         <view class='o_label'>包间</view>
-        <view class='o_value'>{{line.box ? "需要" : "不需要"}}</view>
+        <view class='o_value'>{{ roomName || (line.box ? "需要" : "不需要")}}</view>
       </view>
       <view class='flex'>
         <view class='o_label'>联系方式</view>
-        <view class='o_value'>{{line.email}}</view>
+        <view class='o_value'>{{ email || line.email}}</view>
       </view>
     </view>
     <view class='order_btn' wx:if='{{(line.lineStatus !== 2 || line.lineStatus !== 3) && line.orderStatus === 0}}'>

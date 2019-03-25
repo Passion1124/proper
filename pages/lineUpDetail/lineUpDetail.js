@@ -11,15 +11,24 @@ Page({
     lineStatus: 'wait',
     line: {},
     lineNum: '',
-    count: 0
+    count: 0,
+    num: '',
+    email: '',
+    favorName: '',
+    roomName: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let { num, email, favorName, roomName } = options;
     let data = { sn: options.sn };
     if (options.skipType) data.skipType = options.skipType;
+    if (num) data.num = num;
+    if (email) data.email = email;
+    if (favorName) data.favorName = favorName;
+    if (roomName) data.roomName = roomName;
     this.setData(data);
     this.handleLineWait();
   },
@@ -92,7 +101,9 @@ Page({
         if (this.data.count >= 12) {
           lineStatus = 'fail';
         } else {
-          this.handleLineWait();
+          setTimeout(_ => {
+            this.handleLineWait();
+          }, 1000);
         }
       }
       this.setData({

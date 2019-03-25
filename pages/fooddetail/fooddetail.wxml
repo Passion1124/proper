@@ -110,9 +110,9 @@
           <block wx:for='{{foodDtos}}' wx:key='{{index}}'>
             <view class='foodDtos' data-item='{{item}}' bindtap='handleClickFoodDtos'>
               <view class='poster'>
-                <image mode='aspectFill' src='{{item.foodLang.poster + "?x-oss-process=image/resize,w_200"}}'></image>
+                <image mode='aspectFill' src='{{item.food.poster + "?x-oss-process=image/resize,w_200"}}'></image>
               </view>
-              <view class='foodDtosName'>{{item.foodLang.foodName}}</view>
+              <view class='foodDtosName'>{{item.food.foodName}}</view>
             </view>
           </block>
         </view>
@@ -278,10 +278,10 @@
     <view class='inner'>
       <scroll-view scroll-y='{{true}}'>
         <view class='inner_poster'>
-          <image mode='aspectFill' src='{{foodDtosShow.foodLang.poster + "?x-oss-process=image/resize,w_600"}}'></image>
+          <image mode='aspectFill' src='{{foodDtosShow.food.poster + "?x-oss-process=image/resize,w_600"}}'></image>
         </view>
         <view class='inner_main'>
-          <view class='title'>{{foodDtosShow.foodLang.foodName}}</view>
+          <view class='title'>{{foodDtosShow.food.foodName}}</view>
           <view class='price'>{{foodDtosShow.food.currency + foodDtosShow.food.price / 100}}</view>
           <view class='desc'>
             <template is="wxParse" data="{{wxParseData: foodDtosDesc.nodes}}"/>

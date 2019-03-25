@@ -493,7 +493,7 @@ Page({
       overlay: true,
       foodDtosShow: item
     });
-    WxParse.wxParse('foodDtosDesc', 'html', this.data.foodDtosShow.foodLang.foodDescription, this, 5);
+    WxParse.wxParse('foodDtosDesc', 'html', this.data.foodDtosShow.food.info, this, 5);
     setTimeout(_ => {
       this.setData({
         overlayStatus: "show"
