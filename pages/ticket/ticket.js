@@ -101,7 +101,7 @@ Page({
     })
   },
   // 商品使用
-  handleOrderUsed() {
+  handleOrderUsed(e) {
     let api = 'com.ttdtrip.api.order.apis.service.OrderUsedApiService';
     let merchItems = this.data.merchItems[0];
     let item = e.currentTarget.dataset.item;

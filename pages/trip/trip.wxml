@@ -21,7 +21,7 @@
         <view class='date' wx:if='{{trips[index - 1].usingDate !== item.usingDate}}'>{{item.usingDate}}</view>
         <view class='order'>
           <block wx:for='{{trips}}' wx:for-item='trip' wx:for-index='idx' wx:key='{{idx}}'>
-            <view class='content' data-id='{{trip.orderId}}' bindtap='goToTheOrderDetail' wx:if='{{trips[idx - 1].usingDate === trip.usingDate || !idx}}'>
+            <view class='content' data-id='{{trip.orderId}}' bindtap='goToTheOrderDetail' wx:if='{{item.usingDate === trip.usingDate}}'>
               <view class='title'>{{trip.merchName}}</view>
               <view class='subTitle'>
                 <view class='expiry_date'>有效期至{{trip.usingEndDate}}</view>

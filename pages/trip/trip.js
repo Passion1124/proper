@@ -77,7 +77,7 @@ Page({
       console.log(res);
       let merchSimples = res.merchSimples || [];
       this.setData({
-        trips: merchSimples
+        trips: merchSimples.sort((pre, curr) => pre.usingDate >= curr.usingDate)
       });
     }, (err) => {
       console.error(err);

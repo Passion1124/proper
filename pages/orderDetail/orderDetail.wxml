@@ -93,7 +93,7 @@
         <view class='text' wx:if='{{orderMerches[0].orderTravelMerch.downPlace}}'>下车地点：{{ orderMerches[0].orderTravelMerch.downPlace }}</view>
         <view class='text'>所需车辆：{{orderMerches[0].merchCount}}</view>
       </block>
-      <block wx:if='{{orderMerches[0].orderTrafficMerch}}'>
+      <block wx:if='{{orderMerches[0].orderTrafficMerch && orderMerches[0].subType !== 35}}'>
         <view class='text'>{{dateFr.getOrderPageUseDateText(orderMerches[0].subType)}}：{{dateFr.getDate(orderMerches[0].orderTrafficMerch.upDate, '-')}}</view>
         <view class='text' wx:if='{{orderMerches[0].orderTrafficMerch.flyNum}}'>航班号：{{orderMerches[0].orderTrafficMerch.flyNum}}</view>
         <view class='text' wx:if='{{orderMerches[0].orderTrafficMerch.upTime}}'>上车时间：{{orderMerches[0].orderTrafficMerch.upTime}}</view>
