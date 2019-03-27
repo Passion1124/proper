@@ -279,7 +279,8 @@ Page({
     let data = Object.assign({ base: app.globalData.baseBody }, p_data, { sn });
     app.request(api, data, res => {
       console.log(res);
-      if (this.data.price * this.data.orderMerches.merchCount) {
+      let price = this.getOrderPayPrice(this.data.price * this.data.orderMerches.merchCount, this.data.selectCoupon);
+      if (price) {
         utils.navigateTo('/pages/pay/pay?orderId=' + res.orderId + '&orderNo=' + res.orderNo + '&currency=' + res.currency + '&type=' + this.data.type);
       } else {
         utils.navigateTo('/pages/payresult/payresult?orderId=' + res.orderId + '&giid=' + this.data.giid);
@@ -652,5 +653,30 @@ Page({
   isChinese (str) {
     let reg = new RegExp(/^[\u4e00-\u9fa5]+$/);
     return reg.test(str);
+  },
+  // 获取订单支付价格
+  getOrderPayPrice(price, coupon) {
+    var result = '';
+    if (coupon.type === 0) {
+      result = price * (coupon.discount / 100);
+    } else if (coupon.type === 1) {
+      result = price - coupon.reducePrice
+    } else if (coupon.type === 2) {
+      result = price - coupon.reducePrice >= 0 ? price - coupon.reducePrice : 0
+    } else {
+      result = price
+    }
+    if (result) {
+      if (price <= 1) {
+        result = 0.01;
+      } else {
+        if (Math.floor(result) / 100 === result / 100) {
+          result = result / 100;
+        } else {
+          result = Math.floor(result) / 100 + 0.01;
+        }
+      }
+    }
+    return result;
   }
 })

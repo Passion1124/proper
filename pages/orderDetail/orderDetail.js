@@ -57,7 +57,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    
+    this.handleOrderDetail();
   },
 
   /**
@@ -93,9 +93,11 @@ Page({
             isTimeOut: true
           });
         }
-      }
+      };
+      wx.stopPullDownRefresh();
     }, fail => {
       wx.hideLoading();
+      wx.stopPullDownRefresh();
     })
   },
   // 商品二维码
