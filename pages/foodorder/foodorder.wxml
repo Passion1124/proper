@@ -1,34 +1,74 @@
 <!-- foodorder.wxml -->
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container'>
-  <view class='category'>
-    <block wx:for='{{category}}' wx:key='{{index}}'>
-      <view class='{{item.foodCategoryLang.categoryId === checkCategory.categoryId ? "active" : ""}}' data-category='{{item.foodCategoryLang}}' bindtap='bindChangeCategoryId'>{{item.foodCategoryLang.categoryName}}</view>
-    </block>
-  </view>
-  <view class='food_list'>
-    <scroll-view scroll-y='{{true}}'>
-      <block wx:for='{{foodList}}' wx:key='{{index}}'>
-        <view class='food'>
-          <view class='poster'>
-            <image src='{{item.foodLang.poster}}'></image>
+  <view class='top_info'>
+    <view class='goods'>
+      <view class='goods_main'>
+        <view class='poster'>
+          <image src='{{goods.goodsBase.poster + "?x-oss-process=image/resize,w_600"}}'></image>
+        </view>
+        <view class='goods_info'>
+          <view class='goods_title'>{{ goods.goodsInfo.name }}</view>
+          <view class='goods_star'>
+            <block wx:for='{{5}}' wx:key='{{index}}'>
+              <image src='../../img/index/star_check.png' wx:if='{{ (goods.goodsBase ? goods.goodsBase.star : 0) >= item + 1}}'></image>
+              <image src='../../img/index/star_uncheck.png' wx:else></image>
+            </block>
           </view>
-          <view class='info'>
-            <view class='name'>{{item.foodLang.foodName}}</view>
-            <view class='price_num'>
-              <view class='price'>
-                <text>{{item.food.currency + (item.food.price / 100)}}</text>
-              </view>
-              <view class='num'>
-                <view class='minus' data-num='{{dateFr.getNowFoodOrderNum(foodOrderBatchDetailDtos, item)}}' data-food='{{item}}' bindtap='handleFoodOrderDelete'>-</view>
-                <view class='number_inp'>{{dateFr.getNowFoodOrderNum(foodOrderBatchDetailDtos, item)}}</view>
-                <view class='plus' data-food='{{item}}' bindtap='handleFoodOrderAdd'>+</view>
+          <view class='goods_tips'>
+            <text>{{goods.goodsInfo.category ? goods.goodsInfo.category + ' | ' : ''}}</text>
+            <text class='{{goods.goodsInfo.avgPrice ? "tips" : ""}}'>{{goods.goodsInfo.avgPrice ? '人均' + goods.goodsInfo.avgPrice : '暂无均价建议'}}</text>
+          </view>
+        </view>
+      </view>
+      <view class='goods_other'>
+        <view class='tags'>
+          <block wx:for='{{ goods.goodsInfo.labels }}' wx:key='{{index}}'>
+            <view>{{ item }}</view>
+          </block>
+        </view>
+        <view class='detail'>详细商家信息 ></view>
+      </view>
+    </view>
+    <view class='eat_info'>
+      <view class='table_number'>
+        <view></view>
+        <view></view>
+      </view>
+      <view class='divider'></view>
+      <view class='eat_number'></view>
+    </view>
+  </view>
+  <view class='food_row'>
+    <view class='category'>
+      <block wx:for='{{category}}' wx:key='{{index}}'>
+        <view class='{{item.foodCategoryLang.categoryId === checkCategory.categoryId ? "active" : ""}}' data-category='{{item.foodCategoryLang}}' bindtap='bindChangeCategoryId'>{{item.foodCategoryLang.categoryName}}</view>
+      </block>
+    </view>
+    <view class='food_list'>
+      <scroll-view scroll-y='{{true}}'>
+        <block wx:for='{{foodList}}' wx:key='{{index}}'>
+          <view class='food'>
+            <view class='poster'>
+              <image src='{{item.foodLang.poster}}'></image>
+            </view>
+            <view class='info'>
+              <view class='name'>{{item.foodLang.foodName}}</view>
+              <view class='price_num'>
+                <view class='price'>
+                  <text>{{item.food.currency + (item.food.price / 100)}}</text>
+                </view>
+                <view class='num'>
+                  <view class='minus' data-num='{{dateFr.getNowFoodOrderNum(foodOrderBatchDetailDtos, item)}}' data-food='{{item}}' bindtap='handleFoodOrderDelete'>-</view>
+                  <view class='number_inp'>{{dateFr.getNowFoodOrderNum(foodOrderBatchDetailDtos, item)}}</view>
+                  <view class='plus' data-food='{{item}}' bindtap='handleFoodOrderAdd'>+</view>
+                </view>
               </view>
             </view>
           </view>
-        </view>
-      </block>
-    </scroll-view>
+        </block>
+      </scroll-view>
+    </view>
   </view>
   <view class='bottom_content'>
     <view class='num_price'>

@@ -11,8 +11,103 @@ page{
 
 .container{
   position: relative;
-  display: flex;
+  /* display: flex; */
   padding-bottom: 120rpx;
+  box-sizing: border-box;
+}
+
+.top_info{
+  padding: 28rpx 35rpx 40rpx;
+}
+
+.top_info .goods{
+  width: 100%;
+}
+
+.top_info .goods .goods_main{
+  display: flex;
+}
+
+.top_info .goods .goods_main .poster{
+  min-width: 150rpx;
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+  margin-right: 24rpx;
+}
+
+.top_info .goods .goods_main .poster image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.top_info .goods .goods_main .goods_info{
+  flex: 1;
+  max-width: 485rpx;
+}
+
+.top_info .goods .goods_main .goods_info .goods_title{
+  font-size: 36rpx;
+  line-height: 42rpx;
+  color: #3C3C3C;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  margin-bottom: 24rpx;
+}
+
+.top_info .goods .goods_main .goods_info .goods_star{
+  line-height: 0;
+  margin-bottom: 10rpx;
+}
+
+.top_info .goods .goods_main .goods_info .goods_star image{
+  width: 22rpx;
+  height: 22rpx;
+  margin-right: 6rpx;
+  vertical-align: top;
+}
+
+.top_info .goods .goods_main .goods_info .goods_tips{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #3C3C3C;
+}
+
+.top_info .goods .goods_main .goods_info .goods_tips .tips{
+  color: #F97572;
+}
+
+.top_info .goods .goods_other{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30rpx;
+}
+
+.top_info .goods .goods_other .tags view{
+  font-size: 24rpx;
+  line-height: 30rpx;
+  padding: 5rpx 12rpx;
+  color: #23C2F7;
+  background-color: #E0F7FF;
+  border-radius: 4rpx;
+}
+
+.top_info .goods .goods_other .tags view + view{
+  margin-left: 16rpx;
+}
+
+.top_info .goods .goods_other .detail{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #666;
+}
+
+.food_row{
+  display:flex;
   box-sizing: border-box;
 }
 
@@ -107,12 +202,13 @@ page{
 .food_list .food .info .price_num .num .minus, .food_list .food .info .price_num .num .plus{
   width: 44rpx;
   height: 44rpx;
-  font-size: 40rpx;
-  line-height: 44rpx;
+  font-size: 38rpx;
+  line-height: 42rpx;
   text-align: center;
   color: #23C2F7;
   border: 1rpx solid #23C2F7;
   border-radius: 50%;
+  box-sizing: border-box;
 }
 
 .food_list .food .info .price_num .num .number_inp{

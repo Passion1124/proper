@@ -10,6 +10,7 @@ Page({
   data: {
     sn: '',
     line: {},
+    goods: {},
     category: [],
     foodList: [],
     foodOrder: {},
@@ -91,9 +92,23 @@ Page({
       this.setData({
         line: res.line
       });
+      this.getGoodsDetail(res.line.poiId);
       this.getFoodCategoryList();
     }, e => {
       console.error(e);
+    })
+  },
+  // 获取商品详情
+  getGoodsDetail (gid) {
+    let data = { base: app.globalData.baseBody, gid };
+    let api = 'com.ttdtrip.api.goods.apis.GoodsDetailApiService';
+    app.request(api, data, (res) => {
+      console.log(res);
+      this.setData({
+        goods: res.goodsVO
+      });
+    }, (err) => {
+      console.error(err);
     })
   },
   // 查询菜品分类
