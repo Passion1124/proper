@@ -118,14 +118,22 @@ Page({
     this.getGoodsList();
   },
   handleScanCode () {
-    wx.scanCode({
-      onlyFromCamera: true,
-      success (res) {
-        console.log(res);
-      },
-      fail (res) {
-        console.log(res);
-      }
+    utils.userIsLogin().then(_ => {
+      wx.scanCode({
+        onlyFromCamera: true,
+        success(res) {
+          let result = res.result;
+          if (result.indexOf('foodorder') !== -1) {
+            utils.navigateTo('/pages/foodorder/foodorder?' + result.split('?')[1]);
+          }
+          console.log(res);
+        },
+        fail(res) {
+          console.log(res);
+        }
+      })
+    }).catch(e => {
+      console.error('未登录');
     })
   },
   changeCity () {

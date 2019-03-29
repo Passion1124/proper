@@ -53,7 +53,8 @@
     "pages/insteadBook/insteadBook",
     "pages/orderBookDetail/orderBookDetail",
     "pages/webview/webview",
-    "pages/ticket/ticket"
+    "pages/ticket/ticket",
+    "pages/chooseFoodNumber/chooseFoodNumber"
   ],
   "window":{
     "backgroundTextStyle":"light",

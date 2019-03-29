@@ -9,6 +9,8 @@ Page({
    */
   data: {
     sn: '',
+    mid: '',
+    tno: '',
     line: {},
     goods: {},
     category: [],
@@ -18,16 +20,26 @@ Page({
     foodOrderBatches: [],
     foodOrderId: '',
     batchStatus: 0,
-    checkCategory: ''
+    checkCategory: '',
+    consumerCount: 0,
+    numRange: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.data.sn = options.sn;
-    this.data.foodOrderId = options.orderId;
-    this.handleLineWait();
+    let { sn, mid, tno, orderId } = options;
+    if (sn) this.data.sn = sn;
+    if (orderId) this.data.foodOrderId = orderId;
+    if (mid) this.data.mid = mid;
+    if (tno) this.data.tno = tno;
+    if (sn) {
+      this.handleLineWait();
+    }
+    if (mid && tno) {
+      this.handleScanCodeEnter();
+    }
     if (this.data.foodOrderId) {
       this.data.batchStatus = null;
       this.handleGetFoodOrderDetailList(this.data.foodOrderId);
@@ -90,10 +102,12 @@ Page({
     app.request(api, data, res => {
       console.log(res);
       this.setData({
-        line: res.line
+        line: res.line,
+        consumerCount: res.line.num
       });
       this.getGoodsDetail(res.line.poiId);
       this.getFoodCategoryList();
+      this.handleFoodOrderGen();
     }, e => {
       console.error(e);
     })
@@ -109,6 +123,35 @@ Page({
       });
     }, (err) => {
       console.error(err);
+    })
+  },
+  // 通过排队订单进入调用接口
+  handleFoodOrderGen () {
+    let api = 'com.ttdtrip.api.restaurant.apis.service.v2.FoodOrderGenApiService';
+    let line = this.data.line;
+    let data = { base: app.globalData.baseBody, mid: line.mid, lineSn: line.sn, lineName: line.name, lineAt: line.createAt, bookingDstDate: line.day };
+    app.request(api, data, res => {
+      console.log(res);
+    }, e => {
+      console.error(e);
+    })
+  },
+  // 通过扫码进入
+  handleScanCodeEnter () {
+    let api = 'com.ttdtrip.api.restaurant.apis.service.v2.FoodOrderGenApiService';
+    let line = this.data.line;
+    let data = { base: app.globalData.baseBody, mid: this.data.mid, tableNo: this.data.tno };
+    app.request(api, data, res => {
+      console.log(res);
+      if (res.foodBasket && res.foodOrderBatch) {
+
+      } else {
+        wx.redirectTo({
+          url: '/pages/chooseFoodNumber/chooseFoodNumber?mid=' + this.data.mid + '&tno=' + this.data.tno
+        });
+      }
+    }, e => {
+      console.error(e);
     })
   },
   // 查询菜品分类
@@ -203,6 +246,12 @@ Page({
       checkCategory: category
     });
     this.getFoodList();
+  },
+  // 修改用餐人数
+  handleChangeEatNumber (e) {
+    this.setData({
+      consumerCount: parseInt(e.detail.value) + 1
+    })
   },
   // 点击去下单按钮
   handleClickGoToTheOrder () {

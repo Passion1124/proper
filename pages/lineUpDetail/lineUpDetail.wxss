@@ -38,6 +38,17 @@ image {
   box-sizing: border-box;
 }
 
+.queue.over{
+  background-color: #C2C2C2;
+}
+
+.queue .queue_status{
+  font-size: 22rpx;
+  line-height: 30rpx;
+  color: #fff;
+  text-align: center;
+}
+
 .queue .queue_single{
   font-size: 48rpx;
   line-height: 67rpx;

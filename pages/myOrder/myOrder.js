@@ -273,13 +273,13 @@ Page({
       } else if (activeType === 'shopping' && this.isInteger(this.data.orders.length / this.data.shopping.size)) {
         this.data.shopping.page++;
         this.getCheckedOrderList();
-      } else if (activeType === 'line' && this.isInteger(this.data.orders.length / this.data.line.size)) {
+      } else if (activeType === 'line' && this.isInteger(this.data.lines.length / this.data.line.size)) {
         this.data.line.page++;
         this.getCheckedOrderList();
       } else if (activeType === 'book' && this.isInteger(this.data.orders.length / this.data.book.size)) {
         this.data.book.page++;
         this.getCheckedOrderList();
-      } else if (activeType === 'food' && this.isInteger(this.data.orders.length / this.data.food.size)) {
+      } else if (activeType === 'food' && this.isInteger(this.data.foodOrders.length / this.data.food.size)) {
         this.data.food.page++;
         this.getCheckedOrderList();
       }

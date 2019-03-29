@@ -32,11 +32,28 @@
     </view>
     <view class='eat_info'>
       <view class='table_number'>
-        <view></view>
-        <view></view>
+        <view class='left'>
+          <view class='icon_row'>
+            <image src='../../img/foodorder/foodorder_table_num.png'></image>
+          </view>
+          <view class='text'>桌号</view>
+        </view>
+        <view class='fullName'>{{line.fullName}}</view>
       </view>
       <view class='divider'></view>
-      <view class='eat_number'></view>
+      <view class='eat_number'>
+        <picker mode='selector' range='{{numRange}}' value='{{consumerCount}}' bindchange='handleChangeEatNumber'>
+          <view class='picker'>
+            <view class='left'>
+              <view class='icon_row'>
+                <image src='../../img/foodorder/foodorder_cus_count.png'></image>
+              </view>
+              <view class='text'>用餐人数</view>
+            </view>
+            <view class='fullName'>{{consumerCount}} ></view>
+          </view>
+        </picker>
+      </view>
     </view>
   </view>
   <view class='food_row'>

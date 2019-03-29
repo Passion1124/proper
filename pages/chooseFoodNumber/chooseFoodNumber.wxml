@@ -1,0 +1,17 @@
+<!-- chooseFoodNumber.wxml -->
+<view class='container'>
+  <view class='top'>
+    <view class='rName'>{{foodOrder.goodsName}}</view>
+    <view class='table_num'>桌号：{{foodOrder.tableNo}}</view>
+    <view class='subTitle'>请选择用餐人数</view>
+  </view>
+  <view class='num_box {{open ? "open" : ""}}'>
+    <block wx:for='{{showNum}}' wx:key='{{index}}'>
+      <view class='{{(selectNum === item + 1) ? "active" : ""}}' data-num='{{item + 1}}' bindtap='bindChangeSelectNum'>{{item + 1}}</view>
+    </block>
+    <view wx:if='{{!open}}' bindtap='handleClickOpenTableNumber'>更多</view>
+  </view>
+  <view class='sure_btn'>
+    <button>确定</button>
+  </view>
+</view>

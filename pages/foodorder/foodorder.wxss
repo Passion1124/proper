@@ -106,6 +106,73 @@ page{
   color: #666;
 }
 
+.top_info .eat_info{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 90rpx;
+  padding: 0 35rpx;
+  margin-top: 45rpx;
+  border-radius: 50rpx;
+  background-color: #F8F8F8;
+  box-sizing: border-box;
+}
+
+.top_info .eat_info .table_number, .top_info .eat_info .eat_number{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top_info .eat_info .eat_number picker{
+  width: 100%;
+}
+
+.top_info .eat_info .eat_number .picker{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top_info .eat_info .table_number .left, .top_info .eat_info .eat_number .left{
+  display: flex;
+  align-items: center;
+}
+
+.top_info .eat_info .table_number .left .icon_row, .top_info .eat_info .eat_number .left .icon_row{
+  width: 36rpx;
+  height: 36rpx;
+  margin-right: 12rpx;
+}
+
+.top_info .eat_info .table_number .left .icon_row image, .top_info .eat_info .eat_number .left .icon_row image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.top_info .eat_info .table_number .left .text, .top_info .eat_info .eat_number .left .text{
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #3C3C3C;
+  letter-spacing: 1rpx;
+}
+
+.top_info .eat_info .table_number .fullName, .top_info .eat_info .eat_number .fullName{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #666;
+}
+
+.top_info .eat_info .divider{
+  width: 2rpx;
+  height: 45rpx;
+  margin: 0 25rpx;
+  background-color: #D3D3D3;
+}
+
 .food_row{
   display:flex;
   box-sizing: border-box;

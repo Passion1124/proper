@@ -11,9 +11,10 @@
     </view>
     <view class='text active'>排队</view>
   </view>
-  <view class='queue'>
+  <view class='queue {{line.lineStatus === 3 ? "over" : ""}}'>
+    <view class='queue_status' wx:if='{{line.lineStatus === 3}}'>已就餐</view>
     <view class='queue_single'>排队单</view>
-    <view class='main_info'>
+    <view class='main_info' wx:if='{{line.lineStatus !== 3}}'>
       <block wx:if='{{lineStatus === "wait"}}'>
         <view class='title'>正在排队</view>
         <view class='subTitle'>正在排队，请稍等</view>
@@ -49,7 +50,7 @@
         <view class='o_value'>{{ email || line.email}}</view>
       </view>
     </view>
-    <view class='order_btn' wx:if='{{(line.lineStatus !== 2 || line.lineStatus !== 3) && line.orderStatus === 0}}'>
+    <view class='order_btn' wx:if='{{line.lineStatus < 2 && line.orderStatus === 0}}'>
       <button bindtap='goToTheFoodOrder'>前往点菜</button>
     </view>
   </view>

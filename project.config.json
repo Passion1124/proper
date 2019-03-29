@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
+			"current": 19,
 			"list": [
 				{
 					"id": 0,
@@ -171,6 +171,13 @@
 					"name": "核销页面",
 					"pathName": "pages/ticket/ticket",
 					"query": "orderId=a97da913e1f843a99b2ea9934a45497e&merchId=bc007b71-75a4-47f3-a2d5-5d9604015ebe",
+					"scene": null
+				},
+				{
+					"id": 19,
+					"name": "点菜选择用餐人数",
+					"pathName": "pages/chooseFoodNumber/chooseFoodNumber",
+					"query": "foodOrderId=57fac2a3-024f-42e2-bf7d-2c74d3dd962b",
 					"scene": null
 				}
 			]

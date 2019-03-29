@@ -1,0 +1,77 @@
+.container{
+  padding: 0 50rpx;
+  box-sizing: border-box;
+}
+
+.top{
+  padding-top: 60rpx;
+  text-align: center;
+}
+
+.top .rName{
+  width: 100%;
+  font-size: 34rpx;
+  line-height: 48rpx;
+  color: #3C3C3C;
+  margin-bottom: 17rpx;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+.top .table_num{
+  font-size: 51rpx;
+  line-height: 71rpx;
+  color: #23C2F7;
+  font-weight: 600;
+  margin-bottom: 72rpx;
+}
+
+.top .subTitle{
+  font-size: 34rpx;
+  line-height: 48rpx;
+  color: #3C3C3C;
+  margin-bottom: 48rpx;
+}
+
+.num_box{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 320rpx;
+}
+
+.num_box.open{
+  margin-bottom: 60rpx;
+}
+
+.num_box view{
+  width: 140rpx;
+  height: 100rpx;
+  font-size: 36rpx;
+  color: #3C3C3C;
+  line-height: 100rpx;
+  text-align: center;
+  border: 1rpx solid #B1B1B1;
+  border-radius: 8rpx;
+  /* margin: 0 30rpx 30rpx 0; */
+  margin-bottom: 30rpx;
+  box-sizing: border-box;
+}
+
+.num_box view.active{
+  border-color: #23C2F7;
+  background-color: #23C2F7;
+  color: #fff;
+}
+
+.sure_btn button{
+  width: 560rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  font-size: 34rpx;
+  border-radius: 56rpx;
+  background-color: #23C2F7;
+  color: #fff;
+}

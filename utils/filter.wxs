@@ -255,8 +255,8 @@ var DateFr = {
     var str = '';
     if (status === 1 || status === 0) str = '排队中';
     if (status === 2) str = '已就餐';
-    if (status === 3) str = '已过号';
-    if (status === 3) str = '商户下线';
+    if (status === 3) str = '已就餐';
+    if (status === 4) str = '商户下线';
     return str;
   },
   getFoodOrderTotal: function (dots) {
