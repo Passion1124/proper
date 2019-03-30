@@ -392,8 +392,9 @@ Page({
   },
   goToTheFoodOrder (e) {
     let sn = e.currentTarget.dataset.sn;
+    let mid = e.currentTarget.dataset.mid;
     wx.navigateTo({
-      url: '/pages/foodorder/foodorder?sn=' + sn
+      url: '/pages/foodorder/foodorder?sn=' + sn + '&mid=' + mid
     })
   },
   goToTheOrderMealDetailPage (e) {

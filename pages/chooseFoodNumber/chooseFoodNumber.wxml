@@ -12,6 +12,6 @@
     <view wx:if='{{!open}}' bindtap='handleClickOpenTableNumber'>更多</view>
   </view>
   <view class='sure_btn'>
-    <button>确定</button>
+    <button bindtap='bindClickSureButton'>确定</button>
   </view>
 </view>

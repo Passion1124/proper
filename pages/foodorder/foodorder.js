@@ -13,6 +13,8 @@ Page({
     tno: '',
     line: {},
     goods: {},
+    menus: [],
+    menuItem: {},
     category: [],
     foodList: [],
     foodOrder: {},
@@ -29,14 +31,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let { sn, mid, tno, orderId } = options;
+    let { sn, mid, tno, orderId, personNum } = options;
     if (sn) this.data.sn = sn;
     if (orderId) this.data.foodOrderId = orderId;
     if (mid) this.data.mid = mid;
     if (tno) this.data.tno = tno;
+    if (personNum) this.data.consumerCount = personNum;
     if (sn) {
       this.handleLineWait();
     }
+    this.getGoodsDetail();
+    this.handleGetMenuDetail();
     if (mid && tno) {
       this.handleScanCodeEnter();
     }
@@ -105,7 +110,6 @@ Page({
         line: res.line,
         consumerCount: res.line.num
       });
-      this.getGoodsDetail(res.line.poiId);
       this.getFoodCategoryList();
       this.handleFoodOrderGen();
     }, e => {
@@ -113,8 +117,8 @@ Page({
     })
   },
   // 获取商品详情
-  getGoodsDetail (gid) {
-    let data = { base: app.globalData.baseBody, gid };
+  getGoodsDetail () {
+    let data = { base: app.globalData.baseBody, mid: this.data.mid };
     let api = 'com.ttdtrip.api.goods.apis.GoodsDetailApiService';
     app.request(api, data, (res) => {
       console.log(res);
@@ -132,6 +136,11 @@ Page({
     let data = { base: app.globalData.baseBody, mid: line.mid, lineSn: line.sn, lineName: line.name, lineAt: line.createAt, bookingDstDate: line.day };
     app.request(api, data, res => {
       console.log(res);
+      if (res.foodBasket) {
+        this.setData({
+          consumerCount: res.foodBasket.consumerCount
+        })
+      }
     }, e => {
       console.error(e);
     })
@@ -143,13 +152,43 @@ Page({
     let data = { base: app.globalData.baseBody, mid: this.data.mid, tableNo: this.data.tno };
     app.request(api, data, res => {
       console.log(res);
-      if (res.foodBasket && res.foodOrderBatch) {
-
+      if (res.foodBasket || res.foodOrderBatch) {
+        this.setData({
+          consumerCount: res.foodBasket.consumerCount
+        })
       } else {
         wx.redirectTo({
-          url: '/pages/chooseFoodNumber/chooseFoodNumber?mid=' + this.data.mid + '&tno=' + this.data.tno
-        });
+          url: '/pages/chooseFoodNumber/chooseFoodNumber?foodOrderId=' + res.foodOrderId});
       }
+    }, e => {
+      console.error(e);
+    })
+  },
+  // 菜单详情
+  handleGetMenuDetail () {
+    let api = 'com.ttdtrip.api.restaurant.apis.service.v2.MenuDetailApiService';
+    let data = { base: app.globalData.baseBody, mid: this.data.mid };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        menus: res.menus || []
+      });
+      if (this.data.menus.length) this.handleGetMenuItemDetail(res.menus[0].id);
+    }, e => {
+      console.error(e);
+    })
+  },
+  // 菜单分类查询接口
+  handleGetMenuItemDetail(menuId) {
+    let api = 'com.ttdtrip.api.restaurant.apis.service.v2.MenuItemDetailApiService';
+    let data = { base: app.globalData.baseBody, menuId };
+    app.request(api, data, res => {
+      console.log(res);
+      let menuItem = this.data.menuItem;
+      menuItem[menuId] = res.menuItem;
+      this.setData({
+        menuItem
+      })
     }, e => {
       console.error(e);
     })

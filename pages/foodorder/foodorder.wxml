@@ -38,7 +38,7 @@
           </view>
           <view class='text'>桌号</view>
         </view>
-        <view class='fullName'>{{line.fullName}}</view>
+        <view class='fullName'>{{tno || '无'}}</view>
       </view>
       <view class='divider'></view>
       <view class='eat_number'>

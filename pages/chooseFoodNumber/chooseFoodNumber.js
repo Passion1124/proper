@@ -76,6 +76,7 @@ Page({
     let api = 'com.ttdtrip.api.restaurant.apis.service.v2.FoodOrderGetApiService';
     let data = { base: app.globalData.baseBody, foodOrderId: this.data.foodOrderId };
     app.request(api, data, res => {
+      console.log(res);
       this.setData({
         foodOrder: res.foodOrder
       })
@@ -93,5 +94,15 @@ Page({
     this.setData({
       selectNum: parseInt(e.currentTarget.dataset.num)
     });
+  },
+  bindClickSureButton () {
+    if (!this.data.selectNum) {
+      utils.showMessage('请选择用餐人数');
+    } else {
+      let order = this.data.foodOrder;
+      wx.redirectTo({
+        url: '/pages/foodorder/foodorder?mid=' + order.mid + '&tno=' + order.tableNo + '&personNum=' + this.data.selectNum
+      });
+    }
   }
 })
