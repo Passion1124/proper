@@ -84,6 +84,20 @@ Page({
       console.error(e);
     })
   },
+  // 菜篮子添加菜品
+  handleFoodBasketAdd () {
+    let api = 'com.ttdtrip.api.restaurant.apis.service.v2.FoodBasketAddApiService';
+    let data = { base: app.globalData.baseBody, foodOrderId: this.data.foodOrderId, consumerCount: this.data.selectNum, foodItems: [] };
+    app.request(api, data, res => {
+      console.log(res);
+      let order = this.data.foodOrder;
+      wx.redirectTo({
+        url: '/pages/foodorder/foodorder?mid=' + order.mid + '&tno=' + order.tableNo + '&personNum=' + this.data.selectNum
+      });
+    }, e => {
+      console.error(e);
+    })
+  },
   handleClickOpenTableNumber () {
     this.setData({
       open: true,
@@ -99,10 +113,7 @@ Page({
     if (!this.data.selectNum) {
       utils.showMessage('请选择用餐人数');
     } else {
-      let order = this.data.foodOrder;
-      wx.redirectTo({
-        url: '/pages/foodorder/foodorder?mid=' + order.mid + '&tno=' + order.tableNo + '&personNum=' + this.data.selectNum
-      });
+      this.handleFoodBasketAdd();
     }
   }
 })

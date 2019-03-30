@@ -54,7 +54,8 @@
     "pages/orderBookDetail/orderBookDetail",
     "pages/webview/webview",
     "pages/ticket/ticket",
-    "pages/chooseFoodNumber/chooseFoodNumber"
+    "pages/chooseFoodNumber/chooseFoodNumber",
+    "pages/foodItems/foodItems"
   ],
   "window":{
     "backgroundTextStyle":"light",

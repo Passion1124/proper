@@ -15,6 +15,8 @@ Page({
     goods: {},
     menus: [],
     menuItem: {},
+    foodItems: [],
+    orderItems: [],
     category: [],
     foodList: [],
     foodOrder: {},
@@ -24,7 +26,8 @@ Page({
     batchStatus: 0,
     checkCategory: '',
     consumerCount: 0,
-    numRange: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    numRange: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+    winHeight: ''
   },
 
   /**
@@ -49,6 +52,19 @@ Page({
       this.data.batchStatus = null;
       this.handleGetFoodOrderDetailList(this.data.foodOrderId);
     }
+    let that = this;
+    //  高度自适应
+    wx.getSystemInfo({
+      success: function (res) {
+        var clientHeight = res.windowHeight,
+          clientWidth = res.windowWidth,
+          rpxR = 750 / clientWidth;
+        var calc = clientHeight * rpxR - 120;
+        that.setData({
+          winHeight: calc
+        });
+      }
+    });
   },
 
   /**
@@ -138,7 +154,9 @@ Page({
       console.log(res);
       if (res.foodBasket) {
         this.setData({
-          consumerCount: res.foodBasket.consumerCount
+          consumerCount: res.foodBasket.consumerCount,
+          foodItems: res.foodBasket.foodItems,
+          orderItems: res.foodBasket.orderItems
         })
       }
     }, e => {
@@ -154,7 +172,9 @@ Page({
       console.log(res);
       if (res.foodBasket || res.foodOrderBatch) {
         this.setData({
-          consumerCount: res.foodBasket.consumerCount
+          consumerCount: res.foodBasket.consumerCount,
+          foodItems: res.foodBasket.foodItems,
+          orderItems: res.foodBasket.orderItems
         })
       } else {
         wx.redirectTo({
@@ -171,7 +191,8 @@ Page({
     app.request(api, data, res => {
       console.log(res);
       this.setData({
-        menus: res.menus || []
+        menus: res.menus,
+        checkCategory: res.menus[0]
       });
       if (this.data.menus.length) this.handleGetMenuItemDetail(res.menus[0].id);
     }, e => {
@@ -280,11 +301,14 @@ Page({
   // 修改分类
   bindChangeCategoryId (e) {
     let category = e.currentTarget.dataset.category;
-    if (category.categoryId === this.data.checkCategory.categoryId) return false;
+    if (category.id === this.data.checkCategory.id) return false;
     this.setData({
       checkCategory: category
     });
-    this.getFoodList();
+    if (!this.data.menuItem[category.id]) {
+      this.handleGetMenuItemDetail(category.id);
+    }
+    // this.getFoodList();
   },
   // 修改用餐人数
   handleChangeEatNumber (e) {
@@ -305,6 +329,40 @@ Page({
       wx.redirectTo({
         url: '/pages/foodsure/foodsure?mid=' + line.mid + '&sn=' + line.sn + '&foodOrderId=' + this.data.foodOrderId,
       })
+    }
+  },
+  // 去套餐页面或者放题页面
+  handleGoToTheFoodDetailPage (e) {
+    let item = e.currentTarget.dataset.item;
+    if (item.type !== 1) {
+      let selecTable = this.getNowFoodSelectable(item.type, item.limitTimeStart, item.limitTimeEnd);
+      if (selecTable) {
+        let foodNum = this.data.foodItems.find(food => food.foodId === item.id).foodNumber;
+        util.navigateTo('/pages/foodItems/foodItems?foodId=' + item.id + '&personNum=' + this.data.consumerCount + '&type=' + item.type + '&foodNum=' + foodNum);
+      }
+    }
+  },
+  // 判断当前食物是否在可点时段
+  getNowFoodSelectable(type, beginTime, endTime) {
+    if (type === 0) {
+      return true;
+    }
+    if ((!beginTime && !endTime) || (beginTime === '00:00' && endTime === '00:00')) {
+      return true;
+    } else {
+      var n = new Date();
+      var b = new Date();
+      var e = new Date();
+      b.setHours(beginTime.split(':')[0]);
+      b.setMinutes(beginTime.split(':')[1]);
+      e.setHours(endTime.split(':')[0]);
+      e.setMinutes(endTime.split(':')[1]);
+      if (n.getTime() - b.getTime() > 0 && n.getTime() - e.getTime() < 0) {
+        return true;
+      } else {
+        util.showMessage('当前菜品不在可点时段');
+        return false;
+      }
     }
   }
 })

@@ -308,6 +308,62 @@ var DateFr = {
     } else {
       return '';
     }
+  },
+  // 获取当前菜品分类选择的份数
+  getCheckedFoodMenuCount: function (arr, menuId) {
+    if (arr.length && menuId) {
+      var num = arr.filter(function (item) {
+        return item.menuId === menuId;
+      }).reduce(function (pre, curr) {
+        return pre + curr.foodNumber || 0
+      }, 0);
+      return num;
+    } else {
+      return 0;
+    }
+  },
+  // 获取当前食物是否已经被选择
+  getNowFoodIsCheck: function (arr, fid) {
+    if (arr && fid) {
+      var result = arr.filter(function (item) {
+        return item.foodId === fid;
+      });
+      return result.length ? true : false;
+    } else {
+      return false;
+    }
+  },
+  // 获取被选中的食物的份数和数量
+  getCheckedFoodNumAndTotal: function (arr, fid) {
+    var food = arr.filter(function (item) {
+      return item.foodId === fid;
+    });
+    var total = food[0].subFoodItems.reduce(function (pre, curr) {
+      return pre + curr.foodNumber;
+    }, 0);
+    return '已选' + food[0].foodNumber + '份 菜品' + total;
+  },
+  // 判断当前食物是否在可点时段
+  getNowFoodSelectable: function (type, beginTime, endTime) {
+    if (type === 0) {
+      return true;
+    }
+    if ((!beginTime && !endTime) || (beginTime === '00:00' && endTime === '00:00')) {
+      return true;
+    } else {
+      var n = getDate();
+      var b = getDate();
+      var e = getDate();
+      b.setHours(beginTime.split(':')[0]);
+      b.setMinutes(beginTime.split(':')[1]);
+      e.setHours(endTime.split(':')[0]);
+      e.setMinutes(endTime.split(':')[1]);
+      if (n.getTime() - b.getTime() > 0 && n.getTime() - e.getTime() < 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 }
 
@@ -339,5 +395,9 @@ module.exports = {
   getFoodOrderBatchTotalPrice: DateFr.getFoodOrderBatchTotalPrice,
   getOrderPageUseDateText: DateFr.getOrderPageUseDateText,
   getReceiverEnglishNameText: DateFr.getReceiverEnglishNameText,
-  getScheduledTime: DateFr.getScheduledTime
+  getScheduledTime: DateFr.getScheduledTime,
+  getCheckedFoodMenuCount: DateFr.getCheckedFoodMenuCount,
+  getNowFoodIsCheck: DateFr.getNowFoodIsCheck,
+  getCheckedFoodNumAndTotal: DateFr.getCheckedFoodNumAndTotal,
+  getNowFoodSelectable: DateFr.getNowFoodSelectable
 }

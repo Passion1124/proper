@@ -1,0 +1,41 @@
+<!-- foodItems.wxml -->
+<view class='container {{ type === "2" ? "fangti" : ""}}'>
+  <view class='blue_tips' wx:if='{{type === "2"}}'>全部放题至少选{{personNum}}份，已选10份</view>
+  <view class='foodNum'>
+    <view class='text'>{{ type === "3" ? '套餐数量' : '放题数量'}}</view>
+    <view class='num'>
+      <view class='minus'>-</view>
+      <view class='number_inp'>{{foodNum}}</view>
+      <view class='plus'>+</view>
+    </view>
+  </view>
+  <block wx:for='{{groups}}' wx:key='{{index}}'>
+    <view class='group'>
+      <view class='title'>
+        <text>{{item.name}}</text>
+        <text wx:if='{{item.type === 1}}'>以下为默认菜品</text>
+        <text wx:elif='{{item.type === 2}}'>以下菜品不限量供应</text>
+        <text wx:elif='{{item.type === 3}}'>以下菜品任选{{personNum}}份，已选2份</text>
+      </view>
+      <view class='food_row'>
+        <block wx:for='{{item.foods}}' wx:for-item='food' wx:for-index='idx' wx:key='{{idx}}'>
+          <view class='food'>
+            <view class='poster'>
+              <image mode='aspectFill' src='{{food.poster + "?x-oss-process=image/resize,w_600"}}'></image>
+            </view>
+            <view class='food_info'>
+              <view class='title'>{{food.foodName}}</view>
+              <view class='subTitle'>{{food.introduce}}</view>
+            </view>
+            <view class='food_num'>
+              <view class='def'>x{{food.count * foodNum}}</view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </block>
+  <view class='sure'>
+    <button>确定</button>
+  </view>
+</view>

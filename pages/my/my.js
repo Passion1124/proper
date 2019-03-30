@@ -140,5 +140,8 @@ Page({
     }).catch(_ => {
       console.log('unLogin');
     });
+  },
+  showFeedbackMessage () {
+    utils.showMessage('已提交成功，谢谢您的反馈');
   }
 })

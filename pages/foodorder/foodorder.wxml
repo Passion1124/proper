@@ -5,7 +5,7 @@
     <view class='goods'>
       <view class='goods_main'>
         <view class='poster'>
-          <image src='{{goods.goodsBase.poster + "?x-oss-process=image/resize,w_600"}}'></image>
+          <image mode='aspectFill' src='{{goods.goodsBase.poster + "?x-oss-process=image/resize,w_600"}}'></image>
         </view>
         <view class='goods_info'>
           <view class='goods_title'>{{ goods.goodsInfo.name }}</view>
@@ -58,24 +58,42 @@
   </view>
   <view class='food_row'>
     <view class='category'>
-      <block wx:for='{{category}}' wx:key='{{index}}'>
-        <view class='{{item.foodCategoryLang.categoryId === checkCategory.categoryId ? "active" : ""}}' data-category='{{item.foodCategoryLang}}' bindtap='bindChangeCategoryId'>{{item.foodCategoryLang.categoryName}}</view>
-      </block>
-    </view>
-    <view class='food_list'>
-      <scroll-view scroll-y='{{true}}'>
-        <block wx:for='{{foodList}}' wx:key='{{index}}'>
-          <view class='food'>
-            <view class='poster'>
-              <image src='{{item.foodLang.poster}}'></image>
+      <scroll-view scroll-y='{{true}}' style='height: {{winHeight}}rpx;'>
+        <block wx:for='{{menus}}' wx:key='{{index}}'>
+          <view class='c_list {{item.id === checkCategory.id ? "active" : ""}}' data-category='{{item}}' bindtap='bindChangeCategoryId'>
+            <view class='c_num' wx:if='{{dateFr.getCheckedFoodMenuCount(foodItems, item.id) !== 0}}'>{{dateFr.getCheckedFoodMenuCount(foodItems, item.id)}}</view>
+            <view class='hot' wx:if='{{item.type === 1}}'>
+              <image src='../../img/foodorder/foodorder_hot.png'></image>
             </view>
-            <view class='info'>
-              <view class='name'>{{item.foodLang.foodName}}</view>
+            <view class='text'>{{item.name}}</view>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+    <view class='food_list' style='height: {{winHeight}}rpx;'>
+      <view class='category_title'>
+        <text>{{checkCategory.name}}</text>
+        <text>已选{{dateFr.getCheckedFoodMenuCount(foodItems, checkCategory.id)}}份</text>
+      </view>
+      <scroll-view scroll-y='{{true}}' style='height: {{winHeight - 80}}rpx;'>
+        <block wx:for='{{menuItem[checkCategory.id]}}' wx:key='{{index}}'>
+          <view class='food_tips' wx:if='{{item.foods[0].isSpecial}}'>以下菜品必点</view>
+          <view class='food' data-item='{{item}}'>
+            <view class='poster'>
+              <view class='type_tips' wx:if='{{item.foods[0].type !== 1}}'>{{item.foods[0].type === 2 ? '放题' : '套餐'}}</view>
+              <image mode='aspectFill' src='{{item.foods[0].poster}}'></image>
+            </view>
+            <view class='info' data-item='{{item.foods[0]}}' bindtap='handleGoToTheFoodDetailPage'>
+              <view class='name {{dateFr.getNowFoodSelectable(item.foods[0].limitType, item.foods[0].limitTimeStart, item.foods[0].limitTimeEnd) ? "" : "disab"}}'>{{item.foods[0].foodName}}</view>
+              <view class='subTitle'>{{item.foods[0].introduce}}</view>
               <view class='price_num'>
                 <view class='price'>
-                  <text>{{item.food.currency + (item.food.price / 100)}}</text>
+                  <text>JPY{{(item.foods[0].price / 100)}}</text>
                 </view>
-                <view class='num'>
+                <view class='tips' wx:if='{{dateFr.getNowFoodIsCheck(foodItems, item.foods[0].id) && checkCategory.type !== 1}}'>
+                  <text>{{dateFr.getCheckedFoodNumAndTotal(foodItems, item.foods[0].id)}}</text>
+                </view>
+                <view class='num' wx:else>
                   <view class='minus' data-num='{{dateFr.getNowFoodOrderNum(foodOrderBatchDetailDtos, item)}}' data-food='{{item}}' bindtap='handleFoodOrderDelete'>-</view>
                   <view class='number_inp'>{{dateFr.getNowFoodOrderNum(foodOrderBatchDetailDtos, item)}}</view>
                   <view class='plus' data-food='{{item}}' bindtap='handleFoodOrderAdd'>+</view>
