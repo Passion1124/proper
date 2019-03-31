@@ -77,27 +77,31 @@
       </view>
       <scroll-view scroll-y='{{true}}' style='height: {{winHeight - 80}}rpx;'>
         <block wx:for='{{menuItem[checkCategory.id]}}' wx:key='{{index}}'>
-          <view class='food_tips' wx:if='{{item.foods[0].isSpecial}}'>以下菜品必点</view>
+          <view class='food_tips {{dateFr.getNowFoodOrderNum(foodItems, item.foods[0].id) ? "selected" : ""}}' wx:if='{{checkCategory.type === 1}}'>以下菜品必点</view>
           <view class='food' data-item='{{item}}'>
             <view class='poster'>
               <view class='type_tips' wx:if='{{item.foods[0].type !== 1}}'>{{item.foods[0].type === 2 ? '放题' : '套餐'}}</view>
               <image mode='aspectFill' src='{{item.foods[0].poster}}'></image>
             </view>
-            <view class='info' data-item='{{item.foods[0]}}' bindtap='handleGoToTheFoodDetailPage'>
+            <view class='info' data-item='{{item}}' bindtap='handleGoToTheFoodDetailPage'>
               <view class='name {{dateFr.getNowFoodSelectable(item.foods[0].limitType, item.foods[0].limitTimeStart, item.foods[0].limitTimeEnd) ? "" : "disab"}}'>{{item.foods[0].foodName}}</view>
               <view class='subTitle'>{{item.foods[0].introduce}}</view>
               <view class='price_num'>
                 <view class='price'>
                   <text>JPY{{(item.foods[0].price / 100)}}</text>
                 </view>
-                <view class='tips' wx:if='{{dateFr.getNowFoodIsCheck(foodItems, item.foods[0].id) && checkCategory.type !== 1}}'>
-                  <text>{{dateFr.getCheckedFoodNumAndTotal(foodItems, item.foods[0].id)}}</text>
-                </view>
-                <view class='num' wx:else>
-                  <view class='minus' data-num='{{dateFr.getNowFoodOrderNum(foodOrderBatchDetailDtos, item)}}' data-food='{{item}}' bindtap='handleFoodOrderDelete'>-</view>
-                  <view class='number_inp'>{{dateFr.getNowFoodOrderNum(foodOrderBatchDetailDtos, item)}}</view>
-                  <view class='plus' data-food='{{item}}' bindtap='handleFoodOrderAdd'>+</view>
-                </view>
+                <block wx:if='{{dateFr.getNowFoodSelectable(item.foods[0].limitType, item.foods[0].limitTimeStart, item.foods[0].limitTimeEnd)}}'>
+                  <view class='tips' wx:if='{{dateFr.getNowFoodIsCheck(foodItems, item.foods[0].id) && checkCategory.type !== 1}}'>
+                    <text>{{dateFr.getCheckedFoodNumAndTotal(foodItems, item.foods[0].id)}}</text>
+                  </view>
+                  <view class='num' wx:else>
+                    <block wx:if='{{dateFr.getNowFoodOrderNum(foodItems, item.foods[0].id)}}'>
+                      <view class='minus' data-num='{{dateFr.getNowFoodOrderNum(foodItems, item.foods[0].id)}}' data-item='{{item}}' catchtap='handleClickMinusButton'>-</view>
+                      <view class='number_inp'>{{dateFr.getNowFoodOrderNum(foodItems, item.foods[0].id)}}</view>
+                    </block>
+                    <view class='plus' data-item='{{item}}' catchtap='handleClickPlusButton'>+</view>
+                  </view>
+                </block>
               </view>
             </view>
           </view>

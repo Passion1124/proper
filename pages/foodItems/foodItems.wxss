@@ -39,12 +39,13 @@ page{
   letter-spacing: 1rpx;
 }
 
-.foodNum .num {
+.foodNum .num, .food_num .num {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 }
 
-.foodNum .num .minus, .foodNum  .num .plus {
+.foodNum .num .minus, .foodNum .num .plus, .food_num .num .minus, .food_num .num .plus {
   width: 44rpx;
   height: 44rpx;
   font-size: 38rpx;
@@ -56,7 +57,7 @@ page{
   box-sizing: border-box;
 }
 
-.foodNum .num .number_inp {
+.foodNum .num .number_inp, .food_num .num .number_inp {
   margin: 0 20rpx;
   font-size: 32rpx;
   line-height: 45rpx;
@@ -65,7 +66,7 @@ page{
   text-align: center;
 }
 
-.foodNum .num .plus {
+.foodNum .num .plus, .food_num .num .plus {
   background-color: #23c2f7;
   color: #fff;
 }

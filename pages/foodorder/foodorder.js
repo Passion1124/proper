@@ -156,7 +156,8 @@ Page({
         this.setData({
           consumerCount: res.foodBasket.consumerCount,
           foodItems: res.foodBasket.foodItems,
-          orderItems: res.foodBasket.orderItems
+          orderItems: res.foodBasket.orderItems,
+          foodOrderId: res.foodOrderId
         })
       }
     }, e => {
@@ -174,7 +175,8 @@ Page({
         this.setData({
           consumerCount: res.foodBasket.consumerCount,
           foodItems: res.foodBasket.foodItems,
-          orderItems: res.foodBasket.orderItems
+          orderItems: res.foodBasket.orderItems,
+          foodOrderId: res.foodOrderId
         })
       } else {
         wx.redirectTo({
@@ -209,6 +211,20 @@ Page({
       menuItem[menuId] = res.menuItem;
       this.setData({
         menuItem
+      })
+    }, e => {
+      console.error(e);
+    })
+  },
+  // 菜篮子添加菜品
+  handleFoodBasketAdd(consumerCount, foodItems) {
+    let api = 'com.ttdtrip.api.restaurant.apis.service.v2.FoodBasketAddApiService';
+    let data = { base: app.globalData.baseBody, foodOrderId: this.data.foodOrderId, consumerCount, foodItems };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        consumerCount: res.consumerCount,
+        foodItems: res.foodItems
       })
     }, e => {
       console.error(e);
@@ -331,14 +347,59 @@ Page({
       })
     }
   },
+  // 点击加号按钮
+  handleClickPlusButton (e) {
+    let item = e.currentTarget.dataset.item;
+    let foods = item.foods[0];
+    if (foods.type === 1) {
+      if (foods.specCount) {
+        console.log('有多规格的食品');
+      } else {
+        let foodItems = this.data.foodItems;
+        let index = foodItems.findIndex(item => item.foodId === foods.id);
+        if (index !== -1) {
+          foodItems[index].foodNumber += 1;
+          this.handleFoodBasketAdd(this.data.consumerCount, foodItems);
+        } else {
+          let obj = { foodGroupId: "", foodId: foods.id, foodNumber: 1, menuItemId: item.id, menuId: this.data.checkCategory.id, rootFoodId: '', selfFoodStyle: 0, spcItemId: [], subFoodItems: [] };
+          foodItems.push(obj);
+          this.handleFoodBasketAdd(this.data.consumerCount, foodItems);
+        }
+      }
+    } else {
+      this.handleGoToTheFoodDetailPage(e); 
+    }
+  },
+  // 点击减号按钮
+  handleClickMinusButton (e) {
+    let item = e.currentTarget.dataset.item;
+    let foods = item.foods[0];
+    let num = e.currentTarget.dataset.num;
+    let foodItems = this.data.foodItems;
+    let index = foodItems.findIndex(item => item.foodId === foods.id);
+    if (num === 1) {
+      foodItems.splice(index, 1);
+      this.handleFoodBasketAdd(this.data.consumerCount, foodItems);
+    } else {
+      if (foods.specCount) {
+
+      } else {
+        foodItems[index].foodNumber -= 1;
+        this.handleFoodBasketAdd(this.data.consumerCount, foodItems);
+      }
+    }
+  },
   // 去套餐页面或者放题页面
   handleGoToTheFoodDetailPage (e) {
     let item = e.currentTarget.dataset.item;
-    if (item.type !== 1) {
-      let selecTable = this.getNowFoodSelectable(item.type, item.limitTimeStart, item.limitTimeEnd);
+    let foods = item.foods[0];
+    if (foods.type !== 1) {
+      let selecTable = this.getNowFoodSelectable(foods.type, foods.limitTimeStart, foods.limitTimeEnd);
       if (selecTable) {
-        let foodNum = this.data.foodItems.find(food => food.foodId === item.id).foodNumber;
-        util.navigateTo('/pages/foodItems/foodItems?foodId=' + item.id + '&personNum=' + this.data.consumerCount + '&type=' + item.type + '&foodNum=' + foodNum);
+        let food = this.data.foodItems.find(food => food.foodId === foods.id);
+        let foodNum = food ? food.foodNumber : 0;
+        if (!foodNum && foods.type === 3) foodNum = 1;
+        util.navigateTo('/pages/foodItems/foodItems?foodId=' + foods.id + '&personNum=' + this.data.consumerCount + '&type=' + foods.type + '&foodNum=' + foodNum);
       }
     }
   },

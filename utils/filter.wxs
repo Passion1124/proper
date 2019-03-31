@@ -267,15 +267,14 @@ var DateFr = {
     });
     return total;
   },
-  getNowFoodOrderNum: function (dots, food) {
-    if (dots.length) {
-      var val = 0;
-      dots.forEach(function (item) {
-        if (item.foodOrderBatchDetail.foodId === food.food.id) {
-          val = item.foodOrderBatchDetail.foodNumber;
-        }
-      });
-      return val;
+  getNowFoodOrderNum: function (arr, fid) {
+    if (arr.length) {
+      var result = arr.filter(function (item) {
+        return item.foodId === fid;
+      }).reduce(function (pre, curr) {
+        return pre + curr.foodNumber;
+      }, 0);
+      return result;
     } else {
       return 0;
     }

@@ -280,6 +280,10 @@ page {
   margin-bottom: 20rpx;
 }
 
+.food_list .food_tips.selected{
+  color: #666;
+}
+
 .food_list .food {
   display: flex;
   /* align-items: center; */

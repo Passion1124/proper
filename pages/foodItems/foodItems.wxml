@@ -1,12 +1,13 @@
 <!-- foodItems.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container {{ type === "2" ? "fangti" : ""}}'>
-  <view class='blue_tips' wx:if='{{type === "2"}}'>全部放题至少选{{personNum}}份，已选10份</view>
+  <view class='blue_tips' wx:if='{{type === "2"}}'>全部放题至少选{{personNum}}份，已选{{foodNum}}份</view>
   <view class='foodNum'>
     <view class='text'>{{ type === "3" ? '套餐数量' : '放题数量'}}</view>
     <view class='num'>
-      <view class='minus'>-</view>
+      <view class='minus' bindtap='handleMinuButtonClick'>-</view>
       <view class='number_inp'>{{foodNum}}</view>
-      <view class='plus'>+</view>
+      <view class='plus' bindtap='handlePlusButtonClick'>+</view>
     </view>
   </view>
   <block wx:for='{{groups}}' wx:key='{{index}}'>
@@ -15,7 +16,7 @@
         <text>{{item.name}}</text>
         <text wx:if='{{item.type === 1}}'>以下为默认菜品</text>
         <text wx:elif='{{item.type === 2}}'>以下菜品不限量供应</text>
-        <text wx:elif='{{item.type === 3}}'>以下菜品任选{{personNum}}份，已选2份</text>
+        <text wx:elif='{{item.type === 3}}'>以下菜品任选{{foodNum}}份，已选{{foods.foodNumber}}份</text>
       </view>
       <view class='food_row'>
         <block wx:for='{{item.foods}}' wx:for-item='food' wx:for-index='idx' wx:key='{{idx}}'>
@@ -28,7 +29,14 @@
               <view class='subTitle'>{{food.introduce}}</view>
             </view>
             <view class='food_num'>
-              <view class='def'>x{{food.count * foodNum}}</view>
+              <view class='def' wx:if='{{item.type === 1}}'>x{{food.count * foodNum}}</view>
+              <view class='num' wx:else>
+                <block wx:if='{{dateFr.getNowFoodOrderNum(foods.subFoodItems, food.id)}}'>
+                  <view class='minus' data-num='{{dateFr.getNowFoodOrderNum(foods.subFoodItems, food.id)}}' data-item='{{item}}' bindtap='handleFoodMinuButtonClick'>-</view>
+                  <view class='number_inp'>{{dateFr.getNowFoodOrderNum(foods.subFoodItems, food.id)}}</view>
+                </block>
+                <view class='plus' data-item='{{item}}' bindtap='handleFoodPlusButtonClick'>+</view>
+              </view>
             </view>
           </view>
         </block>

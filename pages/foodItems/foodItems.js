@@ -14,7 +14,10 @@ Page({
     type: '',
     foodNum: 0,
     groups: [],
-    foods: {}
+    foods: {},
+    foodSpcs: [],
+    prices: [],
+    foodsHasData: false
   },
 
   /**
@@ -23,9 +26,9 @@ Page({
   onLoad: function (options) {
     this.setData({
       foodId: options.foodId,
-      personNum: options.personNum,
+      personNum: parseInt(options.personNum),
       type: options.type,
-      foodNum: options.foodNum
+      foodNum: parseInt(options.foodNum)
     });
     this.handleFoodGroupDetail();
   },
@@ -41,7 +44,23 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    const page = getCurrentPages();
+    const foodorder = page[page.length - 2];
+    let foods = foodorder.data.foodItems.find(item => item.foodId === this.data.foodId);
+    if (foods) {
+      console.log(foods);
+      this.setData({
+        foods,
+        foodsHasData: true
+      });
+    } else {
+      let menuId = foodorder.data.checkCategory.id;
+      let menuItemId = foodorder.data.menuItem[menuId].find(item => item.foods[0].id === this.data.foodId).id;
+      let obj = { foodGroupId: '', foodId: this.data.foodId, foodNumber: 0, menuId, menuItemId, rootFoodId: '', selfFoodStyle: 0, spcItemId: [], subFoodItems: [] };
+      this.setData({
+        foods: obj
+      })
+    }
   },
 
   /**
@@ -90,5 +109,33 @@ Page({
     }, e => {
       console.error(e);
     })
+  },
+  // 点击减号按钮
+  handleMinuButtonClick () {
+    let foodNum = this.data.foodNum;
+    if (foodNum) {
+      foodNum -= 1;
+      this.setData({
+        foodNum
+      })
+    }
+  },
+  // 点击加号按钮
+  handlePlusButtonClick () {
+    let foodNum = this.data.foodNum;
+    foodNum += 1;
+    this.setData({
+      foodNum: foodNum
+    })
+  },
+  // 点击食物的加号
+  handleFoodPlusButtonClick (e) {
+    let item = e.currentTarget.dataset.item;
+    console.log(item);
+  },
+  // 点击食物的减号
+  handleFoodMinuButtonClick (e) {
+    let item = e.currentTarget.dataset.item;
+    console.log(item);
   }
 })
