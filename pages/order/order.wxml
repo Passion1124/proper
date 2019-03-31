@@ -223,7 +223,7 @@
       <input value='{{mail}}' placeholder-class='phcolor' placeholder='详细地址' bindinput='handleChangeInputMail' maxlength='50'></input>
     </view>
   </view>
-  <view class='many' wx:if='{{useData}}' bindtap='clickCouponLan'>
+  <view class='many' wx:if='{{useData && price}}' bindtap='clickCouponLan'>
     <view class='text' style='width: 180rpx;'>可用优惠券</view>
     <view class='coupon'>
       <view class='blue_text' wx:if='{{!selectCoupon.id && coupons.length}}'>{{coupons.length}}张</view>
