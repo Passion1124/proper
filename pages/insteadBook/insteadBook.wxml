@@ -98,7 +98,7 @@
       <input placeholder-class='phcolor' value='{{receiver.email}}' placeholder='邮箱' bindinput='handleInputEmail'></input>
     </view>
   </view>
-  <view class='many' bindtap='clickCouponLan'>
+  <view class='many' bindtap='clickCouponLan' wx:if='{{price}}'>
     <view class='text' style='width: 180rpx;'>可用优惠券</view>
     <view class='coupon'>
       <view class='blue_text' wx:if='{{!selectCoupon.id && coupons.length}}'>{{coupons.length}}张</view>
