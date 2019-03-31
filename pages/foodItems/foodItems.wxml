@@ -32,10 +32,10 @@
               <view class='def' wx:if='{{item.type === 1}}'>x{{food.count * foodNum}}</view>
               <view class='num' wx:else>
                 <block wx:if='{{dateFr.getNowFoodOrderNum(foods.subFoodItems, food.id)}}'>
-                  <view class='minus' data-num='{{dateFr.getNowFoodOrderNum(foods.subFoodItems, food.id)}}' data-item='{{item}}' bindtap='handleFoodMinuButtonClick'>-</view>
+                  <view class='minus' data-index='{{idx}}' data-num='{{dateFr.getNowFoodOrderNum(foods.subFoodItems, food.id)}}' data-item='{{item}}' bindtap='handleFoodMinuButtonClick'>-</view>
                   <view class='number_inp'>{{dateFr.getNowFoodOrderNum(foods.subFoodItems, food.id)}}</view>
                 </block>
-                <view class='plus' data-item='{{item}}' bindtap='handleFoodPlusButtonClick'>+</view>
+                <view class='plus' data-item='{{item}}' data-index='{{idx}}' bindtap='handleFoodPlusButtonClick'>+</view>
               </view>
             </view>
           </view>
@@ -44,6 +44,6 @@
     </view>
   </block>
   <view class='sure'>
-    <button>确定</button>
+    <button bindtap='handleClickSureButton'>确定</button>
   </view>
 </view>

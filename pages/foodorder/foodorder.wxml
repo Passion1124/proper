@@ -88,7 +88,7 @@
               <view class='subTitle'>{{item.foods[0].introduce}}</view>
               <view class='price_num'>
                 <view class='price'>
-                  <text>JPY{{(item.foods[0].price / 100)}}</text>
+                  <text>JPY{{(item.foods[0].price / 100)}}{{item.foods[0].specCount ? "起" : ""}}</text>
                 </view>
                 <block wx:if='{{dateFr.getNowFoodSelectable(item.foods[0].limitType, item.foods[0].limitTimeStart, item.foods[0].limitTimeEnd)}}'>
                   <view class='tips' wx:if='{{dateFr.getNowFoodIsCheck(foodItems, item.foods[0].id) && checkCategory.type !== 1}}'>

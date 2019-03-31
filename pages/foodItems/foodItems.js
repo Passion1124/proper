@@ -30,7 +30,6 @@ Page({
       type: options.type,
       foodNum: parseInt(options.foodNum)
     });
-    this.handleFoodGroupDetail();
   },
 
   /**
@@ -61,6 +60,7 @@ Page({
         foods: obj
       })
     }
+    this.handleFoodGroupDetail();
   },
 
   /**
@@ -103,9 +103,46 @@ Page({
     let data = { base: app.globalData.baseBody, foodId: this.data.foodId };
     app.request(api, data, res => {
       console.log(res);
+      let subFoodItems = res.groups.reduce((pre, curr) => {
+        let c_arr = curr.foods.map(item => {
+          let find = this.data.foods.subFoodItems.find(child => child.foodId === item.id);
+          if (find) {
+            if (curr.type === 1) {
+              find.foodNumber = item.count;
+            }
+            return find;
+          } else {
+            let obj = { foodGroupId: curr.id, foodId: item.id, rootFoodId: curr.foodId };
+            if (curr.type === 1) {
+              obj.foodNumber = item.count;
+            } else {
+              if (item.specCount) {
+                return "";
+              }
+              obj.foodNumber = 0;
+              obj.spcItemId = [];
+              obj.subFoodItems = [];
+            }
+            return obj;
+          }
+        });
+        return pre.concat(c_arr);
+      }, []).filter(item => item);
       this.setData({
-        groups: res.groups
-      })
+        groups: res.groups,
+        ['foods.subFoodItems']: subFoodItems
+      });
+    }, e => {
+      console.error(e);
+    })
+  },
+  // 菜篮子添加菜品
+  handleFoodBasketAdd(consumerCount, foodItems, foodOrderId) {
+    let api = 'com.ttdtrip.api.restaurant.apis.service.v2.FoodBasketAddApiService';
+    let data = { base: app.globalData.baseBody, foodOrderId, consumerCount, foodItems };
+    app.request(api, data, res => {
+      console.log(res);
+      wx.navigateBack();
     }, e => {
       console.error(e);
     })
@@ -131,11 +168,55 @@ Page({
   // 点击食物的加号
   handleFoodPlusButtonClick (e) {
     let item = e.currentTarget.dataset.item;
-    console.log(item);
+    let food = item.foods[e.currentTarget.dataset.index];
+    if (food.specCount) {
+
+    } else {
+      let subFoodItems = this.data.foods.subFoodItems;
+      let index = this.data.foods.subFoodItems.findIndex(item => item.foodId === food.id);
+      subFoodItems[index].foodNumber += 1;
+      this.setData({
+        ['foods.subFoodItems']: subFoodItems
+      });
+    }
   },
   // 点击食物的减号
   handleFoodMinuButtonClick (e) {
     let item = e.currentTarget.dataset.item;
-    console.log(item);
+    let food = item.foods[e.currentTarget.dataset.index];
+    if (food.specCount) {
+
+    } else {
+      let subFoodItems = this.data.foods.subFoodItems;
+      let index = this.data.foods.subFoodItems.findIndex(item => item.foodId === food.id);
+      subFoodItems[index].foodNumber -= 1;
+      this.setData({
+        ['foods.subFoodItems']: subFoodItems
+      });
+    }
+  },
+  // 点击确定按钮
+  handleClickSureButton () {
+    let page = getCurrentPages();
+    let foodorder = page[page.length - 2];
+    let foodItems = foodorder.data.foodItems;
+    let defaultFood = this.data.groups.filter(item => item.type === 1).map(item => item.id);
+    let subFoodItems = this.data.foods.subFoodItems.filter(item => item.foodNumber).map(item => {
+      if (defaultFood.indexOf(item.foodGroupId) !== -1) {
+        item.foodNumber = this.data.foodNum * item.foodNumber;
+      };
+      return item;
+    });
+    this.data.foods.foodNumber = this.data.foodNum;
+    this.data.foods.subFoodItems = subFoodItems;
+    let index = foodItems.findIndex(item => item.foodId === this.data.foods.foodId);
+    if (index === -1) {
+      if (this.data.foodNum) {
+        foodItems.push(this.data.foods);
+      }
+    } else {
+      foodItems[index] = this.data.foods;
+    }
+    this.handleFoodBasketAdd(this.data.personNum, foodItems, foodorder.data.foodOrderId);
   }
 })

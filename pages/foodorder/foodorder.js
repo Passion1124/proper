@@ -40,18 +40,8 @@ Page({
     if (mid) this.data.mid = mid;
     if (tno) this.data.tno = tno;
     if (personNum) this.data.consumerCount = personNum;
-    if (sn) {
-      this.handleLineWait();
-    }
     this.getGoodsDetail();
     this.handleGetMenuDetail();
-    if (mid && tno) {
-      this.handleScanCodeEnter();
-    }
-    if (this.data.foodOrderId) {
-      this.data.batchStatus = null;
-      this.handleGetFoodOrderDetailList(this.data.foodOrderId);
-    }
     let that = this;
     //  高度自适应
     wx.getSystemInfo({
@@ -78,7 +68,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    if (this.data.sn) {
+      this.handleLineWait();
+    }
+    if (this.data.mid && this.data.tno) {
+      this.handleScanCodeEnter();
+    }
   },
 
   /**
