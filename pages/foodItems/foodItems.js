@@ -147,6 +147,16 @@ Page({
       console.error(e);
     })
   },
+  // 菜品规格详情
+  handleFoodSpcDetail (foodId, type) {
+    let api = 'com.ttdtrip.api.restaurant.apis.service.v2.FoodSpcDetailApiService';
+    let data = { base: app.globalData.baseBody, foodId };
+    app.request(api, data, res => {
+      console.log(res);
+    }, e => {
+      console.error(e);
+    })
+  },
   // 点击减号按钮
   handleMinuButtonClick () {
     let foodNum = this.data.foodNum;

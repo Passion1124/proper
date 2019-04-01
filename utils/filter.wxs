@@ -363,6 +363,41 @@ var DateFr = {
         return false;
       }
     }
+  },
+  // 获取当前食物规格是否已经被选择
+  gewNowFoodSpecSelected: function (arr, id) {
+    var index = arr.indexOf(id);
+    return index !== -1 ? "active": "";
+  },
+  // 获取规格文本内容
+  gewNowFoodSpecText: function (foodSpcs, spcItemId) {
+    var arr = foodSpcs.reduce(function (pre, curr) {
+      return pre.concat(curr.items);
+    }, []);
+    var spc = spcItemId.map(function (item) {
+      var index = arr.filter(function (obj) {
+        return obj.id === item;
+      });
+      return index[0];
+    }).filter(function (item) {
+      return item;
+    }).map(function (item) {
+      return item.name;
+    }).join(' ');
+    return spc;
+  },
+  // 获取食物规格选择完整之后的价格
+  getNowFoodSpecCompletePrice: function (prices, md5) {
+    var priceObj = prices.filter(function (item) {
+      return item.md5 === md5;
+    });
+    return priceObj[0].price
+  },
+  // 数组筛选不为空的值
+  getArrayDataHasValue: function (arr) {
+    return arr.filter(function(item) {
+      return item
+    });
   }
 }
 
@@ -398,5 +433,9 @@ module.exports = {
   getCheckedFoodMenuCount: DateFr.getCheckedFoodMenuCount,
   getNowFoodIsCheck: DateFr.getNowFoodIsCheck,
   getCheckedFoodNumAndTotal: DateFr.getCheckedFoodNumAndTotal,
-  getNowFoodSelectable: DateFr.getNowFoodSelectable
+  getNowFoodSelectable: DateFr.getNowFoodSelectable,
+  gewNowFoodSpecSelected: DateFr.gewNowFoodSpecSelected,
+  gewNowFoodSpecText: DateFr.gewNowFoodSpecText,
+  getNowFoodSpecCompletePrice: DateFr.getNowFoodSpecCompletePrice,
+  getArrayDataHasValue: DateFr.getArrayDataHasValue
 }

@@ -1,4 +1,5 @@
 import util from '../../utils/util.js'
+import md5 from '../../utils/md5.js'
 
 const app = getApp();
 
@@ -27,7 +28,16 @@ Page({
     checkCategory: '',
     consumerCount: 0,
     numRange: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-    winHeight: ''
+    winHeight: '',
+    specifications: {},
+    newFoods: {},
+    selectFood: {},
+    deleteFoodItems: [],
+    spcMd5: '',
+    black_mask: false,
+    popup: false,
+    popupStatus: 'show',
+    popupType: ''
   },
 
   /**
@@ -68,12 +78,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (this.data.sn) {
-      this.handleLineWait();
-    }
-    if (this.data.mid && this.data.tno) {
-      this.handleScanCodeEnter();
-    }
+    this.handleGetFoodOrderDetail();
   },
 
   /**
@@ -109,6 +114,15 @@ Page({
    */
   onShareAppMessage: function () {
     
+  },
+  // 获取订单详情
+  handleGetFoodOrderDetail () {
+    if (this.data.sn) {
+      this.handleLineWait();
+    }
+    if (this.data.mid && this.data.tno) {
+      this.handleScanCodeEnter();
+    }
   },
   //排队检查(详情)
   handleLineWait() {
@@ -212,7 +226,7 @@ Page({
     })
   },
   // 菜篮子添加菜品
-  handleFoodBasketAdd(consumerCount, foodItems) {
+  handleFoodBasketAdd(consumerCount, foodItems, type) {
     let api = 'com.ttdtrip.api.restaurant.apis.service.v2.FoodBasketAddApiService';
     let data = { base: app.globalData.baseBody, foodOrderId: this.data.foodOrderId, consumerCount, foodItems };
     app.request(api, data, res => {
@@ -220,7 +234,26 @@ Page({
       this.setData({
         consumerCount: res.consumerCount,
         foodItems: res.foodItems
-      })
+      });
+      this.handleGetFoodOrderDetail();
+      if (type === 'popup_add') {
+        this.handleHideMaskAndPopup();
+      }
+    }, e => {
+      console.error(e);
+    })
+  },
+  // 菜品规格详情
+  handleFoodSpcDetail(foodId, type) {
+    let api = 'com.ttdtrip.api.restaurant.apis.service.v2.FoodSpcDetailApiService';
+    let data = { base: app.globalData.baseBody, foodId };
+    app.request(api, data, res => {
+      console.log(res);
+      let obj = { foodSpcs: res.foodSpcs, prices: res.prices };
+      this.setData({
+        ['specifications.' + foodId]: obj
+      });
+      this.handleShowMaskAndPopup();
     }, e => {
       console.error(e);
     })
@@ -348,17 +381,27 @@ Page({
     let foods = item.foods[0];
     if (foods.type === 1) {
       if (foods.specCount) {
-        console.log('有多规格的食品');
+        let newFoods = { foodGroupId: '', foodId: foods.id, foodNumber: 1, menuId: this.data.checkCategory.id, menuItemId: item.id, rootFoodId: '', selfFoodStyle: 0, spcItemId: [], subFoodItems: [] };
+        this.setData({
+          newFoods,
+          selectFood: foods,
+          popupType: 'spec_add'
+        })
+        if (this.data.specifications[foods.id]) {
+          this.handleShowMaskAndPopup();
+        } else {
+          this.handleFoodSpcDetail(foods.id, 'plus');
+        }
       } else {
         let foodItems = this.data.foodItems;
         let index = foodItems.findIndex(item => item.foodId === foods.id);
         if (index !== -1) {
           foodItems[index].foodNumber += 1;
-          this.handleFoodBasketAdd(this.data.consumerCount, foodItems);
+          this.handleFoodBasketAdd(this.data.consumerCount, foodItems, 'food_plus');
         } else {
           let obj = { foodGroupId: "", foodId: foods.id, foodNumber: 1, menuItemId: item.id, menuId: this.data.checkCategory.id, rootFoodId: '', selfFoodStyle: 0, spcItemId: [], subFoodItems: [] };
           foodItems.push(obj);
-          this.handleFoodBasketAdd(this.data.consumerCount, foodItems);
+          this.handleFoodBasketAdd(this.data.consumerCount, foodItems, 'food_plus');
         }
       }
     } else {
@@ -374,15 +417,71 @@ Page({
     let index = foodItems.findIndex(item => item.foodId === foods.id);
     if (num === 1) {
       foodItems.splice(index, 1);
-      this.handleFoodBasketAdd(this.data.consumerCount, foodItems);
+      this.handleFoodBasketAdd(this.data.consumerCount, foodItems, 'food_minus');
     } else {
       if (foods.specCount) {
-
+        this.setData({
+          selectFood: foods,
+          deleteFoodItems: this.data.foodItems.filter(item => item.foodId === foods.id),
+          popupType: 'spec_delete'
+        })
+        if (this.data.specifications[foods.id]) {
+          this.handleShowMaskAndPopup();
+        } else {
+          this.handleFoodSpcDetail(foods.id, 'minus');
+        }
       } else {
         foodItems[index].foodNumber -= 1;
-        this.handleFoodBasketAdd(this.data.consumerCount, foodItems);
+        this.handleFoodBasketAdd(this.data.consumerCount, foodItems, 'food_minus');
       }
     }
+  },
+  // 修改规格参数
+  handleSpecificationsDataChange (e) {
+    let index = e.currentTarget.dataset.index;
+    let id = e.currentTarget.dataset.id;
+    let spcItemId = this.data.newFoods.spcItemId;
+    spcItemId[index] = id;
+    this.setData({
+      ['newFoods.spcItemId']: spcItemId
+    });
+    if (spcItemId.filter(item => item).length === this.data.specifications[this.data.selectFood.id].foodSpcs.length) {
+      let spcMd5 = md5(spcItemId.reverse().join(''));
+      this.setData({
+        spcMd5
+      })
+    }
+  },
+  // 点击添加按钮
+  handleAddFoodButton () {
+    if (this.data.newFoods.spcItemId.filter(item => item).length === this.data.specifications[this.data.selectFood.id].foodSpcs.length) {
+      let foodItems = this.data.foodItems;
+      let index = foodItems.findIndex(item => item.foodId === this.data.selectFood.id && item.spcItemId.toString() === this.data.newFoods.spcItemId.reverse().toString());
+      if (index !== -1) {
+        foodItems[index].foodNumber += 1;
+      } else {
+        let newFoods = this.data.newFoods;
+        newFoods.spcItemId.reverse();
+        foodItems.push(newFoods);
+        this.handleFoodBasketAdd(this.data.consumerCount, foodItems, 'popup_add');
+      }
+    } else {
+      util.showMessage('请选择完整规格');
+    }
+  },
+  // 显示弹窗
+  handleShowMaskAndPopup () {
+    this.setData({
+      black_mask: true,
+      popup: true
+    })
+  },
+  // 隐藏弹窗
+  handleHideMaskAndPopup () {
+    this.setData({
+      black_mask: false,
+      popup: false
+    })
   },
   // 去套餐页面或者放题页面
   handleGoToTheFoodDetailPage (e) {

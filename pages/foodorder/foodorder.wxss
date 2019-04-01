@@ -377,13 +377,15 @@ page {
   color: #8C8C8C;
 }
 
-.food_list .food .info .price_num .num {
+.food_list .food .info .price_num .num, .popup .specifications_delete .row .list .num {
   display: flex;
   align-items: center;
 }
 
 .food_list .food .info .price_num .num .minus,
-.food_list .food .info .price_num .num .plus {
+.food_list .food .info .price_num .num .plus,
+.popup .specifications_delete .row .list .num .minus,
+.popup .specifications_delete .row .list .num .plus{
   width: 44rpx;
   height: 44rpx;
   font-size: 38rpx;
@@ -395,7 +397,7 @@ page {
   box-sizing: border-box;
 }
 
-.food_list .food .info .price_num .num .number_inp {
+.food_list .food .info .price_num .num .number_inp, .popup .specifications_delete .row .list .num .number_inp {
   width: 64rpx;
   font-size: 32rpx;
   line-height: 45rpx;
@@ -404,7 +406,7 @@ page {
   text-align: center;
 }
 
-.food_list .food .info .price_num .num .plus {
+.food_list .food .info .price_num .num .plus, .popup .specifications_delete .row .list .num .plus {
   background-color: #23c2f7;
   color: #fff;
 }
@@ -459,4 +461,189 @@ page {
   color: #fff;
   background-color: #f97572;
   border-radius: 40rpx;
+}
+
+.black_mask{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.55);
+  z-index: 9;
+}
+
+.popup{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 40rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 20rpx 20rpx 0 0;
+  z-index: 20;
+}
+
+.popup.spec_add{
+  height: 744rpx;
+}
+
+.popup.spec_delete{
+  height: 630rpx;
+}
+
+.popup .specifications .food_info{
+  display: flex;
+  align-items: center;
+}
+
+.popup .specifications .food_info .poster{
+  width: 161rpx;
+  height: 166rpx;
+  margin-right: 30rpx;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.popup .specifications .food_info .info .title{
+  max-width: 408rpx;
+  font-size: 36rpx;
+  line-height: 42rpx;
+  color: #3C3C3C;
+  margin-bottom: 11rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.popup .specifications .food_info .info .tips{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #8C8C8C;
+}
+
+.popup .specifications .food_info .info .price{
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #F97572;
+  letter-spacing: 1rpx;
+  margin-top: 26rpx;
+}
+
+.popup .specifications .specifications_list{
+  width: 100%;
+  height: 315rpx;
+  margin-top: 46rpx;
+  margin-bottom: 62rpx;
+}
+
+.popup .specifications .specifications_list scroll-view, .popup .specifications_delete .row scroll-view{
+  width: 100%;
+  height: 100%;
+}
+
+.popup .specifications .specifications_list .list:not(:last-of-type){
+  margin-bottom: 60rpx;
+}
+
+.popup .specifications .specifications_list .list .spe_name{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #3C3C3C;
+}
+
+.popup .specifications .specifications_list .list .spe_child_list_row{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.popup .specifications .specifications_list .list .spe_child_list_row view{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #666666;
+  padding: 13rpx 51rpx;
+  border-radius: 32rpx;
+  margin: 24rpx 24rpx 0 0;
+  border: 1rpx solid #B7B7B7;
+}
+
+.popup .specifications .specifications_list .list .spe_child_list_row view.active{
+  color: #fff;
+  background-color: #23C2F7;
+  border-color: #23C2F7;
+}
+
+.popup .specifications .add_btn button{
+  width: 560rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #fff;
+  font-size: 32rpx;
+  border-radius: 40rpx;
+  background-color: #23C2F7;
+}
+
+.popup .specifications_delete .title{
+  padding-bottom: 30rpx;
+  border-bottom: 1rpx solid #E0E0E0;
+  box-sizing: border-box;
+}
+
+.popup .specifications_delete .title view{
+  max-width: 500rpx;
+  font-size: 32rpx;
+  line-height: 40rpx;
+  color: #666666;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 0 auto;
+}
+
+.popup .specifications_delete .row{
+  width: 100%;
+  height: 480rpx;
+}
+
+.popup .specifications_delete .row .list{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 120rpx;
+  border-bottom: 1rpx solid #E0E0E0;
+}
+
+.popup .specifications_delete .row .list .left .name{
+  max-width: 500rpx;
+  font-size: 30rpx;
+  line-height: 42rpx;
+  color: #3C3C3C;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.popup .specifications_delete .row .list .left .tips{
+  font-size: 22rpx;
+  line-height: 30rpx;
+  color: #8C8C8C;
+  margin-top: 5rpx;
+}
+
+.popup .close{
+  position: absolute;
+  right: 35rpx;
+  top: 40rpx;
+  width: 44rpx;
+  height: 44rpx;
+  z-index: 9;
+}
+
+.popup .close image, .popup .specifications .food_info .poster image{
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
 }

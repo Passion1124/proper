@@ -5,7 +5,7 @@
     <view class='goods'>
       <view class='goods_main'>
         <view class='poster'>
-          <image mode='aspectFill' src='{{goods.goodsBase.poster + "?x-oss-process=image/resize,w_600"}}'></image>
+          <image mode='aspectFill' src='{{goods.goodsBase.poster ? goods.goodsBase.poster + "?x-oss-process=image/resize,w_600" : ""}}'></image>
         </view>
         <view class='goods_info'>
           <view class='goods_title'>{{ goods.goodsInfo.name }}</view>
@@ -107,6 +107,64 @@
           </view>
         </block>
       </scroll-view>
+    </view>
+  </view>
+  <view class='black_mask' wx:if='{{black_mask}}' bindtap='handleHideMaskAndPopup'></view>
+  <view class='popup {{popupType}}' wx:if='{{popup}}'>
+    <view class='specifications' wx:if='{{popupType === "spec_add"}}'>
+      <view class='food_info'>
+        <view class='poster'>
+          <image mode='aspectFill' src='{{selectFood.poster + "?x-oss-process=image/resize,w_600"}}'></image>
+        </view>
+        <view class='info'>
+          <view class='title'>{{selectFood.foodName}}</view>
+          <view class='tips'>{{newFoods.spcItemId.length ? dateFr.gewNowFoodSpecText(specifications[selectFood.id].foodSpcs, newFoods.spcItemId) : '请选择规格'}}</view>
+          <view class='price'>JPY {{ dateFr.getArrayDataHasValue(newFoods.spcItemId).length === specifications[selectFood.id].foodSpcs.length ? dateFr.getNowFoodSpecCompletePrice(specifications[selectFood.id].prices, spcMd5) / 100 : selectFood.price / 100 + '起'}}</view>
+        </view>
+      </view>
+      <view class='specifications_list'>
+        <scroll-view scroll-y='{{true}}'>
+          <block wx:for='{{specifications[selectFood.id].foodSpcs}}' wx:key='{{index}}'>
+            <view class='list'>
+              <view class='spe_name'>{{item.name}}</view>
+              <view class='spe_child_list_row'>
+                <block wx:for='{{item.items}}' wx:for-item='spcs' wx:for-index='idx' wx:key='{{idx}}'>
+                  <view class='{{dateFr.gewNowFoodSpecSelected(newFoods.spcItemId, spcs.id)}}' data-id='{{spcs.id}}' data-index='{{index}}' bindtap='handleSpecificationsDataChange'>{{spcs.name}}</view>
+                </block>
+              </view>
+            </view>
+          </block>
+        </scroll-view>
+      </view>
+      <view class='add_btn'>
+        <button bindtap='handleAddFoodButton'>添加</button>
+      </view>
+    </view>
+    <view class='specifications_delete'>
+      <view class='title'>
+        <view>{{selectFood.foodName}}</view>
+      </view>
+      <view class='row'>
+        <scroll-view scroll-y='{{true}}'>
+          <block wx:for='{{foodItems}}' wx:key='{{index}}'>
+            <view class='list' wx:if='{{ item.foodId === selectFood.id}}'>
+              <view class='left'>
+                <view class='name'>{{selectFood.foodName}}</view>
+                <view class='tips'>{{dateFr.gewNowFoodSpecText(specifications[selectFood.id].foodSpcs, item.spcItemId)}}</view>
+              </view>
+              <view class='num'>
+                <view class='minus'>-</view>
+                <view class='number_inp'>{{item.foodNumber}}</view>
+                <view class='plus'>+</view>
+              </view>
+            </view>
+          </block>
+        </scroll-view>
+      </view>
+    </view>
+    <view class='goods_detail'></view>
+    <view class='close' bindtap='handleHideMaskAndPopup'>
+      <image src='../../img/order/pay_icon_close.png'></image>
     </view>
   </view>
   <view class='bottom_content'>
