@@ -370,10 +370,11 @@ var DateFr = {
     return index !== -1 ? "active": "";
   },
   // 获取规格文本内容
-  gewNowFoodSpecText: function (foodSpcs, spcItemId) {
+  gewNowFoodSpecText: function (foodSpcs, spcItemId, type) {
     var arr = foodSpcs.reduce(function (pre, curr) {
       return pre.concat(curr.items);
     }, []);
+    if (type === 'list') spcItemId.reverse();
     var spc = spcItemId.map(function (item) {
       var index = arr.filter(function (obj) {
         return obj.id === item;
@@ -398,6 +399,88 @@ var DateFr = {
     return arr.filter(function(item) {
       return item
     });
+  },
+  // 判断是否显示选择必点菜提示
+  mandatoryTipsShow: function (nowMenu, menuList, menuItem, foodItems) {
+    var mandatoryArray = menuList.filter(function (item) {
+      return item.type === 1;
+    });
+    var mandatoryId = mandatoryArray.length ? mandatoryArray[0].id : '';
+    if (nowMenu.id !== mandatoryId) {
+      var foodList = mandatoryArray.map(function (item) {
+        return menuItem[item.id].map(function (mt) {
+          return mt.foods;
+        }).reduce(function (p, c) {
+          return p.concat(c);
+        }, [])
+      }).reduce(function (p, c) {
+        return p.concat(c);
+      }, []);
+      var obj = {};
+      var mandatoryFood = foodItems.filter(function (item) {
+        var index = foodList.filter(function (food) {
+          return food.id === item.foodId;
+        });
+        return index.length && item.foodNumber;
+      }).reduce(function (cur, next) {
+        obj[next.foodId] ? "" : obj[next.foodId] = true && cur.push(next);
+        return cur;
+      }, []);
+      if (mandatoryFood.length === foodList.length) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  },
+  // 获取当前订单的总价格
+  getNowFoodOrderTotalPrice: function (orderItems, goods, num) {
+    if (num && orderItems.length) {
+      var foodPrice = orderItems.reduce(function (cur, next) {
+        return cur + next.totalPrice
+      }, 0);
+      var teePrice = goods.goodsBase.teeFee * num;
+      var total = (foodPrice + teePrice) / 100;
+      if (total.toString().indexOf('.') !== -1) {
+        total =  parseInt(total) + 1;
+      }
+      return total;
+    } else {
+      return 0;
+    }
+  },
+  // 获取当前订单的服务费
+  getNowFoodOrderServiceCharge: function (orderItems, goods, num) {
+    if (num && orderItems.length) {
+      var foodPrice = orderItems.reduce(function (cur, next) {
+        return cur + next.totalPrice
+      }, 0);
+      var teePrice = goods.goodsBase.teeFee * num;
+      var total = (foodPrice + teePrice) / 100;
+      if (total.toString().indexOf('.') !== -1) {
+        total = parseInt(total) + 1;
+      }
+      var serviceCharge = total / 10;
+      if (serviceCharge.toString().indexOf('.') !== -1) {
+        serviceCharge = parseInt(serviceCharge) + 1;
+      }
+      return serviceCharge;
+    } else {
+      return 0;
+    }
+  },
+  // 获取点菜订单的食品数量
+  getNowFoodOrderFoodNumber: function (orderItems) {
+    if (orderItems.length) {
+      var num = orderItems.reduce(function (cur, next) {
+        return cur + next.foodNumber;
+      }, 0)
+      return num;
+    } else {
+      return 0;
+    }
   }
 }
 
@@ -437,5 +520,9 @@ module.exports = {
   gewNowFoodSpecSelected: DateFr.gewNowFoodSpecSelected,
   gewNowFoodSpecText: DateFr.gewNowFoodSpecText,
   getNowFoodSpecCompletePrice: DateFr.getNowFoodSpecCompletePrice,
-  getArrayDataHasValue: DateFr.getArrayDataHasValue
+  getArrayDataHasValue: DateFr.getArrayDataHasValue,
+  mandatoryTipsShow: DateFr.mandatoryTipsShow,
+  getNowFoodOrderTotalPrice: DateFr.getNowFoodOrderTotalPrice,
+  getNowFoodOrderServiceCharge: DateFr.getNowFoodOrderServiceCharge,
+  getNowFoodOrderFoodNumber: DateFr.getNowFoodOrderFoodNumber
 }

@@ -60,6 +60,10 @@ const validateEmail = email => {
   return reg.test(email);
 }
 
+const reverseArray = arr => {
+  return arr.reverse();
+}
+
 module.exports = {
   formatTime: formatTime,
   formatDate: formatDate,
@@ -67,5 +71,6 @@ module.exports = {
   navigateTo: navigateTo,
   showMessage: showMessage,
   validatePhone: validatePhone,
-  validateEmail: validateEmail
+  validateEmail: validateEmail,
+  reverseArray: reverseArray
 }

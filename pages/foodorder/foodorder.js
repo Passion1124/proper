@@ -1,6 +1,8 @@
 import util from '../../utils/util.js'
 import md5 from '../../utils/md5.js'
 
+var WxParse = require('../../wxParse/wxParse.js');
+
 const app = getApp();
 
 Page({
@@ -35,9 +37,10 @@ Page({
     deleteFoodItems: [],
     spcMd5: '',
     black_mask: false,
+    maskStatus: 'hide',
     popup: false,
-    popupStatus: 'show',
-    popupType: ''
+    popupType: '',
+    popupStatus: 'hide'
   },
 
   /**
@@ -239,6 +242,9 @@ Page({
       if (type === 'popup_add') {
         this.handleHideMaskAndPopup();
       }
+      if (type === 'popup_delete_num' && !this.data.foodItems.filter(item => item.foodId === this.data.selectFood.id).length) {
+        this.handleHideMaskAndPopup();
+      }
     }, e => {
       console.error(e);
     })
@@ -253,7 +259,7 @@ Page({
       this.setData({
         ['specifications.' + foodId]: obj
       });
-      this.handleShowMaskAndPopup();
+      this.handleShowMaskAndPopup(type);
     }, e => {
       console.error(e);
     })
@@ -352,28 +358,34 @@ Page({
     if (!this.data.menuItem[category.id]) {
       this.handleGetMenuItemDetail(category.id);
     }
+    // this.mandatoryTipsShow();
     // this.getFoodList();
   },
   // 修改用餐人数
   handleChangeEatNumber (e) {
     this.setData({
       consumerCount: parseInt(e.detail.value) + 1
-    })
+    });
+    this.handleFoodBasketAdd(parseInt(e.detail.value) + 1, this.data.foodItems);
   },
   // 点击去下单按钮
   handleClickGoToTheOrder () {
-    if (!this.data.foodOrderId) {
-      wx.showToast({
-        title: '请选择菜品',
-        icon: 'none'
-      });
-      return false;
-    } else {
-      let line = this.data.line;
-      wx.redirectTo({
-        url: '/pages/foodsure/foodsure?mid=' + line.mid + '&sn=' + line.sn + '&foodOrderId=' + this.data.foodOrderId,
-      })
+    var panduan = this.mandatoryFoodSelectAll();
+    if (panduan) {
+      
     }
+    // if (!this.data.foodOrderId) {
+    //   wx.showToast({
+    //     title: '请选择菜品',
+    //     icon: 'none'
+    //   });
+    //   return false;
+    // } else {
+    //   let line = this.data.line;
+    //   wx.redirectTo({
+    //     url: '/pages/foodsure/foodsure?mid=' + line.mid + '&sn=' + line.sn + '&foodOrderId=' + this.data.foodOrderId,
+    //   })
+    // }
   },
   // 点击加号按钮
   handleClickPlusButton (e) {
@@ -384,13 +396,12 @@ Page({
         let newFoods = { foodGroupId: '', foodId: foods.id, foodNumber: 1, menuId: this.data.checkCategory.id, menuItemId: item.id, rootFoodId: '', selfFoodStyle: 0, spcItemId: [], subFoodItems: [] };
         this.setData({
           newFoods,
-          selectFood: foods,
-          popupType: 'spec_add'
+          selectFood: foods
         })
         if (this.data.specifications[foods.id]) {
-          this.handleShowMaskAndPopup();
+          this.handleShowMaskAndPopup('spec_add');
         } else {
-          this.handleFoodSpcDetail(foods.id, 'plus');
+          this.handleFoodSpcDetail(foods.id, 'spec_add');
         }
       } else {
         let foodItems = this.data.foodItems;
@@ -422,13 +433,12 @@ Page({
       if (foods.specCount) {
         this.setData({
           selectFood: foods,
-          deleteFoodItems: this.data.foodItems.filter(item => item.foodId === foods.id),
-          popupType: 'spec_delete'
+          deleteFoodItems: this.data.foodItems.filter(item => item.foodId === foods.id)
         })
         if (this.data.specifications[foods.id]) {
-          this.handleShowMaskAndPopup();
+          this.handleShowMaskAndPopup('spec_delete');
         } else {
-          this.handleFoodSpcDetail(foods.id, 'minus');
+          this.handleFoodSpcDetail(foods.id, 'spec_delete');
         }
       } else {
         foodItems[index].foodNumber -= 1;
@@ -445,6 +455,7 @@ Page({
     this.setData({
       ['newFoods.spcItemId']: spcItemId
     });
+    console.log(this.data.newFoods.spcItemId);
     if (spcItemId.filter(item => item).length === this.data.specifications[this.data.selectFood.id].foodSpcs.length) {
       let spcMd5 = md5(spcItemId.reverse().join(''));
       this.setData({
@@ -456,32 +467,87 @@ Page({
   handleAddFoodButton () {
     if (this.data.newFoods.spcItemId.filter(item => item).length === this.data.specifications[this.data.selectFood.id].foodSpcs.length) {
       let foodItems = this.data.foodItems;
-      let index = foodItems.findIndex(item => item.foodId === this.data.selectFood.id && item.spcItemId.toString() === this.data.newFoods.spcItemId.reverse().toString());
+      let index = foodItems.findIndex(item => {
+        let arr = [].concat(this.data.newFoods.spcItemId);
+        return item.foodId === this.data.selectFood.id && item.spcItemId.toString() === arr.reverse().toString();
+      });
       if (index !== -1) {
         foodItems[index].foodNumber += 1;
+        this.handleFoodBasketAdd(this.data.consumerCount, foodItems, 'popup_add');
       } else {
-        let newFoods = this.data.newFoods;
-        newFoods.spcItemId.reverse();
-        foodItems.push(newFoods);
+        this.data.newFoods.spcItemId = util.reverseArray(this.data.newFoods.spcItemId);
+        foodItems.push(this.data.newFoods);
         this.handleFoodBasketAdd(this.data.consumerCount, foodItems, 'popup_add');
       }
     } else {
       util.showMessage('请选择完整规格');
     }
   },
+  // 点击弹窗的减号按钮
+  handleClickPopupMinusButton (e) {
+    console.log(e);
+    let num = e.currentTarget.dataset.num;
+    let index = e.currentTarget.dataset.index;
+    let foodItems = this.data.foodItems;
+    if (num <= 1) {
+      foodItems.splice(index, 1);
+    } else {
+      foodItems[index].foodNumber = num - 1;
+    };
+    this.handleFoodBasketAdd(this.data.consumerCount, foodItems, 'popup_delete_num');
+  },
+  // 点击弹窗的加号按钮
+  handleClickPopupPlusButton (e) {
+    console.log(e);
+    let num = e.currentTarget.dataset.num;
+    let index = e.currentTarget.dataset.index;
+    let foodItems = this.data.foodItems;
+    foodItems[index].foodNumber = num + 1;
+    this.handleFoodBasketAdd(this.data.consumerCount, foodItems, 'popup_add_num');
+  },
+  // 点击菜品封面
+  handleClickFoodPoster (e) {
+    let food = e.currentTarget.dataset.food;
+    this.setData({
+      selectFood: food
+    });
+    WxParse.wxParse('article', 'html', food.info, this, 5);
+    this.handleShowMaskAndPopup('goods_info');
+  },
+  // 点击选择必点菜提示
+  handleSwitchMandatoryFood () {
+    let find = this.data.menus.find(item => item.type === 1);
+    this.setData({
+      checkCategory: find
+    });
+  },
   // 显示弹窗
-  handleShowMaskAndPopup () {
+  handleShowMaskAndPopup (type) {
     this.setData({
       black_mask: true,
       popup: true
-    })
+    });
+    setTimeout(_ => {
+      this.setData({
+        popupType: type,
+        maskStatus: 'show',
+        popupStatus: 'show'
+      })
+    }, 100)
   },
   // 隐藏弹窗
   handleHideMaskAndPopup () {
     this.setData({
-      black_mask: false,
-      popup: false
-    })
+      maskStatus: 'hide',
+      popupStatus: 'hide',
+    });
+    setTimeout(_ => {
+      this.setData({
+        black_mask: false,
+        popup: false,
+        popupType: '',
+      })
+    }, 300)
   },
   // 去套餐页面或者放题页面
   handleGoToTheFoodDetailPage (e) {
@@ -495,6 +561,57 @@ Page({
         if (!foodNum && foods.type === 3) foodNum = 1;
         util.navigateTo('/pages/foodItems/foodItems?foodId=' + foods.id + '&personNum=' + this.data.consumerCount + '&type=' + foods.type + '&foodNum=' + foodNum);
       }
+    }
+  },
+  // 必点菜是否全部选择
+  mandatoryFoodSelectAll () {
+    let mandatoryArray = this.data.menus.filter(item => item.type === 1);
+    var foodList = mandatoryArray.map(item => {
+      return this.data.menuItem[item.id].map(mt => mt.foods).reduce((p, c) => p.concat(c), []);
+    }).reduce((p, c) => p.concat(c), []);
+    let obj = {};
+    var mandatoryFood = this.data.foodItems.filter(item => {
+      let index = foodList.findIndex(food => {
+        return food.id === item.foodId;
+      });
+      return index !== -1;
+    }).reduce(function (cur, next) {
+      obj[next.foodId] ? "" : obj[next.foodId] = true && cur.push(next);
+      return cur;
+    }, []);
+    if (mandatoryFood.length === foodList.length) {
+      return true;
+    } else {
+      util.showMessage('必点菜菜品选择不全');
+      return false;
+    }
+  },
+  // 选择必点菜弹窗提示是否展示
+  mandatoryTipsShow () {
+    let nowMenu = this.data.checkCategory;
+    let mandatoryArray = this.data.menus.filter(item => item.type === 1);
+    var mandatoryId = mandatoryArray.length ? mandatoryArray[0].id : '';
+    if (nowMenu.id !== mandatoryId) {
+      var foodList = mandatoryArray.map(item => {
+        return this.data.menuItem[item.id].map(mt => mt.foods).reduce((p, c) => p.concat(c), []);
+      }).reduce((p, c) => p.concat(c), []);
+      let obj = {};
+      var mandatoryFood = this.data.foodItems.filter(item => {
+        let index = foodList.findIndex(food => {
+          return food.id === item.foodId;
+        });
+        return index !== -1 && item.foodNumber;
+      }).reduce(function (cur, next) {
+        obj[next.foodId] ? "" : obj[next.foodId] = true && cur.push(next);
+        return cur;
+      }, []);
+      if (mandatoryFood.length === foodList.length) {
+        console.log('buzhanshi');
+      } else {
+        console.log('zhanshi');
+      }
+    } else {
+      console.log('buzhanshi');
     }
   },
   // 判断当前食物是否在可点时段

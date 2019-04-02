@@ -253,11 +253,12 @@ page {
   display: flex;
   height: 60rpx;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 20rpx;
 }
 
 .food_list .category_title text:first-of-type {
-  max-width: 360rpx;
+  max-width: 400rpx;
   font-size: 32rpx;
   line-height: 42rpx;
   color: #3c3c3c;
@@ -452,6 +453,12 @@ page {
   font-weight: bold;
 }
 
+.bottom_content .num_price .service_charge{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #8C8C8C;
+}
+
 .bottom_content .down_order button {
   width: 267rpx;
   height: 80rpx;
@@ -469,8 +476,12 @@ page {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.55);
+  transition: all .3s linear;
   z-index: 9;
+}
+
+.black_mask.show{
+  background-color: rgba(0, 0, 0, 0.55);
 }
 
 .popup{
@@ -482,7 +493,13 @@ page {
   box-sizing: border-box;
   background-color: #fff;
   border-radius: 20rpx 20rpx 0 0;
+  transform: translateY(100%);
+  transition: all .3s linear;
   z-index: 20;
+}
+
+.popup.show{
+  transform: translateY(0);
 }
 
 .popup.spec_add{
@@ -491,6 +508,12 @@ page {
 
 .popup.spec_delete{
   height: 630rpx;
+}
+
+.popup.goods_info{
+  height: 876rpx;
+  padding: 0;
+  overflow-y: auto;
 }
 
 .popup .specifications .food_info{
@@ -633,6 +656,36 @@ page {
   margin-top: 5rpx;
 }
 
+.popup .goods_detail .poster{
+  width: 100%;
+  height: 480rpx;
+}
+
+.popup .goods_detail .info_row{
+  padding: 36rpx;
+}
+
+.popup .goods_detail .info_row .name{
+  font-size: 36rpx;
+  line-height: 42rpx;
+  color: #3C3C3C;
+  margin-bottom: 20rpx;
+}
+
+.popup .goods_detail .info_row .price{
+  font-size: 30rpx;
+  line-height: 42rpx;
+  color: #F97572;
+  letter-spacing: 1rpx;
+  margin-bottom: 26rpx;
+}
+
+.popup .goods_detail .info_row .introduce .wxParse-p .WxEmojiView{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #666666;
+}
+
 .popup .close{
   position: absolute;
   right: 35rpx;
@@ -642,8 +695,23 @@ page {
   z-index: 9;
 }
 
-.popup .close image, .popup .specifications .food_info .poster image{
+.popup .close image, .popup .specifications .food_info .poster image, .popup .goods_detail .poster image{
   width: 100%;
   height: 100%;
   vertical-align: top;
+}
+
+.mandatory_tips{
+  position: fixed;
+  bottom: 151rpx;
+  left: 50%;
+  width: 220rpx;
+  height: 68rpx;
+  font-size: 28rpx;
+  line-height: 68rpx;
+  border-radius: 40rpx;
+  background-color: #23c2f7;
+  color: #fff;
+  transform: translateX(-50%);
+  text-align: center;
 }
