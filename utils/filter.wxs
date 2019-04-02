@@ -342,6 +342,19 @@ var DateFr = {
     }, 0);
     return '已选' + food[0].foodNumber + '份 菜品' + total;
   },
+  // 获取分类下的食物被选中的数量
+  getGroupSelectedFoodNumber: function (gid, subFoodItems) {
+    var foodList = subFoodItems.filter(function (item) {
+      return item.foodGroupId === gid;
+    });
+    if (foodList.length) {
+      return foodList.reduce(function (cur, next) {
+        return cur + next.foodNumber;
+      }, 0);
+    } else {
+      return 0;
+    }
+  },
   // 判断当前食物是否在可点时段
   getNowFoodSelectable: function (type, beginTime, endTime) {
     if (type === 0) {
@@ -437,7 +450,7 @@ var DateFr = {
   },
   // 获取当前订单的总价格
   getNowFoodOrderTotalPrice: function (orderItems, goods, num) {
-    if (num && orderItems.length) {
+    if (num || orderItems.length) {
       var foodPrice = orderItems.reduce(function (cur, next) {
         return cur + next.totalPrice
       }, 0);
@@ -453,7 +466,7 @@ var DateFr = {
   },
   // 获取当前订单的服务费
   getNowFoodOrderServiceCharge: function (orderItems, goods, num) {
-    if (num && orderItems.length) {
+    if (num || orderItems.length) {
       var foodPrice = orderItems.reduce(function (cur, next) {
         return cur + next.totalPrice
       }, 0);
@@ -524,5 +537,6 @@ module.exports = {
   mandatoryTipsShow: DateFr.mandatoryTipsShow,
   getNowFoodOrderTotalPrice: DateFr.getNowFoodOrderTotalPrice,
   getNowFoodOrderServiceCharge: DateFr.getNowFoodOrderServiceCharge,
-  getNowFoodOrderFoodNumber: DateFr.getNowFoodOrderFoodNumber
+  getNowFoodOrderFoodNumber: DateFr.getNowFoodOrderFoodNumber,
+  getGroupSelectedFoodNumber: DateFr.getGroupSelectedFoodNumber
 }

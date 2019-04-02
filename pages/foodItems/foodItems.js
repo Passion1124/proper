@@ -126,35 +126,38 @@ Page({
     };
     app.request(api, data, res => {
       console.log(res);
-      let subFoodItems = res.groups.reduce((pre, curr) => {
-        let c_arr = curr.foods.map(item => {
-          let find = this.data.foods.subFoodItems.find(child => child.foodId === item.id);
-          if (find) {
-            if (curr.type === 1) {
-              find.foodNumber = item.count;
-            }
-            return find;
-          } else {
-            let obj = {
-              foodGroupId: curr.id,
-              foodId: item.id,
-              rootFoodId: curr.foodId,
-              selfFoodStyle: 0
-            };
-            if (curr.type === 1) {
-              obj.foodNumber = item.count;
-            } else {
-              if (item.specCount) {
-                return "";
+      let subFoodItems = this.data.foods.subFoodItems;
+      if (!this.data.foods.subFoodItems.length) {
+        subFoodItems = res.groups.reduce((pre, curr) => {
+          let c_arr = curr.foods.map(item => {
+            let find = this.data.foods.subFoodItems.find(child => child.foodId === item.id);
+            if (find) {
+              if (curr.type === 1) {
+                find.foodNumber = item.count;
               }
-              obj.foodNumber = 0;
-              obj.spcItemId = [];
+              return find;
+            } else {
+              let obj = {
+                foodGroupId: curr.id,
+                foodId: item.id,
+                rootFoodId: curr.foodId,
+                selfFoodStyle: 0
+              };
+              if (curr.type === 1) {
+                obj.foodNumber = item.count;
+              } else {
+                if (item.specCount) {
+                  return "";
+                }
+                obj.foodNumber = 0;
+                obj.spcItemId = [];
+              }
+              return obj;
             }
-            return obj;
-          }
-        });
-        return pre.concat(c_arr);
-      }, []).filter(item => item);
+          });
+          return pre.concat(c_arr);
+        }, []).filter(item => item);
+      }
       this.setData({
         groups: res.groups,
         ['foods.subFoodItems']: subFoodItems
@@ -188,6 +191,11 @@ Page({
     };
     app.request(api, data, res => {
       console.log(res);
+      let obj = { foodSpcs: res.foodSpcs, prices: res.prices };
+      this.setData({
+        ['specifications.' + foodId]: obj
+      });
+      this.handleShowMaskAndPopup(type);
     }, e => {
       console.error(e);
     })
@@ -216,25 +224,26 @@ Page({
     let food = item.foods[e.currentTarget.dataset.index];
     if (food.specCount) {
       let newFoods = {
-        foodGroupId: '',
-        foodId: foods.id,
+        foodGroupId: item.id,
+        foodId: food.id,
         foodNumber: 1,
-        rootFoodId: '',
+        rootFoodId: item.foodId,
         selfFoodStyle: 0,
         spcItemId: []
       };
       this.setData({
         newFoods,
-        selectFood: foods
+        selectFood: food
       })
-      if (this.data.specifications[foods.id]) {
+      if (this.data.specifications[food.id]) {
         this.handleShowMaskAndPopup('spec_add');
       } else {
-        this.handleFoodSpcDetail(foods.id, 'spec_add');
+        this.handleFoodSpcDetail(food.id, 'spec_add');
       }
     } else {
       let subFoodItems = this.data.foods.subFoodItems;
       let index = this.data.foods.subFoodItems.findIndex(item => item.foodId === food.id);
+      // console.log(subFoodItems[index]);
       subFoodItems[index].foodNumber += 1;
       this.setData({
         ['foods.subFoodItems']: subFoodItems
@@ -246,7 +255,15 @@ Page({
     let item = e.currentTarget.dataset.item;
     let food = item.foods[e.currentTarget.dataset.index];
     if (food.specCount) {
-
+      this.setData({
+        selectFood: food,
+        deleteFoodItems: this.data.foods.subFoodItems.filter(item => item.foodId === food.id)
+      })
+      if (this.data.specifications[food.id]) {
+        this.handleShowMaskAndPopup('spec_delete');
+      } else {
+        this.handleFoodSpcDetail(food.id, 'spec_delete');
+      }
     } else {
       let subFoodItems = this.data.foods.subFoodItems;
       let index = this.data.foods.subFoodItems.findIndex(item => item.foodId === food.id);
@@ -255,6 +272,73 @@ Page({
         ['foods.subFoodItems']: subFoodItems
       });
     }
+  },
+  // 修改规格参数
+  handleSpecificationsDataChange(e) {
+    let index = e.currentTarget.dataset.index;
+    let id = e.currentTarget.dataset.id;
+    let spcItemId = this.data.newFoods.spcItemId;
+    spcItemId[index] = id;
+    this.setData({
+      ['newFoods.spcItemId']: spcItemId
+    });
+    if (spcItemId.filter(item => item).length === this.data.specifications[this.data.selectFood.id].foodSpcs.length) {
+      let spcMd5 = md5(spcItemId.reverse().join(''));
+      this.setData({
+        spcMd5
+      })
+    }
+  },
+  // 点击添加按钮
+  handleAddFoodButton() {
+    if (this.data.newFoods.spcItemId.filter(item => item).length === this.data.specifications[this.data.selectFood.id].foodSpcs.length) {
+      let subFoodItems = this.data.foods.subFoodItems;
+      let index = subFoodItems.findIndex(item => {
+        let arr = [].concat(this.data.newFoods.spcItemId);
+        return item.foodId === this.data.selectFood.id && item.spcItemId.toString() === arr.reverse().toString();
+      });
+      if (index !== -1) {
+        subFoodItems[index].foodNumber += 1;
+      } else {
+        this.data.newFoods.spcItemId = utils.reverseArray(this.data.newFoods.spcItemId);
+        subFoodItems.push(this.data.newFoods);
+      }
+      this.setData({
+        ['foods.subFoodItems']: subFoodItems
+      });
+      this.handleHideMaskAndPopup()
+    } else {
+      utils.showMessage('请选择完整规格');
+    }
+  },
+  // 点击弹窗的减号按钮
+  handleClickPopupMinusButton(e) {
+    console.log(e);
+    let num = e.currentTarget.dataset.num;
+    let index = e.currentTarget.dataset.index;
+    let subFoodItems = this.data.foods.subFoodItems;
+    if (num <= 1) {
+      subFoodItems.splice(index, 1);
+    } else {
+      subFoodItems[index].foodNumber = num - 1;
+    };
+    this.setData({
+      ['foods.subFoodItems']: subFoodItems
+    });
+    if (!subFoodItems.filter(item => item.foodId === this.data.selectFood.id).length) {
+      this.handleHideMaskAndPopup();
+    }
+  },
+  // 点击弹窗的加号按钮
+  handleClickPopupPlusButton(e) {
+    console.log(e);
+    let num = e.currentTarget.dataset.num;
+    let index = e.currentTarget.dataset.index;
+    let subFoodItems = this.data.foods.subFoodItems;
+    subFoodItems[index].foodNumber = num + 1;
+    this.setData({
+      ['foods.subFoodItems']: subFoodItems
+    });
   },
   // 点击确定按钮
   handleClickSureButton() {
@@ -271,12 +355,19 @@ Page({
     this.data.foods.foodNumber = this.data.foodNum;
     this.data.foods.subFoodItems = subFoodItems;
     let index = foodItems.findIndex(item => item.foodId === this.data.foods.foodId);
-    if (index === -1) {
-      if (this.data.foodNum) {
+    if (this.data.foodNum) {
+      if (index === -1) {
         foodItems.push(this.data.foods);
+      } else {
+        foodItems[index] = this.data.foods;
       }
     } else {
-      foodItems[index] = this.data.foods;
+      if (index !== -1) {
+        foodItems.splice(index, 1);
+      } else {
+        wx.navigateBack();
+        return false;
+      }
     }
     this.handleFoodBasketAdd(this.data.personNum, foodItems, foodorder.data.foodOrderId);
   },
