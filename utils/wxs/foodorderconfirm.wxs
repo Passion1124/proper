@@ -1,0 +1,11 @@
+var foodorderconfirm = {
+  getSpcItemsText: function (spcItems) {
+    return spcItems.reduce(function (cur, next) {
+      return cur.info+ '、' + next.info
+    });
+  }
+}
+
+module.exports = {
+  getSpcItemsText: foodorderconfirm.getSpcItemsText
+}

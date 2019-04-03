@@ -27,7 +27,8 @@ Page({
     maskStatus: 'hide',
     popup: false,
     popupType: '',
-    popupStatus: 'hide'
+    popupStatus: 'hide',
+    showErrorTips: ''
   },
 
   /**
@@ -64,7 +65,7 @@ Page({
       });
     } else {
       let menuId = foodorder.data.checkCategory.id;
-      let menuItemId = foodorder.data.menuItem[menuId].find(item => item.foods[0].id === this.data.foodId).id;
+      let menuItemId = foodorder.data.checkCategory.items.find(item => item.foods[0].id === this.data.foodId).id;
       let obj = {
         foodGroupId: '',
         foodId: this.data.foodId,
@@ -80,6 +81,7 @@ Page({
         foods: obj
       })
     }
+    console.log(this.data.foods);
     this.handleFoodGroupDetail();
   },
 
@@ -222,15 +224,15 @@ Page({
   handleFoodPlusButtonClick(e) {
     let item = e.currentTarget.dataset.item;
     let food = item.foods[e.currentTarget.dataset.index];
+    let newFoods = {
+      foodGroupId: item.id,
+      foodId: food.id,
+      foodNumber: 1,
+      rootFoodId: item.foodId,
+      selfFoodStyle: 0,
+      spcItemId: []
+    };
     if (food.specCount) {
-      let newFoods = {
-        foodGroupId: item.id,
-        foodId: food.id,
-        foodNumber: 1,
-        rootFoodId: item.foodId,
-        selfFoodStyle: 0,
-        spcItemId: []
-      };
       this.setData({
         newFoods,
         selectFood: food
@@ -243,8 +245,11 @@ Page({
     } else {
       let subFoodItems = this.data.foods.subFoodItems;
       let index = this.data.foods.subFoodItems.findIndex(item => item.foodId === food.id);
-      // console.log(subFoodItems[index]);
-      subFoodItems[index].foodNumber += 1;
+      if (index !== -1) {
+        subFoodItems[index].foodNumber += 1;
+      } else {
+        subFoodItems.push(newFoods);
+      }
       this.setData({
         ['foods.subFoodItems']: subFoodItems
       });
@@ -356,10 +361,33 @@ Page({
     this.data.foods.subFoodItems = subFoodItems;
     let index = foodItems.findIndex(item => item.foodId === this.data.foods.foodId);
     if (this.data.foodNum) {
-      if (index === -1) {
-        foodItems.push(this.data.foods);
+      let mandatoryArray = this.data.groups.filter(item => item.type === 3).map(item => item.foods).reduce((c, n) => c.concat(n), []);
+      if (mandatoryArray.length) {
+        let mandatoryIdArray = mandatoryArray.map(item => item.id);
+        let foodSelectNumber = subFoodItems.filter(item => mandatoryIdArray.indexOf(item.foodId) !== -1).reduce((c, n) => c + n.foodNumber, 0);
+        if (foodSelectNumber === this.data.foodNum) {
+          this.setData({
+            showErrorTips: 'success'
+          });
+          if (index === -1) {
+            foodItems.push(this.data.foods);
+          } else {
+            foodItems[index] = this.data.foods;
+          }
+        } else {
+          let msg = foodSelectNumber > this.data.foodNum ? "点菜数量超出" : "点菜数量不足";
+          utils.showMessage(msg);
+          this.setData({
+            showErrorTips: 'error'
+          });
+          return false;
+        }
       } else {
-        foodItems[index] = this.data.foods;
+        if (index === -1) {
+          foodItems.push(this.data.foods);
+        } else {
+          foodItems[index] = this.data.foods;
+        }
       }
     } else {
       if (index !== -1) {

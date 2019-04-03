@@ -78,6 +78,10 @@ page{
   border-bottom: 1rpx solid #E0E0E0;
 }
 
+.group .error {
+  color: #F97572 !important;
+}
+
 .group .title{
   margin-bottom: 30rpx;
 }

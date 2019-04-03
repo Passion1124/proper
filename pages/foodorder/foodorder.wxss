@@ -181,7 +181,19 @@ page {
 
 .food_row {
   display: flex;
+  flex-wrap: wrap;
   box-sizing: border-box;
+}
+
+.food_row .self_help_tips {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 26rpx;
+  color: #23c2f7;
+  margin-bottom: 30rpx;
+  background-color: rgba(35, 194, 247, 0.1);
+  text-align: center;
 }
 
 .category {
@@ -201,19 +213,19 @@ page {
   box-sizing: border-box;
 }
 
-.category .c_list .hot{
+.category .c_list .hot {
   width: 32rpx;
   height: 32rpx;
   margin-right: 5rpx;
 }
 
-.category .c_list .hot image{
+.category .c_list .hot image {
   width: 100%;
   height: 100%;
   vertical-align: top;
 }
 
-.category .c_list .text{
+.category .c_list .text {
   flex: 1;
   font-size: 28rpx;
   line-height: 40rpx;
@@ -229,7 +241,7 @@ page {
   background-color: #fff;
 }
 
-.category .c_list .c_num{
+.category .c_list .c_num {
   position: absolute;
   top: 0;
   right: 0;
@@ -239,7 +251,7 @@ page {
   color: #fff;
   padding: 0 7rpx;
   border-radius: 14rpx;
-  background-color: #FD5956;
+  background-color: #fd5956;
 }
 
 .food_list {
@@ -274,14 +286,14 @@ page {
   color: #666;
 }
 
-.food_list .food_tips{
+.food_list .food_tips {
   font-size: 24rpx;
   line-height: 33rpx;
-  color: #23C2F7;
+  color: #23c2f7;
   margin-bottom: 20rpx;
 }
 
-.food_list .food_tips.selected{
+.food_list .food_tips.selected {
   color: #666;
 }
 
@@ -307,7 +319,7 @@ page {
   vertical-align: top;
 }
 
-.food_list .food .poster .type_tips{
+.food_list .food .poster .type_tips {
   position: absolute;
   left: 0;
   top: 0;
@@ -316,8 +328,8 @@ page {
   line-height: 28rpx;
   font-size: 18rpx;
   color: #fff;
-  background:linear-gradient(90deg,rgba(253,161,86,1) 0%,rgba(255,84,80,1) 100%);
-  border-radius:8rpx 0px 8rpx 0px;
+  background: linear-gradient(90deg, rgba(253, 161, 86, 1) 0%, rgba(255, 84, 80, 1) 100%);
+  border-radius: 8rpx 0px 8rpx 0px;
   text-align: center;
 }
 
@@ -336,7 +348,7 @@ page {
   text-overflow: ellipsis;
 }
 
-.food_list .food .info .disab{
+.food_list .food .info .disab {
   color: #c7c7c7;
 }
 
@@ -372,13 +384,14 @@ page {
   word-wrap: break-word;
 }
 
-.food_list .food .info .price_num .tips{
+.food_list .food .info .price_num .tips {
   font-size: 22rpx;
   line-height: 30rpx;
-  color: #8C8C8C;
+  color: #8c8c8c;
 }
 
-.food_list .food .info .price_num .num, .popup .specifications_delete .row .list .num {
+.food_list .food .info .price_num .num,
+.popup .specifications_delete .row .list .num {
   display: flex;
   align-items: center;
 }
@@ -386,7 +399,7 @@ page {
 .food_list .food .info .price_num .num .minus,
 .food_list .food .info .price_num .num .plus,
 .popup .specifications_delete .row .list .num .minus,
-.popup .specifications_delete .row .list .num .plus{
+.popup .specifications_delete .row .list .num .plus {
   width: 44rpx;
   height: 44rpx;
   font-size: 38rpx;
@@ -398,7 +411,8 @@ page {
   box-sizing: border-box;
 }
 
-.food_list .food .info .price_num .num .number_inp, .popup .specifications_delete .row .list .num .number_inp {
+.food_list .food .info .price_num .num .number_inp,
+.popup .specifications_delete .row .list .num .number_inp {
   width: 64rpx;
   font-size: 32rpx;
   line-height: 45rpx;
@@ -407,7 +421,8 @@ page {
   text-align: center;
 }
 
-.food_list .food .info .price_num .num .plus, .popup .specifications_delete .row .list .num .plus {
+.food_list .food .info .price_num .num .plus,
+.popup .specifications_delete .row .list .num .plus {
   background-color: #23c2f7;
   color: #fff;
 }
@@ -453,10 +468,10 @@ page {
   font-weight: bold;
 }
 
-.bottom_content .num_price .service_charge{
+.bottom_content .num_price .service_charge {
   font-size: 24rpx;
   line-height: 33rpx;
-  color: #8C8C8C;
+  color: #8c8c8c;
 }
 
 .bottom_content .down_order button {
@@ -470,21 +485,21 @@ page {
   border-radius: 40rpx;
 }
 
-.black_mask{
+.black_mask {
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  transition: all .3s linear;
+  transition: all 0.3s linear;
   z-index: 9;
 }
 
-.black_mask.show{
+.black_mask.show {
   background-color: rgba(0, 0, 0, 0.55);
 }
 
-.popup{
+.popup {
   position: fixed;
   left: 0;
   bottom: 0;
@@ -494,34 +509,34 @@ page {
   background-color: #fff;
   border-radius: 20rpx 20rpx 0 0;
   transform: translateY(100%);
-  transition: all .3s linear;
+  transition: all 0.3s linear;
   z-index: 20;
 }
 
-.popup.show{
+.popup.show {
   transform: translateY(0);
 }
 
-.popup.spec_add{
+.popup.spec_add {
   height: 744rpx;
 }
 
-.popup.spec_delete{
+.popup.spec_delete {
   height: 630rpx;
 }
 
-.popup.goods_info{
+.popup.goods_info {
   height: 876rpx;
   padding: 0;
   overflow-y: auto;
 }
 
-.popup .specifications .food_info{
+.popup .specifications .food_info {
   display: flex;
   align-items: center;
 }
 
-.popup .specifications .food_info .poster{
+.popup .specifications .food_info .poster {
   width: 161rpx;
   height: 166rpx;
   margin-right: 30rpx;
@@ -529,164 +544,165 @@ page {
   overflow: hidden;
 }
 
-.popup .specifications .food_info .info .title{
+.popup .specifications .food_info .info .title {
   max-width: 408rpx;
   font-size: 36rpx;
   line-height: 42rpx;
-  color: #3C3C3C;
+  color: #3c3c3c;
   margin-bottom: 11rpx;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.popup .specifications .food_info .info .tips{
+.popup .specifications .food_info .info .tips {
   font-size: 24rpx;
   line-height: 33rpx;
-  color: #8C8C8C;
+  color: #8c8c8c;
 }
 
-.popup .specifications .food_info .info .price{
+.popup .specifications .food_info .info .price {
   font-size: 32rpx;
   line-height: 45rpx;
-  color: #F97572;
+  color: #f97572;
   letter-spacing: 1rpx;
   margin-top: 26rpx;
 }
 
-.popup .specifications .specifications_list{
+.popup .specifications .specifications_list {
   width: 100%;
   height: 315rpx;
   margin-top: 46rpx;
   margin-bottom: 62rpx;
 }
 
-.popup .specifications .specifications_list scroll-view, .popup .specifications_delete .row scroll-view{
+.popup .specifications .specifications_list scroll-view,
+.popup .specifications_delete .row scroll-view {
   width: 100%;
   height: 100%;
 }
 
-.popup .specifications .specifications_list .list:not(:last-of-type){
+.popup .specifications .specifications_list .list:not(:last-of-type) {
   margin-bottom: 60rpx;
 }
 
-.popup .specifications .specifications_list .list .spe_name{
+.popup .specifications .specifications_list .list .spe_name {
   font-size: 28rpx;
   line-height: 40rpx;
-  color: #3C3C3C;
+  color: #3c3c3c;
 }
 
-.popup .specifications .specifications_list .list .spe_child_list_row{
+.popup .specifications .specifications_list .list .spe_child_list_row {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 }
 
-.popup .specifications .specifications_list .list .spe_child_list_row view{
+.popup .specifications .specifications_list .list .spe_child_list_row view {
   font-size: 24rpx;
   line-height: 33rpx;
-  color: #666666;
+  color: #666;
   padding: 13rpx 51rpx;
   border-radius: 32rpx;
   margin: 24rpx 24rpx 0 0;
-  border: 1rpx solid #B7B7B7;
+  border: 1rpx solid #b7b7b7;
 }
 
-.popup .specifications .specifications_list .list .spe_child_list_row view.active{
+.popup .specifications .specifications_list .list .spe_child_list_row view.active {
   color: #fff;
-  background-color: #23C2F7;
-  border-color: #23C2F7;
+  background-color: #23c2f7;
+  border-color: #23c2f7;
 }
 
-.popup .specifications .add_btn button{
+.popup .specifications .add_btn button {
   width: 560rpx;
   height: 80rpx;
   line-height: 80rpx;
   color: #fff;
   font-size: 32rpx;
   border-radius: 40rpx;
-  background-color: #23C2F7;
+  background-color: #23c2f7;
 }
 
-.popup .specifications_delete .title{
+.popup .specifications_delete .title {
   padding-bottom: 30rpx;
-  border-bottom: 1rpx solid #E0E0E0;
+  border-bottom: 1rpx solid #e0e0e0;
   box-sizing: border-box;
 }
 
-.popup .specifications_delete .title view{
+.popup .specifications_delete .title view {
   max-width: 500rpx;
   font-size: 32rpx;
   line-height: 40rpx;
-  color: #666666;
+  color: #666;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   margin: 0 auto;
 }
 
-.popup .specifications_delete .row{
+.popup .specifications_delete .row {
   width: 100%;
   height: 480rpx;
 }
 
-.popup .specifications_delete .row .list{
+.popup .specifications_delete .row .list {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   height: 120rpx;
-  border-bottom: 1rpx solid #E0E0E0;
+  border-bottom: 1rpx solid #e0e0e0;
 }
 
-.popup .specifications_delete .row .list .left .name{
+.popup .specifications_delete .row .list .left .name {
   max-width: 500rpx;
   font-size: 30rpx;
   line-height: 42rpx;
-  color: #3C3C3C;
+  color: #3c3c3c;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.popup .specifications_delete .row .list .left .tips{
+.popup .specifications_delete .row .list .left .tips {
   font-size: 22rpx;
   line-height: 30rpx;
-  color: #8C8C8C;
+  color: #8c8c8c;
   margin-top: 5rpx;
 }
 
-.popup .goods_detail .poster{
+.popup .goods_detail .poster {
   width: 100%;
   height: 480rpx;
 }
 
-.popup .goods_detail .info_row{
+.popup .goods_detail .info_row {
   padding: 36rpx;
 }
 
-.popup .goods_detail .info_row .name{
+.popup .goods_detail .info_row .name {
   font-size: 36rpx;
   line-height: 42rpx;
-  color: #3C3C3C;
+  color: #3c3c3c;
   margin-bottom: 20rpx;
 }
 
-.popup .goods_detail .info_row .price{
+.popup .goods_detail .info_row .price {
   font-size: 30rpx;
   line-height: 42rpx;
-  color: #F97572;
+  color: #f97572;
   letter-spacing: 1rpx;
   margin-bottom: 26rpx;
 }
 
-.popup .goods_detail .info_row .introduce .wxParse-p .WxEmojiView{
+.popup .goods_detail .info_row .introduce .wxParse-p .WxEmojiView {
   font-size: 28rpx;
   line-height: 40rpx;
-  color: #666666;
+  color: #666;
 }
 
-.popup .close{
+.popup .close {
   position: absolute;
   right: 35rpx;
   top: 40rpx;
@@ -695,13 +711,14 @@ page {
   z-index: 9;
 }
 
-.popup .close image, .popup .specifications .food_info .poster image, .popup .goods_detail .poster image{
+.popup .close image, .popup .specifications .food_info .poster image,
+.popup .goods_detail .poster image {
   width: 100%;
   height: 100%;
   vertical-align: top;
 }
 
-.mandatory_tips{
+.mandatory_tips {
   position: fixed;
   bottom: 151rpx;
   left: 50%;

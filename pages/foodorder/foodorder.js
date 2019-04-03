@@ -13,11 +13,11 @@ Page({
   data: {
     sn: '',
     mid: '',
+    tableNo: '',
     tno: '',
     line: {},
     goods: {},
     menus: [],
-    menuItem: {},
     foodItems: [],
     orderItems: [],
     category: [],
@@ -35,6 +35,7 @@ Page({
     newFoods: {},
     selectFood: {},
     deleteFoodItems: [],
+    selfHelp: [],
     spcMd5: '',
     black_mask: false,
     maskStatus: 'hide',
@@ -52,9 +53,15 @@ Page({
     if (orderId) this.data.foodOrderId = orderId;
     if (mid) this.data.mid = mid;
     if (tno) this.data.tno = tno;
+    if (sn || tno) {
+      this.setData({
+        tableNo: sn || tno
+      });
+    }
     if (personNum) this.data.consumerCount = personNum;
     this.getGoodsDetail();
-    this.handleGetMenuDetail();
+    // this.handleGetMenuDetail();
+    this.handleGetFoodMenu();
     let that = this;
     //  高度自适应
     wx.getSystemInfo({
@@ -198,32 +205,18 @@ Page({
       console.error(e);
     })
   },
-  // 菜单详情
-  handleGetMenuDetail () {
-    let api = 'com.ttdtrip.api.restaurant.apis.service.v2.MenuDetailApiService';
+  // 菜单详情接口（全菜品）
+  handleGetFoodMenu () {
+    let api = 'com.ttdtrip.api.restaurant.apis.service.v2.FoodMenuApiService';
     let data = { base: app.globalData.baseBody, mid: this.data.mid };
     app.request(api, data, res => {
       console.log(res);
       this.setData({
         menus: res.menus,
-        checkCategory: res.menus[0]
+        checkCategory: res.menus[0],
+        selfHelp: res.menus.map(item => item.items).reduce((c, n) => c.concat(n), []).map(item => item.foods[0]).filter(item => item.type === 2 && item.userNumType !== 1)
       });
-      if (this.data.menus.length) this.handleGetMenuItemDetail(res.menus[0].id);
-    }, e => {
-      console.error(e);
-    })
-  },
-  // 菜单分类查询接口
-  handleGetMenuItemDetail(menuId) {
-    let api = 'com.ttdtrip.api.restaurant.apis.service.v2.MenuItemDetailApiService';
-    let data = { base: app.globalData.baseBody, menuId };
-    app.request(api, data, res => {
-      console.log(res);
-      let menuItem = this.data.menuItem;
-      menuItem[menuId] = res.menuItem;
-      this.setData({
-        menuItem
-      })
+      console.log(this.data.selfHelp);
     }, e => {
       console.error(e);
     })
@@ -355,11 +348,7 @@ Page({
     this.setData({
       checkCategory: category
     });
-    if (!this.data.menuItem[category.id]) {
-      this.handleGetMenuItemDetail(category.id);
-    }
-    // this.mandatoryTipsShow();
-    // this.getFoodList();
+    this.mandatoryTipsShow();
   },
   // 修改用餐人数
   handleChangeEatNumber (e) {
@@ -370,22 +359,13 @@ Page({
   },
   // 点击去下单按钮
   handleClickGoToTheOrder () {
-    var panduan = this.mandatoryFoodSelectAll();
-    if (panduan) {
-      
+    if (this.mandatoryFoodSelectAll()) {
+      if (!this.getSelfHelpTipsShow(this.data.selfHelp, this.data.foodItems, this.data.consumerCount)) {
+        console.log('可以去下单了');
+      } else {
+        console.log('放题数量不对');
+      }
     }
-    // if (!this.data.foodOrderId) {
-    //   wx.showToast({
-    //     title: '请选择菜品',
-    //     icon: 'none'
-    //   });
-    //   return false;
-    // } else {
-    //   let line = this.data.line;
-    //   wx.redirectTo({
-    //     url: '/pages/foodsure/foodsure?mid=' + line.mid + '&sn=' + line.sn + '&foodOrderId=' + this.data.foodOrderId,
-    //   })
-    // }
   },
   // 点击加号按钮
   handleClickPlusButton (e) {
@@ -563,12 +543,15 @@ Page({
       }
     }
   },
+  // 去商家详情页
+  handleGoToTheGoodsDetailPage (e) {
+    let gid = e.currentTarget.dataset.gid;
+    util.navigateTo('/pages/fooddetail/fooddetail?gid=' + gid + '&type=2');
+  },
   // 必点菜是否全部选择
   mandatoryFoodSelectAll () {
     let mandatoryArray = this.data.menus.filter(item => item.type === 1);
-    var foodList = mandatoryArray.map(item => {
-      return this.data.menuItem[item.id].map(mt => mt.foods).reduce((p, c) => p.concat(c), []);
-    }).reduce((p, c) => p.concat(c), []);
+    var foodList = mandatoryArray.map(item => item.items).reduce((c, n) => c.concat(n), []).map(item => item.foods[0]);
     let obj = {};
     var mandatoryFood = this.data.foodItems.filter(item => {
       let index = foodList.findIndex(food => {
@@ -590,11 +573,9 @@ Page({
   mandatoryTipsShow () {
     let nowMenu = this.data.checkCategory;
     let mandatoryArray = this.data.menus.filter(item => item.type === 1);
-    var mandatoryId = mandatoryArray.length ? mandatoryArray[0].id : '';
-    if (nowMenu.id !== mandatoryId) {
-      var foodList = mandatoryArray.map(item => {
-        return this.data.menuItem[item.id].map(mt => mt.foods).reduce((p, c) => p.concat(c), []);
-      }).reduce((p, c) => p.concat(c), []);
+    var mandatoryId = mandatoryArray.length ? mandatoryArray.map(item => item.id) : '';
+    if (mandatoryId.indexOf(nowMenu.id) === -1) {
+      var foodList = mandatoryArray.map(item => item.items).reduce((c, n) => c.concat(n), []).map(item => item.foods[0]);
       let obj = {};
       var mandatoryFood = this.data.foodItems.filter(item => {
         let index = foodList.findIndex(food => {
@@ -635,6 +616,31 @@ Page({
         util.showMessage('当前菜品不在可点时段');
         return false;
       }
+    }
+  },
+  // 判断放题提示是否展示
+  getSelfHelpTipsShow (self, foodItems, pNum) {
+    if (self.length) {
+      var sId = self.map(function (item) {
+        return item.id;
+      });
+      var num = foodItems.filter(function (item) {
+        return sId.indexOf(item.foodId) !== -1;
+      }).reduce(function (cur, next) {
+        return cur + next.foodNumber;
+      }, 0);
+      if (num) {
+        if (num >= pNum) {
+          return false;
+        } else {
+          util.showMessage('全部放题至少选'+ pNum +'份，已选'+ num +'份');
+          return true;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return false;
     }
   }
 })

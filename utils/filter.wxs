@@ -414,21 +414,21 @@ var DateFr = {
     });
   },
   // 判断是否显示选择必点菜提示
-  mandatoryTipsShow: function (nowMenu, menuList, menuItem, foodItems) {
+  mandatoryTipsShow: function (nowMenu, menuList, foodItems) {
     var mandatoryArray = menuList.filter(function (item) {
       return item.type === 1;
     });
-    var mandatoryId = mandatoryArray.length ? mandatoryArray[0].id : '';
-    if (nowMenu.id !== mandatoryId) {
+    var mandatoryId = mandatoryArray.length ? mandatoryArray.map(function (item) {
+      return item.id
+    }) : '';
+    if (mandatoryId.indexOf(nowMenu.id) === -1) {
       var foodList = mandatoryArray.map(function (item) {
-        return menuItem[item.id].map(function (mt) {
-          return mt.foods;
-        }).reduce(function (p, c) {
-          return p.concat(c);
-        }, [])
-      }).reduce(function (p, c) {
-        return p.concat(c);
-      }, []);
+        return item.items;
+      }).reduce(function (c, n) {
+        return c.concat(n);
+      }, []).map(function (item) {
+        return item.foods[0];
+      });
       var obj = {};
       var mandatoryFood = foodItems.filter(function (item) {
         var index = foodList.filter(function (food) {
@@ -494,6 +494,42 @@ var DateFr = {
     } else {
       return 0;
     }
+  },
+  // 判断放题提示是否展示
+  getSelfHelpTipsShow: function (self, foodItems, pNum) {
+    if (self.length) {
+      var sId = self.map(function (item) {
+        return item.id;
+      });
+      var num = foodItems.filter(function (item) {
+        return sId.indexOf(item.foodId) !== -1;
+      }).reduce(function (cur, next) {
+        return cur + next.foodNumber;
+      }, 0);
+      if (num) {
+        if (num >= pNum) {
+          return false;
+        } else {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  },
+  // 获取放题选择数量
+  getSelfHelpFoodNumber: function (self, foodItems) {
+    var sId = self.map(function (item) {
+      return item.id;
+    });
+    var num = foodItems.filter(function (item) {
+      return sId.indexOf(item.foodId) !== -1;
+    }).reduce(function (cur, next) {
+      return cur + next.foodNumber;
+    }, 0);
+    return num;
   }
 }
 
@@ -538,5 +574,7 @@ module.exports = {
   getNowFoodOrderTotalPrice: DateFr.getNowFoodOrderTotalPrice,
   getNowFoodOrderServiceCharge: DateFr.getNowFoodOrderServiceCharge,
   getNowFoodOrderFoodNumber: DateFr.getNowFoodOrderFoodNumber,
-  getGroupSelectedFoodNumber: DateFr.getGroupSelectedFoodNumber
+  getGroupSelectedFoodNumber: DateFr.getGroupSelectedFoodNumber,
+  getSelfHelpTipsShow: DateFr.getSelfHelpTipsShow,
+  getSelfHelpFoodNumber: DateFr.getSelfHelpFoodNumber
 }
