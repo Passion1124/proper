@@ -160,17 +160,17 @@
 					"scene": null
 				},
 				{
-					"id": 17,
-					"name": "放题或者套餐详情页面",
-					"pathName": "pages/foodItems/foodItems",
-					"query": "foodId=2daad307-3c9f-4869-90d2-87d40cc90597&personNum=10&type=3&foodNum=1",
+					"id": 18,
+					"name": "确认点菜",
+					"pathName": "pages/foodorderconfirm/foodorderconfirm",
+					"query": "foodOrderId=515ee887-79fb-4011-b14e-8a4a72c4bd22&mid=9d8d5e7e-1155-4bcf-b8a6-b3ec079d7ef2&tno=001&personNum=11",
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "确认点菜",
-					"pathName": "pages/foodorderconfirm/foodorderconfirm",
-					"query": "foodOrderId=c8423599-3549-484b-949f-e0f360c53bd5&mid=9d8d5e7e-1155-4bcf-b8a6-b3ec079d7ef2&tno=001&personNum=11",
+					"id": 18,
+					"name": "加菜",
+					"pathName": "pages/foodadd/foodadd",
+					"query": "orderId=515ee887-79fb-4011-b14e-8a4a72c4bd22",
 					"scene": null
 				}
 			]

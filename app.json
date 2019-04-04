@@ -56,7 +56,8 @@
     "pages/ticket/ticket",
     "pages/chooseFoodNumber/chooseFoodNumber",
     "pages/foodItems/foodItems",
-    "pages/foodorderconfirm/foodorderconfirm"
+    "pages/foodorderconfirm/foodorderconfirm",
+    "pages/foodadd/foodadd"
   ],
   "window":{
     "backgroundTextStyle":"light",

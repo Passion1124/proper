@@ -1,11 +1,52 @@
 var foodorderconfirm = {
-  getSpcItemsText: function (spcItems) {
-    return spcItems.reduce(function (cur, next) {
-      return cur.info+ '、' + next.info
+  getSpcItemsText: function(spcItems) {
+    return spcItems.reduce(function(cur, next) {
+      return cur.info + '、' + next.info
     });
+  },
+  getMenuTime: function(time) {
+    if (!time) return '';
+    var date = getDate(time * 1000);
+    var M = date.getMonth() + 1;
+    var y = date.getFullYear();
+    var d = date.getDate();
+    var h = date.getHours();
+    var m = date.getMinutes();
+    if (M < 10) M = "0" + M;
+    if (d < 10) d = "0" + d;
+    if (h < 10) h = "0" + h;
+    if (m < 10) m = '0' + m;
+    return y + '年' + M + '月' + d + '日' + ' ' + h + ':' + m;
+  },
+  sectionToChinese: function(section) {
+    var chnNumChar = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+    var chnUnitChar = ["", "十", "百", "千", "万", "亿", "万亿", "亿亿"];
+    var strIns = '',
+      chnStr = '';
+    var unitPos = 0;
+    var zero = true;
+    while (section > 0) {
+      var v = section % 10;
+      if (v === 0) {
+        if (!zero) {
+          zero = true;
+          chnStr = chnNumChar[v] + chnStr;
+        }
+      } else {
+        zero = false;
+        strIns = chnNumChar[v];
+        strIns += chnUnitChar[unitPos];
+        chnStr = strIns + chnStr;
+      }
+      unitPos++;
+      section = Math.floor(section / 10);
+    }
+    return chnStr;
   }
 }
 
 module.exports = {
-  getSpcItemsText: foodorderconfirm.getSpcItemsText
+  getSpcItemsText: foodorderconfirm.getSpcItemsText,
+  getMenuTime: foodorderconfirm.getMenuTime,
+  sectionToChinese: foodorderconfirm.sectionToChinese
 }

@@ -1,0 +1,153 @@
+.container{
+  padding: 0 40rpx 100rpx;
+}
+
+.top{
+  width: 100%;
+  padding: 80rpx 0 57rpx;
+  border-bottom: 1rpx solid #E0E0E0;
+  text-align: center;
+}
+
+.top .tableNo{
+  font-size: 51rpx;
+  line-height: 71rpx;
+  color: #F97572;
+  font-weight: 500;
+  margin-bottom: 13rpx;
+}
+
+.top .subTitle{
+  font-size: 24rpx;
+  line-height: 32rpx;
+  color: #666666;
+}
+
+.ordered_menu{
+  padding: 80rpx 0 40rpx;
+  border-bottom: 1rpx solid #E0E0E0;
+}
+
+.ordered_menu .title{
+  font-size: 36rpx;
+  line-height: 50rpx;
+  color: #3C3C3C;
+  text-align: center;
+  margin-bottom: 57rpx;
+}
+
+.ordered_menu .menu_time, .ordered_menu .menu_number{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #3C3C3C;
+}
+
+.ordered_menu .menu_time{
+  margin-bottom: 24rpx;
+}
+
+.order_number{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 40rpx;
+}
+
+.order_number .number{
+  font-size: 38rpx;
+  color: #3C3C3C;
+  font-weight: 600;
+}
+
+.order_number .time{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #666;
+}
+
+.area{
+  padding: 40rpx 0;
+  border-bottom: 1rpx solid #E0E0E0;
+}
+
+.order_number + .area{
+  padding-top: 24rpx;
+}
+
+.area .a_title{
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #666666;
+  margin-bottom: 30rpx;
+}
+
+.area .flex{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+
+.area .flex:last-of-type{
+  margin-bottom: 0;
+}
+
+.area .flex .left {
+  max-width: 420rpx;
+}
+
+.area .flex .left view:first-of-type{
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #3C3C3C;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.area .flex .left view + view{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #666666;
+}
+
+.area .flex .left text{
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #3C3C3C;
+}
+
+.area .flex .right text{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #666666;
+}
+
+.area .flex .right text + text{
+  margin-left: 20rpx;
+}
+
+.area .flex .right .smallFee{
+  font-size: 34rpx;
+  line-height: 48rpx;
+  letter-spacing: 1rpx;
+  /* font-weight: bold; */
+}
+
+.key_color{
+  color: #F97572 !important;
+}
+
+.bottom_content{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 32rpx;
+  color: #fff;
+  text-align: center;
+  background-color: #23C2F7;
+  border-top: 1rpx solid #E0E0E0;
+}

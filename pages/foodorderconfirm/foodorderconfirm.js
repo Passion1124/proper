@@ -10,6 +10,7 @@ Page({
   data: {
     foodOrderId: '',
     mid: '',
+    tno: '',
     consumerCount: 0,
     serviceFee: 0,
     totalFee: 0,
@@ -30,7 +31,8 @@ Page({
     this.setData({
       foodOrderId: options.foodOrderId,
       mid: options.mid,
-      consumerCount: parseInt(options.personNum)
+      consumerCount: parseInt(options.personNum),
+      tno: options.tno
     });
     this.getFoodOrderGetByBasket();
   },
@@ -103,6 +105,16 @@ Page({
         setMeal: res.orderItems.filter(item => item.type === 3),
         ordinary: res.orderItems.filter(item => item.type === 1)
       })
+    }, e => {
+      console.error(e);
+    })
+  },
+  // 菜篮子内菜品确认下单
+  handleClickGoToTheOrder () {
+    let api = 'com.ttdtrip.api.restaurant.apis.service.v2.FoodBasketConfirmApiService';
+    let data = { base: app.globalData.baseBody, foodOrderId: this.data.foodOrderId };
+    app.request(api, data, res => {
+      utils.navigateTo('/pages/foodpayresult/foodpayresult?foodOrderId=' + this.data.foodOrderId + '&mid=' + this.data.mid + '&tno=' + this.data.tno);
     }, e => {
       console.error(e);
     })

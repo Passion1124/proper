@@ -6,14 +6,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    foodOrderId: '',
+    mid: '',
+    tno: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.setData({
+      foodOrderId: options.foodOrderId,
+      mid: options.mid,
+      tno: options.tno
+    })
   },
 
   /**
@@ -63,5 +69,17 @@ Page({
    */
   onShareAppMessage: function () {
     
+  },
+  // 点击加菜按钮进入加菜页面
+  handleGoToTheFoodAddPage () {
+    wx.redirectTo({
+      url: '/pages/foodadd/foodadd?orderId=' + this.data.foodOrderId,
+    })
+  },
+  // 点击完成按钮进入到首页
+  handleGoToTheIndexPage () {
+    wx.switchTab({
+      url: '/pages/index/index'
+    })
   }
 })

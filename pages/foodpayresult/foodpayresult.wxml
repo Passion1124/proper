@@ -1,12 +1,14 @@
 <!-- foodpayresult.wxml -->
 <view class='container'>
-  <view class='row'>
-    <view class='top'>
-      <view class='icon'>
-        <image src='../../img/common/success.png'></image>
-      </view>
-      <view class='text'>点餐成功</view>
+  <view class='top'>
+    <view class='icon'>
+      <image src='../../img/common/success.png'></image>
     </view>
-    <view class='bottom'>恭喜你点餐成功</view>
+    <view class='text'>下单成功</view>
+  </view>
+  <view class='bottom'>您已成功下单，我们将立即给您准备</view>
+  <view class='btn_group'>
+    <button bindtap='handleGoToTheFoodAddPage'>加菜</button>
+    <button bindtap='handleGoToTheIndexPage'>完成</button>
   </view>
 </view>
