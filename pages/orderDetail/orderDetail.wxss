@@ -290,6 +290,11 @@
   text-align: right;
 }
 
+.row .flex .refund_over{
+  text-decoration:line-through;
+  color: #B7B7B7;
+}
+
 .row .other .refund {
   flex: 1;
   font-size: 28rpx;
