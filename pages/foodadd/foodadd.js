@@ -93,5 +93,9 @@ Page({
     }, e => {
       console.error(e);
     })
+  },
+  // 点击继续加菜按钮
+  handleClickAddFoodButton () {
+    utils.navigateTo('/pages/foodorder/foodorder?mid=' + this.data.foodOrder.mid + '&tno=' + this.data.foodOrder.tableNo + '&toPage=foodadd');
   }
 })

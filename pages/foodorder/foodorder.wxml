@@ -1,5 +1,6 @@
 <!-- foodorder.wxml -->
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
+<wxs module="foodorderconfirm" src='../../utils/wxs/foodorderconfirm.wxs'></wxs>
 <import src="../../wxParse/wxParse.wxml" />
 <view class='container'>
   <view class='top_info'>
@@ -58,7 +59,7 @@
     </view>
   </view>
   <view class='food_row'>
-    <view class='self_help_tips'wx:if='{{dateFr.getSelfHelpTipsShow(selfHelp, foodItems, consumerCount)}}'>全部放题至少选{{consumerCount}}份，已选{{dateFr.getSelfHelpFoodNumber(selfHelp, foodItems)}}份</view>
+    <view class='self_help_tips' wx:if='{{dateFr.getSelfHelpTipsShow(selfHelp, foodItems, consumerCount)}}'>全部放题至少选{{consumerCount}}份，已选{{dateFr.getSelfHelpFoodNumber(selfHelp, foodItems)}}份</view>
     <view class='category'>
       <scroll-view scroll-y='{{true}}' style='height: {{winHeight - (dateFr.getSelfHelpTipsShow(selfHelp, foodItems, consumerCount) ? 110 : 0)}}rpx;'>
         <block wx:for='{{menus}}' wx:key='{{index}}'>
@@ -176,14 +177,83 @@
         </view>
       </view>
     </view>
-    <view class='close' bindtap='handleHideMaskAndPopup' wx:if='{{popupType !== "goods_info"}}'>
+    <view class='food_cart' wx:if='{{popupType === "shopping_cart"}}'>
+      <view class='title'>已选菜品</view>
+      <view class='list_row'>
+        <view class='list'>
+          <view class='list_flex'>
+            <view class='left'>
+              <view class='name'>茶位费</view>
+              <view class='price_num'>
+                <text>JPY{{goods.goodsBase.teeFee / 100}}</text>
+                <text>x{{consumerCount}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <block wx:for='{{foodCartList}}' wx:for-item='food' wx:for-index='idx' wx:key='{{idx}}'>
+          <view class='list' wx:if='{{food.length}}'>
+            <view class='list_title' wx:if='{{idx === "mustPoint"}}'>必点菜</view>
+            <view class='list_title' wx:if='{{idx === "putQuestions"}}'>放题</view>
+            <view class='list_title' wx:if='{{idx === "setMeal"}}'>套餐</view>
+            <view class='list_title' wx:if='{{idx === "ordinary"}}'>普通菜品</view>
+            <block wx:for='{{food}}' wx:key='{{index}}'>
+              <view class='list_flex'>
+                <view class='left'>
+                  <view class='name'>{{item.food.foodName}}</view>
+                  <view class='subInfo' wx:if='{{item.spcItems.length}}'>{{foodorderconfirm.getSpcItemsText(item.spcItems)}}</view>
+                  <view class='price_num'>
+                    <text>JPY{{item.unitPrice / 100}}</text>
+                    <text>x{{item.foodNumber}}</text>
+                  </view>
+                </view>
+                <view class='num'>
+                  <view class='minus' data-food='{{item}}' data-num='{{item.foodNumber}}' bindtap='handleClickFoodCartMinusButton'>-</view>
+                  <view class='number_inp'>{{item.foodNumber}}</view>
+                  <view class='plus'  data-food='{{item}}' data-num='{{item.foodNumber}}' bindtap='handleClickFoodCartPlusButton'>+</view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </block>
+        <view class='list'>
+          <view class='list_flex'>
+            <view class='left'>
+              <view class='subInfo bloder black'>小计</view>
+            </view>
+            <view class='price bloder key_color'>JPY{{dateFr.getNowFoodOrderTotalPrice(orderItems, goods, consumerCount)}}</view>
+          </view>
+        </view>
+        <view class='list'>
+          <view class='list_flex'>
+            <view class='left'>
+              <view class='subInfo bloder black'>服务费</view>
+            </view>
+            <view class='price bloder black'>JPY{{dateFr.getNowFoodOrderServiceCharge(orderItems, goods, consumerCount)}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='bottom_content2' wx:if='{{popupType === "shopping_cart"}}'>
+      <view class='num_price'>
+        <view class='num'>{{dateFr.getNowFoodOrderFoodNumber(orderItems)}}</view>
+        <view class='price_row'>
+          <view class='price'>JPY{{dateFr.getNowFoodOrderTotalPrice(orderItems, goods, consumerCount)}}</view>
+          <view class='service_charge'>另加服务费 JPY {{dateFr.getNowFoodOrderServiceCharge(orderItems, goods, consumerCount)}}</view>
+        </view>
+      </view>
+      <view class='down_order'>
+        <button bindtap='handleClickGoToTheOrder'>去下单</button>
+      </view>
+    </view>
+    <view class='close' bindtap='handleHideMaskAndPopup' wx:if='{{popupType !== "goods_info" && popupType !== "shopping_cart"}}'>
       <image src='../../img/order/pay_icon_close.png'></image>
     </view>
   </view>
   <view class='mandatory_tips' bindtap='handleSwitchMandatoryFood' wx:if='{{dateFr.mandatoryTipsShow(checkCategory, menus, foodItems)}}'>选择必点菜</view>
   <view class='bottom_content'>
     <view class='num_price'>
-      <view class='num'>{{dateFr.getNowFoodOrderFoodNumber(orderItems)}}</view>
+      <view class='num' bindtap='handleClickFoodTotalNum'>{{dateFr.getNowFoodOrderFoodNumber(orderItems)}}</view>
       <view class='price_row'>
         <view class='price'>JPY{{dateFr.getNowFoodOrderTotalPrice(orderItems, goods, consumerCount)}}</view>
         <view class='service_charge'>另加服务费 JPY {{dateFr.getNowFoodOrderServiceCharge(orderItems, goods, consumerCount)}}</view>

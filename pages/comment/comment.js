@@ -15,7 +15,8 @@ Page({
     target: '',
     pics: [],
     orderId: '',
-    commentId: ''
+    commentId: '',
+    type: ''
   },
 
   /**
@@ -24,6 +25,7 @@ Page({
   onLoad: function (options) {
     this.data.target = options.target;
     this.data.orderId = options.orderId;
+    if (options.type) this.data.type = options.type;
   },
 
   /**
@@ -115,8 +117,12 @@ Page({
     app.request(api, data, res => {
       console.log(res);
       this.data.commentId = res.commentVO.uuid;
-      this.handleOrderEvaluate();
       this.handleGoodsReport();
+      if (this.data.type == 2) {
+        this.handleFoodOrderCommentFinish();
+      } else {
+        this.handleOrderEvaluate();
+      }
     }, e => {
       console.error(e);
     })
@@ -135,6 +141,20 @@ Page({
   handleOrderEvaluate () {
     let api = 'com.ttdtrip.api.order.apis.service.OrderEvaluateApiService';
     let data = { base: app.globalData.baseBody, commentId: this.data.commentId, merchId: this.data.target, orderId: this.data.orderId };
+    app.request(api, data, res => {
+      console.log(res);
+      utils.showMessage('完成评论');
+      setTimeout(_ => {
+        wx.navigateBack();
+      }, 500);
+    }, e => {
+      console.error(e);
+    })
+  },
+  // 点菜订单评论完成通知
+  handleFoodOrderCommentFinish () {
+    let api = 'com.ttdtrip.api.restaurant.apis.service.v2.FoodOrderCommentFinishApiService';
+    let data = { base: app.globalData.baseBody, commentId: this.data.commentId, foodOrderId: this.data.orderId };
     app.request(api, data, res => {
       console.log(res);
       utils.showMessage('完成评论');

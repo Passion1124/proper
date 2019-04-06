@@ -112,7 +112,7 @@
   text-overflow:ellipsis;
 }
 
-.order .top .status, .queue .top .status{
+.order .top .status, .queue .top .status, .food .top .status{
   font-size: 28rpx;
   line-height: 40rpx;
   color: #3C3C3C;
@@ -129,7 +129,7 @@
   color: #F97572;
 }
 
-.order .top .status.blue, .queue .top .status.blue{
+.order .top .status.blue, .queue .top .status.blue, .food .top .status.blue{
   color: #23C2F7;
 }
 
@@ -273,7 +273,7 @@
 
 .food .bottom>view{
   font-size: 28rpx;
-  line-height: 40rpx;
+  line-height: 36rpx;
   color: #3C3C3C;
   margin-bottom: 8rpx;
 }
@@ -288,11 +288,15 @@
 .food .bottom>view:last-of-type view:first-of-type{
   font-size: 28rpx;
   line-height: 36rpx;
+  color: #3C3C3C;
 }
 
 .food .bottom>view:last-of-type view:last-of-type{
-  font-size: 24rpx;
-  line-height: 33rpx;
+  font-size: 32rpx;
+  line-height: 45rpx;
+  color: #F97572;
+  letter-spacing: 1rpx;
+  /* font-weight: bold; */
 }
 
 .filter_order_status{

@@ -29,17 +29,25 @@
   font-size: 24rpx;
   line-height: 33rpx;
   color: #666;
-  margin-bottom: 50rpx;
-  display: -webkit-box;
+  /* margin-bottom: 50rpx; */
+  /* display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  overflow: hidden;
+  overflow: hidden; */
+}
+
+.comment_tips{
+  font-size: 24rpx;
+  line-height: 33rpx;
+  letter-spacing: 2rpx;
+  color: #666;
 }
 
 .bottom{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 50rpx;
 }
 
 .bottom .date{

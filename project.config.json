@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 18,
+			"current": 19,
 			"list": [
 				{
 					"id": 0,
@@ -171,6 +171,13 @@
 					"name": "加菜",
 					"pathName": "pages/foodadd/foodadd",
 					"query": "orderId=515ee887-79fb-4011-b14e-8a4a72c4bd22",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "点菜订单详情",
+					"pathName": "pages/orderDishesDetail/orderDishesDetail",
+					"query": "id=c8423599-3549-484b-949f-e0f360c53bd5",
 					"scene": null
 				}
 			]

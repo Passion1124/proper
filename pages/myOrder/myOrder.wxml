@@ -107,18 +107,19 @@
     </view>
   </block>
   <block wx:for='{{foodOrders}}' wx:key='{{index}}' wx:if='{{activeOrderType === "food"}}'>
-    <view class='food' data-id='{{item.id}}' bindtap='goToTheOrderMealDetailPage'>
+    <view class='food' data-id='{{item.id}}' bindtap='goToTheOrderDishesDetailPage'>
       <view class='top'>
-        <view class='fullName'>排队号：{{item.lineName}}</view>
-        <view class='price orange'>{{item.payableCurrency + (item.payableAmount / 100)}}</view>
+        <view class='fullName'>{{item.goodsName}}</view>
+        <view class='status {{item.orderStatusAt === 1 ? "blue" : ""}}'>{{dateFr.getFoodStatusText(item.orderStatusAt)}}</view>
       </view>
       <view class='line'></view>
       <view class='bottom'>
         <view>桌台：{{item.tableNo || "暂无"}}</view>
-        <view>商品：{{item.foodOrderBatchDetailCount}}种商品</view>
+        <view>用餐人数：{{item.consumerCount}}</view>
+        <view>菜品数量：{{item.totalFoodNumber}}</view>
         <view class='flex'>
           <view class='date'>时间：{{dateFr.formatTime(item.createAt * 1000)}}</view>
-          <view>订单详情></view>
+          <view class='orange'>{{item.payableCurrency}} {{item.totalFee / 100}}</view>
         </view>
       </view>
     </view>

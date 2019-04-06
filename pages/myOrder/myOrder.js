@@ -77,12 +77,9 @@ Page({
     },
     food: {
       appFrom: 1,
-      eatingStatuses: null,
-      orderStatuses: [1, 2],
       limit: 10,
       page: 1,
-      size: 10,
-      userId: ''
+      size: 10
     }
   },
 
@@ -111,7 +108,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.data.food.userId = wx.getStorageSync('authority').myUid;
     this.handlePullDownRefresh();
   },
 
@@ -218,12 +214,12 @@ Page({
   },
   // 获取点菜列表
   getFoodOrderList (obj) {
-    let api = 'com.ttdtrip.api.restaurant.apis.service.FoodOrderListApiService';
+    let api = 'com.ttdtrip.api.restaurant.apis.service.v2.FoodOrderList2ApiService';
     let data = Object.assign({ base: app.globalData.base }, obj);
     app.request(api, data, res => {
       console.log(res);
       let foodOrders = obj.page === 1 ? [] : this.data.foodOrders;
-      foodOrders = foodOrders.concat(res.foodOrders || []);
+      foodOrders = foodOrders.concat(res.orders || []);
       this.setData({
         orders: [],
         lines: [],
@@ -402,6 +398,10 @@ Page({
     wx.navigateTo({
       url: '/pages/orderMealDetail/orderMealDetail?id=' + id,
     })
+  },
+  goToTheOrderDishesDetailPage (e) {
+    let id = e.currentTarget.dataset.id;
+    utils.navigateTo('/pages/orderDishesDetail/orderDishesDetail?id=' + id);
   },
   isInteger(obj) {
     return obj % 1 === 0;

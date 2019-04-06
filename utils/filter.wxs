@@ -259,6 +259,16 @@ var DateFr = {
     if (status === 4) str = '商户下线';
     return str;
   },
+  // 获取点菜订单状态文本
+  getFoodStatusText: function (status) {
+    var str = '';
+    if (status === 0) str = '初始化状态';
+    if (status === 1) str = '就餐中';
+    if (status === 3) str = '待评价';
+    if (status === 4) str = '已取消';
+    if (status === 5) str = '已完成';
+    return str;
+  },
   getFoodOrderTotal: function (dots) {
     var total = dots.map(function (item) {
       return item.foodOrderBatchDetail.foodNumber;
@@ -556,6 +566,7 @@ module.exports = {
   secondToDate: DateFr.secondToDate,
   getLinePendingDateText: DateFr.getLinePendingDateText, 
   getLineStatusText: DateFr.getLineStatusText,
+  getFoodStatusText: DateFr.getFoodStatusText,
   getFoodOrderTotal: DateFr.getFoodOrderTotal,
   getNowFoodOrderNum: DateFr.getNowFoodOrderNum,
   getFoodOrderBatchTotalPrice: DateFr.getFoodOrderBatchTotalPrice,

@@ -15,11 +15,13 @@ Page({
     mid: '',
     tableNo: '',
     tno: '',
+    toPage: '',
     line: {},
     goods: {},
     menus: [],
     foodItems: [],
     orderItems: [],
+    foodCartList: {},
     category: [],
     foodList: [],
     foodOrder: {},
@@ -48,11 +50,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let { sn, mid, tno, orderId, personNum } = options;
+    let { sn, mid, tno, orderId, personNum, toPage } = options;
     if (sn) this.data.sn = sn;
     if (orderId) this.data.foodOrderId = orderId;
     if (mid) this.data.mid = mid;
     if (tno) this.data.tno = tno;
+    if (toPage) this.data.toPage = toPage;
     if (sn || tno) {
       this.setData({
         tableNo: sn || tno
@@ -145,7 +148,6 @@ Page({
         line: res.line,
         consumerCount: res.line.num
       });
-      this.getFoodCategoryList();
       this.handleFoodOrderGen();
     }, e => {
       console.error(e);
@@ -171,14 +173,7 @@ Page({
     let data = { base: app.globalData.baseBody, mid: line.mid, lineSn: line.sn, lineName: line.name, lineAt: line.createAt, bookingDstDate: line.day };
     app.request(api, data, res => {
       console.log(res);
-      if (res.foodBasket) {
-        this.setData({
-          consumerCount: res.foodBasket.consumerCount,
-          foodItems: res.foodBasket.foodItems,
-          orderItems: res.foodBasket.orderItems,
-          foodOrderId: res.foodOrderId
-        })
-      }
+      this.handleFoodOrderGenSuccessCallback(res);
     }, e => {
       console.error(e);
     })
@@ -190,17 +185,7 @@ Page({
     let data = { base: app.globalData.baseBody, mid: this.data.mid, tableNo: this.data.tno };
     app.request(api, data, res => {
       console.log(res);
-      if (res.foodBasket || res.foodOrderBatch) {
-        this.setData({
-          consumerCount: res.foodBasket.consumerCount,
-          foodItems: res.foodBasket.foodItems,
-          orderItems: res.foodBasket.orderItems,
-          foodOrderId: res.foodOrderId
-        })
-      } else {
-        wx.redirectTo({
-          url: '/pages/chooseFoodNumber/chooseFoodNumber?foodOrderId=' + res.foodOrderId});
-      }
+      this.handleFoodOrderGenSuccessCallback(res);
     }, e => {
       console.error(e);
     })
@@ -341,6 +326,31 @@ Page({
       });
     })
   },
+  // 查询或生成点菜订单之后的成功回调
+  handleFoodOrderGenSuccessCallback (res) {
+    if (res.foodBasket || this.data.toPage) {
+      let foodCartList = {};
+      if (res.foodBasket) {
+        foodCartList.mustPoint = res.foodBasket.orderItems.filter(item => item.type === 9);
+        foodCartList.putQuestions = res.foodBasket.orderItems.filter(item => item.type === 2);
+        foodCartList.setMeal = res.foodBasket.orderItems.filter(item => item.type === 3);
+        foodCartList.ordinary = res.foodBasket.orderItems.filter(item => item.type === 1);
+      }
+      this.setData({
+        consumerCount: res.foodBasket ? res.foodBasket.consumerCount : res.foodOrderBatch.consumerCount,
+        foodItems: res.foodBasket ? res.foodBasket.foodItems : [],
+        orderItems: res.foodBasket ? res.foodBasket.orderItems : [],
+        foodOrderId: res.foodOrderId,
+        foodCartList
+      })
+    } else if (res.foodOrderBatch) {
+      util.redirectTo('/pages/foodadd/foodadd?orderId=' + res.foodOrderId);
+    } else {
+      wx.redirectTo({
+        url: '/pages/chooseFoodNumber/chooseFoodNumber?foodOrderId=' + res.foodOrderId
+      });
+    }
+  },
   // 修改分类
   bindChangeCategoryId (e) {
     let category = e.currentTarget.dataset.category;
@@ -362,6 +372,7 @@ Page({
     if (this.mandatoryFoodSelectAll()) {
       if (!this.getSelfHelpTipsShow(this.data.selfHelp, this.data.foodItems, this.data.consumerCount)) {
         console.log('可以去下单了');
+        util.navigateTo('/pages/foodorderconfirm/foodorderconfirm?foodOrderId=' + this.data.foodOrderId + '&mid=' + this.data.mid + '&consumerCount=' + this.data.consumerCount + '&tno=' + this.data.tno);
       } else {
         console.log('放题数量不对');
       }
@@ -485,6 +496,46 @@ Page({
     foodItems[index].foodNumber = num + 1;
     this.handleFoodBasketAdd(this.data.consumerCount, foodItems, 'popup_add_num');
   },
+  // 点击购物车里面的减号按钮
+  handleClickFoodCartMinusButton (e) {
+    console.log(e);
+    let food = e.currentTarget.dataset.food;
+    let num = e.currentTarget.dataset.num;
+    if (food.type === 2 || food.type === 3) {
+      util.navigateTo('/pages/foodItems/foodItems?foodId=' + food.foodId + '&personNum=' + this.data.consumerCount + '&type=' + food.type + '&foodNum=' + food.foodNumber);
+    } else {
+      let index = this.data.foodItems.findIndex(item => {
+        if (food.spcItems.length) {
+          return food.spcItems.map(sp => sp.id).toString() === item.spcItemId.toString();
+        } else {
+          return item.foodId === food.foodId;
+        }
+      });
+      if (num <= 1) {
+        this.data.foodItems.splice(index, 1);
+      } else {
+        this.data.foodItems[index].foodNumber = num - 1;
+      };
+      this.handleFoodBasketAdd(this.data.consumerCount, this.data.foodItems);
+    }
+  },
+  // 点击购物车里面的加号按钮
+  handleClickFoodCartPlusButton (e) {
+    let food = e.currentTarget.dataset.food;
+    if (food.type === 2 || food.type === 3) {
+      util.navigateTo('/pages/foodItems/foodItems?foodId=' + food.foodId + '&personNum=' + this.data.consumerCount + '&type=' + food.type + '&foodNum=' + food.foodNumber);
+    } else {
+      let index = this.data.foodItems.findIndex(item => {
+        if (food.spcItems.length) {
+          return food.spcItems.map(sp => sp.id).toString() === item.spcItemId.toString();
+        } else {
+          return item.foodId === food.foodId;
+        }
+      });
+      this.data.foodItems[index].foodNumber += 1;
+      this.handleFoodBasketAdd(this.data.consumerCount, this.data.foodItems);
+    }
+  },
   // 点击菜品封面
   handleClickFoodPoster (e) {
     let food = e.currentTarget.dataset.food;
@@ -500,6 +551,10 @@ Page({
     this.setData({
       checkCategory: find
     });
+  },
+  // 点击菜品数量
+  handleClickFoodTotalNum (e) {
+    this.handleShowMaskAndPopup('shopping_cart');
   },
   // 显示弹窗
   handleShowMaskAndPopup (type) {

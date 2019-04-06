@@ -167,9 +167,13 @@ page {
 
 .top_info .eat_info .table_number .fullName,
 .top_info .eat_info .eat_number .fullName {
+  max-width: 120rpx;
   font-size: 28rpx;
   line-height: 40rpx;
   color: #666;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .top_info .eat_info .divider {
@@ -391,7 +395,8 @@ page {
 }
 
 .food_list .food .info .price_num .num,
-.popup .specifications_delete .row .list .num {
+.popup .specifications_delete .row .list .num,
+.popup .food_cart .list_row .list .list_flex .num{
   display: flex;
   align-items: center;
 }
@@ -399,7 +404,9 @@ page {
 .food_list .food .info .price_num .num .minus,
 .food_list .food .info .price_num .num .plus,
 .popup .specifications_delete .row .list .num .minus,
-.popup .specifications_delete .row .list .num .plus {
+.popup .specifications_delete .row .list .num .plus,
+.popup .food_cart .list_row .list .list_flex .num .minus,
+.popup .food_cart .list_row .list .list_flex .num .plus {
   width: 44rpx;
   height: 44rpx;
   font-size: 38rpx;
@@ -412,7 +419,8 @@ page {
 }
 
 .food_list .food .info .price_num .num .number_inp,
-.popup .specifications_delete .row .list .num .number_inp {
+.popup .specifications_delete .row .list .num .number_inp,
+.popup .food_cart .list_row .list .list_flex .num .number_inp {
   width: 64rpx;
   font-size: 32rpx;
   line-height: 45rpx;
@@ -422,12 +430,13 @@ page {
 }
 
 .food_list .food .info .price_num .num .plus,
-.popup .specifications_delete .row .list .num .plus {
+.popup .specifications_delete .row .list .num .plus,
+.popup .food_cart .list_row .list .list_flex .num .plus {
   background-color: #23c2f7;
   color: #fff;
 }
 
-.bottom_content {
+.bottom_content, .bottom_content2 {
   position: fixed;
   left: 0;
   bottom: 0;
@@ -442,12 +451,16 @@ page {
   box-sizing: border-box;
 }
 
-.bottom_content .num_price {
+.bottom_content2 {
+  position: static;
+}
+
+.bottom_content .num_price, .bottom_content2 .num_price {
   display: flex;
   align-items: center;
 }
 
-.bottom_content .num_price .num {
+.bottom_content .num_price .num, .bottom_content2 .num_price .num {
   width: 92rpx;
   height: 80rpx;
   line-height: 80rpx;
@@ -461,20 +474,21 @@ page {
   margin-right: 16rpx;
 }
 
-.bottom_content .num_price .price {
+.bottom_content .num_price .price, .bottom_content2 .num_price .price {
   font-size: 32rpx;
   line-height: 45rpx;
   color: #f97572;
   font-weight: bold;
 }
 
-.bottom_content .num_price .service_charge {
+.bottom_content .num_price .service_charge,
+.bottom_content2 .num_price .service_charge {
   font-size: 24rpx;
   line-height: 33rpx;
   color: #8c8c8c;
 }
 
-.bottom_content .down_order button {
+.bottom_content .down_order button, .bottom_content2 .down_order button {
   width: 267rpx;
   height: 80rpx;
   line-height: 80rpx;
@@ -529,6 +543,11 @@ page {
   height: 876rpx;
   padding: 0;
   overflow-y: auto;
+}
+
+.popup.shopping_cart {
+  height: 900rpx;
+  padding: 0;
 }
 
 .popup .specifications .food_info {
@@ -702,6 +721,80 @@ page {
   color: #666;
 }
 
+.popup .food_cart {
+  height: 780rpx;
+  padding: 40rpx 40rpx 0;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.popup .food_cart .title {
+  font-size: 34rpx;
+  line-height: 48rpx;
+  font-weight: 600;
+  color: #3c3c3c;
+  text-align: center;
+  padding-bottom: 30rpx;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.popup .food_cart .list_row .list{
+  padding: 40rpx 0;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.popup .food_cart .list_row .list:last-of-type{
+  border-bottom: 0;
+}
+
+.popup .food_cart .list_row .list>view:not(:last-of-type){
+  margin-bottom: 24rpx;
+}
+
+.popup .food_cart .list_row .list .list_title{
+  font-size: 32rpx;
+  line-height: 40rpx;
+  color: #666;
+}
+
+.popup .food_cart .list_row .list .list_flex{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.popup .food_cart .list_row .list .list_flex .left .name{
+  font-size: 34rpx;
+  line-height: 48rpx;
+  color: #3c3c3c;
+}
+
+.popup .food_cart .list_row .list .list_flex .left .subInfo, .popup .food_cart .list_row .list .list_flex .left .price_num{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #666;
+}
+
+.popup .food_cart .list_row .list .list_flex .left .price_num{
+  margin-top: 7rpx;
+}
+
+.popup .food_cart .list_row .list .list_flex .left .price_num text:last-of-type{
+  margin-left: 20rpx;
+}
+
+.popup .food_cart .list_row .list .list_flex .left .name, .popup .food_cart .list_row .list .list_flex .left .subInfo{
+  max-width:500rpx;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+.popup .food_cart .list_row .list .list_flex .price{
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+
 .popup .close {
   position: absolute;
   right: 35rpx;
@@ -731,4 +824,16 @@ page {
   color: #fff;
   transform: translateX(-50%);
   text-align: center;
+}
+
+.key_color{
+  color: #F97572 !important;
+}
+
+.bloder {
+  font-weight: 600 !important;
+}
+
+.black{
+  color: #000 !important;
 }

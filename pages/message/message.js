@@ -79,6 +79,7 @@ Page({
   goToTheDetail (e) {
     let id = e.currentTarget.dataset.id;
     let title = e.currentTarget.dataset.title;
+    let type = e.currentTarget.dataset.type;
     let url = '/pages/orderDetail/orderDetail';
     if (title === '订单支付') {
       url = '/pages/bookDetail/bookDetail'

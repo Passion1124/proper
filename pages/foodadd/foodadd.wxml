@@ -178,5 +178,5 @@
         </view>
       </view>
   </view>
-  <view class='bottom_content'>继续加菜</view>
+  <view class='bottom_content' bindtap='handleClickAddFoodButton'>继续加菜</view>
 </view>

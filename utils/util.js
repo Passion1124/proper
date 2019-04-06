@@ -37,6 +37,12 @@ const navigateTo = url => {
   })
 }
 
+const redirectTo = url => {
+  wx.redirectTo({
+    url: url,
+  })
+}
+
 const showMessage = (message, icon) => {
   wx.showToast({
     title: message,
@@ -69,6 +75,7 @@ module.exports = {
   formatDate: formatDate,
   userIsLogin: userIsLogin,
   navigateTo: navigateTo,
+  redirectTo: redirectTo,
   showMessage: showMessage,
   validatePhone: validatePhone,
   validateEmail: validateEmail,

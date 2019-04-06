@@ -1,0 +1,214 @@
+<!-- orderDishesDetail.wxml -->
+<wxs module="foodorderconfirm" src='../../utils/wxs/foodorderconfirm.wxs'></wxs>
+<view class='container'>
+  <view class='top' wx:if='{{foodOrder.orderStatusAt === 1 || foodOrder.orderStatusAt === 3 || foodOrder.orderStatusAt === 5}}'>
+    <view class='text' wx:if='{{foodOrder.orderStatusAt === 1}}'>亲，祝您用餐愉快</view>
+    <view class='text' wx:if='{{foodOrder.orderStatusAt === 3}}'>感谢用餐，期待您给出中肯的评价</view>
+    <view class='text' wx:if='{{foodOrder.orderStatusAt === 5}}'>感谢用餐，期待您下次光临</view>
+    <view class='btn' wx:if='{{foodOrder.orderStatusAt !== 5}}'>
+      <button bindtap='goToTheFoodOrderPage' wx:if='{{foodOrder.orderStatusAt === 1}}'>加菜</button>
+      <button bindtap='goToTheCommentPage' wx:if='{{foodOrder.orderStatusAt === 3}}'>立即评价</button>
+    </view>
+  </view>
+  <view class='ordered_menu'>
+    <view class='title'>点菜单</view>
+    <view class='flex'>
+      <view>订单编号</view>
+      <view>{{foodOrder.transactionNo}}</view>
+    </view>
+    <view class='flex'>
+      <view>桌号</view>
+      <view>{{foodOrder.tableNo}}</view>
+    </view>
+    <view class='flex'>
+      <view>用餐人数</view>
+      <view>{{foodOrder.consumerCount}}</view>
+    </view>
+  </view>
+  <block wx:for='{{foodList}}' wx:for-item='food' wx:for-index='idx' wx:key='{{idx}}'>
+    <view class='order_number'>
+      <view class='number'>
+        <text>第{{foodorderconfirm.sectionToChinese(idx + 1)}}次点餐</text>
+      </view>
+      <view class='time'>
+        <text>{{foodorderconfirm.getMenuTime(orderItems[idx].batch.createAt)}}</text>
+      </view>
+    </view>
+    <view class='area' wx:if="{{food.mustPoint.length}}">
+      <view class='a_title'>{{food.mustPoint[0].foodMenu.name}}</view>
+      <block wx:for='{{food.mustPoint}}' wx:key='{{index}}'>
+        <view class='flex'>
+          <view class='left'>
+            <block wx:if='{{item.spcItems.length}}'>
+              <view>{{item.food.foodName}}</view>
+              <view>{{foodorderconfirm.getSpcItemsText(item.spcItems)}}</view>
+            </block>
+            <block wx:else>
+              <view>{{item.food.foodName}}</view>
+            </block>
+          </view>
+          <view class='right'>
+            <text>{{foodOrder.paidCurrency}}{{item.unitPrice / 100}}</text>
+            <text>×{{item.foodNumber}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class='area' wx:if='{{food.putQuestions.length}}'>
+      <block wx:for='{{food.putQuestions}}' wx:key='{{index}}'>
+        <view class='flex'>
+          <view class='left'>
+            <block wx:if='{{item.spcItems.length}}'>
+              <view>{{item.food.foodName}}</view>
+              <view>{{foodorderconfirm.getSpcItemsText(item.spcItems)}}</view>
+            </block>
+            <block wx:else>
+              <view>{{item.food.foodName}}</view>
+            </block>
+          </view>
+          <view class='right'>
+            <text>{{foodOrder.paidCurrency}}{{item.unitPrice / 100}}</text>
+            <text>×{{item.foodNumber}}</text>
+          </view>
+        </view>
+        <block wx:for='{{item.subOrderItems}}' wx:for-item='sub' wx:for-index='sIdx' wx:key='{{sIdx}}'>
+          <view class='flex'>
+            <view class='left'>
+              <block wx:if='{{sub.spcItems.length}}'>
+                <view>{{sub.food.foodName}}</view>
+                <view>{{foodorderconfirm.getSpcItemsText(sub.spcItems)}}</view>
+              </block>
+              <block wx:else>
+                <view>{{sub.food.foodName}}</view>
+              </block>
+            </view>
+            <view class='right'>
+              <text>×{{sub.foodNumber}}</text>
+            </view>
+          </view>
+        </block>
+      </block>
+    </view>
+    <view class='area' wx:if='{{food.setMeal.length}}'>
+      <block wx:for='{{food.setMeal}}' wx:key='{{index}}'>
+        <view class='flex'>
+          <view class='left'>
+            <block wx:if='{{item.spcItems.length}}'>
+              <view>{{item.food.foodName}}</view>
+              <view>{{foodorderconfirm.getSpcItemsText(item.spcItems)}}</view>
+            </block>
+            <block wx:else>
+              <view>{{item.food.foodName}}</view>
+            </block>
+          </view>
+          <view class='right'>
+            <text>{{foodOrder.paidCurrency}}{{item.unitPrice / 100}}</text>
+            <text>×{{item.foodNumber}}</text>
+          </view>
+        </view>
+        <block wx:for='{{item.subOrderItems}}' wx:for-item='sub' wx:for-index='sIdx' wx:key='{{sIdx}}'>
+          <view class='flex'>
+            <view class='left'>
+              <block wx:if='{{sub.spcItems.length}}'>
+                <view>{{sub.food.foodName}}</view>
+                <view>{{foodorderconfirm.getSpcItemsText(sub.spcItems)}}</view>
+              </block>
+              <block wx:else>
+                <view>{{sub.food.foodName}}</view>
+              </block>
+            </view>
+            <view class='right'>
+              <text>×{{sub.foodNumber}}</text>
+            </view>
+          </view>
+        </block>
+      </block>
+    </view>
+    <view class='area' wx:if='{{food.ordinary.length}}'>
+      <block wx:for='{{food.ordinary}}' wx:key='{{index}}'>
+        <view class='flex'>
+          <view class='left'>
+            <block wx:if='{{item.spcItems.length}}'>
+              <view>{{item.food.foodName}}</view>
+              <view>{{foodorderconfirm.getSpcItemsText(item.spcItems)}}</view>
+            </block>
+            <block wx:else>
+              <view>{{item.food.foodName}}</view>
+            </block>
+          </view>
+          <view class='right'>
+            <text>{{foodOrder.paidCurrency}}{{item.unitPrice / 100}}</text>
+            <text>×{{item.foodNumber}}</text>
+          </view>
+        </view>
+        <block wx:for='{{item.subOrderItems}}' wx:for-item='sub' wx:for-index='sIdx' wx:key='{{sIdx}}'>
+          <view class='flex'>
+            <view class='left'>
+              <block wx:if='{{sub.spcItems.length}}'>
+                <view>{{sub.food.foodName}}</view>
+                <view>{{foodorderconfirm.getSpcItemsText(sub.spcItems)}}</view>
+              </block>
+              <block wx:else>
+                <view>{{sub.food.foodName}}</view>
+              </block>
+            </view>
+            <view class='right'>
+              <text>×{{sub.foodNumber}}</text>
+            </view>
+          </view>
+        </block>
+      </block>
+    </view>
+    <view class='area'>
+      <view class='flex'>
+        <view class='left'>
+          <text>小计</text>
+        </view>
+        <view class='right'>
+          <text class='key_color smallFee'>{{foodOrder.paidCurrency}} {{(orderItems[idx].batch.foodFee) / 100}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+  <view class='order_number'>
+    <view class='number'>
+      <text>全部</text>
+    </view>
+  </view>
+  <view class='area'>
+    <view class='flex'>
+      <view class='left'>
+        <text>菜品总价</text>
+      </view>
+      <view class='right'>
+        <text>{{foodOrder.paidCurrency}} {{(foodOrder.payableAmount) / 100}}</text>
+      </view>
+    </view>
+    <view class='flex'>
+      <view class='left'>
+        <text>茶水费</text>
+      </view>
+      <view class='right'>
+        <text>{{foodOrder.paidCurrency}} {{(foodOrder.teeFee / foodOrder.consumerCount) / 100}} x{{foodOrder.consumerCount}}</text>
+      </view>
+    </view>
+    <view class='flex'>
+      <view class='left'>
+        <text>服务费</text>
+      </view>
+      <view class='right'>
+        <text>{{foodOrder.paidCurrency}} {{(foodOrder.serviceFee) / 100}}</text>
+      </view>
+    </view>
+  </view>
+  <view class='area'>
+    <view class='flex'>
+      <view class='left'>
+        <text>总计</text>
+      </view>
+      <view class='right'>
+        <text class='key_color smallFee'>{{foodOrder.paidCurrency}} {{(foodOrder.totalFee) / 100}}</text>
+      </view>
+    </view>
+  </view>
+</view>
