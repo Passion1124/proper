@@ -89,18 +89,23 @@ Page({
   },
   // 选择图片
   handleClickFileInput () {
+    if (this.data.pics.length >= 9) {
+      return false;
+    }
     let _this = this;
     wx.chooseImage({
-      count: 9 - this.data.pics.length,
+      count: 1,
       success: function(res) {
         console.log(res);
-        res.tempFilePaths.forEach((item, index) => {
-          uploadImage(item, 'comment/', url => {
-            let pics = _this.data.pics;
-            pics.push(url);
-            _this.setData({
-              pics: pics
-            })
+        wx.showLoading({
+          title: '图片上传中',
+        })
+        uploadImage(res.tempFilePaths[0], 'comment/', url => {
+          wx.hideLoading();
+          let pics = _this.data.pics;
+          pics.push(url);
+          _this.setData({
+            pics: pics
           })
         })
       },
@@ -154,5 +159,14 @@ Page({
     } else {
       this.handleCommentAdd();
     }
+  },
+  // 删除图片
+  handleRemovePic (e) {
+    let index = e.currentTarget.dataset.index;
+    let pics = this.data.pics;
+    pics.splice(index, 1);
+    this.setData({
+      pics
+    });
   }
 })
