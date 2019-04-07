@@ -736,3 +736,7 @@
   font-size: 28rpx;
   line-height: 40rpx;
 }
+
+.overlay .inner .inner_main .desc image{
+  width: 100% !important;
+}

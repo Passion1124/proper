@@ -92,13 +92,15 @@
     <view class='queue' data-sn='{{item.sn}}' bindtap='goToTheLineUpDetail'>
       <view class='top'>
         <view>{{item.name}}</view>
-        <view class='status {{(item.orderStatus === 1 || item.orderStatus === 0) ? "blue" : ""}}'>{{dateFr.getLineStatusText(item.orderStatus)}}</view>
+        <view class='status blue}}'>{{dateFr.getLineStatusText(item.lineStatus)}}</view>
       </view>
       <view class='line'></view>
       <view class='bottom'>
         <view class='left'>
           <view>{{item.fullName}}</view>
-          <view>已等{{dateFr.getLinePendingDateText(item.lineAt)}}</view>
+          <view wx:if='{{item.lineStatus === 0 || item.lineStatus === 1}}'>已等{{dateFr.getLinePendingDateText(item.lineAt)}}</view>
+          <view wx:elif='{{item.lineStatus === 2}}'>排队用时：{{dateFr.getLinePendingDateText(item.lineAt)}} | 已点单</view>
+          <view wx:elif='{{item.lineStatus === 3}}'>用时：{{dateFr.getLinePendingDateText(item.lineAt)}} | 已点单</view>
         </view>
         <view class='right' wx:if='{{item.orderStatus !== 1}}'>
           <button data-sn='{{item.sn}}' catchtap='goToTheFoodOrder' wx:if='{{false}}'>点菜</button>
