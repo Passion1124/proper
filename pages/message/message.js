@@ -1,3 +1,5 @@
+import utils from '../../utils/util.js'
+
 const app = getApp()
 
 Page({
@@ -76,17 +78,28 @@ Page({
       console.error(err);
     })
   },
+  getOrderDetail(orderId) {
+    let api = 'com.ttdtrip.api.order.apis.service.OrderDetailApiService';
+    let data = { base: app.globalData.baseBody, orderId };
+    app.request(api, data, res => {
+      console.log(res);
+      let url = '/pages/orderDetail/orderDetail';
+      if (!res.orderMerches.length) {
+        url = '/pages/bookDetail/bookDetail';
+      }
+      utils.navigateTo(url + '?id=' + orderId);
+    }, e => {
+      console.error(e);
+    })
+  },
   goToTheDetail (e) {
     let id = e.currentTarget.dataset.id;
     let title = e.currentTarget.dataset.title;
-    let url = '/pages/orderDetail/orderDetail';
-    if (title === '订单支付') {
-      url = '/pages/bookDetail/bookDetail'
-    } else if (title === '取号成功') {
-      return false;
+    let type = e.currentTarget.dataset.type;
+    if (type === 'order') {
+      this.getOrderDetail(id);
+    } else {
+
     }
-    wx.navigateTo({
-      url: url + '?id=' + id,
-    })
   }
 })
