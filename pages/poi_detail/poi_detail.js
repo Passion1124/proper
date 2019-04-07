@@ -310,7 +310,7 @@ Page({
     let couponId = e.currentTarget.dataset.couponid;
     let id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '/pages/couponDetail/couponDetail?couponId=' + couponId + '&source=poi_detail&id=' + id,
+      url: '/pages/couponDetail/couponDetail?couponId=' + couponId + '&source=poi_detail&id=' + id + '&form=poi',
     })
   },
   goToTheChildProductList (e) {

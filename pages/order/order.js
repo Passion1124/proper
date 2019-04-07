@@ -317,7 +317,7 @@ Page({
       utils.showMessage('请选择场次');
     } else if (!this.data.time_interval && (type === 37 || type === 43) && this.data.goodsItem.goodsItemBase.ext.preOrderTime.length) {
       utils.showMessage('请选择时段');
-    } else if (!this.data.receiver.name) {
+    } else if (!this.data.receiver.name || !this.isChinese(this.data.receiver.name)) {
       utils.showMessage('请输入中文姓名');
     } else if (!this.data.receiver.phoneNo) {
       utils.showMessage('请输入您的手机号码');

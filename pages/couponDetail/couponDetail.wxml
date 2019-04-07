@@ -38,7 +38,7 @@
         <image mode='aspectFill' src='{{coupon.photoUrl}}'></image>
       </view>
       <view class='btn'>
-        <button disabled='{{coupon.usable === 0}}' bindtap='goToTheUseing'>{{coupon.usingOnline ? '前往' : '出示'}}使用</button>
+        <button disabled='{{coupon.usable === 0}}' bindtap='goToTheUseing' wx:if='{{form !== "poi"}}'>{{coupon.usingOnline ? '前往' : '出示'}}使用</button>
       </view>
     </view>
   </view>

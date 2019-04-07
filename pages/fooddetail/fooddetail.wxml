@@ -46,8 +46,10 @@
     <view class='area shops'>
       <view class='business_hours' wx:if='{{goods.goodsInfo.openTime}}'>
         <view class='label'>营业时间：</view>
-        <view class='text'>
-          <view class='date'>{{goods.goodsInfo.openTime}}</view>
+        <view class='text open_time'>
+          <view class='date'>
+            <text>{{goods.goodsInfo.openTime}}</text>
+          </view>
           <!-- <view class='tips'>建议游玩时间为 8小时，这个也是内这个内…</view> -->
         </view>
       </view>
@@ -234,7 +236,9 @@
             </view>
           </view>
           <view class='main'>
-            <view class='text'>{{item.comment}}</view>
+            <view class='text'>
+              <text>{{item.comment}}</text>
+            </view>
             <view class='img_row' wx:if='{{item.pics.length}}'>
               <block wx:for='{{item.pics}}' wx:key='{{pIndex}}' wx:for-item='pItem' wx:for-index='pIndex'>
                 <image mode='aspectFill' src='{{pItem}}'></image>

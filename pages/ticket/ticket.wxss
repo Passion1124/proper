@@ -13,7 +13,7 @@
   box-sizing: border-box;
 }
 
-.ticket-num{
+.ticket-num {
   width: 100%;
   background: linear-gradient(270deg, rgba(36, 225, 226, 1) 0%, rgba(35, 194, 247, 1) 100%);
   box-shadow: 0px 16rpx 40rpx 0px rgba(205, 246, 249, 1);
@@ -51,7 +51,7 @@
   line-height: 33rpx;
 }
 
-.ticket-qr, .ticket-offline{
+.ticket-qr, .ticket-offline {
   width: 100%;
   background: linear-gradient(270deg, rgba(36, 225, 226, 1) 0%, rgba(35, 194, 247, 1) 100%);
   box-shadow: 0px 16rpx 40rpx 0px rgba(205, 246, 249, 1);
@@ -62,26 +62,26 @@
   margin-bottom: 40rpx;
 }
 
-.ticket-qr .ticket-qr_icon{
+.ticket-qr .ticket-qr_icon {
   width: 344rpx;
   height: 344rpx;
   margin: 0 auto 40rpx;
 }
 
-.ticket-qr .ticket-qr_icon image{
+.ticket-qr .ticket-qr_icon image {
   width: 100%;
   height: 100%;
   vertical-align: top;
 }
 
-.ticket-qr .ticket-qr_name{
+.ticket-qr .ticket-qr_name {
   font-size: 36rpx;
   line-height: 50rpx;
   text-align: center;
   margin-bottom: 8rpx;
 }
 
-.ticket-qr .ticket-qr_expire{
+.ticket-qr .ticket-qr_expire {
   font-size: 24rpx;
   line-height: 33rpx;
   text-align: center;
@@ -92,6 +92,9 @@
   line-height: 50rpx;
   color: #fff;
   text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ticket-offline .ticket-offline_expire {

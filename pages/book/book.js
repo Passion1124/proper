@@ -437,17 +437,21 @@ Page({
   handleChangeOrderType(e) {
     let type = e.currentTarget.dataset.type;
     let price = ''
+    let currency = '';
     if (type !== 'order') {
       let item = this.data.goodsItem.find(item => item.goodsItemInfo.giid === type);
       this.getUserCouponUsable(item);
       this.getMerchInventoryl(item);
       price = item.goodsItemBase.amount || item.goodsItemBase.sourceAmount;
+      currency = item.goodsItemBase.currency;
     } else {
-      price = this.data.setting.priceEachOne
+      price = this.data.setting.priceEachOne;
+      currency = this.data.setting.currency;
     }
     this.setData({
       type: type,
-      payPrice: price
+      payPrice: price,
+      currency
     });
   },
   // 判断是否为汉字

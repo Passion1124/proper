@@ -71,7 +71,7 @@
         <view class='info'>
           <view class='c_title'>{{item.merchName}}</view>
           <view class='c_subInfo'>
-            <text>{{item.currency + (item.payPrice / 100)}}</text>
+            <text>{{item.currency + ((item.couponPrice ? item.sourcePrice : item.payPrice) / 100)}}</text>
             <!-- <text wx:if='{{item.extField}}'> / {{dateFr.getExtFieldText(item.extField)}}</text> -->
             <text> / 份数:{{item.merchCount}}</text>
           </view>
