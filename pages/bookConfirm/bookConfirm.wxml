@@ -1,7 +1,7 @@
 <!-- bookConfirm.wxml -->
 <view class='container'>
   <view class='header'>
-    <view class='text active'>预定</view>
+    <view class='text active'>预订</view>
     <view class='arrow'>
       <image src='../../img/book/arrow_active.png'></image>
     </view>
@@ -13,7 +13,7 @@
   </view>
   <view class='book_form'>
     <view class='form_title'>
-      <view class='title_text'>预定信息</view>
+      <view class='title_text'>预订信息</view>
     </view>
     <view class='single'>
       <view class='single_text'>用餐时间</view>

@@ -294,6 +294,8 @@ Page({
       utils.showMessage('请选择用餐时间');
     } else if (!this.data.preOrderInfo.contactor) {
       utils.showMessage('请输入您的姓名');
+    } else if (this.isChinese(this.data.preOrderInfo.contactor)) {
+      utils.showMessage('请使用名字拼音');
     } else if (!this.data.preOrderInfo.mail) {
       utils.showMessage('请输入您的邮箱');
     } else if (this.data.preOrderInfo.mail && !utils.validateEmail(this.data.preOrderInfo.mail)) {
@@ -423,5 +425,10 @@ Page({
       type: type,
       payPrice: price
     });
+  },
+  // 判断是否为汉字
+  isChinese(str) {
+    let reg = new RegExp(/^[\u4e00-\u9fa5]+$/);
+    return reg.test(str);
   }
 })

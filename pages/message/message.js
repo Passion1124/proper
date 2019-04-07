@@ -82,6 +82,8 @@ Page({
     let url = '/pages/orderDetail/orderDetail';
     if (title === '订单支付') {
       url = '/pages/bookDetail/bookDetail'
+    } else if (title === '取号成功') {
+      return false;
     }
     wx.navigateTo({
       url: url + '?id=' + id,
