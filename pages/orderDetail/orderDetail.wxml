@@ -29,7 +29,7 @@
   </view>
   <view class='tips refund' wx:if='{{order.orderStatus === 6 || order.orderStatus === 7}}'>
     <view class='title'>{{order.orderStatus === 6 ? "退款已申请" : "退款已完成"}}</view>
-    <view class='subTitle'>{{order.orderStatus === 6 ? "金额将在7个工作日内原路退" : "请前往您购买时的支付方式查看退回金额"}}</view>
+    <view class='subTitle'>{{order.orderStatus === 6 ? "金额将在7个工作日内原路退回" : "请前往您购买时的支付方式查看退回金额"}}</view>
     <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
   </view>
   <view class='ticket-nums' bindtap='goToTheTicketPage' wx:if='{{merchItems.length > 1 && merchItems[0].vouchWay && order.orderStatus === 3}}'>
@@ -136,7 +136,7 @@
     <view class='text flex'>
       <view class='orange {{order.orderStatus === 7 ? "refund_over" : ""}}'>实付：{{order.payCurrency + (order.payPrice / 100)}}</view>
     </view>
-    <view class='text flex'>
+    <view class='text flex' wx:if='{{order.orderStatus === 7}}'>
       <view class='orange'>已退款：{{order.payCurrency + (order.refundPrice / 100)}}</view>
     </view>
   </view>
