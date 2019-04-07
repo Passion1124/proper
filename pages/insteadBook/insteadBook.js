@@ -59,7 +59,8 @@ Page({
     endDate: '',
     timeRange: [],
     useData: '',
-    useTime: ''
+    useTime: '',
+    submitPay: false
   },
 
   /**
@@ -262,6 +263,7 @@ Page({
   },
   // 生成订单
   handleCreateOrderGen() {
+    if (this.data.submitPay) return false;
     let api = 'com.ttdtrip.api.order.apis.service.OrderGenApiService';
     let p_data = { orderType: 1, orderFrom: 1, orderCategory: 2, receiverId: this.data.receiverId, orderMerches: this.data.orderMerches };
     if (this.data.selectCoupon.couponId) {
@@ -269,6 +271,7 @@ Page({
     };
     let sn = md5(p_data + new Date().getTime());
     let data = Object.assign({ base: app.globalData.baseBody }, p_data, { sn });
+    this.data.submitPay = true;
     app.request(api, data, res => {
       console.log(res);
       if (this.data.price * this.data.orderMerches.merchCount) {
@@ -276,8 +279,10 @@ Page({
       } else {
         utils.navigateTo('/pages/payresult/payresult?orderId=' + res.orderId + '&giid=' + this.data.giid);
       }
+      this.data.submitPay = false;
     }, err => {
       console.error(err);
+      this.data.submitPay = false;
     })
   },
   // 初始化页面获取日期选择的起始时间
