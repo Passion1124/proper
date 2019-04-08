@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 19,
+			"current": 18,
 			"list": [
 				{
 					"id": 0,
@@ -111,10 +111,10 @@
 					"scene": null
 				},
 				{
-					"id": 10,
+					"id": 11,
 					"name": "点菜",
 					"pathName": "pages/foodorder/foodorder",
-					"query": "mid=9d8d5e7e-1155-4bcf-b8a6-b3ec079d7ef2&tno=001",
+					"query": "sn=f6869ec232bc40d8933f45cc34e7fd67",
 					"scene": null
 				},
 				{
@@ -140,14 +140,14 @@
 				},
 				{
 					"id": 15,
-					"name": "代预定",
+					"name": "代预订",
 					"pathName": "pages/insteadFood/insteadFood",
 					"query": "giid=a8d567a9-03f3-4784-bb82-7c4dc868f79d",
 					"scene": null
 				},
 				{
 					"id": 15,
-					"name": "代预定信息",
+					"name": "代预订信息",
 					"pathName": "pages/insteadBook/insteadBook",
 					"query": "mid=2432272d-ff6b-46ad-a195-a186e88d60a4&shopName=livia0307添加的餐厅&gid=727175c5-e5d6-4373-a2e3-14daa1758e05&giid=d651b596-c8bc-4a67-bce7-de97fa25af25",
 					"scene": null
@@ -160,24 +160,17 @@
 					"scene": null
 				},
 				{
-					"id": 18,
-					"name": "确认点菜",
-					"pathName": "pages/foodorderconfirm/foodorderconfirm",
-					"query": "foodOrderId=515ee887-79fb-4011-b14e-8a4a72c4bd22&mid=9d8d5e7e-1155-4bcf-b8a6-b3ec079d7ef2&tno=001&personNum=11",
-					"scene": null
-				},
-				{
-					"id": 18,
-					"name": "加菜",
-					"pathName": "pages/foodadd/foodadd",
-					"query": "orderId=515ee887-79fb-4011-b14e-8a4a72c4bd22",
+					"id": -1,
+					"name": "关于",
+					"pathName": "pages/about/about",
+					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
-					"name": "点菜订单详情",
-					"pathName": "pages/orderDishesDetail/orderDishesDetail",
-					"query": "id=c8423599-3549-484b-949f-e0f360c53bd5",
+					"name": "核销页面",
+					"pathName": "pages/ticket/ticket",
+					"query": "orderId=a97da913e1f843a99b2ea9934a45497e&merchId=bc007b71-75a4-47f3-a2d5-5d9604015ebe",
 					"scene": null
 				}
 			]

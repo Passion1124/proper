@@ -88,7 +88,7 @@
       <view class='reserve' wx:if='{{goods.goodsBase.reserve}}'>
         <view class='left'>
           <view class='l_title'>预订</view>
-          <view class='l_subTitle'>提前{{setting.preOrderDays || 0}}天预定 | 中文预订</view>
+          <view class='l_subTitle'>提前{{setting.preOrderDays || 0}}天预订 | 中文预订</view>
         </view>
         <view class='right'>
           <button bindtap='goToTheBookPage'>预订</button>
@@ -142,20 +142,20 @@
       <view class='product_num' bindtap='goToTheFoodMealList' wx:if='{{goodsItemCount > 1}}'>查看全部{{goodsItemCount}}个套餐</view>
     </view>
     <view class='area' wx:if='{{preOrderGoodsItem.length}}'>
-      <view class='area_title'>用餐代预定</view>
+      <view class='area_title'>用餐代预订</view>
       <view class='help_booking'>
         <block wx:for='{{preOrderGoodsItem}}' wx:key='{{index}}'>
           <view class='list'>
             <view class='left'>
               <view class='title'>{{item.goodsItemInfo.name}}</view>
-              <view class='info'>可订{{item.goodsItemBase.preOrderDays}}日内 | 中文预定</view>
+              <view class='info'>可订{{item.goodsItemBase.preOrderDays}}日内 | 中文预订</view>
               <view class='price'>
                 <view class='present'>{{item.goodsItemBase.currency}}{{item.goodsItemBase.amount ? item.goodsItemBase.amount / 100 : item.goodsItemBase.sourceAmount / 100 }}/人</view>
                 <view class='original' wx:if='{{item.goodsItemBase.amount && item.goodsItemBase.amount !== item.goodsItemBase.sourceAmount}}'>{{item.goodsItemBase.currency}}{{item.goodsItemBase.sourceAmount / 100 }}/人</view>
               </view>
             </view>
             <view class='right'>
-              <button data-giid='{{item.goodsItemInfo.giid}}' bindtap='goToTheInsteadFoodPage'>预定</button>
+              <button data-giid='{{item.goodsItemInfo.giid}}' bindtap='goToTheInsteadFoodPage'>预订</button>
             </view>
           </view>
         </block>

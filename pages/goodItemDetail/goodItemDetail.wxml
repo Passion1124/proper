@@ -90,7 +90,7 @@
       <text>{{goodsItem.goodsItemBase.currency}}{{(goodsItem.goodsItemBase.amount ? goodsItem.goodsItemBase.amount : goodsItem.goodsItemBase.sourceAmount) / 100}}</text>
     </view>
     <view class='btn'>
-      <button bindtap='goToTheAdvanceOrder'>填写预定信息</button>
+      <button bindtap='goToTheAdvanceOrder'>填写预订信息</button>
     </view>
   </view>
 </view>

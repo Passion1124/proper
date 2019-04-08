@@ -20,7 +20,7 @@
     </view>
   </view>
   <view class='panel'>
-    <view class='panel_hd'>预定信息</view>
+    <view class='panel_hd'>预订信息</view>
     <view class='panel_bd mt_22'>
       <view class='panel_info'>排队号：{{foodOrder.lineName}}</view>
       <view class='panel_info'>订单号：{{foodOrder.transactionNo}}</view>

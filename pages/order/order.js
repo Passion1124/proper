@@ -271,7 +271,6 @@ Page({
   },
   // 生成订单
   handleCreateOrderGen () {
-    if (this.data.createOrder) return false;
     let api = 'com.ttdtrip.api.order.apis.service.OrderGenApiService';
     let p_data = { orderType: 1, orderFrom: 1, receiverId: this.data.receiverId, orderMerches: this.data.orderMerches };
     if (this.data.selectCoupon.couponId) {
@@ -279,7 +278,9 @@ Page({
     };
     let sn = md5(p_data + new Date().getTime());
     let data = Object.assign({ base: app.globalData.baseBody }, p_data, { sn });
-    this.data.createOrder = true;
+    this.setData({
+      createOrder: true
+    })
     app.request(api, data, res => {
       console.log(res);
       let price = this.getOrderPayPrice(this.data.price * this.data.orderMerches.merchCount, this.data.selectCoupon);
@@ -288,10 +289,14 @@ Page({
       } else {
         utils.navigateTo('/pages/payresult/payresult?orderId=' + res.orderId + '&giid=' + this.data.giid);
       }
-      this.data.createOrder = false;
+      this.setData({
+        createOrder: false
+      })
     }, err => {
       console.error(err);
-      this.data.createOrder = false;
+      this.setData({
+        createOrder: false
+      })
     })
   },
   // 点击去付款按钮

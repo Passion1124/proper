@@ -156,7 +156,7 @@ Page({
       console.error(e);
     })
   },
-  // 代预定列表
+  // 代预订列表
   getPreOrderGoodsItemList () {
     let api = 'com.ttdtrip.api.goods.apis.GoodsItemListApiService';
     let data = {
@@ -447,7 +447,7 @@ Page({
       url: '/pages/morecomment/morecomment?target=' + this.data.gid,
     })
   },
-  // 去预定页面
+  // 去预订页面
   goToTheBookPage() {
     utils.userIsLogin().then(_ => {
       let goods = this.data.goods;
@@ -477,7 +477,7 @@ Page({
       console.log('unLogin');
     })
   },
-  // 去代预定页面
+  // 去代预订页面
   goToTheInsteadFoodPage (e) {
     utils.userIsLogin().then(_ => {
       let giid = e.currentTarget.dataset.giid;
