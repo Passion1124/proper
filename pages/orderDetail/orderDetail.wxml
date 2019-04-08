@@ -132,7 +132,7 @@
       <view class='orange'>{{order.payCurrency + (order.couponPrice / 100)}}</view>
     </view>
   </view>
-  <view class='row'>
+  <view class='row' wx:if='{{order.orderStatus !== 0}}'>
     <view class='text flex'>
       <view class='orange {{order.orderStatus === 7 ? "refund_over" : ""}}'>实付：{{order.payCurrency + (order.payPrice / 100)}}</view>
     </view>
