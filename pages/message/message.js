@@ -84,7 +84,7 @@ Page({
     app.request(api, data, res => {
       console.log(res);
       let url = '/pages/orderDetail/orderDetail';
-      if (!res.orderMerches.length) {
+      if (res.order.preOrder && res.order.preOrder.timeEnd) {
         url = '/pages/bookDetail/bookDetail';
       }
       utils.navigateTo(url + '?id=' + orderId);
