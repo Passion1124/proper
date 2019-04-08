@@ -92,14 +92,27 @@ Page({
       console.error(e);
     })
   },
+  getLineWaitInfo (sn) {
+    let api = 'com.ttdtrip.api.goods.apis.line.LineWaitApiService';
+    let data = { base: app.globalData.baseBody, lineStatus: 1, sn };
+    app.request(api, data, res => {
+      console.log(res);
+      utils.navigateTo('/pages/foodorder/foodorder?sn=' + sn + '&mid=' + res.line.mid);
+    }, e => {
+      console.error(e);
+    })
+  },
   goToTheDetail (e) {
     let id = e.currentTarget.dataset.id;
     let title = e.currentTarget.dataset.title;
     let type = e.currentTarget.dataset.type;
     if (type === 'order') {
       this.getOrderDetail(id);
-    } else {
-
+    } else if (type === 'foodqueue') {
+      this.getLineWaitInfo(id);
+    } else if (type === 'content') {
+      let url = '/pages/orderDishesDetail/orderDishesDetail?id=' + id;
+      utils.navigateTo(url);
     }
   }
 })

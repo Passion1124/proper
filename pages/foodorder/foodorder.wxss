@@ -89,6 +89,11 @@ page {
   margin-top: 30rpx;
 }
 
+.top_info .goods .goods_other .tags{
+  display: flex;
+  align-items: center;
+}
+
 .top_info .goods .goods_other .tags view {
   font-size: 24rpx;
   line-height: 30rpx;

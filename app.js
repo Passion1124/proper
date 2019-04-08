@@ -49,7 +49,8 @@ App({
               url: '/pages/signIn/signIn',
             });
           } else {
-            if (res.data.ret_code !== '1113' && res.data.ret_code !== '9008' && res.data.ret_code !== '9001') {
+            let code_arr = ['1113', '9008', '9001', '3102'];
+            if (code_arr.indexOf(res.data.ret_code) === -1) {
               utils.showMessage(res.data.ret_msg);
             }
             fail(res.data);
