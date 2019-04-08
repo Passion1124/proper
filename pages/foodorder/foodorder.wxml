@@ -2,7 +2,13 @@
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <wxs module="foodorderconfirm" src='../../utils/wxs/foodorderconfirm.wxs'></wxs>
 <import src="../../wxParse/wxParse.wxml" />
-<view class='container'>
+<view class='order_over' wx:if='{{orderStatus === "over"}}'>
+  <view class='foodorder_warning'>
+    <image src='../../img/foodorder/foodorder_warning.png'></image>
+  </view>
+  <view class='text'>订单已完成</view>
+</view>
+<view class='container' wx:else>
   <view class='top_info'>
     <view class='goods' data-gid='{{goods.goodsInfo.gid}}' bindtap='handleGoToTheGoodsDetailPage'>
       <view class='goods_main'>

@@ -43,7 +43,8 @@ Page({
     maskStatus: 'hide',
     popup: false,
     popupType: '',
-    popupStatus: 'hide'
+    popupStatus: 'hide',
+    orderStatus: ''
   },
 
   /**
@@ -176,6 +177,11 @@ Page({
       this.handleFoodOrderGenSuccessCallback(res);
     }, e => {
       console.error(e);
+      if (e.ret_code === '3102') {
+        this.setData({
+          orderStatus: 'over'
+        })
+      }
     })
   },
   // 通过扫码进入
