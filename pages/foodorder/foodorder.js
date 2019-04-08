@@ -345,7 +345,7 @@ Page({
       })
     } else if (res.foodOrderBatch) {
       util.redirectTo('/pages/foodadd/foodadd?orderId=' + res.foodOrderId);
-    } else {
+    } else if (!this.data.consumerCount) {
       wx.redirectTo({
         url: '/pages/chooseFoodNumber/chooseFoodNumber?foodOrderId=' + res.foodOrderId
       });
