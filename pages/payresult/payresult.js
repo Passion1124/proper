@@ -9,10 +9,12 @@ Page({
    */
   data: {
     giid: '',
+    mid: '',
     preOrderId: '',
     orderId: '',
     goods: [],
     goodsItem: {},
+    goodsVo: {},
     result: 'success'
   },
 
@@ -24,8 +26,14 @@ Page({
     this.data.giid = options.giid;
     this.data.preOrderId = options.preOrderId;
     this.data.orderId = options.orderId;
+    if (options.mid) {
+      this.setData({
+        mid: options.mid
+      })
+    }
     if (this.data.preOrderId) this.handlePayOrderSync();
-    this.getGoodsItemDetail();
+    if (this.data.giid) this.getGoodsItemDetail();
+    if (this.data.mid) this.getGoodsDetail();
     this.getRGoodsList();
   },
 
@@ -103,6 +111,19 @@ Page({
       console.error(e);
     })
   },
+  // 获取商品详情
+  getGoodsDetail () {
+    let api = 'com.ttdtrip.api.goods.apis.GoodsDetailApiService';
+    let data = { base: app.globalData.baseBody, spec: 1, mid: this.data.mid };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        goodsVo: res.goodsVO
+      })
+    }, e => {
+      console.error(e);
+    })
+  },
   // 猜你喜欢
   getRGoodsList: function () {
     let api = 'com.ttdtrip.api.goods.apis.RGoodsListApiService';
@@ -129,9 +150,12 @@ Page({
   },
   // 点击再次购买
   handleClickAgainShoppingButton () {
-    let url = '/pages/order/order?giid=' + this.data.giid + '&type=' + this.data.goodsItem.goodsItemBase.gType;
-    if (this.data.goodsItem.goodsItemBase.gType === 2) {
-      url = '/pages/foodchoose/foodchoose?giid=' + this.data.giid;
+    let url = '';
+    if (this.data.goodsItem.goodsItemBase) {
+      url = '/pages/order/order?giid=' + this.data.giid + '&type=' + this.data.goodsItem.goodsItemBase.gType;
+      if (this.data.goodsItem.goodsItemBase.gType === 2) url = '/pages/foodchoose/foodchoose?giid=' + this.data.giid;
+    } else if (this.data.mid) {
+      url = '/pages/book/book?mid=' + this.data.mid + '&shopName=' + this.data.goodsVo.goodsInfo.name + '&gid=' + this.data.goodsVo.goodsInfo.gid;
     }
     utils.navigateTo(url);
   }

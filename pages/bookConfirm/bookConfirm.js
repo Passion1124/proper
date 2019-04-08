@@ -103,8 +103,12 @@ Page({
     this.data.infoSure = true;
     app.request(api, data, res => {
       console.log(res);
+      let url = '/pages/pay/pay?orderId=' + res.orderId + '&orderNo=' + res.orderNo + '&currency=' + res.currency + '&type=2';
+      if (!res.payPrice) {
+        url = '/pages/payresult/payresult?orderId=' + res.orderId + '&mid=' + this.data.preOrderInfo.mid;
+      }
       wx.navigateTo({
-        url: '/pages/pay/pay?orderId=' + res.orderId + '&orderNo=' + res.orderNo + '&currency=' + res.currency + '&type=2',
+        url: url,
       })
       this.data.infoSure = false;
     }, err => {
