@@ -1,6 +1,9 @@
 //app.js
 import md5 from './utils/md5.js'
 import utils from './utils/util.js'
+
+const debug = true;
+
 App({
   onLaunch: function() {
     var city = wx.getStorageSync('city') || '';
@@ -20,7 +23,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    baseUrl: 'http://47.99.42.94:8080/gateway/',
+    baseUrl: debug ? 'http://47.99.42.94:8080/gateway/' : 'https://api.ttd-trip.com/gateway',
     baseBody: {
       language: "zh-cn",
       lat: 0,
