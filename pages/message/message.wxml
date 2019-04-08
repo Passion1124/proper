@@ -3,7 +3,7 @@
 <view class='container'>
   <view class='un_empty' wx:if='{{msgs.length}}'>
     <block wx:for='{{msgs}}' wx:key='{{index}}'>
-      <view class='list' data-id='{{item.target}}' data-title='{{item.title}}' data-type='{{item.type}}' bindtap='goToTheDetail'>
+      <view class='list' data-type='{{item.type}}' data-id='{{item.target}}' data-title='{{item.title}}' bindtap='goToTheDetail'>
         <view class='title'>{{item.title}}</view>
         <view class='subTitle' wx:if="{{false}}">你的酒店已预订成功2</view>
         <view class='introduce'>{{item.content}}</view>

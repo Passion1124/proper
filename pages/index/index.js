@@ -197,5 +197,13 @@ Page({
     this.setData({
       tabs_type: e.currentTarget.dataset.type
     });
+  },
+  // banner点击跳转
+  handleBannerLink (e) {
+    let link = e.currentTarget.dataset.link;
+    let params = link.split('?')[1];
+    if (link.indexOf('good') !== -1) {
+      utils.navigateTo('/pages/poi_detail/poi_detail?' + params);
+    }
   }
 })

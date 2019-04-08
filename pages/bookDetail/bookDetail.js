@@ -93,8 +93,8 @@ Page({
   },
   // 取消订单
   handleOrderCancel() {
-    let api = 'com.ttdtrip.api.order.apis.service.OrderCancelApiService';
-    let data = { base: app.globalData.baseBody, orderId: this.data.orderId };
+    let api = 'com.ttdtrip.api.order.apis.service.OrderRefundingApiService';
+    let data = { base: app.globalData.baseBody, orderId: this.data.orderId, reason: '用户主动申请退款' };
     app.request(api, data, res => {
       console.log(res);
       this.handleOrderDetail();

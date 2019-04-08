@@ -3,7 +3,7 @@
 <view class='container'>
   <block wx:if='{{result}}'>
     <view class='header'>
-      <view class='text active'>预定</view>
+      <view class='text active'>预订</view>
       <view class='arrow'>
         <image src='../../img/book/arrow_active.png'></image>
       </view>
@@ -49,13 +49,13 @@
           </view>
           <view class='price' wx:if='{{!orderMerches.length}}'>
             <view class='icon'>
-              <image src='../../img/book/book_icon_num.png'></image>
+              <image src='../../img/book/book_icon_amount.png'></image>
             </view>
             <view class='text'>{{order.preOrder.priceEachOne / 100}}/人</view>
           </view>
           <view class='smoke'>
             <view class='icon'>
-              <image src='../../img/book/book_icon_num.png'></image>
+              <image src='../../img/book/book_icon_smoke.png'></image>
             </view>
             <view class='text' wx:if='{{order.preOrder.allowSmoke === 1}}'>吸烟区</view>
             <view class='text' wx:if='{{order.preOrder.allowSmoke === 0}}'>非吸烟区</view>
@@ -63,7 +63,7 @@
           </view>
           <view class='box'>
             <view class='icon'>
-              <image src='../../img/book/book_icon_num.png'></image>
+              <image src='../../img/book/book_icon_room.png'></image>
             </view>
             <view class='text' wx:if='{{order.preOrder.isBox}}'>需要</view>
             <view class='text' wx:else>不需要</view>
@@ -93,9 +93,9 @@
           <view>{{item}}</view>
         </block>
       </view>
-      <view class='btn_row' wx:if='{{order.orderStatus === -1}}'>
+      <view class='btn_row {{order.orderStatus === 3 ? "flex_center" : ""}}' wx:if='{{order.orderStatus === -1 || order.orderStatus === 3}}'>
         <button bindtap='handleClickOrderCancelButton'>取消订单</button>
-        <button bindtap='goToThePay'>立即付款</button>
+        <button bindtap='goToThePay' wx:if='{{order.orderStatus === -1}}'>立即付款</button>
       </view>
     </view>
   </view>

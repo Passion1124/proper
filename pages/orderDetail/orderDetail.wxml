@@ -27,9 +27,9 @@
   <view class='tips tbc' wx:if='{{order.orderStatus === 1}}'>
     <view class='title'>亲，我们正在核实您的商品，请耐心等待</view>
   </view>
-  <view class='tips refund' wx:if='{{order.orderStatus === 6}}'>
-    <view class='title'>退款已申请</view>
-    <view class='subTitle'>金额将在7个工作日内原路退</view>
+  <view class='tips refund' wx:if='{{order.orderStatus === 6 || order.orderStatus === 7}}'>
+    <view class='title'>{{order.orderStatus === 6 ? "退款已申请" : "退款已完成"}}</view>
+    <view class='subTitle'>{{order.orderStatus === 6 ? "金额将在7个工作日内原路退回" : "请前往您购买时的支付方式查看退回金额"}}</view>
     <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
   </view>
   <view class='ticket-nums' bindtap='goToTheTicketPage' wx:if='{{merchItems.length > 1 && merchItems[0].vouchWay && order.orderStatus === 3}}'>
@@ -71,7 +71,7 @@
         <view class='info'>
           <view class='c_title'>{{item.merchName}}</view>
           <view class='c_subInfo'>
-            <text>{{item.currency + (item.payPrice / 100)}}</text>
+            <text>{{item.currency + ((item.sourcePrice - item.discountPrice) / 100)}}</text>
             <!-- <text wx:if='{{item.extField}}'> / {{dateFr.getExtFieldText(item.extField)}}</text> -->
             <text> / 份数:{{item.merchCount}}</text>
           </view>
@@ -134,7 +134,10 @@
   </view>
   <view class='row'>
     <view class='text flex'>
-      <view class='orange'>实付：{{order.payCurrency + (order.payPrice / 100)}}</view>
+      <view class='orange {{order.orderStatus === 7 ? "refund_over" : ""}}'>实付：{{order.payCurrency + (order.payPrice / 100)}}</view>
+    </view>
+    <view class='text flex' wx:if='{{order.orderStatus === 7}}'>
+      <view class='orange'>已退款：{{order.payCurrency + (order.refundPrice / 100)}}</view>
     </view>
   </view>
   <view class='row' wx:if='{{order.orderStatus === 2 || order.orderStatus === 3}}'>

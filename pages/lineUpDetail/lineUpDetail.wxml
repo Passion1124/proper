@@ -1,4 +1,5 @@
 <!-- lineUpDetail.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container'>
   <view class='header' wx:if='{{!skipType}}'>
     <view class='text active'>人数</view>
@@ -11,10 +12,10 @@
     </view>
     <view class='text active'>排队</view>
   </view>
-  <view class='queue {{line.lineStatus === 3 ? "over" : ""}}'>
-    <view class='queue_status' wx:if='{{line.lineStatus === 3}}'>已就餐</view>
+  <view class='queue {{(!line.lineStatus || line.lineStatus === 1) ? "" : "gray_bgc"}}'>
+    <view class='status' wx:if='{{line.lineStatus}}'>{{dateFr.getLineStatusText(line.lineStatus)}}</view>
     <view class='queue_single'>排队单</view>
-    <view class='main_info' wx:if='{{line.lineStatus !== 3}}'>
+    <view class='main_info' wx:if='{{!line.lineStatus || line.lineStatus === 1}}'>
       <block wx:if='{{lineStatus === "wait"}}'>
         <view class='title'>正在排队</view>
         <view class='subTitle'>正在排队，请稍等</view>

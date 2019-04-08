@@ -249,24 +249,32 @@ var DateFr = {
     var h = Math.floor((diff % (3600 * 24) / 3600));
     var m = Math.floor((diff % 3600 / 60));
     var s = Math.floor((diff % 60)) < 10 ? '0' + Math.floor((diff % 60)) : Math.floor((diff % 60));
-    return d > 0 ? d + '天' + h + '时' + m + '分' : h + '时' + m + '分钟';
+    var str = '';
+    if (d) str += d + '天';
+    if (h) str += h + '时';
+    if (m) str += m + '分';
+    return str;
+  },
+  getLineOverDateText: function (lineAt, overAt) {
+    var diff = overAt - lineAt;
+    var d = Math.floor(diff / (24 * 3600 * 1000));
+    var leave1 = diff % (24 * 3600 * 1000);    //计算天数后剩余的毫秒数
+    var h = Math.floor(leave1 / (3600 * 1000));
+    var leave2 = leave1 % (3600 * 1000);        //计算小时数后剩余的毫秒数
+    var m = Math.floor(leave2 / (60 * 1000));
+    var str = '';
+    if (d) str += d + '天';
+    if (h) str += h + '时';
+    if (m) str += m + '分'; 
+    return str;
   },
   getLineStatusText: function (status) {
     var str = '';
-    if (status === 1 || status === 0) str = '排队中';
-    if (status === 2) str = '已就餐';
+    if (status === 0) str = '排队中';
+    if (status === 1) str = '排队中';
+    if (status === 2) str = '已过号';
     if (status === 3) str = '已就餐';
     if (status === 4) str = '商户下线';
-    return str;
-  },
-  // 获取点菜订单状态文本
-  getFoodStatusText: function (status) {
-    var str = '';
-    if (status === 0) str = '初始化状态';
-    if (status === 1) str = '就餐中';
-    if (status === 3) str = '待评价';
-    if (status === 4) str = '已取消';
-    if (status === 5) str = '已完成';
     return str;
   },
   getFoodOrderTotal: function (dots) {
@@ -564,7 +572,8 @@ module.exports = {
   getExtFieldText: DateFr.getExtFieldText,
   getPayTypeText: DateFr.getPayTypeText,
   secondToDate: DateFr.secondToDate,
-  getLinePendingDateText: DateFr.getLinePendingDateText, 
+  getLinePendingDateText: DateFr.getLinePendingDateText,
+  getLineOverDateText: DateFr.getLineOverDateText,
   getLineStatusText: DateFr.getLineStatusText,
   getFoodStatusText: DateFr.getFoodStatusText,
   getFoodOrderTotal: DateFr.getFoodOrderTotal,

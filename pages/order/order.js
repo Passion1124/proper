@@ -91,7 +91,8 @@ Page({
     tourism: [11, 12],
     traffic: [31, 32, 33, 34, 35, 38],
     play: [36, 37, 41, 42, 43],
-    time_interval: ''
+    time_interval: '',
+    createOrder: false
   },
 
   /**
@@ -270,6 +271,7 @@ Page({
   },
   // 生成订单
   handleCreateOrderGen () {
+    if (this.data.createOrder) return false;
     let api = 'com.ttdtrip.api.order.apis.service.OrderGenApiService';
     let p_data = { orderType: 1, orderFrom: 1, receiverId: this.data.receiverId, orderMerches: this.data.orderMerches };
     if (this.data.selectCoupon.couponId) {
@@ -277,6 +279,7 @@ Page({
     };
     let sn = md5(p_data + new Date().getTime());
     let data = Object.assign({ base: app.globalData.baseBody }, p_data, { sn });
+    this.data.createOrder = true;
     app.request(api, data, res => {
       console.log(res);
       let price = this.getOrderPayPrice(this.data.price * this.data.orderMerches.merchCount, this.data.selectCoupon);
@@ -285,8 +288,10 @@ Page({
       } else {
         utils.navigateTo('/pages/payresult/payresult?orderId=' + res.orderId + '&giid=' + this.data.giid);
       }
+      this.data.createOrder = false;
     }, err => {
       console.error(err);
+      this.data.createOrder = false;
     })
   },
   // 点击去付款按钮
@@ -317,7 +322,7 @@ Page({
       utils.showMessage('请选择场次');
     } else if (!this.data.time_interval && (type === 37 || type === 43) && this.data.goodsItem.goodsItemBase.ext.preOrderTime.length) {
       utils.showMessage('请选择时段');
-    } else if (!this.data.receiver.name) {
+    } else if (!this.data.receiver.name || !this.isChinese(this.data.receiver.name)) {
       utils.showMessage('请输入中文姓名');
     } else if (!this.data.receiver.phoneNo) {
       utils.showMessage('请输入您的手机号码');

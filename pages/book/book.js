@@ -55,7 +55,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.data.mid = options.mid;
     this.data.preOrderInfo.mid = options.mid;
     this.data.gid = options.gid;
@@ -71,50 +71,50 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-    
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-    
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-    
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-    
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-    
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-    
+  onShareAppMessage: function() {
+
   },
   // 子商品列表
   getGoodsItemList() {
@@ -137,7 +137,7 @@ Page({
     })
   },
   // 预订单设置查询
-  getPreOrderSetting () {
+  getPreOrderSetting() {
     let api = 'com.ttdtrip.api.order.apis.service.PreOrderSettingApiService';
     let data = {
       base: app.globalData.baseBody,
@@ -181,9 +181,11 @@ Page({
     });
   },
   // 最近使用的收货信息
-  getReceiverLatest () {
+  getReceiverLatest() {
     let api = 'com.ttdtrip.api.order.apis.service.ReceiverLatestApiService';
-    let data = { base: app.globalData.baseBody };
+    let data = {
+      base: app.globalData.baseBody
+    };
     app.request(api, data, res => {
       console.log(res);
       this.setData({
@@ -195,7 +197,7 @@ Page({
       console.error(e);
     })
   },
-  initPreOrderBookTime () {
+  initPreOrderBookTime() {
     // this.data.setting.preOrderDays * 
     let timestamp = new Date().getTime() + 24 * 3600 * 1000;
     let date = new Date(timestamp);
@@ -215,7 +217,10 @@ Page({
       merchType: item.goodsItemBase.subType
     }
     let api = 'com.ttdtrip.api.order.apis.service.UserCouponUsableApiService';
-    let data = { base: app.globalData.baseBody, orderMerches: orderMerches };
+    let data = {
+      base: app.globalData.baseBody,
+      orderMerches: orderMerches
+    };
     app.request(api, data, res => {
       console.log(res);
       this.setData({
@@ -228,7 +233,12 @@ Page({
   // 获取商品库存信息
   getMerchInventoryl(item) {
     let api = 'com.ttdtrip.api.order.apis.service.MerchInventorylApiService';
-    let data = { base: app.globalData.baseBody, itemValues: {}, merchId: item.goodsItemInfo.giid, merchType: item.goodsItemBase.subType };
+    let data = {
+      base: app.globalData.baseBody,
+      itemValues: {},
+      merchId: item.goodsItemInfo.giid,
+      merchType: item.goodsItemBase.subType
+    };
     app.request(api, data, res => {
       console.log(res);
       this.data.maxNum = res.merchInventory.consumableCount;
@@ -240,7 +250,13 @@ Page({
   handleSaveReceiverInfo() {
     let api = 'com.ttdtrip.api.order.apis.service.ReceiverSaveApiService';
     let preOrderInfo = this.data.preOrderInfo;
-    let data = Object.assign({ base: app.globalData.baseBody }, { name: preOrderInfo.contactor, email: preOrderInfo.mail, phoneNo: preOrderInfo.phoneNo });
+    let data = Object.assign({
+      base: app.globalData.baseBody
+    }, {
+      name: preOrderInfo.contactor,
+      email: preOrderInfo.mail,
+      phoneNo: preOrderInfo.phoneNo
+    });
     app.request(api, data, res => {
       console.log(res);
       this.data.receiverId = res.receiverId;
@@ -268,7 +284,11 @@ Page({
   // 生成订单
   handleCreateOrderGen() {
     let api = 'com.ttdtrip.api.order.apis.service.OrderGenApiService';
-    let p_data = { orderType: 0, receiverId: this.data.receiverId, preOrderInfo: this.data.preOrderInfo };
+    let p_data = {
+      orderType: 0,
+      receiverId: this.data.receiverId,
+      preOrderInfo: this.data.preOrderInfo
+    };
     if (this.data.type !== 'order') {
       p_data.orderMerches = this.data.orderMerches;
     }
@@ -276,7 +296,11 @@ Page({
       p_data.couponId = this.data.selectCoupon.couponId;
     };
     let sn = md5(p_data + new Date().getTime());
-    let data = Object.assign({ base: app.globalData.baseBody }, p_data, { sn });
+    let data = Object.assign({
+      base: app.globalData.baseBody
+    }, p_data, {
+      sn
+    });
     app.request(api, data, res => {
       console.log(res);
       wx.navigateTo({
@@ -294,6 +318,8 @@ Page({
       utils.showMessage('请选择用餐时间');
     } else if (!this.data.preOrderInfo.contactor) {
       utils.showMessage('请输入您的姓名');
+    } else if (this.checkIsChinese(this.data.preOrderInfo.contactor)) {
+      utils.showMessage('请使用名字拼音');
     } else if (!this.data.preOrderInfo.mail) {
       utils.showMessage('请输入您的邮箱');
     } else if (this.data.preOrderInfo.mail && !utils.validateEmail(this.data.preOrderInfo.mail)) {
@@ -316,7 +342,7 @@ Page({
     }
   },
   // 点击减号
-  bindMinus: function () {
+  bindMinus: function() {
     var num = this.data.preOrderInfo.totalCount;
     // 如果大于1时，才可以减  
     if (num > 1) {
@@ -329,7 +355,7 @@ Page({
     });
   },
   // 点击加号
-  bindPlus: function () {
+  bindPlus: function() {
     var num = this.data.preOrderInfo.totalCount;
     num++;
     // 将数值与状态写回  
@@ -339,7 +365,7 @@ Page({
     });
   },
   // 输入框事件
-  bindManual: function (e) {
+  bindManual: function(e) {
     var num = e.detail.value;
     if (num < 1) {
       num = 1;
@@ -350,7 +376,7 @@ Page({
     })
   },
   // 修改用餐日期
-  handleChangeDate (e) {
+  handleChangeDate(e) {
     this.setData({
       ['preOrderInfo.date']: e.detail.value,
       ['preOrderInfo.time']: ''
@@ -358,19 +384,19 @@ Page({
     this.getPreOrderBookTime(e.detail.value.replace(/-/g, ''));
   },
   // 修改用餐时间
-  handleChangeTime (e) {
+  handleChangeTime(e) {
     this.setData({
       ['preOrderInfo.time']: e.detail.value
     });
   },
   // 点击用餐时间
-  handleClickEatTime (e) {
+  handleClickEatTime(e) {
     if (!this.data.preOrderInfo.date) {
       utils.showMessage('请选择用餐日期');
     }
   },
   // 修改包间
-  handleChangeBox (e) {
+  handleChangeBox(e) {
     let box = parseInt(e.currentTarget.dataset.box);
     this.setData({
       ['preOrderInfo.isBox']: box
@@ -384,7 +410,7 @@ Page({
     })
   },
   // 修改输入框的值
-  handleChangeInputValue (e) {
+  handleChangeInputValue(e) {
     let type = e.currentTarget.dataset.type;
     let str = '';
     if (type === 'name') {
@@ -399,7 +425,7 @@ Page({
     });
   },
   // 修改预约说明
-  handleChangeOrderExplain (e) {
+  handleChangeOrderExplain(e) {
     let index = parseInt(e.currentTarget.dataset.index);
     let arr = this.data.checkedCustomer;
     arr[index] = !arr[index];
@@ -408,20 +434,33 @@ Page({
     });
   },
   // 修改预订的类型
-  handleChangeOrderType (e) {
+  handleChangeOrderType(e) {
     let type = e.currentTarget.dataset.type;
     let price = ''
+    let currency = '';
     if (type !== 'order') {
       let item = this.data.goodsItem.find(item => item.goodsItemInfo.giid === type);
       this.getUserCouponUsable(item);
       this.getMerchInventoryl(item);
       price = item.goodsItemBase.amount || item.goodsItemBase.sourceAmount;
+      currency = item.goodsItemBase.currency;
     } else {
-      price = this.data.setting.priceEachOne
+      price = this.data.setting.priceEachOne;
+      currency = this.data.setting.currency;
     }
     this.setData({
       type: type,
-      payPrice: price
+      payPrice: price,
+      currency
     });
+  },
+  // 判断是否为汉字
+  isChinese(str) {
+    let reg = new RegExp(/^[\u4e00-\u9fa5]+$/);
+    return reg.test(str);
+  },
+  checkIsChinese(val) {　　
+    var reg = new RegExp("[\\u4E00-\\u9FFF]+", "g");　　
+    return reg.test(val);
   }
 })

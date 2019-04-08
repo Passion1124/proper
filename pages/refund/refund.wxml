@@ -4,7 +4,7 @@
     <view class='title'>退款注意事项</view>
     <view class='text_row'>
       <view class='text'>1、特价优惠、预约等一并取消</view>
-      <view class='text'>2、商品一但退款，无法恢复</view>
+      <view class='text'>2、商品一旦退款，无法恢复</view>
       <view class='text'>3、超过有效日期，无法恢复</view>
     </view>
   </view>

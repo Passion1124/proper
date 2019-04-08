@@ -438,9 +438,17 @@
 
 .area .comment .main .text {
   font-size: 32rpx;
-  line-height: 32rpx;
+  line-height: 40rpx;
   color: #3c3c3c;
   margin-bottom: 24rpx;
+}
+
+.area .comment .main .text text{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow:ellipsis;
 }
 
 .area .comment .main .img_row {
@@ -735,4 +743,8 @@
 .overlay .inner .inner_main .desc .WxEmojiView{
   font-size: 28rpx;
   line-height: 40rpx;
+}
+
+.overlay .inner .inner_main .desc image{
+  width: 100% !important;
 }

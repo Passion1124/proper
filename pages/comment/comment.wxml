@@ -20,7 +20,8 @@
     <view class='file_row'>
       <block wx:for='{{pics}}' wx:key='{{index}}'>
         <view class='file'>
-          <image src='{{item}}'></image>
+          <image mode='aspectFill' src='{{item}}'></image>
+          <view class='close' data-index='{{index}}' bindtap='handleRemovePic'>×</view>
         </view>
       </block>
       <view class='file' bindtap='handleClickFileInput' wx:if='{{pics.length < 9}}'>

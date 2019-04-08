@@ -14,7 +14,8 @@ Page({
     goodsItem: {},
     currency: '',
     couponId: '',
-    customerRequest: []
+    customerRequest: [],
+    infoSure: false
   },
 
   /**
@@ -85,6 +86,7 @@ Page({
   },
   // 生成订单
   handleCreateOrderGen() {
+    if (this.data.infoSure) return false;
     let api = 'com.ttdtrip.api.order.apis.service.OrderGenApiService';
     let preOrderInfo = this.data.preOrderInfo;
     delete preOrderInfo.priceEachOne;
@@ -98,13 +100,16 @@ Page({
     };
     let sn = md5(p_data + new Date().getTime());
     let data = Object.assign({ base: app.globalData.baseBody }, p_data, { sn });
+    this.data.infoSure = true;
     app.request(api, data, res => {
       console.log(res);
       wx.navigateTo({
         url: '/pages/pay/pay?orderId=' + res.orderId + '&orderNo=' + res.orderNo + '&currency=' + res.currency + '&type=2',
       })
+      this.data.infoSure = false;
     }, err => {
       console.error(err);
+      this.data.infoSure = false;
     })
   }
 })

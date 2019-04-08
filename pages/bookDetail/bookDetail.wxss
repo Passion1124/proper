@@ -180,6 +180,7 @@ image {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  padding-top: 5rpx;
 }
 
 .order_explain view{
@@ -195,6 +196,10 @@ image {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.btn_row.flex_center{
+  justify-content: center;
 }
 
 .btn_row button{

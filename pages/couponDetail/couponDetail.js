@@ -15,7 +15,8 @@ Page({
     giid: '',
     type: '',
     source: '',
-    id: ''
+    id: '',
+    form: ''
   },
 
   /**
@@ -25,6 +26,11 @@ Page({
     this.setData({
       couponId: options.couponId
     });
+    if (options.form) {
+      this.setData({
+        form: options.form
+      })
+    }
     this.data.source = options.source;
     this.data.id = options.id;
     // console.log(this.data.source);

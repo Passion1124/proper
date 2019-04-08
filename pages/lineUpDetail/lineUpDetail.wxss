@@ -38,13 +38,13 @@ image {
   box-sizing: border-box;
 }
 
-.queue.over{
+.queue.gray_bgc{
   background-color: #C2C2C2;
 }
 
-.queue .queue_status{
+.queue .status{
   font-size: 22rpx;
-  line-height: 30rpx;
+  line-height: 28rpx;
   color: #fff;
   text-align: center;
 }

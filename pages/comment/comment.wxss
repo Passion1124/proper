@@ -73,11 +73,30 @@ image{
 }
 
 .upload .file{
+  position: relative;
   width: 160rpx;
   height: 160rpx;
+  margin: 0 10rpx 10rpx 0;
+}
+
+.upload .file image{
   border-radius: 10rpx;
   overflow: hidden;
-  margin: 0 10rpx 10rpx 0;
+}
+
+.upload .file .close{
+  position: absolute;
+  top: -10rpx;
+  right: -10rpx;
+  width: 35rpx;
+  height: 35rpx;
+  line-height: 35rpx;
+  font-size: 28rpx;
+  color: #fff;
+  text-align: center;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9;
 }
 
 .btn button {
