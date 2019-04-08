@@ -1,7 +1,7 @@
 <!-- foodItems.wxml -->
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
-<view class='container {{ type === "2" ? "fangti" : ""}}'>
-  <view class='blue_tips' wx:if='{{type === "2"}}'>全部放题至少选{{personNum}}份，已选{{foodNum}}份</view>
+<view class='container {{ type === "2" && userNumType !== 1 ? "fangti" : ""}}'>
+  <view class='blue_tips' wx:if='{{type === "2" && userNumType !== 1}}'>全部放题至少选{{personNum}}份，已选{{foodNum}}份</view>
   <view class='foodNum'>
     <view class='text'>{{ type === "3" ? '套餐数量' : '放题数量'}}</view>
     <view class='num'>

@@ -22,6 +22,7 @@ Page({
     foodItems: [],
     orderItems: [],
     foodCartList: {},
+    foodOrderBatch: {},
     category: [],
     foodList: [],
     foodOrder: {},
@@ -205,7 +206,7 @@ Page({
       this.setData({
         menus: res.menus,
         checkCategory: res.menus[0],
-        selfHelp: res.menus.map(item => item.items).reduce((c, n) => c.concat(n), []).map(item => item.foods[0]).filter(item => item.type === 2 && item.userNumType !== 1)
+        selfHelp: res.menus.map(item => item.items).reduce((c, n) => c.concat(n), []).map(item => item.foods[0]).filter(item => item).filter(item => item.type === 2 && item.userNumType !== 1)
       });
       console.log(this.data.selfHelp);
     }, e => {
@@ -343,11 +344,12 @@ Page({
         foodCartList.ordinary = res.foodBasket.orderItems.filter(item => item.type === 1);
       }
       this.setData({
-        consumerCount: res.foodBasket ? res.foodBasket.consumerCount : res.foodOrderBatch.consumerCount,
+        consumerCount: res.foodBasket ? res.foodBasket.consumerCount : 0,
         foodItems: res.foodBasket ? res.foodBasket.foodItems : [],
         orderItems: res.foodBasket ? res.foodBasket.orderItems : [],
         foodOrderId: res.foodOrderId,
-        foodCartList
+        foodCartList,
+        foodOrderBatch: res.foodOrderBatch || {}
       })
     } else if (res.foodOrderBatch) {
       util.redirectTo('/pages/foodadd/foodadd?orderId=' + res.foodOrderId);
@@ -375,6 +377,10 @@ Page({
   },
   // 点击去下单按钮
   handleClickGoToTheOrder () {
+    if (!this.data.foodItems.length) {
+      util.showMessage('你还未添加菜品哦');
+      return false;
+    }
     if (this.mandatoryFoodSelectAll()) {
       if (!this.getSelfHelpTipsShow(this.data.selfHelp, this.data.foodItems, this.data.consumerCount)) {
         console.log('可以去下单了');
@@ -387,7 +393,7 @@ Page({
   // 点击加号按钮
   handleClickPlusButton (e) {
     let item = e.currentTarget.dataset.item;
-    let foods = item.foods[0];
+    let foods = e.currentTarget.dataset.foods;
     if (foods.type === 1) {
       if (foods.specCount) {
         let newFoods = { foodGroupId: '', foodId: foods.id, foodNumber: 1, menuId: this.data.checkCategory.id, menuItemId: item.id, rootFoodId: '', selfFoodStyle: 0, spcItemId: [], subFoodItems: [] };
@@ -419,7 +425,7 @@ Page({
   // 点击减号按钮
   handleClickMinusButton (e) {
     let item = e.currentTarget.dataset.item;
-    let foods = item.foods[0];
+    let foods = e.currentTarget.dataset.foods;
     let num = e.currentTarget.dataset.num;
     let foodItems = this.data.foodItems;
     let index = foodItems.findIndex(item => item.foodId === foods.id);
@@ -593,14 +599,14 @@ Page({
   // 去套餐页面或者放题页面
   handleGoToTheFoodDetailPage (e) {
     let item = e.currentTarget.dataset.item;
-    let foods = item.foods[0];
+    let foods = e.currentTarget.dataset.foods;
     if (foods.type !== 1) {
-      let selecTable = this.getNowFoodSelectable(foods.type, foods.limitTimeStart, foods.limitTimeEnd);
+      let selecTable = this.getNowFoodSelectable(foods.limitType, foods.limitTimeStart, foods.limitTimeEnd);
       if (selecTable) {
         let food = this.data.foodItems.find(food => food.foodId === foods.id);
         let foodNum = food ? food.foodNumber : 0;
         if (!foodNum && foods.type === 3) foodNum = 1;
-        util.navigateTo('/pages/foodItems/foodItems?foodId=' + foods.id + '&personNum=' + this.data.consumerCount + '&type=' + foods.type + '&foodNum=' + foodNum);
+        util.navigateTo('/pages/foodItems/foodItems?foodId=' + foods.id + '&personNum=' + this.data.consumerCount + '&type=' + foods.type + '&foodNum=' + foodNum + '&userNumType=' + foods.userNumType);
       }
     }
   },
@@ -660,6 +666,8 @@ Page({
   },
   // 判断当前食物是否在可点时段
   getNowFoodSelectable(type, beginTime, endTime) {
+    console.log(type);
+    console.log(type === 0);
     if (type === 0) {
       return true;
     }

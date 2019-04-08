@@ -42,11 +42,24 @@ var foodorderconfirm = {
       section = Math.floor(section / 10);
     }
     return chnStr;
+  },
+  getMenuItemFoodNumber: function (arr, menuItemId) {
+    if (arr.length && menuItemId) {
+      var num = arr.filter(function (item) {
+        return item.menuItemId === menuItemId;
+      }).reduce(function (pre, curr) {
+        return pre + curr.foodNumber || 0
+      }, 0);
+      return num;
+    } else {
+      return 0;
+    }
   }
 }
 
 module.exports = {
   getSpcItemsText: foodorderconfirm.getSpcItemsText,
   getMenuTime: foodorderconfirm.getMenuTime,
-  sectionToChinese: foodorderconfirm.sectionToChinese
+  sectionToChinese: foodorderconfirm.sectionToChinese,
+  getMenuItemFoodNumber: foodorderconfirm.getMenuItemFoodNumber
 }

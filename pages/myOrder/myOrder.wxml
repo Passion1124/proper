@@ -102,7 +102,7 @@
           <view wx:elif='{{item.lineStatus === 2}}'>排队用时：{{dateFr.getLinePendingDateText(item.lineAt)}} | 已点单</view>
           <view wx:elif='{{item.lineStatus === 3}}'>用时：{{dateFr.getLinePendingDateText(item.lineAt)}} | 已点单</view>
         </view>
-        <view class='right' wx:if='{{item.orderStatus !== 1 && item.lineStatus < 2}}'>
+        <view class='right' wx:if='{{item.lineStatus < 2 && item.onlineOrderDish === 1}}'>
           <button data-sn='{{item.sn}}' data-mid='{{item.mid}}' catchtap='goToTheFoodOrder'>点菜</button>
         </view>
       </view>

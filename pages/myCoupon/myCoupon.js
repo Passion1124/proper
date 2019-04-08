@@ -108,8 +108,9 @@ Page({
   goToTheCouponsDetail(e) {
     let couponId = e.currentTarget.dataset.couponid;
     let id = e.currentTarget.dataset.id;
+    let canUse = this.data.qryType === 1 ? 0 : 1;
     wx.navigateTo({
-      url: '/pages/couponDetail/couponDetail?couponId=' + couponId + '&source=myCoupon&id=' + id,
+      url: '/pages/couponDetail/couponDetail?couponId=' + couponId + '&source=myCoupon&id=' + id + '&canUse=' + canUse,
     })
   }
 })

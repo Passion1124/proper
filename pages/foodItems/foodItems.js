@@ -13,6 +13,7 @@ Page({
     personNum: 0,
     type: '',
     foodNum: 0,
+    userNumType: 1,
     groups: [],
     foods: {},
     foodSpcs: [],
@@ -40,7 +41,8 @@ Page({
       foodId: options.foodId,
       personNum: parseInt(options.personNum),
       type: options.type,
-      foodNum: parseInt(options.foodNum)
+      foodNum: parseInt(options.foodNum),
+      userNumType: parseInt(options.userNumType)
     });
   },
 
@@ -66,7 +68,11 @@ Page({
       });
     } else {
       let menuId = foodorder.data.checkCategory.id;
-      let menuItemId = foodorder.data.checkCategory.items.find(item => item.foods[0].id === this.data.foodId).id;
+      let menuItemId = foodorder.data.checkCategory.items.find(item => {
+        let find = item.foods.find(food => food.id === this.data.foodId);
+        console.log(find);
+        return find;
+      }).id;
       let obj = {
         foodGroupId: '',
         foodId: this.data.foodId,

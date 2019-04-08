@@ -252,7 +252,7 @@ var DateFr = {
     var str = '';
     if (d) str += d + '天';
     if (h) str += h + '时';
-    if (m) str += m + '分';
+    str += m + '分钟';
     return str;
   },
   getLineOverDateText: function (lineAt, overAt) {
