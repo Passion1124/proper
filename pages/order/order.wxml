@@ -298,7 +298,7 @@
       <view class='discount' wx:if='{{selectCoupon.id}}'>优惠 {{goodsItem.goodsItemBase.currency}}{{dateFr.getDiscountPrice((price * orderMerches.merchCount), selectCoupon)}}</view>
     </view>
     <view class='btn'>
-      <button bindtap='handleClickPaymentButton'>去付款</button>
+      <button disabled='{{createOrder}}' bindtap='handleClickPaymentButton'>去付款</button>
     </view>
   </view>
 </view>

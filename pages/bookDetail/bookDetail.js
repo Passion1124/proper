@@ -91,10 +91,21 @@ Page({
       wx.hideLoading();
     })
   },
-  // 取消订单
-  handleOrderCancel() {
+  // 订单退单申请
+  handleOrderRefundin() {
     let api = 'com.ttdtrip.api.order.apis.service.OrderRefundingApiService';
     let data = { base: app.globalData.baseBody, orderId: this.data.orderId, reason: '用户主动申请退款' };
+    app.request(api, data, res => {
+      console.log(res);
+      this.handleOrderDetail();
+    }, fail => {
+      wx.hideLoading();
+    })
+  },
+  // 订单取消
+  handleOrderCancel () {
+    let api = 'com.ttdtrip.api.order.apis.service.OrderCancelApiService';
+    let data = { base: app.globalData.baseBody, orderId: this.data.orderId };
     app.request(api, data, res => {
       console.log(res);
       this.handleOrderDetail();
@@ -110,7 +121,11 @@ Page({
       content: '确定取消该订单',
       success(res) {
         if (res.confirm) {
-          that.handleOrderCancel();
+          if (that.data.order.orderStatus === 3) {
+            that.handleOrderRefundin();
+          } else {
+            that.handleOrderCancel();
+          }
         } else if (res.cancel) {
           console.log('用户点击取消')
         }

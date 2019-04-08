@@ -140,14 +140,14 @@
 				},
 				{
 					"id": 15,
-					"name": "代预定",
+					"name": "代预订",
 					"pathName": "pages/insteadFood/insteadFood",
 					"query": "giid=a8d567a9-03f3-4784-bb82-7c4dc868f79d",
 					"scene": null
 				},
 				{
 					"id": 15,
-					"name": "代预定信息",
+					"name": "代预订信息",
 					"pathName": "pages/insteadBook/insteadBook",
 					"query": "mid=2432272d-ff6b-46ad-a195-a186e88d60a4&shopName=livia0307添加的餐厅&gid=727175c5-e5d6-4373-a2e3-14daa1758e05&giid=d651b596-c8bc-4a67-bce7-de97fa25af25",
 					"scene": null

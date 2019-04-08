@@ -12,14 +12,14 @@
       <view class='goos_item_end'>有效期至：{{dateFr.getOrderDate(goodsItem.goodsItemBase.end)}}</view>
     </view>
     <view class='area border_0 padding_bottom_0' wx:if='{{goodsItem.goodsItemInfo.info}}'>
-      <view class='area_title'>预定餐介绍</view>
+      <view class='area_title'>预订餐介绍</view>
       <view class='introduce'>
         <!-- <rich-text nodes='{{goods.goodsInfo.info}}'></rich-text> -->
         <template is="wxParse" data="{{wxParseData: article.nodes}}" />
       </view>
     </view>
     <view class='area'>
-      <view class='tips_title'>预定时段</view>
+      <view class='tips_title'>预订时段</view>
       <view class='tips_text'>{{dateFr.getScheduledTime(goodsItem.goodsItemBase.ext.preOrderTime)}}</view>
     </view>
     <view class='area'>
@@ -34,7 +34,7 @@
   <view class='fixed_tips'>
     <view class='price'>{{goodsItem.goodsItemBase.currency}} {{(goodsItem.goodsItemBase.amount ? goodsItem.goodsItemBase.amount : goodsItem.goodsItemBase.sourceAmount) / 100}}/人</view>
     <view class='btn'>
-      <button bindtap='goToTheInsteadBookPage'>去预定</button>
+      <button bindtap='goToTheInsteadBookPage'>去预订</button>
     </view>
   </view>
 </view>
