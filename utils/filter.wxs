@@ -432,7 +432,8 @@ var DateFr = {
     });
   },
   // 判断是否显示选择必点菜提示
-  mandatoryTipsShow: function (nowMenu, menuList, foodItems) {
+  mandatoryTipsShow: function (nowMenu, menuList, foodItems, toPage) {
+    if (toPage) { return false; };
     var mandatoryArray = menuList.filter(function (item) {
       return item.type === 1;
     });

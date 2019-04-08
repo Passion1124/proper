@@ -55,12 +55,12 @@ Page({
     if (orderId) this.data.foodOrderId = orderId;
     if (mid) this.data.mid = mid;
     if (tno) this.data.tno = tno;
-    if (toPage) this.data.toPage = toPage;
+    let s_data = {};
+    if (toPage) s_data.toPage = toPage;
     if (sn || tno) {
-      this.setData({
-        tableNo: sn || tno
-      });
+      s_data.tableNo = sn || tno;
     }
+    this.setData(s_data);
     if (personNum) this.data.consumerCount = personNum;
     this.getGoodsDetail();
     // this.handleGetMenuDetail();
@@ -605,6 +605,7 @@ Page({
   },
   // 必点菜是否全部选择
   mandatoryFoodSelectAll () {
+    if (this.data.toPage) { return true; };
     let mandatoryArray = this.data.menus.filter(item => item.type === 1);
     var foodList = mandatoryArray.map(item => item.items).reduce((c, n) => c.concat(n), []).map(item => item.foods[0]);
     let obj = {};
@@ -626,6 +627,7 @@ Page({
   },
   // 选择必点菜弹窗提示是否展示
   mandatoryTipsShow () {
+    if (this.data.toPage) return false;
     let nowMenu = this.data.checkCategory;
     let mandatoryArray = this.data.menus.filter(item => item.type === 1);
     var mandatoryId = mandatoryArray.length ? mandatoryArray.map(item => item.id) : '';

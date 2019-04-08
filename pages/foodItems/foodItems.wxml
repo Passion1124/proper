@@ -25,11 +25,12 @@
               <image mode='aspectFill' src='{{food.poster + "?x-oss-process=image/resize,w_600"}}'></image>
             </view>
             <view class='food_info'>
-              <view class='title {{item.type === 3 ? showErrorTips : ""}}'>{{food.foodName}}</view>
+              <view class='title {{item.type === 3 ? showErrorTips : ""}} {{item.type === 1 && food.specCount ? defaultFoodTips : ""}}'>{{food.foodName}}</view>
               <view class='subTitle'>{{food.introduce}}</view>
+              <view class='need_num {{item.type === 1 ? defaultFoodTips : ""}}' wx:if='{{item.type === 1 && food.specCount}}'>应选{{foodNum * food.count}}份</view>
             </view>
             <view class='food_num'>
-              <view class='def' wx:if='{{item.type === 1}}'>x{{food.count * foodNum}}</view>
+              <view class='def' wx:if='{{item.type === 1 && !food.specCount}}'>x{{food.count * foodNum}}</view>
               <view class='num' wx:else>
                 <block wx:if='{{dateFr.getNowFoodOrderNum(foods.subFoodItems, food.id)}}'>
                   <view class='minus' data-index='{{idx}}' data-num='{{dateFr.getNowFoodOrderNum(foods.subFoodItems, food.id)}}' data-item='{{item}}' bindtap='handleFoodMinuButtonClick'>-</view>

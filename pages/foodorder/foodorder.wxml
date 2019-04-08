@@ -250,7 +250,7 @@
       <image src='../../img/order/pay_icon_close.png'></image>
     </view>
   </view>
-  <view class='mandatory_tips' bindtap='handleSwitchMandatoryFood' wx:if='{{dateFr.mandatoryTipsShow(checkCategory, menus, foodItems)}}'>选择必点菜</view>
+  <view class='mandatory_tips' bindtap='handleSwitchMandatoryFood' wx:if='{{dateFr.mandatoryTipsShow(checkCategory, menus, foodItems, toPage)}}'>选择必点菜</view>
   <view class='bottom_content'>
     <view class='num_price'>
       <view class='num' bindtap='handleClickFoodTotalNum'>{{dateFr.getNowFoodOrderFoodNumber(orderItems)}}</view>

@@ -82,7 +82,7 @@ page{
   color: #F97572 !important;
 }
 
-.group .title{
+.group>.title{
   margin-bottom: 30rpx;
 }
 
@@ -124,28 +124,41 @@ page{
 }
 
 .group .food_row .food .food_info{
+  height: 112rpx;
   flex: 1;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
   max-width: 300rpx;
 }
 
 .group .food_row .food .food_info .title{
+  width: 100%;
   font-size: 36rpx;
   line-height: 50rpx;
   letter-spacing: 1rpx;
   color: #3C3C3C;
-  margin-bottom: 22rpx;
+  /* margin-bottom: 22rpx; */
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .group .food_row .food .food_info .subTitle{
+  width: 100%;
   font-size: 24rpx;
   line-height: 33rpx;
   color: #8C8C8C;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.group .food_row .food .food_info .need_num{
+  width: 100%;
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #8C8C8C;
 }
 
 .group .food_row .food .food_num{

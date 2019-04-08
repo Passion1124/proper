@@ -28,7 +28,8 @@ Page({
     popup: false,
     popupType: '',
     popupStatus: 'hide',
-    showErrorTips: ''
+    showErrorTips: '',
+    defaultFoodTips: ''
   },
 
   /**
@@ -134,7 +135,7 @@ Page({
           let c_arr = curr.foods.map(item => {
             let find = this.data.foods.subFoodItems.find(child => child.foodId === item.id);
             if (find) {
-              if (curr.type === 1) {
+              if (curr.type === 1 && !item.specCount) {
                 find.foodNumber = item.count;
               }
               return find;
@@ -145,7 +146,7 @@ Page({
                 rootFoodId: curr.foodId,
                 selfFoodStyle: 0
               };
-              if (curr.type === 1) {
+              if (curr.type === 1 && !item.specCount) {
                 obj.foodNumber = item.count;
               } else {
                 if (item.specCount) {
@@ -350,17 +351,29 @@ Page({
     let page = getCurrentPages();
     let foodorder = page[page.length - 2];
     let foodItems = foodorder.data.foodItems;
-    let defaultFood = this.data.groups.filter(item => item.type === 1).map(item => item.id);
+    let defaultFood = this.data.groups.filter(item => item.type === 1).map(item => item.foods).reduce((curr, next) => curr.concat(next), []);
     let subFoodItems = this.data.foods.subFoodItems.filter(item => item.foodNumber).map(item => {
-      if (defaultFood.indexOf(item.foodGroupId) !== -1) {
-        item.foodNumber = this.data.foodNum * item.foodNumber;
-      };
+      let find = defaultFood.find(food => food.id === item.foodId);
+      if (find) {
+        if (!find.specCount) {
+          item.foodNumber = this.data.foodNum * find.count;
+        }
+      }
       return item;
     });
     this.data.foods.foodNumber = this.data.foodNum;
     this.data.foods.subFoodItems = subFoodItems;
     let index = foodItems.findIndex(item => item.foodId === this.data.foods.foodId);
     if (this.data.foodNum) {
+      defaultFood = defaultFood.filter(item => item.specCount);
+      let every = defaultFood.length ? defaultFood.every(this.defaultFoodTestArrayFunction) : true;
+      if (every) {
+        this.setData({
+          defaultFoodTips: 'success'
+        })
+      } else {
+        return false;
+      }
       let mandatoryArray = this.data.groups.filter(item => item.type === 3).map(item => item.foods).reduce((c, n) => c.concat(n), []);
       if (mandatoryArray.length) {
         let mandatoryIdArray = mandatoryArray.map(item => item.id);
@@ -426,5 +439,22 @@ Page({
         popupType: '',
       })
     }, 300)
+  },
+  // 默认菜品测试函数
+  defaultFoodTestArrayFunction (val) {
+    let num = this.data.foods.subFoodItems.filter(item => item.foodId === val.id).reduce((curr, next) => curr + next.foodNumber, 0);
+    if (num === val.count * this.data.foodNum) {
+      return true;
+    } else {
+      if (num > val.count * this.data.foodNum) {
+        utils.showMessage('默认菜品点菜数量超出');
+      } else {
+        utils.showMessage('默认菜品点菜数量不足');
+      }
+      this.setData({
+        defaultFoodTips: 'error'
+      });
+      return false;
+    }
   }
 })
