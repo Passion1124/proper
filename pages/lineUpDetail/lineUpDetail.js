@@ -31,6 +31,11 @@ Page({
     if (roomName) data.roomName = roomName;
     this.setData(data);
     this.handleLineWait();
+    if (options.skipType === 'order') {
+      wx.setNavigationBarTitle({
+        title: '订单详情',
+      })
+    }
   },
 
   /**

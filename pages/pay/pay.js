@@ -190,6 +190,8 @@ Page({
     if (this.data.orderMerches) {
       if (this.data.orderMerches.orderRestaurantProviderMerch) {
         url = '/pages/orderBookDetail/orderBookDetail?result=1&id=' + this.data.orderId;
+      } else if (this.data.order.preOrder && this.data.order.preOrder.timeEnd) {
+        url = '/pages/bookDetail/bookDetail?result=1&id=' + this.data.orderId;
       } else {
         url = '/pages/payresult/payresult?preOrderId=' + this.data.payOrder.id + '&orderId=' + this.data.orderId + '&giid=' + this.data.orderMerches.merchId;
       }

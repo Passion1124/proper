@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 18,
+			"current": 12,
 			"list": [
 				{
 					"id": 0,
@@ -125,10 +125,10 @@
 					"scene": null
 				},
 				{
-					"id": 13,
+					"id": 12,
 					"name": "支付结果",
 					"pathName": "pages/payresult/payresult",
-					"query": "preOrderId=aef3978b-e880-4f74-88e9-4f75284434df&orderId=4a4940ba7c1549caaa6431e25f855705&giid=d2c556c9-8055-41a3-8236-72b1c10c3cd1",
+					"query": "orderId=ee1685793c4f4f718cbbc6c6d53eaa9f&mid=1c630e99-f286-47f1-9809-c621c9b6a3e0",
 					"scene": null
 				},
 				{

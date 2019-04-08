@@ -92,14 +92,24 @@ Page({
       console.error(e);
     })
   },
+  getLineWait (sn) {
+    let api = 'com.ttdtrip.api.goods.apis.line.LineWaitApiService';
+    let data = { base: app.globalData.baseBody, lineStatus: 1, sn };
+    app.request(api, data, res => {
+      console.log(res);
+      utils.navigateTo('/pages/lineUpDetail/lineUpDetail?sn=' + sn + '&skipType=order');
+    }, e => {
+      console.error(e);
+    })
+  },
   goToTheDetail (e) {
     let id = e.currentTarget.dataset.id;
     let title = e.currentTarget.dataset.title;
     let type = e.currentTarget.dataset.type;
     if (type === 'order') {
       this.getOrderDetail(id);
-    } else {
-
+    } else if (type === 'foodqueue') {
+      this.getLineWait(id);
     }
   }
 })
