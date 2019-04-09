@@ -276,11 +276,11 @@ page {
   position: absolute;
   top: 0;
   right: 0;
+  font-size: 22rpx;
   height: 28rpx;
   line-height: 28rpx;
-  font-size: 22rpx;
   color: #fff;
-  padding: 0 7rpx;
+  padding: 0 8rpx;
   border-radius: 14rpx;
   background-color: #fd5956;
 }
