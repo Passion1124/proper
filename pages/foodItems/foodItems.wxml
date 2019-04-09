@@ -16,7 +16,7 @@
         <text class='{{item.type === 3 ? showErrorTips : ""}}'>{{item.name}}</text>
         <text wx:if='{{item.type === 1}}'>以下为默认菜品</text>
         <text wx:elif='{{item.type === 2}}'>以下菜品不限量供应</text>
-        <text class='{{showErrorTips}}' wx:elif='{{item.type === 3}}'>以下菜品任选{{foodNum}}份，已选{{dateFr.getGroupSelectedFoodNumber(item.id, foods.subFoodItems)}}份</text>
+        <text class='{{showErrorTips}}' wx:elif='{{item.type === 3}}'>以下菜品任选{{foodNum * item.choose}}份，已选{{dateFr.getGroupSelectedFoodNumber(item.id, foods.subFoodItems)}}份</text>
       </view>
       <view class='food_row'>
         <block wx:for='{{item.foods}}' wx:for-item='food' wx:for-index='idx' wx:key='{{idx}}'>

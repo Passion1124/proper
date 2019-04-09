@@ -364,7 +364,20 @@ page {
   text-align: center;
 }
 
+.food_list .food .poster .img_mask{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.45);
+    z-index: 9;
+}
+
 .food_list .food .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 330rpx;
   overflow: hidden;
 }
@@ -384,11 +397,10 @@ page {
 }
 
 .food_list .food .info .subTitle {
-  height: 60rpx;
+  /* height: 60rpx; */
   font-size: 22rpx;
   line-height: 30rpx;
   color: #8c8c8c;
-  margin-top: 8rpx;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -399,7 +411,7 @@ page {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 40rpx;
+  /* margin-top: 40rpx; */
 }
 
 .food_list .food .info .price_num .price {

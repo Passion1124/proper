@@ -383,8 +383,9 @@ Page({
       let mandatoryArray = this.data.groups.filter(item => item.type === 3).map(item => item.foods).reduce((c, n) => c.concat(n), []);
       if (mandatoryArray.length) {
         let mandatoryIdArray = mandatoryArray.map(item => item.id);
+        let mandatoryNumber = this.data.groups.filter(item => item.type === 3).map(item => item.choose).reduce((c, n) => c + n * this.data.foodNum, 0);
         let foodSelectNumber = subFoodItems.filter(item => mandatoryIdArray.indexOf(item.foodId) !== -1).reduce((c, n) => c + n.foodNumber, 0);
-        if (foodSelectNumber === this.data.foodNum) {
+        if (foodSelectNumber === mandatoryNumber) {
           this.setData({
             showErrorTips: 'success'
           });
@@ -394,7 +395,7 @@ Page({
             foodItems[index] = this.data.foods;
           }
         } else {
-          let msg = foodSelectNumber > this.data.foodNum ? "点菜数量超出" : "点菜数量不足";
+          let msg = foodSelectNumber > mandatoryNumber ? "点菜数量超出" : "点菜数量不足";
           utils.showMessage(msg);
           this.setData({
             showErrorTips: 'error'

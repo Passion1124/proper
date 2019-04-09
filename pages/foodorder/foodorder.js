@@ -59,8 +59,8 @@ Page({
     if (tno) this.data.tno = tno;
     let s_data = {};
     if (toPage) s_data.toPage = toPage;
-    if (sn || tno) {
-      s_data.tableNo = sn || tno;
+    if (tno) {
+      s_data.tableNo = tno;
     }
     this.setData(s_data);
     if (personNum) this.data.consumerCount = personNum;
@@ -613,7 +613,7 @@ Page({
   // 去商家详情页
   handleGoToTheGoodsDetailPage (e) {
     let gid = e.currentTarget.dataset.gid;
-    util.navigateTo('/pages/fooddetail/fooddetail?gid=' + gid + '&type=2');
+    util.navigateTo('/pages/fooddetail/fooddetail?gid=' + gid + '&type=2&form=foodorder');
   },
   // 必点菜是否全部选择
   mandatoryFoodSelectAll () {

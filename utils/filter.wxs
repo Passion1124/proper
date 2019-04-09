@@ -494,7 +494,7 @@ var DateFr = {
       if (total.toString().indexOf('.') !== -1) {
         total = parseInt(total) + 1;
       }
-      var serviceCharge = total / 10;
+      var serviceCharge = total * goods.goodsBase.serviceFee;
       if (serviceCharge.toString().indexOf('.') !== -1) {
         serviceCharge = parseInt(serviceCharge) + 1;
       }

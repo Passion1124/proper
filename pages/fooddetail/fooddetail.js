@@ -19,6 +19,7 @@ Page({
   data: {
     gid: '',
     type: '',
+    form: '',
     favor: false,
     goods: {},
     goodsItem: [],
@@ -48,10 +49,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.setData({
-      gid: options.gid,
-      type: options.type
-    });
+    let s_data = { gid: options.gid, type: options.type };
+    if (options.form) s_data.form = options.form;
+    this.setData(s_data);
     this.getGoodsDetail();
     this.getGoodsItemList();
     this.getPreOrderGoodsItemList();

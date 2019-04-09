@@ -92,9 +92,10 @@
           </view>
           <block wx:for='{{item.foods}}' wx:for-item='food' wx:for-index='idx' wx:key='{{idx}}'>
             <view class='food' data-item='{{item}}' wx:if='{{food}}'>
-              <view class='poster' data-food='{{food}}' bindtap='handleClickFoodPoster'>
+              <view class='poster'>
                 <view class='type_tips' wx:if='{{food.type !== 1}}'>{{food.type === 2 ? '放题' : '套餐'}}</view>
-                <image mode='aspectFill' src='{{food.poster + "?x-oss-process=image/resize,w_600"}}'></image>
+                <image mode='aspectFill' src='{{food.poster + "?x-oss-process=image/resize,w_600"}}' data-food='{{food}}' bindtap='handleClickFoodPoster'></image>
+                <view class='img_mask' wx:if='{{!dateFr.getNowFoodSelectable(food.limitType, food.limitTimeStart, food.limitTimeEnd)}}'></view>
               </view>
               <view class='info' data-item='{{item}}' data-foods='{{food}}' bindtap='handleGoToTheFoodDetailPage'>
                 <view class='name {{dateFr.getNowFoodSelectable(food.limitType, food.limitTimeStart, food.limitTimeEnd) ? "" : "disab"}}'>{{food.foodName}}</view>

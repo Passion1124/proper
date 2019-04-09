@@ -114,7 +114,7 @@
 					"id": 10,
 					"name": "点菜",
 					"pathName": "pages/foodorder/foodorder",
-					"query": "mid=1c630e99-f286-47f1-9809-c621c9b6a3e0&tno=002&personNum=5",
+					"query": "mid=1c630e99-f286-47f1-9809-c621c9b6a3e0&tno=002",
 					"scene": null
 				},
 				{
