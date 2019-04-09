@@ -51,7 +51,7 @@
         <view class='o_value'>{{ email || line.email}}</view>
       </view>
     </view>
-    <view class='order_btn' wx:if='{{line.lineStatus < 2 && line.orderStatus === 0}}'>
+    <view class='order_btn' wx:if='{{line.lineStatus < 2 && line.onlineOrderDish === 1}}'>
       <button bindtap='goToTheFoodOrder'>前往点菜</button>
     </view>
   </view>

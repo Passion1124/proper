@@ -369,6 +369,10 @@ Page({
   },
   // 修改用餐人数
   handleChangeEatNumber (e) {
+    if (this.data.toPage && this.data.foodOrderBatch.consumerCount >= parseInt(e.detail.value) + 1) {
+      util.showMessage('加菜时，只能添加用餐人数');
+      return false;
+    }
     this.setData({
       consumerCount: parseInt(e.detail.value) + 1
     });
@@ -665,8 +669,6 @@ Page({
   },
   // 判断当前食物是否在可点时段
   getNowFoodSelectable(type, beginTime, endTime) {
-    console.log(type);
-    console.log(type === 0);
     if (type === 0) {
       return true;
     }

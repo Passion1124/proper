@@ -86,7 +86,7 @@
       </view>
       <scroll-view scroll-y='{{true}}' style='height: {{winHeight - 80 - (dateFr.getSelfHelpTipsShow(selfHelp, foodItems, consumerCount) ? 110 : 0)}}rpx;'>
         <block wx:for='{{checkCategory.items}}' wx:key='{{index}}'>
-          <view class='food_tips {{dateFr.getNowFoodOrderNum(foodItems, item.foods[0].id) ? "selected" : ""}}' wx:if='{{checkCategory.type === 1}}'>
+          <view class='food_tips {{dateFr.getNowFoodOrderNum(foodItems, item.foods[0].id) ? "selected" : ""}}' wx:if='{{checkCategory.type === 1 && !toPage}}'>
             <text wx:if='{{!item.limit}}'>以下菜品必点</text>
             <text wx:else>菜品种类至少选1种,已选{{foodorderconfirm.getMenuItemFoodNumber(foodItems, item.id)}}种</text>
           </view>
@@ -105,13 +105,13 @@
                     <text>JPY{{(food.price / 100)}}{{food.specCount ? "起" : ""}}</text>
                   </view>
                   <block wx:if='{{dateFr.getNowFoodSelectable(food.limitType, food.limitTimeStart, food.limitTimeEnd)}}'>
-                    <view class='tips' wx:if='{{dateFr.getNowFoodIsCheck(foodItems, food.id) && food.type !== 1}}'>
-                      <text>{{dateFr.getCheckedFoodNumAndTotal(foodItems, food.id)}}</text>
+                    <view class='tips' wx:if='{{dateFr.getNowFoodIsCheck(foodItems, food.id, checkCategory.id) && food.type !== 1}}'>
+                      <text>{{dateFr.getCheckedFoodNumAndTotal(foodItems, food.id, checkCategory.id)}}</text>
                     </view>
                     <view class='num' wx:else>
-                      <block wx:if='{{dateFr.getNowFoodOrderNum(foodItems, food.id)}}'>
-                        <view class='minus' data-num='{{dateFr.getNowFoodOrderNum(foodItems, food.id)}}' data-item='{{item}}' data-foods='{{food}}' catchtap='handleClickMinusButton'>-</view>
-                        <view class='number_inp'>{{dateFr.getNowFoodOrderNum(foodItems, food.id)}}</view>
+                      <block wx:if='{{dateFr.getNowFoodOrderNum(foodItems, food.id, checkCategory.id)}}'>
+                        <view class='minus' data-num='{{dateFr.getNowFoodOrderNum(foodItems, food.id, checkCategory.id)}}' data-item='{{item}}' data-foods='{{food}}' catchtap='handleClickMinusButton'>-</view>
+                        <view class='number_inp'>{{dateFr.getNowFoodOrderNum(foodItems, food.id, checkCategory.id)}}</view>
                       </block>
                       <view class='plus' data-item='{{item}}' data-foods='{{food}}' catchtap='handleClickPlusButton'>+</view>
                     </view>

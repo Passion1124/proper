@@ -37,6 +37,16 @@
             <text>×{{item.foodNumber}}</text>
           </view>
         </view>
+        <block wx:for='{{item.subOrderItems}}' wx:for-item='sub' wx:for-index='sIdx' wx:key='{{sIdx}}'>
+          <view class='flex'>
+            <view class='left'>
+              <view>{{sub.food.foodName}}</view>
+            </view>
+            <view class='right'>
+              <text>×{{sub.foodNumber}}</text>
+            </view>
+          </view>
+        </block>
       </block>
     </view>
     <view class='area' wx:if='{{food.putQuestions.length}}'>

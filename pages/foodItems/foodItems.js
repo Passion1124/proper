@@ -37,13 +37,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.setData({
-      foodId: options.foodId,
-      personNum: parseInt(options.personNum),
-      type: options.type,
-      foodNum: parseInt(options.foodNum),
-      userNumType: parseInt(options.userNumType)
-    });
+    let s_data = { foodId: options.foodId, personNum: parseInt(options.personNum), type: options.type, userNumType: parseInt(options.userNumType) };
+    s_data.foodNum = (options.type === "2" && options.userNumType === '3' && options.foodNum === '0') ? parseInt(options.personNum) : parseInt(options.foodNum);
+    this.setData(s_data);
   },
 
   /**
@@ -61,7 +57,6 @@ Page({
     const foodorder = page[page.length - 2];
     let foods = foodorder.data.foodItems.find(item => item.foodId === this.data.foodId);
     if (foods) {
-      console.log(foods);
       this.setData({
         foods,
         foodsHasData: true
@@ -70,7 +65,6 @@ Page({
       let menuId = foodorder.data.checkCategory.id;
       let menuItemId = foodorder.data.checkCategory.items.find(item => {
         let find = item.foods.find(food => food.id === this.data.foodId);
-        console.log(find);
         return find;
       }).id;
       let obj = {
@@ -354,11 +348,15 @@ Page({
   },
   // 点击确定按钮
   handleClickSureButton() {
+    if (this.data.userNumType === 3 && this.data.type === '2' && this.data.foodNum < this.data.personNum && this.data.foodNum) {
+      utils.showMessage('当前放题总数不可少于用餐人数');
+      return false;
+    }
     let page = getCurrentPages();
     let foodorder = page[page.length - 2];
     let foodItems = foodorder.data.foodItems;
     let defaultFood = this.data.groups.filter(item => item.type === 1).map(item => item.foods).reduce((curr, next) => curr.concat(next), []);
-    let subFoodItems = this.data.foods.subFoodItems.filter(item => item.foodNumber).map(item => {
+    let subFoodItems = this.data.foods.subFoodItems.filter(item => item.foodNumber && this.getNowFoodSelectable(item.limitType, item.limitTimeStart, item.limitTimeEnd)).map(item => {
       let find = defaultFood.find(food => food.id === item.foodId);
       if (find) {
         if (!find.specCount) {
@@ -371,6 +369,10 @@ Page({
     this.data.foods.subFoodItems = subFoodItems;
     let index = foodItems.findIndex(item => item.foodId === this.data.foods.foodId);
     if (this.data.foodNum) {
+      if (!subFoodItems.length) {
+        utils.showMessage('至少选择一个菜品');
+        return false;
+      }
       defaultFood = defaultFood.filter(item => item.specCount);
       let every = defaultFood.length ? defaultFood.every(this.defaultFoodTestArrayFunction) : true;
       if (every) {
@@ -462,6 +464,30 @@ Page({
         defaultFoodTips: 'error'
       });
       return false;
+    }
+  },
+  // 判断当前食物是否在可点时段
+  getNowFoodSelectable(type, beginTime, endTime) {
+    console.log(type);
+    console.log(type === 0);
+    if (type === 0) {
+      return true;
+    }
+    if ((!beginTime && !endTime) || (beginTime === '00:00' && endTime === '00:00')) {
+      return true;
+    } else {
+      var n = new Date();
+      var b = new Date();
+      var e = new Date();
+      b.setHours(beginTime.split(':')[0]);
+      b.setMinutes(beginTime.split(':')[1]);
+      e.setHours(endTime.split(':')[0]);
+      e.setMinutes(endTime.split(':')[1]);
+      if (n.getTime() - b.getTime() > 0 && n.getTime() - e.getTime() < 0) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 })

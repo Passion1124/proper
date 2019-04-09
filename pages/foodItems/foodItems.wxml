@@ -1,7 +1,10 @@
 <!-- foodItems.wxml -->
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container {{ type === "2" && userNumType !== 1 ? "fangti" : ""}}'>
-  <view class='blue_tips' wx:if='{{type === "2" && userNumType !== 1}}'>全部放题至少选{{personNum}}份，已选{{foodNum}}份</view>
+  <view class='blue_tips' wx:if='{{type === "2" && userNumType !== 1}}'>
+    <text wx:if='{{userNumType === 2}}'>全部放题至少选{{personNum}}份，已选{{foodNum}}份</text>
+    <text wx:if='{{userNumType === 3}}'>当前放题关联用餐人数，已选{{foodNum}}份</text>
+  </view>
   <view class='foodNum'>
     <view class='text'>{{ type === "3" ? '套餐数量' : '放题数量'}}</view>
     <view class='num'>
@@ -23,13 +26,14 @@
           <view class='food'>
             <view class='poster'>
               <image mode='aspectFill' src='{{food.poster + "?x-oss-process=image/resize,w_600"}}'></image>
+              <view class='img_mask' wx:if='{{!dateFr.getNowFoodSelectable(food.limitType, food.limitTimeStart, food.limitTimeEnd)}}'></view>
             </view>
-            <view class='food_info'>
+            <view class='food_info {{dateFr.getNowFoodSelectable(food.limitType, food.limitTimeStart, food.limitTimeEnd) ? "" : "limit_food"}}'>
               <view class='title {{item.type === 3 ? showErrorTips : ""}} {{item.type === 1 && food.specCount ? defaultFoodTips : ""}}'>{{food.foodName}}</view>
               <view class='subTitle'>{{food.introduce}}</view>
               <view class='need_num {{item.type === 1 ? defaultFoodTips : ""}}' wx:if='{{item.type === 1 && food.specCount}}'>应选{{foodNum * food.count}}份</view>
             </view>
-            <view class='food_num'>
+            <view class='food_num' wx:if='{{dateFr.getNowFoodSelectable(food.limitType, food.limitTimeStart, food.limitTimeEnd)}}'>
               <view class='def' wx:if='{{item.type === 1 && !food.specCount}}'>x{{food.count * foodNum}}</view>
               <view class='num' wx:else>
                 <block wx:if='{{dateFr.getNowFoodOrderNum(foods.subFoodItems, food.id)}}'>

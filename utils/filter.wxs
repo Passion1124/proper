@@ -295,10 +295,10 @@ var DateFr = {
     });
     return total;
   },
-  getNowFoodOrderNum: function(arr, fid) {
+  getNowFoodOrderNum: function(arr, fid, mid) {
     if (arr.length) {
       var result = arr.filter(function(item) {
-        return item.foodId === fid;
+        return item.foodId === fid && item.menuId === mid;
       }).reduce(function(pre, curr) {
         return pre + curr.foodNumber;
       }, 0);
@@ -350,10 +350,10 @@ var DateFr = {
     }
   },
   // 获取当前食物是否已经被选择
-  getNowFoodIsCheck: function(arr, fid) {
+  getNowFoodIsCheck: function(arr, fid, mid) {
     if (arr && fid) {
       var result = arr.filter(function(item) {
-        return item.foodId === fid;
+        return item.foodId === fid && item.menuId === mid;;
       });
       return result.length ? true : false;
     } else {
@@ -361,9 +361,9 @@ var DateFr = {
     }
   },
   // 获取被选中的食物的份数和数量
-  getCheckedFoodNumAndTotal: function(arr, fid) {
+  getCheckedFoodNumAndTotal: function(arr, fid, mid) {
     var food = arr.filter(function(item) {
-      return item.foodId === fid;
+      return item.foodId === fid && item.menuId === mid;
     });
     var total = food[0].subFoodItems.reduce(function(pre, curr) {
       return pre + curr.foodNumber;
