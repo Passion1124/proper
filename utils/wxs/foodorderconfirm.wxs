@@ -54,6 +54,18 @@ var foodorderconfirm = {
     } else {
       return 0;
     }
+  },
+  getNowFoodOrderNum: function (arr, fid) {
+    if (arr.length) {
+      var result = arr.filter(function (item) {
+        return item.foodId === fid;
+      }).reduce(function (pre, curr) {
+        return pre + curr.foodNumber;
+      }, 0);
+      return result;
+    } else {
+      return 0;
+    }
   }
 }
 
@@ -61,5 +73,6 @@ module.exports = {
   getSpcItemsText: foodorderconfirm.getSpcItemsText,
   getMenuTime: foodorderconfirm.getMenuTime,
   sectionToChinese: foodorderconfirm.sectionToChinese,
-  getMenuItemFoodNumber: foodorderconfirm.getMenuItemFoodNumber
+  getMenuItemFoodNumber: foodorderconfirm.getMenuItemFoodNumber,
+  getNowFoodOrderNum: foodorderconfirm.getNowFoodOrderNum
 }

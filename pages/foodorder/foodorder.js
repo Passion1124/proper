@@ -369,14 +369,14 @@ Page({
   },
   // 修改用餐人数
   handleChangeEatNumber (e) {
-    if (this.data.toPage && this.data.foodOrderBatch.consumerCount >= parseInt(e.detail.value) + 1) {
+    if ((this.data.toPage || this.data.foodOrderBatch.consumerCount) && this.data.foodOrderBatch.consumerCount >= parseInt(e.detail.value) + 1) {
       util.showMessage('加菜时，只能添加用餐人数');
       return false;
     }
     this.setData({
-      consumerCount: parseInt(e.detail.value) + 1
+      consumerCount: parseInt(e.detail.value) + 1 - (this.data.foodOrderBatch.consumerCount || 0)
     });
-    this.handleFoodBasketAdd(parseInt(e.detail.value) + 1, this.data.foodItems);
+    this.handleFoodBasketAdd(this.data.consumerCount, this.data.foodItems);
   },
   // 点击去下单按钮
   handleClickGoToTheOrder () {

@@ -58,7 +58,7 @@
               </view>
               <view class='text'>用餐人数</view>
             </view>
-            <view class='fullName'>{{consumerCount || foodOrderBatch.consumerCount}} ></view>
+            <view class='fullName'>{{consumerCount + (foodOrderBatch.consumerCount || 0)}} ></view>
           </view>
         </picker>
       </view>
@@ -88,7 +88,7 @@
         <block wx:for='{{checkCategory.items}}' wx:key='{{index}}'>
           <view class='food_tips {{dateFr.getNowFoodOrderNum(foodItems, item.foods[0].id) ? "selected" : ""}}' wx:if='{{checkCategory.type === 1 && !toPage}}'>
             <text wx:if='{{!item.limit}}'>以下菜品必点</text>
-            <text wx:else>菜品种类至少选1种,已选{{foodorderconfirm.getMenuItemFoodNumber(foodItems, item.id)}}种</text>
+            <text wx:else>菜品种类至少选{{item.limit}}种,已选{{foodorderconfirm.getMenuItemFoodNumber(foodItems, item.id)}}种</text>
           </view>
           <block wx:for='{{item.foods}}' wx:for-item='food' wx:for-index='idx' wx:key='{{idx}}'>
             <view class='food' data-item='{{item}}' wx:if='{{food}}'>

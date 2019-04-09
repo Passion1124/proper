@@ -9,7 +9,6 @@
         <view class='introduce'>
           <text>{{item.content}}</text>
         </view>
-        <view class='comment_tips' wx:if='{{item.title === "待点评通知"}}'>感谢您使用妥妥得，带您妥妥得日本旅行。</view>
         <view class='bottom'>
           <view class='date'>{{dateFr.getOrderDate(item.createAt)}}</view>
           <view class='detail'>{{item.type === "foodqueue" ? "提前点菜" : "查看详情"}}></view>

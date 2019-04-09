@@ -260,7 +260,8 @@ Page({
   handleFoodMinuButtonClick(e) {
     let item = e.currentTarget.dataset.item;
     let food = item.foods[e.currentTarget.dataset.index];
-    if (food.specCount) {
+    let num = e.currentTarget.dataset.num;
+    if (food.specCount && num > 1) {
       this.setData({
         selectFood: food,
         deleteFoodItems: this.data.foods.subFoodItems.filter(item => item.foodId === food.id)

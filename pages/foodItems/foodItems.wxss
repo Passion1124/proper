@@ -51,7 +51,7 @@ page{
   width: 44rpx;
   height: 44rpx;
   font-size: 38rpx;
-  line-height: 42rpx;
+  line-height: 34rpx;
   text-align: center;
   color: #23c2f7;
   border: 1rpx solid #23c2f7;
@@ -310,9 +310,13 @@ page{
 }
 
 .popup .specifications .specifications_list .list .spe_name{
+  width: 100%;
   font-size: 28rpx;
   line-height: 40rpx;
   color: #3C3C3C;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
 .popup .specifications .specifications_list .list .spe_child_list_row{

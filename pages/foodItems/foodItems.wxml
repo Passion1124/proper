@@ -1,5 +1,6 @@
 <!-- foodItems.wxml -->
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
+<wxs module="foodorderconfirm" src='../../utils/wxs/foodorderconfirm.wxs'></wxs>
 <view class='container {{ type === "2" && userNumType !== 1 ? "fangti" : ""}}'>
   <view class='blue_tips' wx:if='{{type === "2" && userNumType !== 1}}'>
     <text wx:if='{{userNumType === 2}}'>全部放题至少选{{personNum}}份，已选{{foodNum}}份</text>
@@ -36,9 +37,9 @@
             <view class='food_num' wx:if='{{dateFr.getNowFoodSelectable(food.limitType, food.limitTimeStart, food.limitTimeEnd)}}'>
               <view class='def' wx:if='{{item.type === 1 && !food.specCount}}'>x{{food.count * foodNum}}</view>
               <view class='num' wx:else>
-                <block wx:if='{{dateFr.getNowFoodOrderNum(foods.subFoodItems, food.id)}}'>
-                  <view class='minus' data-index='{{idx}}' data-num='{{dateFr.getNowFoodOrderNum(foods.subFoodItems, food.id)}}' data-item='{{item}}' bindtap='handleFoodMinuButtonClick'>-</view>
-                  <view class='number_inp'>{{dateFr.getNowFoodOrderNum(foods.subFoodItems, food.id)}}</view>
+                <block wx:if='{{foodorderconfirm.getNowFoodOrderNum(foods.subFoodItems, food.id)}}'>
+                  <view class='minus' data-index='{{idx}}' data-num='{{foodorderconfirm.getNowFoodOrderNum(foods.subFoodItems, food.id)}}' data-item='{{item}}' bindtap='handleFoodMinuButtonClick'>-</view>
+                  <view class='number_inp'>{{foodorderconfirm.getNowFoodOrderNum(foods.subFoodItems, food.id)}}</view>
                 </block>
                 <view class='plus' data-item='{{item}}' data-index='{{idx}}' bindtap='handleFoodPlusButtonClick'>+</view>
               </view>

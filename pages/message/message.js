@@ -73,7 +73,7 @@ Page({
       console.log(res);
       this.setData({
         msgs: res.msgs
-      })
+      });
     }, err => {
       console.error(err);
     })
@@ -110,7 +110,7 @@ Page({
       this.getOrderDetail(id);
     } else if (type === 'foodqueue') {
       this.getLineWaitInfo(id);
-    } else if (type === 'content') {
+    } else if (type === 'foodorder') {
       let url = '/pages/orderDishesDetail/orderDishesDetail?id=' + id;
       utils.navigateTo(url);
     }
