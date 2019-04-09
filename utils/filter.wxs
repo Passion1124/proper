@@ -57,8 +57,8 @@ var DateFr = {
       return '工作日3天内确认'
     }
   },
-  getScheduledTime: function (arr) {
-    return arr.reduce(function (pre, next) {
+  getScheduledTime: function(arr) {
+    return arr.reduce(function(pre, next) {
       return pre + '、' + next;
     });
   },
@@ -128,7 +128,7 @@ var DateFr = {
 
     return y + '年' + M + '月' + d + '日';
   },
-  getOrderTime: function (time) {
+  getOrderTime: function(time) {
     if (!time) return '';
 
     var date = getDate(time);
@@ -138,7 +138,7 @@ var DateFr = {
     if (m < 10) m = '0' + m;
     return h + ':' + m;
   },
-  getOrderStatus: function (status, item) {
+  getOrderStatus: function(status, item) {
     var str = '';
     switch (status) {
       case -1:
@@ -243,7 +243,7 @@ var DateFr = {
     if (type === 3) str = 'apple';
     return str;
   },
-  getLinePendingDateText: function (lineAt) {
+  getLinePendingDateText: function(lineAt) {
     var diff = (getDate().getTime() - lineAt) / 1000;
     var d = Math.floor((diff / (3600 * 24)));
     var h = Math.floor((diff % (3600 * 24) / 3600));
@@ -255,20 +255,20 @@ var DateFr = {
     str += m + '分钟';
     return str;
   },
-  getLineOverDateText: function (lineAt, overAt) {
+  getLineOverDateText: function(lineAt, overAt) {
     var diff = overAt - lineAt;
     var d = Math.floor(diff / (24 * 3600 * 1000));
-    var leave1 = diff % (24 * 3600 * 1000);    //计算天数后剩余的毫秒数
+    var leave1 = diff % (24 * 3600 * 1000); //计算天数后剩余的毫秒数
     var h = Math.floor(leave1 / (3600 * 1000));
-    var leave2 = leave1 % (3600 * 1000);        //计算小时数后剩余的毫秒数
+    var leave2 = leave1 % (3600 * 1000); //计算小时数后剩余的毫秒数
     var m = Math.floor(leave2 / (60 * 1000));
     var str = '';
     if (d) str += d + '天';
     if (h) str += h + '时';
-    if (m) str += m + '分'; 
+    if (m) str += m + '分';
     return str;
   },
-  getLineStatusText: function (status) {
+  getLineStatusText: function(status) {
     var str = '';
     if (status === 0) str = '排队中';
     if (status === 1) str = '排队中';
@@ -277,19 +277,29 @@ var DateFr = {
     if (status === 4) str = '商户下线';
     return str;
   },
-  getFoodOrderTotal: function (dots) {
-    var total = dots.map(function (item) {
+  // 获取点菜订单状态文本
+  getFoodStatusText: function(status) {
+    var str = '';
+    if (status === 0) str = '初始化状态';
+    if (status === 1) str = '就餐中';
+    if (status === 3) str = '待评价';
+    if (status === 4) str = '已取消';
+    if (status === 5) str = '已完成'; 
+    return str;
+  },
+  getFoodOrderTotal: function(dots) {
+    var total = dots.map(function(item) {
       return item.foodOrderBatchDetail.foodNumber;
-    }).reduce(function (pre, next) {
+    }).reduce(function(pre, next) {
       return pre + next;
     });
     return total;
   },
-  getNowFoodOrderNum: function (arr, fid) {
+  getNowFoodOrderNum: function(arr, fid) {
     if (arr.length) {
-      var result = arr.filter(function (item) {
+      var result = arr.filter(function(item) {
         return item.foodId === fid;
-      }).reduce(function (pre, curr) {
+      }).reduce(function(pre, curr) {
         return pre + curr.foodNumber;
       }, 0);
       return result;
@@ -297,14 +307,14 @@ var DateFr = {
       return 0;
     }
   },
-  getFoodOrderBatchTotalPrice: function (dots) {
-    var price = dots.reduce(function (pre, next) {
+  getFoodOrderBatchTotalPrice: function(dots) {
+    var price = dots.reduce(function(pre, next) {
       return pre + (next.foodOrderBatchDetail.foodPrice * next.foodOrderBatchDetail.foodNumber)
     }, 0);
     var result = price / 100 >= 1 ? parseInt(price / 100) : (price / 100).toFixed(2);
     return result;
   },
-  getOrderPageUseDateText: function (type) {
+  getOrderPageUseDateText: function(type) {
     var str = '';
     if (type === 11 || type === 12 || type === 34) {
       str = '出行'
@@ -319,7 +329,7 @@ var DateFr = {
     }
     return str + '日期'
   },
-  getReceiverEnglishNameText: function (enName) {
+  getReceiverEnglishNameText: function(enName) {
     if (enName) {
       return enName.split('|')[1] + ' ' + enName.split('|')[0];
     } else {
@@ -327,11 +337,11 @@ var DateFr = {
     }
   },
   // 获取当前菜品分类选择的份数
-  getCheckedFoodMenuCount: function (arr, menuId) {
+  getCheckedFoodMenuCount: function(arr, menuId) {
     if (arr.length && menuId) {
-      var num = arr.filter(function (item) {
+      var num = arr.filter(function(item) {
         return item.menuId === menuId;
-      }).reduce(function (pre, curr) {
+      }).reduce(function(pre, curr) {
         return pre + curr.foodNumber || 0
       }, 0);
       return num;
@@ -340,9 +350,9 @@ var DateFr = {
     }
   },
   // 获取当前食物是否已经被选择
-  getNowFoodIsCheck: function (arr, fid) {
+  getNowFoodIsCheck: function(arr, fid) {
     if (arr && fid) {
-      var result = arr.filter(function (item) {
+      var result = arr.filter(function(item) {
         return item.foodId === fid;
       });
       return result.length ? true : false;
@@ -351,22 +361,22 @@ var DateFr = {
     }
   },
   // 获取被选中的食物的份数和数量
-  getCheckedFoodNumAndTotal: function (arr, fid) {
-    var food = arr.filter(function (item) {
+  getCheckedFoodNumAndTotal: function(arr, fid) {
+    var food = arr.filter(function(item) {
       return item.foodId === fid;
     });
-    var total = food[0].subFoodItems.reduce(function (pre, curr) {
+    var total = food[0].subFoodItems.reduce(function(pre, curr) {
       return pre + curr.foodNumber;
     }, 0);
     return '已选' + food[0].foodNumber + '份 菜品' + total;
   },
   // 获取分类下的食物被选中的数量
-  getGroupSelectedFoodNumber: function (gid, subFoodItems) {
-    var foodList = subFoodItems.filter(function (item) {
+  getGroupSelectedFoodNumber: function(gid, subFoodItems) {
+    var foodList = subFoodItems.filter(function(item) {
       return item.foodGroupId === gid;
     });
     if (foodList.length) {
-      return foodList.reduce(function (cur, next) {
+      return foodList.reduce(function(cur, next) {
         return cur + next.foodNumber;
       }, 0);
     } else {
@@ -374,7 +384,7 @@ var DateFr = {
     }
   },
   // 判断当前食物是否在可点时段
-  getNowFoodSelectable: function (type, beginTime, endTime) {
+  getNowFoodSelectable: function(type, beginTime, endTime) {
     if (type === 0) {
       return true;
     }
@@ -396,65 +406,67 @@ var DateFr = {
     }
   },
   // 获取当前食物规格是否已经被选择
-  gewNowFoodSpecSelected: function (arr, id) {
+  gewNowFoodSpecSelected: function(arr, id) {
     var index = arr.indexOf(id);
-    return index !== -1 ? "active": "";
+    return index !== -1 ? "active" : "";
   },
   // 获取规格文本内容
-  gewNowFoodSpecText: function (foodSpcs, spcItemId, type) {
-    var arr = foodSpcs.reduce(function (pre, curr) {
+  gewNowFoodSpecText: function(foodSpcs, spcItemId, type) {
+    var arr = foodSpcs.reduce(function(pre, curr) {
       return pre.concat(curr.items);
     }, []);
     if (type === 'list') spcItemId.reverse();
-    var spc = spcItemId.map(function (item) {
-      var index = arr.filter(function (obj) {
+    var spc = spcItemId.map(function(item) {
+      var index = arr.filter(function(obj) {
         return obj.id === item;
       });
       return index[0];
-    }).filter(function (item) {
+    }).filter(function(item) {
       return item;
-    }).map(function (item) {
+    }).map(function(item) {
       return item.name;
     }).join(' ');
     return spc;
   },
   // 获取食物规格选择完整之后的价格
-  getNowFoodSpecCompletePrice: function (prices, md5) {
-    var priceObj = prices.filter(function (item) {
+  getNowFoodSpecCompletePrice: function(prices, md5) {
+    var priceObj = prices.filter(function(item) {
       return item.md5 === md5;
     });
     return priceObj[0].price
   },
   // 数组筛选不为空的值
-  getArrayDataHasValue: function (arr) {
+  getArrayDataHasValue: function(arr) {
     return arr.filter(function(item) {
       return item
     });
   },
   // 判断是否显示选择必点菜提示
-  mandatoryTipsShow: function (nowMenu, menuList, foodItems, toPage) {
-    if (toPage) { return false; };
-    var mandatoryArray = menuList.filter(function (item) {
+  mandatoryTipsShow: function(nowMenu, menuList, foodItems, toPage) {
+    if (toPage) {
+      return false;
+    };
+    var mandatoryArray = menuList.filter(function(item) {
       return item.type === 1;
     });
-    var mandatoryId = mandatoryArray.length ? mandatoryArray.map(function (item) {
+    var mandatoryId = mandatoryArray.length ? mandatoryArray.map(function(item) {
       return item.id
     }) : '';
     if (mandatoryId.indexOf(nowMenu.id) === -1) {
-      var foodList = mandatoryArray.map(function (item) {
+      var foodList = mandatoryArray.map(function(item) {
         return item.items;
-      }).reduce(function (c, n) {
+      }).reduce(function(c, n) {
         return c.concat(n);
-      }, []).map(function (item) {
+      }, []).map(function(item) {
         return item.foods[0];
       });
       var obj = {};
-      var mandatoryFood = foodItems.filter(function (item) {
-        var index = foodList.filter(function (food) {
+      var mandatoryFood = foodItems.filter(function(item) {
+        var index = foodList.filter(function(food) {
           return food.id === item.foodId;
         });
         return index.length && item.foodNumber;
-      }).reduce(function (cur, next) {
+      }).reduce(function(cur, next) {
         obj[next.foodId] ? "" : obj[next.foodId] = true && cur.push(next);
         return cur;
       }, []);
@@ -468,15 +480,15 @@ var DateFr = {
     }
   },
   // 获取当前订单的总价格
-  getNowFoodOrderTotalPrice: function (orderItems, goods, num) {
+  getNowFoodOrderTotalPrice: function(orderItems, goods, num) {
     if (num || orderItems.length) {
-      var foodPrice = orderItems.reduce(function (cur, next) {
+      var foodPrice = orderItems.reduce(function(cur, next) {
         return cur + next.totalPrice
       }, 0);
       var teePrice = goods.goodsBase.teeFee * num;
       var total = (foodPrice + teePrice) / 100;
       if (total.toString().indexOf('.') !== -1) {
-        total =  parseInt(total) + 1;
+        total = parseInt(total) + 1;
       }
       return total;
     } else {
@@ -484,9 +496,9 @@ var DateFr = {
     }
   },
   // 获取当前订单的服务费
-  getNowFoodOrderServiceCharge: function (orderItems, goods, num) {
+  getNowFoodOrderServiceCharge: function(orderItems, goods, num) {
     if (num || orderItems.length) {
-      var foodPrice = orderItems.reduce(function (cur, next) {
+      var foodPrice = orderItems.reduce(function(cur, next) {
         return cur + next.totalPrice
       }, 0);
       var teePrice = goods.goodsBase.teeFee * num;
@@ -504,25 +516,25 @@ var DateFr = {
     }
   },
   // 获取点菜订单的食品数量
-  getNowFoodOrderFoodNumber: function (orderItems) {
+  getNowFoodOrderFoodNumber: function(orderItems) {
     if (orderItems.length) {
-      var num = orderItems.reduce(function (cur, next) {
+      var num = orderItems.reduce(function(cur, next) {
         return cur + next.foodNumber;
       }, 0)
-      return num;
+      return num > 99 ? '99+' : num;
     } else {
       return 0;
     }
   },
   // 判断放题提示是否展示
-  getSelfHelpTipsShow: function (self, foodItems, pNum) {
+  getSelfHelpTipsShow: function(self, foodItems, pNum) {
     if (self.length) {
-      var sId = self.map(function (item) {
+      var sId = self.map(function(item) {
         return item.id;
       });
-      var num = foodItems.filter(function (item) {
+      var num = foodItems.filter(function(item) {
         return sId.indexOf(item.foodId) !== -1;
-      }).reduce(function (cur, next) {
+      }).reduce(function(cur, next) {
         return cur + next.foodNumber;
       }, 0);
       if (num) {
@@ -539,13 +551,13 @@ var DateFr = {
     }
   },
   // 获取放题选择数量
-  getSelfHelpFoodNumber: function (self, foodItems) {
-    var sId = self.map(function (item) {
+  getSelfHelpFoodNumber: function(self, foodItems) {
+    var sId = self.map(function(item) {
       return item.id;
     });
-    var num = foodItems.filter(function (item) {
+    var num = foodItems.filter(function(item) {
       return sId.indexOf(item.foodId) !== -1;
-    }).reduce(function (cur, next) {
+    }).reduce(function(cur, next) {
       return cur + next.foodNumber;
     }, 0);
     return num;

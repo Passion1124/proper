@@ -127,7 +127,7 @@ Page({
   },
   goToTheFoodOrder(e) {
     wx.navigateTo({
-      url: '/pages/foodorder/foodorder?sn=' + this.data.sn
+      url: '/pages/foodorder/foodorder?sn=' + this.data.sn + '&mid=' + this.data.line.mid
     })
   }
 })

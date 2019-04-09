@@ -335,6 +335,7 @@ Page({
   },
   // 查询或生成点菜订单之后的成功回调
   handleFoodOrderGenSuccessCallback (res) {
+    let s_data = { foodOrderId: res.foodOrderId };
     if (res.foodBasket || this.data.toPage) {
       let foodCartList = {};
       if (res.foodBasket) {
@@ -343,14 +344,11 @@ Page({
         foodCartList.setMeal = res.foodBasket.orderItems.filter(item => item.type === 3);
         foodCartList.ordinary = res.foodBasket.orderItems.filter(item => item.type === 1);
       }
-      this.setData({
-        consumerCount: res.foodBasket ? res.foodBasket.consumerCount : 0,
-        foodItems: res.foodBasket ? res.foodBasket.foodItems : [],
-        orderItems: res.foodBasket ? res.foodBasket.orderItems : [],
-        foodOrderId: res.foodOrderId,
-        foodCartList,
-        foodOrderBatch: res.foodOrderBatch || {}
-      })
+      s_data.foodCartList = foodCartList;
+      s_data.consumerCount = res.foodBasket ? res.foodBasket.consumerCount : 0;
+      s_data.foodItems = res.foodBasket ? res.foodBasket.foodItems : [];
+      s_data.orderItems = res.foodBasket ? res.foodBasket.orderItems : [];
+      s_data.foodOrderBatch = res.foodOrderBatch || {};
     } else if (res.foodOrderBatch) {
       util.redirectTo('/pages/foodadd/foodadd?orderId=' + res.foodOrderId);
     } else if (!this.data.consumerCount) {
@@ -358,6 +356,7 @@ Page({
         url: '/pages/chooseFoodNumber/chooseFoodNumber?foodOrderId=' + res.foodOrderId
       });
     }
+    this.setData(s_data);
   },
   // 修改分类
   bindChangeCategoryId (e) {

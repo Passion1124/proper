@@ -1,8 +1,8 @@
 var foodorderconfirm = {
   getSpcItemsText: function(spcItems) {
     return spcItems.reduce(function(cur, next) {
-      return cur.info + '、' + next.info
-    });
+      return cur ? cur + '、' + next.info : next.info;
+    }, '');
   },
   getMenuTime: function(time) {
     if (!time) return '';
