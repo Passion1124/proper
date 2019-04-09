@@ -102,6 +102,11 @@
   margin-bottom: 40rpx;
 }
 
+.introduce .i_content rich-text{
+  width: 100%;
+  height: 100%;
+}
+
 .subscribe{
   position: fixed;
   left: 0;

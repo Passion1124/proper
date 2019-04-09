@@ -20,3 +20,11 @@ button{
 button::after{
   border: none;
 }
+
+.wxParse-style{
+  display: none;
+}
+
+.wxParse-inline{
+  display: inline-block;
+}
