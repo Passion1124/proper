@@ -2,7 +2,7 @@
 import md5 from './utils/md5.js'
 import utils from './utils/util.js'
 
-const debug = false;
+const debug = true;
 
 App({
   onLaunch: function() {
