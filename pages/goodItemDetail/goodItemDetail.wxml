@@ -83,6 +83,9 @@
     <view class='i_content'>
       <template is="wxParse" data="{{wxParseData: article.nodes}}" />
     </view>
+    <!-- <view class='i_content'>
+      <rich-text nodes='{{article_content}}'></rich-text>
+    </view> -->
   </view>
   <view class='subscribe'>
     <view class='price'>

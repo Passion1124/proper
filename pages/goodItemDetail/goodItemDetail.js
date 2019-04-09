@@ -14,7 +14,8 @@ Page({
     goods: {},
     goodsItem: {},
     coupons: [],
-    hasExists: []
+    hasExists: [],
+    article_content: ''
   },
 
   /**
@@ -90,6 +91,11 @@ Page({
       });
       console.log(this.data.goodsItem.goodsItemBase.vouchWay);
       WxParse.wxParse('article', 'html', this.data.goodsItem.goodsItemInfo.info, this, 5);
+      let article_content = this.data.goodsItem.goodsItemInfo.info.replace(/<img/gi, '<img style="max-width:100%;height:auto;display:block" ').replace(/<section/g, '<div').replace(/\/section>/g, '\div>');
+      console.log(article_content);
+      this.setData({
+        article_content
+      })
     }, (err) => {
       console.error(err);
     })
