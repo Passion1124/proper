@@ -7,7 +7,7 @@
     <view class='content'>
       <view class='top'>
         <view class='logo'>
-          <image src='{{coupon.imgUrl}}'></image>
+          <image mode='aspectFill' src='{{coupon.imgUrl + "?x-oss-process=image/resize,w_200"}}'></image>
         </view>
         <view>
           <view wx:if='{{coupon.type === 0 }}'>
@@ -35,7 +35,7 @@
         </view>
       </view>
       <view class='image_row' wx:if='{{!coupon.usingOnline}}'>
-        <image mode='aspectFill' src='{{coupon.photoUrl}}'></image>
+        <image mode='aspectFill' src='{{coupon.photoUrl + "?x-oss-process=image/resize,w_200"}}'></image>
       </view>
       <view class='btn'>
         <button disabled='{{coupon.usable === 0}}' bindtap='goToTheUseing' wx:if='{{form !== "poi" && canUse !== "1"}}'>{{coupon.usingOnline ? '前往' : '出示'}}使用</button>

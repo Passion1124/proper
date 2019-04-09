@@ -8,7 +8,7 @@
           <view class='content'>
             <view class='top'>
               <view class='logo'>
-                <image src='{{item.imgUrl}}'></image>
+                <image mode='aspectFill' src='{{item.imgUrl + "?x-oss-process=image/resize,w_200"}}'></image>
               </view>
               <view class='worth'>
                 <view class='discount'>
