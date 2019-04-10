@@ -125,11 +125,16 @@ Page({
         success(res) {
           console.log(res);
           let result = res.result;
+          let query = result.split('?')[1];
           if (result.indexOf('foodorder') !== -1) {
-            let query = result.split('?')[1];
             let mid = utils.getQueryString(query, 'mid');
             let tno = utils.getQueryString(query, 'tno');
             _this.handleScanCodeEnter(mid, tno);
+          } else if (result.indexOf('queueDetail') !== -1) {
+            let sn = utils.getQueryString(query, 'sn');
+            let skipType = utils.getQueryString(query, 'skipType');
+            let lang = utils.getQueryString(query, 'lang');
+            utils.navigateTo('/pages/lineUpDetail/lineUpDetail?sn=' + sn + '&skipType=' + skipType + '&lang=' + lang);
           }
         },
         fail(res) {

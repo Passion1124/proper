@@ -6,7 +6,6 @@ var WxParse = require('../../wxParse/wxParse.js');
 const app = getApp();
 
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -272,7 +271,7 @@ Page({
       }
       s_data.foodCartList = foodCartList;
       s_data.consumerCount = res.foodBasket ? res.foodBasket.consumerCount : 0;
-      s_data.pickerNumber = res.foodBasket ? (res.foodBasket.consumerCount ? res.foodBasket.consumerCount - 1 + (res.foodOrderBatch ? res.foodOrderBatch.consumerCount : 0) : 0 ) : 0;
+      s_data.pickerNumber = (res.foodBasket ? res.foodBasket.consumerCount : 0) + (res.foodOrderBatch ? res.foodOrderBatch.consumerCount : 0) - 1;
       s_data.foodItems = res.foodBasket ? res.foodBasket.foodItems : [];
       s_data.orderItems = res.foodBasket ? res.foodBasket.orderItems : [];
       s_data.foodOrderBatch = res.foodOrderBatch || {};
@@ -445,7 +444,7 @@ Page({
     let food = e.currentTarget.dataset.food;
     let num = e.currentTarget.dataset.num;
     if (food.type === 2 || food.type === 3) {
-      util.navigateTo('/pages/foodItems/foodItems?foodId=' + food.foodId + '&personNum=' + this.data.consumerCount + '&type=' + food.type + '&foodNum=' + food.foodNumber);
+      util.navigateTo('/pages/foodItems/foodItems?foodId=' + food.foodId + '&personNum=' + this.data.consumerCount + '&type=' + food.type + '&foodNum=' + food.foodNumber + '&userNumType=' + food.food.userNumType);
     } else {
       let index = this.data.foodItems.findIndex(item => {
         if (food.spcItems.length) {
@@ -466,7 +465,7 @@ Page({
   handleClickFoodCartPlusButton (e) {
     let food = e.currentTarget.dataset.food;
     if (food.type === 2 || food.type === 3) {
-      util.navigateTo('/pages/foodItems/foodItems?foodId=' + food.foodId + '&personNum=' + this.data.consumerCount + '&type=' + food.type + '&foodNum=' + food.foodNumber);
+      util.navigateTo('/pages/foodItems/foodItems?foodId=' + food.foodId + '&personNum=' + this.data.consumerCount + '&type=' + food.type + '&foodNum=' + food.foodNumber + '&userNumType=' + food.food.userNumType);
     } else {
       let index = this.data.foodItems.findIndex(item => {
         if (food.spcItems.length) {

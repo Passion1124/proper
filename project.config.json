@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
+			"current": -1,
 			"list": [
 				{
 					"id": 0,
@@ -157,27 +157,6 @@
 					"name": "代预订详情页面",
 					"pathName": "pages/orderBookDetail/orderBookDetail",
 					"query": "result=1&id=3cd2146c42d54fc0923af36d8de16dee",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "关于",
-					"pathName": "pages/about/about",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "核销页面",
-					"pathName": "pages/ticket/ticket",
-					"query": "orderId=a97da913e1f843a99b2ea9934a45497e&merchId=bc007b71-75a4-47f3-a2d5-5d9604015ebe",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "加菜",
-					"pathName": "pages/foodorder/foodorder",
-					"query": "mid=9d8d5e7e-1155-4bcf-b8a6-b3ec079d7ef2&tno=001&toPage=foodadd",
 					"scene": null
 				}
 			]
