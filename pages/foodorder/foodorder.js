@@ -26,8 +26,6 @@ Page({
     category: [],
     foodList: [],
     foodOrder: {},
-    foodOrderBatchDetailDtos: [],
-    foodOrderBatches: [],
     foodOrderId: '',
     batchStatus: 0,
     checkCategory: '',
@@ -216,7 +214,7 @@ Page({
         checkCategory: res.menus[0],
         selfHelp: res.menus.map(item => item.items).reduce((c, n) => c.concat(n), []).map(item => item.foods[0]).filter(item => item).filter(item => item.type === 2 && item.userNumType !== 1)
       });
-      console.log(this.data.selfHelp);
+      // console.log(this.data.selfHelp);
     }, e => {
       console.error(e);
     })
@@ -257,94 +255,12 @@ Page({
       console.error(e);
     })
   },
-  // 查询菜品分类
-  getFoodCategoryList () {
-    let api = 'com.ttdtrip.api.restaurant.apis.service.FoodCategoryListApiService';
-    let data = { base: app.globalData.baseBody, page: 1, limit: 30, mid: this.data.line.mid };
-    app.request(api, data, res => {
-      console.log(res);
-      let checkCategory = this.data.checkCategory || res.foodCategoryDtos[0].foodCategoryLang
-      this.setData({
-        category: res.foodCategoryDtos,
-        checkCategory: checkCategory
-      });
-      this.getFoodList();
-    }, e => {
-      console.log(e);
-    })
-  },
-  // 查询菜品列表
-  getFoodList () {
-    let api = 'com.ttdtrip.api.restaurant.apis.service.FoodListApiService';
-    let data = { base: app.globalData.baseBody, categoryId: this.data.checkCategory.categoryId, page: 1, limit: 30, mid: this.data.line.mid };
-    app.request(api, data, res => {
-      console.log(res);
-      this.setData({
-        foodList: res.foodDtos
-      })
-    }, e => {
-      console.error(e);
-    })
-  },
-  // 向清单中添加菜品
-  handleFoodOrderAdd (e) {
-    let food = e.currentTarget.dataset.food.food;
-    let line = this.data.line;
-    let api = 'com.ttdtrip.api.restaurant.apis.service.FoodOrderBatchDetailAddApiService';
-    let data = { base: app.globalData.baseBody, bookingDstDate: util.formatDate(line.lineAt), foodId: food.id, foodNumber: 1, consumerCount: line.num, foodOrderExts: { allowSmoke: line.smoke, isBox: line.box }, lineName: line.fullName, lineSn: line.sn, mid: line.mid };
-    app.request(api, data, res => {
-      this.setData({
-        foodOrderId: res.foodOrderId
-      })
-      this.handleGetFoodOrderDetailList(res.foodOrderId);
-    }, e => {
-      console.error(e);
-    })
-  },
-  // 向清单中删除菜品
-  handleFoodOrderDelete (e) {
-    let num = e.currentTarget.dataset.num;
-    if (parseInt(num) <= 0) return false;
-    let food = e.currentTarget.dataset.food.food;
-    let api = 'com.ttdtrip.api.restaurant.apis.service.FoodOrderBatchDetailDeleteApiService';
-    let data = { base: app.globalData.baseBody, foodOrderId: this.data.foodOrderId, foodId: food.id, foodNumber: 1 };
-    app.request(api, data, res => {
-      console.log(res);
-      let item = this.data.foodOrderBatchDetailDtos.find(item => item.foodOrderBatchDetail.foodId === food.id);
-      let index = this.data.foodOrderBatchDetailDtos.findIndex(item => item.foodOrderBatchDetail.foodId === food.id);
-      if (item.foodOrderBatchDetail.foodNumber > 1) {
-        item.foodOrderBatchDetail.foodNumber--;
-        let arr_str = 'foodOrderBatchDetailDtos['+index+']';
-        this.setData({
-          [arr_str]: item
-        })
-      } else {
-        let foodOrderBatchDetailDtos = this.data.foodOrderBatchDetailDtos;
-        foodOrderBatchDetailDtos.splice(index, 1);
-        this.setData({
-          foodOrderBatchDetailDtos
-        })
-      }
-    }, e => {
-      console.error(e);
-    })
-  },
-  // 查询菜品清单详情列表
-  handleGetFoodOrderDetailList(foodOrderId) {
-    let api = 'com.ttdtrip.api.restaurant.apis.service.FoodOrderBatchDetailListApiService';
-    let data = { base: app.globalData.baseBody, batchStatus: this.data.batchStatus, foodOrderId };
-    app.request(api, data, res => {
-      this.setData({
-        foodOrder: res.foodOrder,
-        foodOrderBatchDetailDtos: res.foodOrderBatchDetailDtos,
-        foodOrderBatches: res.foodOrderBatches
-      });
-    })
-  },
   // 查询或生成点菜订单之后的成功回调
   handleFoodOrderGenSuccessCallback (res) {
     let s_data = { foodOrderId: res.foodOrderId };
-    if (res.foodBasket || this.data.toPage) {
+    if (res.foodOrderBatch && !this.data.toPage) {
+      util.redirectTo('/pages/foodadd/foodadd?orderId=' + res.foodOrderId);
+    } else if (res.foodBasket || this.data.toPage) {
       let foodCartList = {};
       if (res.foodBasket) {
         foodCartList.mustPoint = res.foodBasket.orderItems.filter(item => item.type === 9);
@@ -357,8 +273,6 @@ Page({
       s_data.foodItems = res.foodBasket ? res.foodBasket.foodItems : [];
       s_data.orderItems = res.foodBasket ? res.foodBasket.orderItems : [];
       s_data.foodOrderBatch = res.foodOrderBatch || {};
-    } else if (res.foodOrderBatch) {
-      util.redirectTo('/pages/foodadd/foodadd?orderId=' + res.foodOrderId);
     } else if (!this.data.consumerCount) {
       wx.redirectTo({
         url: '/pages/chooseFoodNumber/chooseFoodNumber?foodOrderId=' + res.foodOrderId

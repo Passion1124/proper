@@ -30,9 +30,9 @@
               <view class='img_mask' wx:if='{{!dateFr.getNowFoodSelectable(food.limitType, food.limitTimeStart, food.limitTimeEnd)}}'></view>
             </view>
             <view class='food_info {{dateFr.getNowFoodSelectable(food.limitType, food.limitTimeStart, food.limitTimeEnd) ? "" : "limit_food"}}'>
-              <view class='title {{item.type === 3 ? showErrorTips : ""}} {{item.type === 1 && food.specCount ? defaultFoodTips : ""}}'>{{food.foodName}}</view>
+              <view class='title {{item.type === 3 ? showErrorTips : ""}} {{item.type === 1 && food.specCount && (foodNum * food.count !== foodorderconfirm.getNowFoodOrderNum(foods.subFoodItems, food.id)) ? defaultFoodTips : ""}}'>{{food.foodName}}</view>
               <view class='subTitle'>{{food.introduce}}</view>
-              <view class='need_num {{item.type === 1 ? defaultFoodTips : ""}}' wx:if='{{item.type === 1 && food.specCount}}'>应选{{foodNum * food.count}}份</view>
+              <view class='need_num {{item.type === 1 && (foodNum * food.count !== foodorderconfirm.getNowFoodOrderNum(foods.subFoodItems, food.id)) ? defaultFoodTips : ""}}' wx:if='{{item.type === 1 && food.specCount}}'>应选{{foodNum * food.count}}份</view>
             </view>
             <view class='food_num' wx:if='{{dateFr.getNowFoodSelectable(food.limitType, food.limitTimeStart, food.limitTimeEnd)}}'>
               <view class='def' wx:if='{{item.type === 1 && !food.specCount}}'>x{{food.count * foodNum}}</view>
