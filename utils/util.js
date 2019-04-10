@@ -70,6 +70,12 @@ const reverseArray = arr => {
   return arr.reverse();
 }
 
+const getQueryString = (query, name) => {
+  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+  var r = query.match(reg);
+  if (r != null) return unescape(r[2]); return null;
+}
+
 module.exports = {
   formatTime: formatTime,
   formatDate: formatDate,
@@ -79,5 +85,6 @@ module.exports = {
   showMessage: showMessage,
   validatePhone: validatePhone,
   validateEmail: validateEmail,
-  reverseArray: reverseArray
+  reverseArray: reverseArray,
+  getQueryString: getQueryString
 }

@@ -55,6 +55,23 @@ var foodorderconfirm = {
       return 0;
     }
   },
+  getMenuItemFoodSelected: function (arr, menuItemId, limit) {
+    var num = 0;
+    if (arr.length && menuItemId) {
+      num = arr.filter(function (item) {
+        return item.menuItemId === menuItemId;
+      }).reduce(function (pre, curr) {
+        return pre + curr.foodNumber || 0
+      }, 0);
+    };
+    if (num && !limit) {
+      return true;
+    } else if (num >= limit && limit) {
+      return true;
+    } else {
+      return false;
+    }
+  },
   getNowFoodOrderNum: function (arr, fid) {
     if (arr.length) {
       var result = arr.filter(function (item) {
@@ -74,5 +91,6 @@ module.exports = {
   getMenuTime: foodorderconfirm.getMenuTime,
   sectionToChinese: foodorderconfirm.sectionToChinese,
   getMenuItemFoodNumber: foodorderconfirm.getMenuItemFoodNumber,
+  getMenuItemFoodSelected: foodorderconfirm.getMenuItemFoodSelected,
   getNowFoodOrderNum: foodorderconfirm.getNowFoodOrderNum
 }

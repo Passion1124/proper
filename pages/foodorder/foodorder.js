@@ -197,6 +197,12 @@ Page({
       this.handleFoodOrderGenSuccessCallback(res);
     }, e => {
       console.error(e);
+      if (e.ret_code === '3102' || e.ret_code === '3101') {
+        this.setData({
+          orderStatus: e.ret_code,
+          orderWarningTipsText: e.ret_msg
+        })
+      }
     })
   },
   // 菜单详情接口（全菜品）
@@ -623,18 +629,9 @@ Page({
   mandatoryFoodSelectAll () {
     if (this.data.toPage) { return true; };
     let mandatoryArray = this.data.menus.filter(item => item.type === 1);
-    var foodList = mandatoryArray.map(item => item.items).reduce((c, n) => c.concat(n), []).map(item => item.foods[0]);
-    let obj = {};
-    var mandatoryFood = this.data.foodItems.filter(item => {
-      let index = foodList.findIndex(food => {
-        return food.id === item.foodId;
-      });
-      return index !== -1;
-    }).reduce(function (cur, next) {
-      obj[next.foodId] ? "" : obj[next.foodId] = true && cur.push(next);
-      return cur;
-    }, []);
-    if (mandatoryFood.length === foodList.length) {
+    var mandatoryItems = mandatoryArray.map(item => item.items).reduce((c, n) => c.concat(n), []);
+    var every = mandatoryItems.every(this.getMandatoryFoodNumberSatisfyEvery);
+    if (every) {
       return true;
     } else {
       util.showMessage('必点菜菜品选择不全');
@@ -648,18 +645,9 @@ Page({
     let mandatoryArray = this.data.menus.filter(item => item.type === 1);
     var mandatoryId = mandatoryArray.length ? mandatoryArray.map(item => item.id) : '';
     if (mandatoryId.indexOf(nowMenu.id) === -1) {
-      var foodList = mandatoryArray.map(item => item.items).reduce((c, n) => c.concat(n), []).map(item => item.foods[0]);
-      let obj = {};
-      var mandatoryFood = this.data.foodItems.filter(item => {
-        let index = foodList.findIndex(food => {
-          return food.id === item.foodId;
-        });
-        return index !== -1 && item.foodNumber;
-      }).reduce(function (cur, next) {
-        obj[next.foodId] ? "" : obj[next.foodId] = true && cur.push(next);
-        return cur;
-      }, []);
-      if (mandatoryFood.length === foodList.length) {
+      var mandatoryItems = mandatoryArray.map(item => item.items).reduce((c, n) => c.concat(n), []);
+      var every = mandatoryItems.every(this.getMandatoryFoodNumberSatisfyEvery);
+      if (every) {
         console.log('buzhanshi');
       } else {
         console.log('zhanshi');
@@ -712,6 +700,18 @@ Page({
       } else {
         return false;
       }
+    } else {
+      return false;
+    }
+  },
+  // 判断必点菜是否满足条件
+  getMandatoryFoodNumberSatisfyEvery (val) {
+    var limit = val.limit;
+    var foodNumber = this.data.foodItems.filter(item => item.menuItemId === val.id).reduce((curr, next) => curr + next.foodNumber, 0);
+    if (!limit && foodNumber) {
+      return true;
+    } else if (limit && foodNumber >= limit) {
+      return true;
     } else {
       return false;
     }

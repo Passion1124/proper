@@ -118,15 +118,19 @@ Page({
     this.getGoodsList();
   },
   handleScanCode () {
+    let _this = this;
     utils.userIsLogin().then(_ => {
       wx.scanCode({
         onlyFromCamera: true,
         success(res) {
+          console.log(res);
           let result = res.result;
           if (result.indexOf('foodorder') !== -1) {
-            utils.navigateTo('/pages/foodorder/foodorder?' + result.split('?')[1]);
+            let query = result.split('?')[1];
+            let mid = utils.getQueryString(query, 'mid');
+            let tno = utils.getQueryString(query, 'tno');
+            _this.handleScanCodeEnter(mid, tno);
           }
-          console.log(res);
         },
         fail(res) {
           console.log(res);
@@ -205,5 +209,22 @@ Page({
     if (link.indexOf('good') !== -1) {
       utils.navigateTo('/pages/poi_detail/poi_detail?' + params);
     }
+  },
+  handleScanCodeEnter(mid, tno) {
+    let api = 'com.ttdtrip.api.restaurant.apis.service.v2.FoodOrderGenApiService';
+    let data = { base: app.globalData.baseBody, mid: mid, tableNo: tno };
+    app.request(api, data, res => {
+      console.log(res);
+      let url = ''
+      if (res.foodBasket || res.foodOrderBatch) {
+        url = '/pages/foodorder/foodorder?mid=' + mid + '&tno=' + tno;
+      } else {
+        url = '/pages/chooseFoodNumber/chooseFoodNumber?foodOrderId=' + res.foodOrderId;
+      }
+      utils.navigateTo(url);
+    }, e => {
+      console.error(e);
+      utils.navigateTo('/pages/foodorder/foodorder?mid=' + mid + '&tno=' + tno);
+    })
   }
 })

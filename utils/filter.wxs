@@ -453,24 +453,27 @@ var DateFr = {
       return item.id
     }) : '';
     if (mandatoryId.indexOf(nowMenu.id) === -1) {
-      var foodList = mandatoryArray.map(function(item) {
+      var mandatoryItems = mandatoryArray.map(function (item) {
         return item.items;
-      }).reduce(function(c, n) {
+      }).reduce(function (c, n) {
         return c.concat(n);
-      }, []).map(function(item) {
-        return item.foods[0];
-      });
-      var obj = {};
-      var mandatoryFood = foodItems.filter(function(item) {
-        var index = foodList.filter(function(food) {
-          return food.id === item.foodId;
-        });
-        return index.length && item.foodNumber;
-      }).reduce(function(cur, next) {
-        obj[next.foodId] ? "" : obj[next.foodId] = true && cur.push(next);
-        return cur;
       }, []);
-      if (mandatoryFood.length === foodList.length) {
+      var every = mandatoryItems.every(function (val) {
+        var limit = val.limit;
+        var foodNumber = foodItems.filter(function (item) {
+          return item.menuItemId === val.id;
+        }).reduce(function (curr, next) {
+          return curr + next.foodNumber;
+        }, 0);
+        if (!limit && foodNumber) {
+          return true;
+        } else if (limit && foodNumber >= limit) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      if (every) {
         return false;
       } else {
         return true;
