@@ -45,7 +45,8 @@ Page({
     popup: false,
     popupType: '',
     popupStatus: 'hide',
-    orderStatus: ''
+    orderStatus: '',
+    orderWarningTipsText: ''
   },
 
   /**
@@ -178,9 +179,10 @@ Page({
       this.handleFoodOrderGenSuccessCallback(res);
     }, e => {
       console.error(e);
-      if (e.ret_code === '3102') {
+      if (e.ret_code === '3102' || e.ret_code === '3101') {
         this.setData({
-          orderStatus: 'over'
+          orderStatus: e.ret_code,
+          orderWarningTipsText: e.ret_msg
         })
       }
     })
@@ -369,14 +371,14 @@ Page({
   },
   // 修改用餐人数
   handleChangeEatNumber (e) {
-    if ((this.data.toPage || this.data.foodOrderBatch.consumerCount) && this.data.foodOrderBatch.consumerCount >= parseInt(e.detail.value) + 1) {
+    if ((this.data.toPage || this.data.foodOrderBatch.consumerCount) && this.data.foodOrderBatch.consumerCount > parseInt(e.detail.value) + 1) {
       util.showMessage('加菜时，只能添加用餐人数');
       return false;
     }
     this.setData({
       consumerCount: parseInt(e.detail.value) + 1 - (this.data.foodOrderBatch.consumerCount || 0)
     });
-    this.handleFoodBasketAdd(this.data.consumerCount, this.data.foodItems);
+    if (this.data.consumerCount) this.handleFoodBasketAdd(this.data.consumerCount, this.data.foodItems);
   },
   // 点击去下单按钮
   handleClickGoToTheOrder () {
@@ -461,9 +463,8 @@ Page({
     this.setData({
       ['newFoods.spcItemId']: spcItemId
     });
-    console.log(this.data.newFoods.spcItemId);
     if (spcItemId.filter(item => item).length === this.data.specifications[this.data.selectFood.id].foodSpcs.length) {
-      let spcMd5 = md5(spcItemId.reverse().join(''));
+      let spcMd5 = md5(spcItemId.sort().join(''));
       this.setData({
         spcMd5
       })

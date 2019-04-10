@@ -8,7 +8,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    msgs: []
+    msgs: [],
+    page: 1,
+    size: 10
   },
 
   /**
@@ -57,7 +59,10 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    
+    if (this.data.msgs.length % this.data.size === 0) {
+      this.data.page++;
+      this.getMessageList();
+    }
   },
 
   /**
@@ -67,12 +72,13 @@ Page({
     
   },
   getMessageList () {
-    let data = { base: app.globalData.baseBody, page: 1, size: 30 };
+    let data = { base: app.globalData.baseBody, page: this.data.page, size: this.data.size };
     let api = 'com.ttdtrip.api.account.apis.service.msg.MsgListApiService';
     app.request(api, data, res => {
       console.log(res);
+      let msgs = this.data.page === 1 ? [] : this.data.msgs;
       this.setData({
-        msgs: res.msgs
+        msgs: msgs.concat(res.msgs)
       });
     }, err => {
       console.error(err);
@@ -106,10 +112,16 @@ Page({
     let id = e.currentTarget.dataset.id;
     let title = e.currentTarget.dataset.title;
     let type = e.currentTarget.dataset.type;
+    let content = e.currentTarget.dataset.content;
     if (type === 'order') {
       this.getOrderDetail(id);
     } else if (type === 'foodqueue') {
-      this.getLineWaitInfo(id);
+      let str = '点击提前点菜，就餐快人一步！';
+      if (content.indexOf(str) !== -1) {
+        this.getLineWaitInfo(id);
+      } else {
+        utils.navigateTo('/pages/lineUpDetail/lineUpDetail?sn=' + id);
+      }
     } else if (type === 'foodorder') {
       let url = '/pages/orderDishesDetail/orderDishesDetail?id=' + id;
       utils.navigateTo(url);

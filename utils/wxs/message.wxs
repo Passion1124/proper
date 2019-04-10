@@ -1,0 +1,22 @@
+var message = {
+  getMessageTipsText: function (title, content) {
+    if (title === '取号成功' && checkStatus(content)) {
+      return '提前点菜'
+    } else {
+      return '查看详情'
+    }
+  }
+}
+
+function checkStatus (content) {
+  var str = '点击提前点菜，就餐快人一步！';
+  if (content.indexOf(str) !== -1) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+module.exports = {
+  getMessageTipsText: message.getMessageTipsText
+}

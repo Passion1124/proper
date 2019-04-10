@@ -52,7 +52,7 @@ App({
               url: '/pages/signIn/signIn',
             });
           } else {
-            let code_arr = ['1113', '9008', '9001', '3102', '4004'];
+            let code_arr = ['1113', '9008', '9001', '3102', '3101', '4004'];
             if (code_arr.indexOf(res.data.ret_code) === -1) {
               utils.showMessage(res.data.ret_msg);
             }

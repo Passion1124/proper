@@ -1,0 +1,7 @@
+var common = {
+
+}
+
+module.exports = {
+  getMessageTipsText: message.getMessageTipsText
+}

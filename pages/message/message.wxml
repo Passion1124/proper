@@ -1,9 +1,10 @@
 <!-- message.wxml -->
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
+<wxs module="message" src='../../utils/wxs/message.wxs'></wxs>
 <view class='container'>
   <view class='un_empty' wx:if='{{msgs.length}}'>
     <block wx:for='{{msgs}}' wx:key='{{index}}'>
-      <view class='list' data-type='{{item.type}}' data-id='{{item.target}}' data-title='{{item.title}}' bindtap='goToTheDetail'>
+      <view class='list' data-type='{{item.type}}' data-id='{{item.target}}' data-title='{{item.title}}' data-content='{{item.content}}' bindtap='goToTheDetail'>
         <view class='title'>{{item.title}}</view>
         <view class='subTitle' wx:if="{{false}}">你的酒店已预订成功2</view>
         <view class='introduce'>
@@ -11,7 +12,7 @@
         </view>
         <view class='bottom'>
           <view class='date'>{{dateFr.getOrderDate(item.createAt)}}</view>
-          <view class='detail'>{{item.type === "foodqueue" ? "提前点菜" : "查看详情"}}></view>
+          <view class='detail'>{{message.getMessageTipsText(item.title, item.content)}}></view>
         </view>
       </view>
     </block>
