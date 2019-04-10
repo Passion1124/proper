@@ -30,6 +30,7 @@ Page({
     batchStatus: 0,
     checkCategory: '',
     consumerCount: 0,
+    pickerNumber: 0,
     numRange: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
     winHeight: '',
     specifications: {},
@@ -147,7 +148,8 @@ Page({
       console.log(res);
       this.setData({
         line: res.line,
-        consumerCount: res.line.num
+        consumerCount: res.line.num,
+        pickerNumber: res.line.num - 1
       });
       this.handleFoodOrderGen();
     }, e => {
@@ -270,6 +272,7 @@ Page({
       }
       s_data.foodCartList = foodCartList;
       s_data.consumerCount = res.foodBasket ? res.foodBasket.consumerCount : 0;
+      s_data.pickerNumber = res.foodBasket ? (res.foodBasket.consumerCount ? res.foodBasket.consumerCount - 1 + (res.foodOrderBatch ? res.foodOrderBatch.consumerCount : 0) : 0 ) : 0;
       s_data.foodItems = res.foodBasket ? res.foodBasket.foodItems : [];
       s_data.orderItems = res.foodBasket ? res.foodBasket.orderItems : [];
       s_data.foodOrderBatch = res.foodOrderBatch || {};
@@ -293,10 +296,14 @@ Page({
   handleChangeEatNumber (e) {
     if ((this.data.toPage || this.data.foodOrderBatch.consumerCount) && this.data.foodOrderBatch.consumerCount > parseInt(e.detail.value) + 1) {
       util.showMessage('加菜时，只能添加用餐人数');
+      this.setData({
+        pickerNumber: this.data.pickerNumber
+      });
       return false;
     }
     this.setData({
-      consumerCount: parseInt(e.detail.value) + 1 - (this.data.foodOrderBatch.consumerCount || 0)
+      consumerCount: parseInt(e.detail.value) + 1 - (this.data.foodOrderBatch.consumerCount || 0),
+      pickerNumber: e.detail.value
     });
     if (this.data.consumerCount) this.handleFoodBasketAdd(this.data.consumerCount, this.data.foodItems);
   },
@@ -333,7 +340,7 @@ Page({
         }
       } else {
         let foodItems = this.data.foodItems;
-        let index = foodItems.findIndex(item => item.foodId === foods.id);
+        let index = foodItems.findIndex(item => item.foodId === foods.id && item.menuItemId === item.id);
         if (index !== -1) {
           foodItems[index].foodNumber += 1;
           this.handleFoodBasketAdd(this.data.consumerCount, foodItems, 'food_plus');
@@ -353,7 +360,7 @@ Page({
     let foods = e.currentTarget.dataset.foods;
     let num = e.currentTarget.dataset.num;
     let foodItems = this.data.foodItems;
-    let index = foodItems.findIndex(item => item.foodId === foods.id);
+    let index = foodItems.findIndex(item => item.foodId === foods.id && item.menuItemId === item.id);
     if (num === 1) {
       foodItems.splice(index, 1);
       this.handleFoodBasketAdd(this.data.consumerCount, foodItems, 'food_minus');

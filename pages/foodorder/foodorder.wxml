@@ -50,7 +50,7 @@
       </view>
       <view class='divider'></view>
       <view class='eat_number'>
-        <picker mode='selector' range='{{numRange}}' value='{{consumerCount}}' bindchange='handleChangeEatNumber'>
+        <picker mode='selector' range='{{numRange}}' value='{{pickerNumber}}' bindchange='handleChangeEatNumber'>
           <view class='picker'>
             <view class='left'>
               <view class='icon_row'>
@@ -208,7 +208,7 @@
             <view class='list_title' wx:if='{{idx === "mustPoint"}}'>必点菜</view>
             <view class='list_title' wx:if='{{idx === "putQuestions"}}'>放题</view>
             <view class='list_title' wx:if='{{idx === "setMeal"}}'>套餐</view>
-            <view class='list_title' wx:if='{{idx === "ordinary"}}'>普通菜品</view>
+            <!-- <view class='list_title' wx:if='{{idx === "ordinary"}}'>普通菜品</view> -->
             <block wx:for='{{food}}' wx:key='{{index}}'>
               <view class='list_flex'>
                 <view class='left'>

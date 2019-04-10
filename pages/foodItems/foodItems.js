@@ -469,8 +469,6 @@ Page({
   },
   // 判断当前食物是否在可点时段
   getNowFoodSelectable(type, beginTime, endTime) {
-    console.log(type);
-    console.log(type === 0);
     if (type === 0) {
       return true;
     }
