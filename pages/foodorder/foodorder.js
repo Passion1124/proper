@@ -346,11 +346,11 @@ Page({
   },
   // 点击加号按钮
   handleClickPlusButton (e) {
-    let item = e.currentTarget.dataset.item;
+    let items = e.currentTarget.dataset.item;
     let foods = e.currentTarget.dataset.foods;
     if (foods.type === 1) {
       if (foods.specCount) {
-        let newFoods = { foodGroupId: '', foodId: foods.id, foodNumber: 1, menuId: this.data.checkCategory.id, menuItemId: item.id, rootFoodId: '', selfFoodStyle: 0, spcItemId: [], subFoodItems: [] };
+        let newFoods = { foodGroupId: '', foodId: foods.id, foodNumber: 1, menuId: this.data.checkCategory.id, menuItemId: items.id, rootFoodId: '', selfFoodStyle: 0, spcItemId: [], subFoodItems: [] };
         this.setData({
           newFoods,
           selectFood: foods
@@ -362,12 +362,12 @@ Page({
         }
       } else {
         let foodItems = this.data.foodItems;
-        let index = foodItems.findIndex(item => item.foodId === foods.id && item.menuItemId === item.id);
+        let index = foodItems.findIndex(item => item.foodId === foods.id && item.menuItemId === items.id);
         if (index !== -1) {
           foodItems[index].foodNumber += 1;
           this.handleFoodBasketAdd(this.data.consumerCount, foodItems, 'food_plus');
         } else {
-          let obj = { foodGroupId: "", foodId: foods.id, foodNumber: 1, menuItemId: item.id, menuId: this.data.checkCategory.id, rootFoodId: '', selfFoodStyle: 0, spcItemId: [], subFoodItems: [] };
+          let obj = { foodGroupId: "", foodId: foods.id, foodNumber: 1, menuItemId: items.id, menuId: this.data.checkCategory.id, rootFoodId: '', selfFoodStyle: 0, spcItemId: [], subFoodItems: [] };
           foodItems.push(obj);
           this.handleFoodBasketAdd(this.data.consumerCount, foodItems, 'food_plus');
         }
@@ -378,11 +378,11 @@ Page({
   },
   // 点击减号按钮
   handleClickMinusButton (e) {
-    let item = e.currentTarget.dataset.item;
+    let items = e.currentTarget.dataset.item;
     let foods = e.currentTarget.dataset.foods;
     let num = e.currentTarget.dataset.num;
     let foodItems = this.data.foodItems;
-    let index = foodItems.findIndex(item => item.foodId === foods.id && item.menuItemId === item.id);
+    let index = foodItems.findIndex(item => item.foodId === foods.id && item.menuItemId === items.id);
     if (num === 1) {
       foodItems.splice(index, 1);
       this.handleFoodBasketAdd(this.data.consumerCount, foodItems, 'food_minus');
