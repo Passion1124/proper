@@ -111,6 +111,14 @@ Page({
   },
   // 菜篮子内菜品确认下单
   handleClickGoToTheOrder () {
+    let meet = this.data.orderItems.find(item => {
+      let food = item.food;
+      return !this.getNowFoodSelectable(food.limitType, food.limitTimeStart, food.limitTimeEnd);
+    });
+    if (meet) {
+      utils.showMessage(meet.food.foodName + '菜品未到售卖时间');
+      return false;
+    }
     let api = 'com.ttdtrip.api.restaurant.apis.service.v2.FoodBasketConfirmApiService';
     let data = { base: app.globalData.baseBody, foodOrderId: this.data.foodOrderId };
     app.request(api, data, res => {
@@ -118,5 +126,27 @@ Page({
     }, e => {
       console.error(e);
     })
+  },
+  // 判断当前食物是否在可点时段
+  getNowFoodSelectable(type, beginTime, endTime) {
+    if (type === 0) {
+      return true;
+    }
+    if ((!beginTime && !endTime) || (beginTime === '00:00' && endTime === '00:00')) {
+      return true;
+    } else {
+      var n = new Date();
+      var b = new Date();
+      var e = new Date();
+      b.setHours(beginTime.split(':')[0]);
+      b.setMinutes(beginTime.split(':')[1]);
+      e.setHours(endTime.split(':')[0]);
+      e.setMinutes(endTime.split(':')[1]);
+      if (n.getTime() - b.getTime() > 0 && n.getTime() - e.getTime() < 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 })

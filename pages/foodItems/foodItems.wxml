@@ -3,7 +3,7 @@
 <wxs module="foodorderconfirm" src='../../utils/wxs/foodorderconfirm.wxs'></wxs>
 <view class='container {{ type === "2" && userNumType !== 1 ? "fangti" : ""}}'>
   <view class='blue_tips' wx:if='{{type === "2" && userNumType !== 1}}'>
-    <text wx:if='{{userNumType === 2}}'>全部放题至少选{{personNum}}份，已选{{foodNum}}份</text>
+    <text wx:if='{{userNumType === 2}}'>全部放题至少选{{personNum}}份，已选{{foodNum + selectedNum}}份</text>
     <text wx:if='{{userNumType === 3}}'>当前放题关联用餐人数，已选{{foodNum}}份</text>
   </view>
   <view class='foodNum'>

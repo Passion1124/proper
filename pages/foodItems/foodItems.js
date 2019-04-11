@@ -13,6 +13,7 @@ Page({
     personNum: 0,
     type: '',
     foodNum: 0,
+    selectedNum: 0,
     userNumType: 1,
     groups: [],
     foods: {},
@@ -83,6 +84,11 @@ Page({
       })
     }
     console.log(this.data.foods);
+    if (this.data.type === '2' && this.data.userNumType === 2) {
+      this.setData({
+        selectedNum: this.getSelfHelpFoodNumber(foodorder.data.selfHelp, foodorder.data.foodItems)
+      })
+    }
     this.handleFoodGroupDetail();
   },
 
@@ -488,5 +494,17 @@ Page({
         return false;
       }
     }
+  },
+  // 获取放题选择数量
+  getSelfHelpFoodNumber (self, foodItems) {
+    var sId = self.map(function (item) {
+      return item.id;
+    });
+    var num = foodItems.filter(function (item) {
+      return sId.indexOf(item.foodId) !== -1;
+    }).reduce(function (cur, next) {
+      return cur + next.foodNumber;
+    }, 0);
+    return num;
   }
 })
