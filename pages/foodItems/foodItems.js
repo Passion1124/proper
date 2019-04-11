@@ -15,6 +15,7 @@ Page({
     foodNum: 0,
     selectedNum: 0,
     userNumType: 1,
+    selfFoodStyle: 0,
     groups: [],
     foods: {},
     foodSpcs: [],
@@ -40,6 +41,7 @@ Page({
   onLoad: function(options) {
     let s_data = { foodId: options.foodId, personNum: parseInt(options.personNum), type: options.type, userNumType: parseInt(options.userNumType) };
     s_data.foodNum = (options.type === "2" && options.userNumType === '3' && options.foodNum === '0') ? parseInt(options.personNum) : parseInt(options.foodNum);
+    if (options.selfFoodStyle) s_data.selfFoodStyle = parseInt(options.selfFoodStyle);
     this.setData(s_data);
   },
 
@@ -56,15 +58,15 @@ Page({
   onShow: function() {
     const page = getCurrentPages();
     const foodorder = page[page.length - 2];
-    let foods = foodorder.data.foodItems.find(item => item.foodId === this.data.foodId);
+    let foods = foodorder.data.foodItems.find(item => item.foodId === this.data.foodId && item.selfFoodStyle === this.data.selfFoodStyle);
     if (foods) {
       this.setData({
         foods,
         foodsHasData: true
       });
     } else {
-      let menuId = foodorder.data.checkCategory.id;
-      let menuItemId = foodorder.data.checkCategory.items.find(item => {
+      let menuId = this.data.selfFoodStyle ? foodorder.data.putQuestionsSelected.find(item => item.foodId === this.data.foodId).menuId : foodorder.data.checkCategory.id;
+      let menuItemId = this.data.selfFoodStyle ? foodorder.data.putQuestionsSelected.find(item => item.foodId === this.data.foodId).menuItemId :foodorder.data.checkCategory.items.find(item => {
         let find = item.foods.find(food => food.id === this.data.foodId);
         return find;
       }).id;
@@ -75,7 +77,7 @@ Page({
         menuId,
         menuItemId,
         rootFoodId: '',
-        selfFoodStyle: 0,
+        selfFoodStyle: this.data.selfFoodStyle,
         spcItemId: [],
         subFoodItems: []
       };
@@ -83,12 +85,12 @@ Page({
         foods: obj
       })
     }
-    console.log(this.data.foods);
     if (this.data.type === '2' && this.data.userNumType === 2) {
       this.setData({
         selectedNum: this.getSelfHelpFoodNumber(foodorder.data.selfHelp, foodorder.data.foodItems)
       })
     }
+    console.log(this.data.foods);
     this.handleFoodGroupDetail();
   },
 
@@ -136,8 +138,9 @@ Page({
     app.request(api, data, res => {
       console.log(res);
       let subFoodItems = this.data.foods.subFoodItems;
+      let groups = res.groups.filter(item => this.data.selfFoodStyle ? item.type === 2 : item);
       if (!this.data.foods.subFoodItems.length) {
-        subFoodItems = res.groups.reduce((pre, curr) => {
+        subFoodItems = groups.reduce((pre, curr) => {
           let c_arr = curr.foods.map(item => {
             let find = this.data.foods.subFoodItems.find(child => child.foodId === item.id);
             if (find) {
@@ -150,7 +153,7 @@ Page({
                 foodGroupId: curr.id,
                 foodId: item.id,
                 rootFoodId: curr.foodId,
-                selfFoodStyle: 0
+                selfFoodStyle: this.data.selfFoodStyle
               };
               if (curr.type === 1 && !item.specCount) {
                 obj.foodNumber = item.count;
@@ -166,9 +169,9 @@ Page({
           });
           return pre.concat(c_arr);
         }, []).filter(item => item);
-      }
+      };
       this.setData({
-        groups: res.groups,
+        groups,
         ['foods.subFoodItems']: subFoodItems
       });
     }, e => {
@@ -236,7 +239,7 @@ Page({
       foodId: food.id,
       foodNumber: 1,
       rootFoodId: item.foodId,
-      selfFoodStyle: 0,
+      selfFoodStyle: this.data.selfFoodStyle,
       spcItemId: []
     };
     if (food.specCount) {
@@ -355,7 +358,7 @@ Page({
   },
   // 点击确定按钮
   handleClickSureButton() {
-    if (this.data.userNumType === 3 && this.data.type === '2' && this.data.foodNum < this.data.personNum && this.data.foodNum) {
+    if (this.data.userNumType === 3 && this.data.type === '2' && this.data.foodNum < this.data.personNum && this.data.foodNum && !this.data.selfFoodStyle) {
       utils.showMessage('当前放题总数不可少于用餐人数');
       return false;
     }
@@ -372,10 +375,10 @@ Page({
       }
       return item;
     });
-    this.data.foods.foodNumber = this.data.foodNum;
+    this.data.foods.foodNumber = this.data.selfFoodStyle ? 1 : this.data.foodNum;
     this.data.foods.subFoodItems = subFoodItems;
-    let index = foodItems.findIndex(item => item.foodId === this.data.foods.foodId);
-    if (this.data.foodNum) {
+    let index = foodItems.findIndex(item => item.foodId === this.data.foods.foodId && item.selfFoodStyle === this.data.selfFoodStyle);
+    if (this.data.foodNum && !this.data.selfFoodStyle) {
       if (!subFoodItems.length) {
         utils.showMessage('至少选择一个菜品');
         return false;
@@ -417,6 +420,12 @@ Page({
         } else {
           foodItems[index] = this.data.foods;
         }
+      }
+    } else if (this.data.selfFoodStyle) {
+      if (index === -1) {
+        foodItems.push(this.data.foods);
+      } else {
+        foodItems[index] = this.data.foods;
       }
     } else {
       if (index !== -1) {

@@ -1,12 +1,12 @@
 <!-- foodItems.wxml -->
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <wxs module="foodorderconfirm" src='../../utils/wxs/foodorderconfirm.wxs'></wxs>
-<view class='container {{ type === "2" && userNumType !== 1 ? "fangti" : ""}}'>
-  <view class='blue_tips' wx:if='{{type === "2" && userNumType !== 1}}'>
+<view class='container {{ type === "2" && userNumType !== 1 ? "fangti" : ""}} {{selfFoodStyle ? "padding_top_0" : ""}}'>
+  <view class='blue_tips' wx:if='{{type === "2" && userNumType !== 1 && !selfFoodStyle}}'>
     <text wx:if='{{userNumType === 2}}'>全部放题至少选{{personNum}}份，已选{{foodNum + selectedNum}}份</text>
     <text wx:if='{{userNumType === 3}}'>当前放题关联用餐人数，已选{{foodNum}}份</text>
   </view>
-  <view class='foodNum'>
+  <view class='foodNum' wx:if='{{!selfFoodStyle}}'>
     <view class='text'>{{ type === "3" ? '套餐数量' : '放题数量'}}</view>
     <view class='num'>
       <view class='minus' bindtap='handleMinuButtonClick'>-</view>

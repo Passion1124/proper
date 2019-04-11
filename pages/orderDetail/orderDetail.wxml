@@ -72,7 +72,6 @@
           <view class='c_title'>{{item.merchName}}</view>
           <view class='c_subInfo'>
             <text>{{item.currency + ((item.sourcePrice - item.discountPrice) / 100)}}</text>
-            <!-- <text wx:if='{{item.extField}}'> / {{dateFr.getExtFieldText(item.extField)}}</text> -->
             <text> / 份数:{{item.merchCount}}</text>
           </view>
           <view class='c_date' wx:if='{{false}}'>有效期至：{{dateFr.getChineseDate(item.usingEndDate)}}</view>

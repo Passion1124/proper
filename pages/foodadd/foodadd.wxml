@@ -40,7 +40,13 @@
         <block wx:for='{{item.subOrderItems}}' wx:for-item='sub' wx:for-index='sIdx' wx:key='{{sIdx}}'>
           <view class='flex'>
             <view class='left'>
+              <block wx:if='{{sub.spcItems.length}}'>
               <view>{{sub.food.foodName}}</view>
+              <view>{{foodorderconfirm.getSpcItemsText(sub.spcItems)}}</view>
+            </block>
+            <block wx:else>
+              <view>{{sub.food.foodName}}</view>
+            </block>
             </view>
             <view class='right'>
               <text>×{{sub.foodNumber}}</text>
@@ -69,7 +75,13 @@
         <block wx:for='{{item.subOrderItems}}' wx:for-item='sub' wx:for-index='sIdx' wx:key='{{sIdx}}'>
           <view class='flex'>
             <view class='left'>
+              <block wx:if='{{sub.spcItems.length}}'>
               <view>{{sub.food.foodName}}</view>
+              <view>{{foodorderconfirm.getSpcItemsText(sub.spcItems)}}</view>
+            </block>
+            <block wx:else>
+              <view>{{sub.food.foodName}}</view>
+            </block>
             </view>
             <view class='right'>
               <text>×{{sub.foodNumber}}</text>
@@ -98,7 +110,13 @@
         <block wx:for='{{item.subOrderItems}}' wx:for-item='sub' wx:for-index='sIdx' wx:key='{{sIdx}}'>
           <view class='flex'>
             <view class='left'>
+              <block wx:if='{{sub.spcItems.length}}'>
               <view>{{sub.food.foodName}}</view>
+              <view>{{foodorderconfirm.getSpcItemsText(sub.spcItems)}}</view>
+            </block>
+            <block wx:else>
+              <view>{{sub.food.foodName}}</view>
+            </block>
             </view>
             <view class='right'>
               <text>×{{sub.foodNumber}}</text>
@@ -127,7 +145,13 @@
         <block wx:for='{{item.subOrderItems}}' wx:for-item='sub' wx:for-index='sIdx' wx:key='{{sIdx}}'>
           <view class='flex'>
             <view class='left'>
+              <block wx:if='{{sub.spcItems.length}}'>
               <view>{{sub.food.foodName}}</view>
+              <view>{{foodorderconfirm.getSpcItemsText(sub.spcItems)}}</view>
+            </block>
+            <block wx:else>
+              <view>{{sub.food.foodName}}</view>
+            </block>
             </view>
             <view class='right'>
               <text>×{{sub.foodNumber}}</text>

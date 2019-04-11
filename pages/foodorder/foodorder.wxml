@@ -68,8 +68,11 @@
     <view class='self_help_tips' wx:if='{{dateFr.getSelfHelpTipsShow(selfHelp, foodItems, consumerCount)}}'>全部放题至少选{{consumerCount}}份，已选{{dateFr.getSelfHelpFoodNumber(selfHelp, foodItems)}}份</view>
     <view class='category'>
       <scroll-view scroll-y='{{true}}' style='height: {{winHeight - (dateFr.getSelfHelpTipsShow(selfHelp, foodItems, consumerCount) ? 110 : 0)}}rpx;'>
+        <view class='c_list {{menuSelected === "new" ? "active" : ""}}' bindtap='bindSelectedNewCategory'>
+          <view class='text'>放题（已点）</view>
+        </view>
         <block wx:for='{{menus}}' wx:key='{{index}}'>
-          <view class='c_list {{item.id === checkCategory.id ? "active" : ""}}' data-category='{{item}}' bindtap='bindChangeCategoryId'>
+          <view class='c_list {{item.id === checkCategory.id && menuSelected === "old" ? "active" : ""}}' data-category='{{item}}' bindtap='bindChangeCategoryId'>
             <view class='c_num' wx:if='{{dateFr.getCheckedFoodMenuCount(foodItems, item.id) !== 0}}'>{{dateFr.getCheckedFoodMenuCount(foodItems, item.id)}}</view>
             <view class='hot' wx:if='{{item.type === 1}}'>
               <image src='../../img/foodorder/foodorder_hot.png'></image>
@@ -81,11 +84,41 @@
     </view>
     <view class='food_list' style='height: {{winHeight - (dateFr.getSelfHelpTipsShow(selfHelp, foodItems, consumerCount) ? 110 : 0)}}rpx;'>
       <view class='category_title'>
-        <text>{{checkCategory.name}}</text>
-        <text>已选{{dateFr.getCheckedFoodMenuCount(foodItems, checkCategory.id)}}份</text>
+        <text>{{menuSelected === "old" ? checkCategory.name : "放题（已点）"}}</text>
+        <text wx:if='{{menuSelected === "old"}}'>已选{{dateFr.getCheckedFoodMenuCount(foodItems, checkCategory.id)}}份</text>
       </view>
       <scroll-view scroll-y='{{true}}' style='height: {{winHeight - 80 - (dateFr.getSelfHelpTipsShow(selfHelp, foodItems, consumerCount) ? 110 : 0)}}rpx;'>
-        <block wx:for='{{checkCategory.items}}' wx:key='{{index}}'>
+        <block wx:for='{{putQuestionsSelected}}' wx:key='{{index}}' wx:if='{{menuSelected === "new"}}'>
+          <view class='food'>
+            <view class='poster'>
+              <view class='type_tips'>放题</view>
+              <image mode='aspectFill' src='{{item.food.poster + "?x-oss-process=image/resize,w_600"}}' data-food='{{item.food}}' bindtap='handleClickFoodPoster'></image>
+              <view class='img_mask' wx:if='{{!dateFr.getNowFoodSelectable(item.food.limitType, item.food.limitTimeStart, item.food.limitTimeEnd)}}'></view>
+            </view>
+            <view class='info' data-item='{{item}}' data-foods='{{item.food}}' bindtap='handleGoToTheFoodDetailPage'>
+              <view class='name {{dateFr.getNowFoodSelectable(item.food.limitType, item.food.limitTimeStart, item.food.limitTimeEnd) ? "" : "disab"}}'>{{item.food.foodName}}</view>
+              <view class='subTitle'>{{item.food.introduce}}</view>
+              <view class='price_num'>
+                <view class='price'>
+                  <text>JPY{{(item.food.price / 100)}}{{item.food.specCount ? "起" : ""}}</text>
+                </view>
+                <block wx:if='{{dateFr.getNowFoodSelectable(item.food.limitType, item.food.limitTimeStart, item.food.limitTimeEnd)}}'>
+                  <view class='tips' wx:if='{{foodorderconfirm.getNowSelectedFoodIsCheck(foodItems, item.food.id, item.menuId) && item.food.type !== 1}}'>
+                    <text>{{foodorderconfirm.getCheckedFoodTotal(foodItems, item.food.id, item.menuId)}}</text>
+                  </view>
+                  <view class='num' wx:else>
+                    <block wx:if='{{foodorderconfirm.getNowSelectedFoodOrderNum(foodItems, item.food.id, item.menuId)}}'>
+                      <view class='minus' data-num='{{foodorderconfirm.getNowSelectedFoodOrderNum(foodItems, item.food.id, item.menuId)}}' data-item='{{item}}' data-foods='{{item.food}}' catchtap='handleClickMinusButton'>-</view>
+                      <view class='number_inp'>{{foodorderconfirm.getNowSelectedFoodOrderNum(foodItems, item.food.id, item.menuId)}}</view>
+                    </block>
+                    <view class='plus' data-item='{{item}}' data-foods='{{item.food}}' catchtap='handleClickPlusButton'>+</view>
+                  </view>
+                </block>
+              </view>
+            </view>
+          </view>
+        </block>
+        <block wx:for='{{checkCategory.items}}' wx:key='{{index}}' wx:if='{{menuSelected === "old"}}'>
           <view class='food_tips {{foodorderconfirm.getMenuItemFoodSelected(foodItems, item.id, item.limit) ? "selected" : ""}}' wx:if='{{checkCategory.type === 1 && (!toPage || !foodOrderBatch.orderItems)}}'>
             <text wx:if='{{!item.limit}}'>以下菜品必点</text>
             <text wx:else>菜品种类至少选{{item.limit}}种,已选{{foodorderconfirm.getMenuItemFoodNumber(foodItems, item.id)}}种</text>
@@ -205,6 +238,7 @@
         </view>
         <block wx:for='{{foodCartList}}' wx:for-item='food' wx:for-index='idx' wx:key='{{idx}}'>
           <view class='list' wx:if='{{food.length}}'>
+            <view class='list_title' wx:if='{{idx === "selected"}}'>放题（已点）</view>
             <view class='list_title' wx:if='{{idx === "mustPoint"}}'>必点菜</view>
             <view class='list_title' wx:if='{{idx === "putQuestions"}}'>放题</view>
             <view class='list_title' wx:if='{{idx === "setMeal"}}'>套餐</view>
@@ -214,7 +248,7 @@
                 <view class='left'>
                   <view class='name'>{{item.food.foodName}}</view>
                   <view class='subInfo' wx:if='{{item.spcItems.length}}'>{{foodorderconfirm.getSpcItemsText(item.spcItems)}}</view>
-                  <view class='price_num'>
+                  <view class='price_num' wx:if='{{item.unitPrice}}'>
                     <text>JPY{{item.unitPrice / 100}}</text>
                     <text>x{{item.foodNumber}}</text>
                   </view>

@@ -10,6 +10,10 @@ page{
   padding-top: 80rpx;
 }
 
+.padding_top_0{
+  padding-top: 0;
+}
+
 .blue_tips{
   position: fixed;
   left: 0;

@@ -15,11 +15,13 @@ Page({
     tableNo: '',
     tno: '',
     toPage: '',
+    menuSelected: 'old',
     line: {},
     goods: {},
     menus: [],
     foodItems: [],
     orderItems: [],
+    putQuestionsSelected: [],
     foodCartList: {},
     foodOrderBatch: {},
     category: [],
@@ -264,10 +266,11 @@ Page({
     } else if (res.foodBasket || this.data.toPage) {
       let foodCartList = {};
       if (res.foodBasket) {
-        foodCartList.mustPoint = res.foodBasket.orderItems.filter(item => item.type === 9);
-        foodCartList.putQuestions = res.foodBasket.orderItems.filter(item => item.type === 2);
-        foodCartList.setMeal = res.foodBasket.orderItems.filter(item => item.type === 3);
-        foodCartList.ordinary = res.foodBasket.orderItems.filter(item => item.type === 1);
+        foodCartList.mustPoint = res.foodBasket.orderItems.filter(item => item.type === 9 && !item.selfFoodStyle);
+        foodCartList.putQuestions = res.foodBasket.orderItems.filter(item => item.type === 2 && !item.selfFoodStyle);
+        foodCartList.setMeal = res.foodBasket.orderItems.filter(item => item.type === 3 && !item.selfFoodStyle);
+        foodCartList.ordinary = res.foodBasket.orderItems.filter(item => item.type === 1 && !item.selfFoodStyle);
+        foodCartList.selected = res.foodBasket.orderItems.filter(item => item.selfFoodStyle);
       }
       s_data.foodCartList = foodCartList;
       s_data.consumerCount = res.foodBasket ? res.foodBasket.consumerCount : 0;
@@ -275,6 +278,18 @@ Page({
       s_data.foodItems = res.foodBasket ? res.foodBasket.foodItems : [];
       s_data.orderItems = res.foodBasket ? res.foodBasket.orderItems : [];
       s_data.foodOrderBatch = res.foodOrderBatch || {};
+      if (res.foodOrderBatch) {
+        let hash = {};
+        s_data.putQuestionsSelected = res.foodOrderBatch.orderItems.filter(item => item.food.type === 2).map(item => {
+          item.selfFoodStyle = 1;
+          return item;
+        }).reduce((curr, next) => {
+          hash[next.foodId] ? '' : hash[next.foodId] = true && curr.push(next);
+          return curr;
+        }, []);
+        console.log(s_data.putQuestionsSelected);
+        if (s_data.putQuestionsSelected.length && !this.data.putQuestionsSelected.length) s_data.menuSelected = 'new';
+      }
     } else if (!this.data.consumerCount) {
       wx.redirectTo({
         url: '/pages/chooseFoodNumber/chooseFoodNumber?foodOrderId=' + res.foodOrderId
@@ -285,11 +300,18 @@ Page({
   // 修改分类
   bindChangeCategoryId (e) {
     let category = e.currentTarget.dataset.category;
-    if (category.id === this.data.checkCategory.id) return false;
+    if (category.id === this.data.checkCategory.id && this.data.menuSelected !== 'new') return false;
     this.setData({
-      checkCategory: category
+      checkCategory: category,
+      menuSelected: 'old'
     });
     this.mandatoryTipsShow();
+  },
+  // 选择new分类
+  bindSelectedNewCategory () {
+    this.setData({
+      menuSelected: 'new'
+    })
   },
   // 修改用餐人数
   handleChangeEatNumber (e) {
@@ -315,7 +337,8 @@ Page({
     if (this.mandatoryFoodSelectAll()) {
       if (!this.getSelfHelpTipsShow(this.data.selfHelp, this.data.foodItems, this.data.consumerCount)) {
         console.log('可以去下单了');
-        util.navigateTo('/pages/foodorderconfirm/foodorderconfirm?foodOrderId=' + this.data.foodOrderId + '&mid=' + this.data.mid + '&consumerCount=' + this.data.consumerCount + '&tno=' + this.data.tno);
+        let consumerCount = this.data.consumerCount + (this.data.foodOrderBatch.consumerCount || 0);
+        util.navigateTo('/pages/foodorderconfirm/foodorderconfirm?foodOrderId=' + this.data.foodOrderId + '&mid=' + this.data.mid + '&personNum=' + consumerCount + '&tno=' + this.data.tno);
       } else {
         console.log('放题数量不对');
       }
@@ -443,8 +466,9 @@ Page({
     console.log(e);
     let food = e.currentTarget.dataset.food;
     let num = e.currentTarget.dataset.num;
-    if (food.type === 2 || food.type === 3) {
-      util.navigateTo('/pages/foodItems/foodItems?foodId=' + food.foodId + '&personNum=' + this.data.consumerCount + '&type=' + food.type + '&foodNum=' + food.foodNumber + '&userNumType=' + food.food.userNumType);
+    let type = food.food.type;
+    if (type === 2 || type === 3) {
+      util.navigateTo('/pages/foodItems/foodItems?foodId=' + food.foodId + '&personNum=' + this.data.consumerCount + '&type=' + type + '&foodNum=' + food.foodNumber + '&userNumType=' + food.food.userNumType + '&selfFoodStyle=' + food.selfFoodStyle);
     } else {
       let index = this.data.foodItems.findIndex(item => {
         if (food.spcItems.length) {
@@ -464,8 +488,9 @@ Page({
   // 点击购物车里面的加号按钮
   handleClickFoodCartPlusButton (e) {
     let food = e.currentTarget.dataset.food;
-    if (food.type === 2 || food.type === 3) {
-      util.navigateTo('/pages/foodItems/foodItems?foodId=' + food.foodId + '&personNum=' + this.data.consumerCount + '&type=' + food.type + '&foodNum=' + food.foodNumber + '&userNumType=' + food.food.userNumType);
+    let type = food.food.type;
+    if (type === 2 || type === 3) {
+      util.navigateTo('/pages/foodItems/foodItems?foodId=' + food.foodId + '&personNum=' + this.data.consumerCount + '&type=' + type + '&foodNum=' + food.foodNumber + '&userNumType=' + food.food.userNumType + '&selfFoodStyle=' + food.selfFoodStyle);
     } else {
       let index = this.data.foodItems.findIndex(item => {
         if (food.spcItems.length) {
@@ -530,13 +555,14 @@ Page({
   handleGoToTheFoodDetailPage (e) {
     let item = e.currentTarget.dataset.item;
     let foods = e.currentTarget.dataset.foods;
+    let selfFoodStyle = item.selfFoodStyle || 0;
     if (foods.type !== 1) {
       let selecTable = this.getNowFoodSelectable(foods.limitType, foods.limitTimeStart, foods.limitTimeEnd);
       if (selecTable) {
         let food = this.data.foodItems.find(food => food.foodId === foods.id);
         let foodNum = food ? food.foodNumber : 0;
         if (!foodNum && foods.type === 3) foodNum = 1;
-        util.navigateTo('/pages/foodItems/foodItems?foodId=' + foods.id + '&personNum=' + this.data.consumerCount + '&type=' + foods.type + '&foodNum=' + foodNum + '&userNumType=' + foods.userNumType);
+        util.navigateTo('/pages/foodItems/foodItems?foodId=' + foods.id + '&personNum=' + this.data.consumerCount + '&type=' + foods.type + '&foodNum=' + foodNum + '&userNumType=' + foods.userNumType + '&selfFoodStyle=' + selfFoodStyle);
       }
     }
   },

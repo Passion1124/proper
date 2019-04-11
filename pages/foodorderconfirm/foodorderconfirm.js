@@ -11,6 +11,7 @@ Page({
     foodOrderId: '',
     mid: '',
     tno: '',
+    personNum: 0,
     consumerCount: 0,
     serviceFee: 0,
     totalFee: 0,
@@ -31,7 +32,7 @@ Page({
     this.setData({
       foodOrderId: options.foodOrderId,
       mid: options.mid,
-      consumerCount: parseInt(options.personNum),
+      personNum: parseInt(options.personNum),
       tno: options.tno
     });
     this.getFoodOrderGetByBasket();
@@ -94,7 +95,6 @@ Page({
       this.setData({
         foodItems: res.foodItems,
         orderItems: res.orderItems,
-        personNum: res.consumerCount,
         serviceFee: res.serviceFee,
         teeFee: res.teeFee / res.consumerCount,
         totalFee: res.totalFee,
@@ -105,6 +105,7 @@ Page({
         setMeal: res.orderItems.filter(item => item.type === 3),
         ordinary: res.orderItems.filter(item => item.type === 1)
       })
+      console.log(this.data.putQuestions);
     }, e => {
       console.error(e);
     })

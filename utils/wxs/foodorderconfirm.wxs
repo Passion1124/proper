@@ -46,7 +46,7 @@ var foodorderconfirm = {
   getMenuItemFoodNumber: function (arr, menuItemId) {
     if (arr.length && menuItemId) {
       var num = arr.filter(function (item) {
-        return item.menuItemId === menuItemId;
+        return item.menuItemId === menuItemId && !item.selfFoodStyle;
       }).reduce(function (pre, curr) {
         return pre + curr.foodNumber || 0
       }, 0);
@@ -83,6 +83,40 @@ var foodorderconfirm = {
     } else {
       return 0;
     }
+  },
+  // 获取当前食物是否已经被选择
+  getNowSelectedFoodIsCheck: function (arr, fid, mid) {
+    if (arr && fid) {
+      var result = arr.filter(function (item) {
+        return item.foodId === fid && item.menuId === mid && item.selfFoodStyle;
+      });
+      return result.length ? true : false;
+    } else {
+      return false;
+    }
+  },
+  // 获取被选中的食物的份数和数量
+  getCheckedFoodTotal: function (arr, fid, mid) {
+    var food = arr.filter(function (item) {
+      return item.foodId === fid && item.menuId === mid && item.selfFoodStyle;
+    });
+    var total = food[0].subFoodItems.reduce(function (pre, curr) {
+      return pre + curr.foodNumber;
+    }, 0);
+    return '菜品' + total;
+  },
+  // 获取当前已经选择菜品数量
+  getNowSelectedFoodOrderNum: function (arr, fid, mid) {
+    if (arr.length) {
+      var result = arr.filter(function (item) {
+        return item.foodId === fid && item.menuId === mid && item.selfFoodStyle;
+      }).reduce(function (pre, curr) {
+        return pre + curr.foodNumber;
+      }, 0);
+      return result;
+    } else {
+      return 0;
+    }
   }
 }
 
@@ -92,5 +126,8 @@ module.exports = {
   sectionToChinese: foodorderconfirm.sectionToChinese,
   getMenuItemFoodNumber: foodorderconfirm.getMenuItemFoodNumber,
   getMenuItemFoodSelected: foodorderconfirm.getMenuItemFoodSelected,
-  getNowFoodOrderNum: foodorderconfirm.getNowFoodOrderNum
+  getNowFoodOrderNum: foodorderconfirm.getNowFoodOrderNum,
+  getNowSelectedFoodIsCheck: foodorderconfirm.getNowSelectedFoodIsCheck,
+  getCheckedFoodTotal: foodorderconfirm.getCheckedFoodTotal,
+  getNowSelectedFoodOrderNum: foodorderconfirm.getNowSelectedFoodOrderNum
 }
