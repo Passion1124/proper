@@ -79,8 +79,12 @@ Page({
     let data = { base: app.globalData.baseBody, orderId: this.data.orderId };
     app.request(api, data, res => {
       console.log(res);
+      let order = res.order;
+      if (order.orderStatus === 6 && !order.payPrice) {
+        order.orderStatus = 0;
+      }
       this.setData({
-        order: res.order,
+        order,
         orderMerches: res.orderMerches,
         receiver: res.receiver
       });

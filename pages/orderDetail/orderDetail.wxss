@@ -44,7 +44,7 @@
   color: #3c3c3c;
 }
 
-.finished .shopping, .pending .cancel_order {
+.finished .shopping, .pending .cancel_order, .tbc .cancel_order {
   line-height: 78rpx;
   background-color: transparent;
   color: #3c3c3c;

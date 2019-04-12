@@ -199,7 +199,7 @@ Page({
   },
   initPreOrderBookTime() {
     // this.data.setting.preOrderDays * 
-    let timestamp = new Date().getTime() + 24 * 3600 * 1000;
+    let timestamp = new Date().getTime() + this.data.setting.preOrderDays * 24 * 3600 * 1000;
     let date = new Date(timestamp);
     let month = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
     let day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
@@ -207,6 +207,7 @@ Page({
     this.setData({
       stratDate: date.getFullYear() + '-' + month + '-' + day
     });
+    console.log(this.data.stratDate);
     // this.getPreOrderBookTime(now);
   },
   // 获取用户优惠券订单可用

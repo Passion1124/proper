@@ -181,7 +181,12 @@ Page({
     app.request(api, data, res => {
       console.log(res);
       let orders = obj.page === 1 ? [] : this.data.orders;
-      orders = orders.concat(res.orders || []);
+      orders = orders.concat(res.orders || []).map(item => {
+        if (item.orderStatus === 6 && !item.payPrice) {
+          item.orderStatus = 0;
+        };
+        return item
+      });
       this.setData({
         orders,
         lines: [],

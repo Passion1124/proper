@@ -198,6 +198,18 @@
       <input placeholder-class='phcolor' value='{{receiver.email}}' placeholder='邮箱' bindinput='handleInputEmail' maxlength='50'></input>
     </view>
   </view>
+  <view class='many'>
+    <view class='text'>微信号</view>
+    <view class='email'>
+      <input placeholder-class='phcolor' value='{{receiver.wechatNo}}' placeholder='微信号（选填，方便客服与您联系）' bindinput='handleInputWechatNo' maxlength='50'></input>
+    </view>
+  </view>
+  <view class='many'>
+    <view class='text'>备注</view>
+    <view class='email'>
+      <input placeholder-class='phcolor' value='{{remark}}' placeholder='请输入备注内容（选填）' bindinput='handleInputRemark' maxlength='50'></input>
+    </view>
+  </view>
   <view class='pickUp' wx:if='{{goodsItem.goodsItemBase.pickUpType}}'>
     <view class='tab-content'>
       <view class='tab-text {{pickUpType===1 ? "active" : ""}}' wx:if='{{goodsItem.goodsItemBase.pickUpType !==2 }}' data-type='1' bindtap='handleUpdatePickUpType'>

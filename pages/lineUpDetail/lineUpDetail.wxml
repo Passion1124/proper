@@ -35,6 +35,14 @@
     <view class='line_dashed'></view>
     <view class='order_info'>
       <view class='flex'>
+        <view class='o_label'>餐厅</view>
+        <view class='o_value' bindtap='goToTheFoodDetailPage'>{{goods.goodsInfo.name}} ></view>
+      </view>
+      <view class='flex'>
+        <view class='o_label'>地址</view>
+        <view class='o_value'>{{goods.goodsInfo.address}}</view>
+      </view>
+      <view class='flex'>
         <view class='o_label'>用餐总人数</view>
         <view class='o_value'>{{num || line.num}}</view>
       </view>
@@ -51,7 +59,7 @@
         <view class='o_value'>{{ email || line.email}}</view>
       </view>
     </view>
-    <view class='order_btn' wx:if='{{line.lineStatus < 2 && line.onlineOrderDish === 1}}'>
+    <view class='order_btn' wx:if='{{line.lineStatus < 2 && goods.goodsBase.onlineOrderDish === 1}}'>
       <button bindtap='goToTheFoodOrder'>前往点菜</button>
     </view>
   </view>

@@ -76,6 +76,12 @@ Page({
       url: '/pages/foodadd/foodadd?orderId=' + this.data.foodOrderId,
     })
   },
+  // 查看已点的订单
+  handleGoToTheOrderPage () {
+    wx.redirectTo({
+      url: '/pages/orderDishesDetail/orderDishesDetail?id=' + this.data.foodOrderId,
+    })
+  },
   // 点击完成按钮进入到首页
   handleGoToTheIndexPage () {
     wx.switchTab({

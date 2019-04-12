@@ -2,7 +2,7 @@
 <view class='container'>
   <view class='top'>
     <view class='rName'>{{foodOrder.goodsName}}</view>
-    <view class='table_num'>桌号：{{foodOrder.tableNo}}</view>
+    <view class='table_num'>桌号：{{foodOrder.tableNo || '无'}}</view>
     <view class='subTitle'>请选择用餐人数</view>
   </view>
   <view class='num_box {{open ? "open" : ""}}'>

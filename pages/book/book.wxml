@@ -1,4 +1,5 @@
 <!-- book.wxml -->
+<wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container'>
   <view class='header'>
     <view class='text active'>预订</view>
@@ -63,7 +64,8 @@
       <view class='info'>
         <view>预订服务费</view>
         <view>{{ setting.currency + setting.priceEachOne / 100}}/人</view>
-        <view>服务商：{{shopName}} | {{setting.allowRefund ? '支持退款' : '不支持退款'}}</view>
+        <view></view>
+        <!-- <view>服务商：{{shopName}} | {{setting.allowRefund ? '支持退款' : '不支持退款'}}</view> -->
       </view>
       <view class='radio_icon'>
         <image src='../../img/book/cart_icon_radio_on.png' wx:if='{{type === "order"}}'></image>
@@ -86,7 +88,7 @@
               <view class='present'>{{item.goodsItemBase.currency}}{{item.goodsItemBase.amount ? item.goodsItemBase.amount / 100 : item.goodsItemBase.sourceAmount / 100 }}</view>
               <view class='original' wx:if='{{item.goodsItemBase.amount && item.goodsItemBase.amount !== item.goodsItemBase.sourceAmount}}'>{{item.goodsItemBase.currency}}{{item.goodsItemBase.sourceAmount / 100 }}</view>
             </view>
-            <!-- <view class='order_date'>最早可预订11月25日</view> -->
+            <view class='order_date' wx:if='{{item.goodsItemBase.start}}'>最早可预订{{dateFr.getOrderDate(item.goodsItemBase.start)}}</view>
           </view>
           <view class='radio_icon'>
             <image src='../../img/book/cart_icon_radio_on.png' wx:if='{{type === item.goodsItemInfo.giid}}'></image>

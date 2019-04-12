@@ -15,7 +15,8 @@ Page({
     num: '',
     email: '',
     favorName: '',
-    roomName: ''
+    roomName: '',
+    goods: {}
   },
 
   /**
@@ -101,7 +102,8 @@ Page({
         this.setData({
           line,
           lineNum
-        })
+        });
+        this.handleGetGoodsDetail(line.poiId);
       } else {
         if (this.data.count >= 12) {
           lineStatus = 'fail';
@@ -118,6 +120,19 @@ Page({
       console.error(e);
     })
   },
+  // 获取商品详情
+  handleGetGoodsDetail (gid) {
+    let api = 'com.ttdtrip.api.goods.apis.GoodsDetailApiService';
+    let data = { base: app.globalData.baseBody, gid };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        goods: res.goodsVO
+      });
+    }, e => {
+      console.error(e);
+    })
+  },
   handleResetLineWait () {
     this.setData({
       lineStatus: 'wait',
@@ -128,6 +143,11 @@ Page({
   goToTheFoodOrder(e) {
     wx.navigateTo({
       url: '/pages/foodorder/foodorder?sn=' + this.data.sn + '&mid=' + this.data.line.mid
+    })
+  },
+  goToTheFoodDetailPage () {
+    wx.navigateTo({
+      url: '/pages/fooddetail/fooddetail?gid=' + this.data.line.poiId + '&type=2'
     })
   }
 })

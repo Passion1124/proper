@@ -13,6 +13,7 @@ Page({
     giid: '',
     type: '',
     price: '',
+    remark: '',
     discount: '',
     receiver: {
       name: '',
@@ -22,7 +23,8 @@ Page({
       faxNo: '',
       addr: '',
       addType: '',
-      enName: ''
+      enName: '',
+      wechatNo: ''
     },
     surname: '',
     en_name: '',
@@ -105,9 +107,6 @@ Page({
     this.data.giid = options.giid;
     this.data.orderMerches.merchId = options.giid;
     this.data.type = options.type;
-    this.setData({
-      start_date: this.getNowFormatDate()
-    });
     this.getReceiverLatest();
     this.getGoodsItemDetail();
   },
@@ -167,11 +166,11 @@ Page({
     app.request(api, data, res => {
       console.log(res);
       if (res.receiver) {
-        let { addr, addrType, alias, email, faxNo, name, phoneNo, enName } = res.receiver;
+        let { addr, addrType, alias, email, faxNo, name, phoneNo, enName, wechatNo } = res.receiver;
         let surname = enName.split('|')[1] || '';
         let en_name = enName.split('|')[0] || '';
         this.setData({
-          receiver: { addr, addrType, alias, email, faxNo, name, phoneNo },
+          receiver: { addr, addrType, alias, email, faxNo, name, phoneNo, wechatNo },
           mail: addrType ? '' : addr,
           surname,
           en_name
@@ -201,7 +200,8 @@ Page({
         goodsItem: res.goodsItemVO,
         price: res.goodsItemVO.goodsItemBase.amount || res.goodsItemVO.goodsItemBase.sourceAmount,
         self_taking: self_taking,
-        pickUpType: p_type
+        pickUpType: p_type,
+        start_date: this.getNowFormatDate(res.goodsItemVO.goodsItemBase.preOrderDays)
       });
       this.getGoodsDetail(res.goodsItemVO.goodsItemBase.gid);
       this.getUserCouponUsable(res.goodsItemVO.goodsItemBase.subType);
@@ -263,6 +263,14 @@ Page({
     let data = Object.assign({ base: app.globalData.baseBody }, this.data.receiver);
     app.request(api, data, res => {
       console.log(res);
+      if (!this.data.goodsItem.goodsItemBase.preOrderDays) {
+        let checkTime = this.data.useData.replace(/-/g, '/') + ' ' + this.data.orderTravelMerch.upTime || this.data.orderTrafficMerch.upTime;
+        let diff = new Date(checkTime).getTime() - new Date().getTime();
+        if (diff <= 0) {
+          utils.showMessage('选择的日期和时间不能小于或等于当前时间');
+          return false;
+        }
+      }
       this.data.receiverId = res.receiverId;
       this.handleCreateOrderGen();
     }, err => {
@@ -272,7 +280,7 @@ Page({
   // 生成订单
   handleCreateOrderGen () {
     let api = 'com.ttdtrip.api.order.apis.service.OrderGenApiService';
-    let p_data = { orderType: 1, orderFrom: 1, receiverId: this.data.receiverId, orderMerches: this.data.orderMerches };
+    let p_data = { orderType: 1, orderFrom: 1, receiverId: this.data.receiverId, orderMerches: this.data.orderMerches, remark: this.data.remark };
     if (this.data.selectCoupon.couponId) {
       p_data.couponId = this.data.selectCoupon.couponId;
     };
@@ -507,6 +515,18 @@ Page({
       ['receiver.email']: e.detail.value
     })
   },
+  // 修改微信号
+  handleInputWechatNo (e) {
+    this.setData({
+      ['receiver.wechatNo']: e.detail.value
+    })
+  },
+  // 修改备注
+  handleInputRemark (e) {
+    this.setData({
+      remark: e.detail.value
+    })
+  },
   // 修改接送点
   handleInputMerchSpecific(e) {
     this.setData({
@@ -626,8 +646,9 @@ Page({
       ['orderMerches.ext.babyChairCount']: num
     })
   },
-  getNowFormatDate() {
-    var date = new Date();
+  getNowFormatDate(preOrderDays) {
+    let timestamp = new Date().getTime() + preOrderDays * 24 * 3600 * 1000;
+    var date = new Date(timestamp);
     var seperator1 = "-";
     var year = date.getFullYear();
     var month = date.getMonth() + 1;

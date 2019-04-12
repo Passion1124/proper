@@ -1,37 +1,6 @@
 <!-- orderDetail.wxml -->
 <wxs module="dateFr" src='../../utils/filter.wxs'></wxs>
 <view class='container'>
-  <view class='tips pending' wx:if='{{order.orderStatus === -1 && !isTimeOut}}'>
-    <view class='title'>亲，请尽快付款</view>
-    <view class='subTitle'>支付剩余时间
-      <text>{{dateFr.secondToDate(count_down)}}</text> 请尽快支付</view>
-    <button class='pay' bindtap='goToThePayPage'>立即付款{{order.payCurrency + (order.payPrice / 100)}}</button>
-    <button class='cancel_order' bindtap='handleClickOrderCancelButton'>取消订单</button>
-  </view>
-  <view class='tips overtime' wx:if='{{order.orderStatus === 99 || isTimeOut}}'>
-    <view class='title'>亲，您的订单已经超过支付时间，请重新下单</view>
-    <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
-  </view>
-  <view class='tips overtime' wx:if='{{order.orderStatus === 0}}'>
-    <view class='title'>亲，该订单已取消，可以选择再次购买</view>
-    <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
-  </view>
-  <view class='tips finished' wx:if='{{order.orderStatus === 2 || order.orderStatus === 4 || order.orderStatus === 5}}'>
-    <view class='title'>感谢您使用妥妥得，期待您下次光临</view>
-    <button class='shopping' bindtap='goToTheOrder' wx:if='{{order.orderStatus === 2 || order.orderStatus === 5}}'>再次购买</button>
-    <view class='comment_row' wx:if='{{order.orderStatus === 4}}'>
-      <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
-      <button class='comment' bindtap='goToTheComment'>前往评价</button>
-    </view>
-  </view>
-  <view class='tips tbc' wx:if='{{order.orderStatus === 1}}'>
-    <view class='title'>亲，我们正在核实您的商品，请耐心等待</view>
-  </view>
-  <view class='tips refund' wx:if='{{order.orderStatus === 6 || order.orderStatus === 7}}'>
-    <view class='title'>{{order.orderStatus === 6 ? "退款已申请" : "退款已完成"}}</view>
-    <view class='subTitle'>{{order.orderStatus === 6 ? "金额将在7个工作日内原路退回" : "请前往您购买时的支付方式查看退回金额"}}</view>
-    <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
-  </view>
   <view class='ticket-nums' bindtap='goToTheTicketPage' wx:if='{{merchItems.length > 1 && merchItems[0].vouchWay && order.orderStatus === 3}}'>
     <view class='text'>您有{{merchItems.length}}张核销验券</view>
     <view class='arrow'>
@@ -60,6 +29,42 @@
         <button bindtap='handleOrderUsed'>面对面确认</button>
       </view>
     </view>
+  </view>
+  <view class='tips pending' wx:if='{{order.orderStatus === -1 && !isTimeOut}}'>
+    <view class='title'>亲，请尽快付款</view>
+    <view class='subTitle'>支付剩余时间
+      <text>{{dateFr.secondToDate(count_down)}}</text> 请尽快支付</view>
+    <button class='pay' bindtap='goToThePayPage'>立即付款{{order.payCurrency + (order.payPrice / 100)}}</button>
+    <button class='cancel_order' bindtap='handleClickOrderCancelButton'>取消订单</button>
+  </view>
+  <view class='tips overtime' wx:if='{{order.orderStatus === 99 || isTimeOut}}'>
+    <view class='title'>亲，您的订单已经超过支付时间，请重新下单</view>
+    <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
+  </view>
+  <view class='tips overtime' wx:if='{{order.orderStatus === 0}}'>
+    <view class='title'>亲，该订单已取消，可以选择再次购买</view>
+    <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
+  </view>
+  <view class='tips finished' wx:if='{{order.orderStatus === 2 || order.orderStatus === 4 || order.orderStatus === 5}}'>
+    <view class='title'>感谢您使用妥妥得，期待您下次光临</view>
+    <button class='shopping' bindtap='goToTheOrder' wx:if='{{order.orderStatus === 2 || order.orderStatus === 5}}'>再次购买</button>
+    <view class='comment_row' wx:if='{{order.orderStatus === 4}}'>
+      <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
+      <button class='comment' bindtap='goToTheComment'>前往评价</button>
+    </view>
+  </view>
+  <view class='tips tbc' wx:if='{{order.orderStatus === 1}}'>
+    <view class='title'>亲，我们正在核实您的商品，请耐心等待</view>
+    <button class='cancel_order' bindtap='handleClickOrderCancelButton'>取消订单</button>
+  </view>
+  <view class='tips tbc' wx:if='{{order.orderStatus === 3}}'>
+    <view class='title'>亲，您购买的商品请尽快使用哦</view>
+    <button class='cancel_order' bindtap='handleClickOrderCancelButton'>取消订单</button>
+  </view>
+  <view class='tips refund' wx:if='{{order.orderStatus === 6 || order.orderStatus === 7}}'>
+    <view class='title'>{{order.orderStatus === 6 ? "退款已申请" : "退款已完成"}}</view>
+    <view class='subTitle'>{{order.orderStatus === 6 ? "金额将在7个工作日内原路退回" : "请前往您购买时的支付方式查看退回金额"}}</view>
+    <button class='shopping' bindtap='goToTheOrder'>再次购买</button>
   </view>
   <view class='row'>
     <view class='title'>商品信息</view>
@@ -110,13 +115,19 @@
     <view class='text' wx:if='{{order.payPrice}}'>支付方式：{{dateFr.getPayTypeText(order.payType)}}</view>
     <view class='text' wx:if='{{order.payAt}}'>支付时间：{{dateFr.formatTime(order.payAt)}}</view>
     <view class='text' wx:if='{{order.refundReqAt}}'>退款时间：{{dateFr.formatTime(order.refundReqAt)}}</view>
+    <view class='text' wx:if='{{order.logisticsId}}'>快递单号：{{order.logisticsId}}</view>
+    <view class='text' wx:if='{{order.logisticsPartner}}'>配送方式：{{order.logisticsPartner}}</view>
   </view>
   <view class='row'>
     <view class='text'>中文姓名：{{receiver.name}}</view>
     <view class='text' wx:if='{{receiver.enName}}'>英文名字：{{dateFr.getReceiverEnglishNameText(receiver.enName)}}</view>
     <view class='text'>手机：{{receiver.phoneNo}}</view>
     <view class='text'>邮箱：{{receiver.email}}</view>
+    <view class='text' wx:if='{{receiver.wechatNo}}'>微信：{{receiver.wechatNo}}</view>
     <view class='text' wx:if='{{receiver.faxNo}}'>传真：{{receiver.faxNo}}</view>
+  </view>
+  <view class='row' wx:if='{{order.remark}}'>
+    <view class='text'>备注：{{order.remark}}</view>
   </view>
   <view class='row' wx:if='{{receiver.addr}}'>
     <view class='text'>收货地址：{{receiver.addr}}</view>

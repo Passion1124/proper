@@ -9,6 +9,6 @@
   <view class='bottom'>您已成功下单，我们将立即给您准备</view>
   <view class='btn_group'>
     <button bindtap='handleGoToTheFoodAddPage'>加菜</button>
-    <button bindtap='handleGoToTheIndexPage'>完成</button>
+    <button bindtap='handleGoToTheOrderPage'>查看已点</button>
   </view>
 </view>

@@ -54,15 +54,15 @@ Page({
    */
   onLoad: function (options) {
     let { sn, mid, tno, orderId, personNum, toPage } = options;
+    let s_data = {};
     if (sn) this.data.sn = sn;
     if (orderId) this.data.foodOrderId = orderId;
     if (mid) this.data.mid = mid;
-    if (tno) this.data.tno = tno;
-    let s_data = {};
-    if (toPage) s_data.toPage = toPage;
-    if (tno) {
+    if (tno && tno !== 'null') {
+      this.data.tno = tno;
       s_data.tableNo = tno;
     }
+    if (toPage) s_data.toPage = toPage;
     this.setData(s_data);
     if (personNum) this.data.consumerCount = personNum;
     this.getGoodsDetail();
@@ -135,8 +135,9 @@ Page({
   handleGetFoodOrderDetail () {
     if (this.data.sn) {
       this.handleLineWait();
+      return false;
     }
-    if (this.data.mid && this.data.tno) {
+    if (this.data.mid) {
       this.handleScanCodeEnter();
     }
   },
