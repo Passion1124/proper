@@ -68,7 +68,7 @@
     <view class='self_help_tips' wx:if='{{dateFr.getSelfHelpTipsShow(selfHelp, foodItems, consumerCount)}}'>全部放题至少选{{consumerCount}}份，已选{{dateFr.getSelfHelpFoodNumber(selfHelp, foodItems)}}份</view>
     <view class='category'>
       <scroll-view scroll-y='{{true}}' style='height: {{winHeight - (dateFr.getSelfHelpTipsShow(selfHelp, foodItems, consumerCount) ? 110 : 0)}}rpx;'>
-        <view class='c_list {{menuSelected === "new" ? "active" : ""}}' bindtap='bindSelectedNewCategory'>
+        <view class='c_list {{menuSelected === "new" ? "active" : ""}}' bindtap='bindSelectedNewCategory' wx:if='{{putQuestionsSelected.length}}'>
           <view class='text'>放题（已点）</view>
         </view>
         <block wx:for='{{menus}}' wx:key='{{index}}'>

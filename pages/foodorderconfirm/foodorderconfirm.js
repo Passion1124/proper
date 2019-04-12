@@ -112,12 +112,21 @@ Page({
   },
   // 菜篮子内菜品确认下单
   handleClickGoToTheOrder () {
-    let meet = this.data.orderItems.find(item => {
+    let meet = this.data.orderItems.filter(item => {
       let food = item.food;
-      return !this.getNowFoodSelectable(food.limitType, food.limitTimeStart, food.limitTimeEnd);
+      if (food.type === 2 || food.type === 3) {
+        let every = item.subOrderItems.find(sub => {
+          return !this.getNowFoodSelectable(sub.food.limitType, sub.food.limitTimeStart, sub.food.limitTimeEnd)
+        });
+        return every ? true : false;
+      } else {
+        return !this.getNowFoodSelectable(food.limitType, food.limitTimeStart, food.limitTimeEnd);
+      }
     });
-    if (meet) {
-      utils.showMessage(meet.food.foodName + '菜品未到售卖时间');
+    console.log(meet);
+    if (meet.length) {
+      let str = meet.reduce((curr, next) => curr ? curr + '，' + next.food.foodName : next.food.foodName, '');
+      utils.showMessage(str + '菜品未到售卖时间');
       return false;
     }
     let api = 'com.ttdtrip.api.restaurant.apis.service.v2.FoodBasketConfirmApiService';

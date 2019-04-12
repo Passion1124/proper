@@ -239,6 +239,9 @@ Page({
       if (type === 'popup_delete_num' && !this.data.foodItems.filter(item => item.foodId === this.data.selectFood.id).length) {
         this.handleHideMaskAndPopup();
       }
+      if (type === 'clear_overdue_food') {
+        util.showMessage('已为您自动删除无效菜品');
+      }
     }, e => {
       console.error(e);
     })
@@ -284,18 +287,38 @@ Page({
           item.selfFoodStyle = 1;
           return item;
         }).reduce((curr, next) => {
-          hash[next.foodId] ? '' : hash[next.foodId] = true && curr.push(next);
+          hash[next.foodId + next.menuItemId] ? '' : hash[next.foodId + next.menuItemId] = true && curr.push(next);
           return curr;
         }, []);
         console.log(s_data.putQuestionsSelected);
         if (s_data.putQuestionsSelected.length && !this.data.putQuestionsSelected.length) s_data.menuSelected = 'new';
+      };
+      this.setData(s_data);
+      let overdueFood = s_data.orderItems.filter(item => {
+        let food = item.food;
+        if (food.type === 2 || food.type === 3) {
+          let every = item.subOrderItems.find(sub => {
+            return !this.getNowFoodSelectable(sub.food.limitType, sub.food.limitTimeStart, sub.food.limitTimeEnd)
+          });
+          return every ? true : false;
+        } else {
+          return !this.getNowFoodSelectable(food.limitType, food.limitTimeStart, food.limitTimeEnd);
+        }
+      });
+      if (overdueFood.length) {
+        let foodItems = this.data.foodItems.filter(item => {
+          let index = overdueFood.findIndex(food => {
+            return food.foodId === item.foodId && food.menuItemId === item.menuItemId && food.selfFoodStyle === item.selfFoodStyle
+          });
+          return index === -1 ? true : false;
+        });
+        this.handleFoodBasketAdd(s_data.consumerCount, foodItems, 'clear_overdue_food');
       }
     } else if (!this.data.consumerCount) {
       wx.redirectTo({
         url: '/pages/chooseFoodNumber/chooseFoodNumber?foodOrderId=' + res.foodOrderId
       });
     }
-    this.setData(s_data);
   },
   // 修改分类
   bindChangeCategoryId (e) {
@@ -468,7 +491,7 @@ Page({
     let num = e.currentTarget.dataset.num;
     let type = food.food.type;
     if (type === 2 || type === 3) {
-      util.navigateTo('/pages/foodItems/foodItems?foodId=' + food.foodId + '&personNum=' + this.data.consumerCount + '&type=' + type + '&foodNum=' + food.foodNumber + '&userNumType=' + food.food.userNumType + '&selfFoodStyle=' + food.selfFoodStyle);
+      util.navigateTo('/pages/foodItems/foodItems?foodId=' + food.foodId + '&personNum=' + this.data.consumerCount + '&type=' + type + '&foodNum=' + food.foodNumber + '&userNumType=' + food.food.userNumType + '&selfFoodStyle=' + food.selfFoodStyle + '&menuItemId=' + food.menuItemId);
     } else {
       let index = this.data.foodItems.findIndex(item => {
         if (food.spcItems.length) {
@@ -490,7 +513,7 @@ Page({
     let food = e.currentTarget.dataset.food;
     let type = food.food.type;
     if (type === 2 || type === 3) {
-      util.navigateTo('/pages/foodItems/foodItems?foodId=' + food.foodId + '&personNum=' + this.data.consumerCount + '&type=' + type + '&foodNum=' + food.foodNumber + '&userNumType=' + food.food.userNumType + '&selfFoodStyle=' + food.selfFoodStyle);
+      util.navigateTo('/pages/foodItems/foodItems?foodId=' + food.foodId + '&personNum=' + this.data.consumerCount + '&type=' + type + '&foodNum=' + food.foodNumber + '&userNumType=' + food.food.userNumType + '&selfFoodStyle=' + food.selfFoodStyle + '&menuItemId=' + food.menuItemId);
     } else {
       let index = this.data.foodItems.findIndex(item => {
         if (food.spcItems.length) {
@@ -559,10 +582,11 @@ Page({
     if (foods.type !== 1) {
       let selecTable = this.getNowFoodSelectable(foods.limitType, foods.limitTimeStart, foods.limitTimeEnd);
       if (selecTable) {
-        let food = this.data.foodItems.find(food => food.foodId === foods.id);
+        let food = this.data.foodItems.find(food => food.foodId === foods.id && food.menuItemId === item.id);
+        console.log(food);
         let foodNum = food ? food.foodNumber : 0;
         if (!foodNum && foods.type === 3) foodNum = 1;
-        util.navigateTo('/pages/foodItems/foodItems?foodId=' + foods.id + '&personNum=' + this.data.consumerCount + '&type=' + foods.type + '&foodNum=' + foodNum + '&userNumType=' + foods.userNumType + '&selfFoodStyle=' + selfFoodStyle);
+        util.navigateTo('/pages/foodItems/foodItems?foodId=' + foods.id + '&personNum=' + this.data.consumerCount + '&type=' + foods.type + '&foodNum=' + foodNum + '&userNumType=' + foods.userNumType + '&selfFoodStyle=' + selfFoodStyle + '&menuItemId=' + item.id);
       }
     }
   },
@@ -620,7 +644,7 @@ Page({
       if (n.getTime() - b.getTime() > 0 && n.getTime() - e.getTime() < 0) {
         return true;
       } else {
-        util.showMessage('当前菜品不在可点时段');
+        // util.showMessage('当前菜品不在可点时段');
         return false;
       }
     }

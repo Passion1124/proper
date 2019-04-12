@@ -10,6 +10,7 @@ Page({
    */
   data: {
     foodId: '',
+    menuItemId: '',
     personNum: 0,
     type: '',
     foodNum: 0,
@@ -39,7 +40,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    let s_data = { foodId: options.foodId, personNum: parseInt(options.personNum), type: options.type, userNumType: parseInt(options.userNumType) };
+    let s_data = { foodId: options.foodId, personNum: parseInt(options.personNum), type: options.type, userNumType: parseInt(options.userNumType), menuItemId: options.menuItemId };
     s_data.foodNum = (options.type === "2" && options.userNumType === '3' && options.foodNum === '0') ? parseInt(options.personNum) : parseInt(options.foodNum);
     if (options.selfFoodStyle) s_data.selfFoodStyle = parseInt(options.selfFoodStyle);
     this.setData(s_data);
@@ -58,7 +59,7 @@ Page({
   onShow: function() {
     const page = getCurrentPages();
     const foodorder = page[page.length - 2];
-    let foods = foodorder.data.foodItems.find(item => item.foodId === this.data.foodId && item.selfFoodStyle === this.data.selfFoodStyle);
+    let foods = foodorder.data.foodItems.find(item => item.foodId === this.data.foodId && item.selfFoodStyle === this.data.selfFoodStyle && item.menuItemId === this.data.menuItemId);
     if (foods) {
       this.setData({
         foods,
@@ -377,7 +378,7 @@ Page({
     });
     this.data.foods.foodNumber = this.data.selfFoodStyle ? 1 : this.data.foodNum;
     this.data.foods.subFoodItems = subFoodItems;
-    let index = foodItems.findIndex(item => item.foodId === this.data.foods.foodId && item.selfFoodStyle === this.data.selfFoodStyle);
+    let index = foodItems.findIndex(item => item.foodId === this.data.foods.foodId && item.menuItemId === this.data.menuItemId && item.selfFoodStyle === this.data.selfFoodStyle);
     if (this.data.foodNum && !this.data.selfFoodStyle) {
       if (!subFoodItems.length) {
         utils.showMessage('至少选择一个菜品');
@@ -506,12 +507,11 @@ Page({
   },
   // 获取放题选择数量
   getSelfHelpFoodNumber (self, foodItems) {
+    console.log(foodItems);
     var sId = self.map(function (item) {
       return item.id;
     });
-    var num = foodItems.filter(function (item) {
-      return sId.indexOf(item.foodId) !== -1;
-    }).reduce(function (cur, next) {
+    var num = foodItems.filter(item => sId.indexOf(item.foodId) !== -1 && item.menuItemId !== this.data.menuItemId).reduce(function (cur, next) {
       return cur + next.foodNumber;
     }, 0);
     return num;
