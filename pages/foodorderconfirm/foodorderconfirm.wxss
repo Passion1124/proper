@@ -122,3 +122,65 @@
   border-radius: 40rpx;
   background-color: #F97572;
 }
+
+.mask{
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 1;
+}
+
+.popup{
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 640rpx;
+  height: 420rpx;
+  padding: 60rpx 40rpx 0;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 10rpx;
+  z-index: 3;
+  box-sizing: border-box;
+}
+
+.popup .input_row{
+  width: 560rpx;
+  margin: 0 auto;
+}
+
+.popup .input_row input{
+  width: 560rpx;
+  height: 100rpx;
+  font-size: 28rpx;
+  line-height: 98rpx;
+  border: 1rpx solid #8C8C8C;
+  border-radius: 50rpx;
+  padding-left: 40rpx;
+  box-sizing: border-box;
+}
+
+.popup .tips{
+  width: 560rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  box-sizing: border-box;
+  margin: 40rpx auto;
+  color: #666;
+  text-align: center;
+}
+
+.popup button{
+  width: 560rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  color: #fff;
+  border: 0;
+  background-color: rgba(249,117,114,1);
+  border-radius: 40rpx;
+}

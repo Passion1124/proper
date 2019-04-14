@@ -35,9 +35,29 @@
   </block>
   <view class='row_inner'>
     <view class='row {{(order.orderStatus === 0 || order.orderStatus === 5) ? "gary" : ""}}'>
-      <view class='status'>{{dateFr.getOrderStatus(order.orderStatus)}}</view>
-      <view class='title'>预订单</view>
+      <!-- <view class='status'>{{dateFr.getOrderStatus(order.orderStatus)}}</view>
+      <view class='title'>预订单</view> -->
       <view class='order_info'>
+        <view class='dining_title'>
+          <view class='dining_title_tt o_status'>{{dateFr.getOrderStatus(order.orderStatus)}}</view>
+          <view class='dining_title_tx' wx:if='{{order.orderStatus === -1 && !isTimeOut}}'>请尽快支付 {{dateFr.secondToDate(count_down)}}</view>
+          <view class='dining_title_tx' wx:if="{{order.orderStatus === 99 || isTimeOut}}">亲，您的订单已经超过支付时间，请重新下单</view>
+          <view class='dining_title_tx' wx:if='{{order.orderStatus === 0}}'>您的订单已取消</view>
+          <view class='dining_title_tx' wx:if='{{order.orderStatus === 1}}'>请等待商家确认。</view>
+          <view class='dining_title_tx' wx:if='{{order.orderStatus === 3}}'>请您准时就餐。</view>
+          <view class='dining_title_tx' wx:if='{{order.orderStatus === 6}}'>您的订单正在退款中。预计3-7个工作日内到账。如有疑问，请联系客服</view>
+          <view class='dining_title_tx' wx:if='{{order.orderStatus === 7}}'>您的订单已完成退款。如有疑问，请联系客服</view>
+          <view class='dining_title_tx' wx:if='{{order.orderStatus === 4}}'>您已就餐，请对餐厅进行评价</view>
+          <view class='dining_title_tx' wx:if='{{order.orderStatus === 5}}'>期待您的下次光临</view>
+        </view>
+        <view class='dining_title'>
+          <view class='dining_title_tt'>餐厅：</view>
+          <view class='dining_title_tx' bindtap='goToTheFoodDetailPage'>{{goods.goodsInfo.name}} ></view>
+        </view>
+        <view class='dining_title'>
+          <view class='dining_title_tt'>地址：</view>
+          <view class='dining_title_tx'>{{goods.goodsInfo.address}}</view>
+        </view>
         <view class='date_title'>用餐时间：</view>
         <view class='order_date'>{{dateFr.getChineseDate(order.preOrderDate)}}{{order.preOrder.time}}</view>
         <view class='other'>
@@ -93,7 +113,19 @@
           <view>{{item}}</view>
         </block>
       </view>
-      <view class='btn_row {{order.orderStatus === 3 ? "flex_center" : ""}}' wx:if='{{order.orderStatus === -1 || order.orderStatus === 3}}'>
+      <view class='contact' bindtap='handleShowPopup'>联系客服 >></view>
+      <view class='mask' bindtap='handleHidePopup' wx:if='{{popup}}'></view>
+      <view class='popup' wx:if='{{popup}}'>
+        <view class='wechat'>
+          <view>微信号：KF13661513127</view>
+          <view data-msg='微信号' data-clip='KF13661513127' bindtap='handleClipboardWechatOrEmail'>复制</view>
+        </view>
+        <view class='email'>
+          <view>邮箱：ttd-vip@ttd-trip.com</view>
+          <view data-msg='邮箱' data-clip='ttd-vip@ttd-trip.com' bindtap='handleClipboardWechatOrEmail'>复制</view>
+        </view>
+      </view>
+      <view class='btn_row {{(order.orderStatus === 3 || order.orderStatus === 1) ? "flex_center" : ""}}' wx:if='{{order.orderStatus === -1 || order.orderStatus === 1 || order.orderStatus === 3}}'>
         <button bindtap='handleClickOrderCancelButton'>取消订单</button>
         <button bindtap='goToThePay' wx:if='{{order.orderStatus === -1}}'>立即付款</button>
       </view>

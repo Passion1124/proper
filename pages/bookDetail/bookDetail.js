@@ -10,7 +10,11 @@ Page({
     order: {},
     explain: [],
     orderMerches: [],
-    result: ''
+    result: '',
+    goods: {},
+    popup: false,
+    count_down: 1800,
+    isTimeOut: false
   },
 
   /**
@@ -87,8 +91,31 @@ Page({
         explain: explain,
         orderMerches: res.orderMerches
       });
+      if (this.data.order.orderStatus === -1) {
+        if (1800 - (new Date().getTime() - this.data.order.createAt) / 1000 > 0) {
+          this.startInterVal();
+        } else {
+          this.setData({
+            isTimeOut: true
+          });
+        }
+      };
+      this.handleGetGoodsDetail(res.order.mid);
     }, fail => {
       wx.hideLoading();
+    })
+  },
+  // 获取商品详情
+  handleGetGoodsDetail (mid) {
+    let api = 'com.ttdtrip.api.goods.apis.GoodsDetailApiService';
+    let data = { base: app.globalData.baseBody, mid };
+    app.request(api, data, res => {
+      console.log(res);
+      this.setData({
+        goods: res.goodsVO
+      })
+    }, e => {
+      console.error(e);
     })
   },
   // 订单退单申请
@@ -121,7 +148,7 @@ Page({
       content: '确定取消该订单',
       success(res) {
         if (res.confirm) {
-          if (that.data.order.orderStatus === 3) {
+          if (that.data.order.orderStatus === 3 || that.data.order.orderStatus === 1) {
             that.handleOrderRefundin();
           } else {
             that.handleOrderCancel();
@@ -136,6 +163,57 @@ Page({
   goToThePay () {
     wx.navigateTo({
       url: '/pages/pay/pay?orderId=' + this.data.orderId + '&orderNo=' + this.data.order.orderNo + '&currency=' + this.data.order.payCurrency + '&type=2',
+    })
+  },
+  // 复制微信号或者邮箱
+  handleClipboardWechatOrEmail (e) {
+    let msg = e.currentTarget.dataset.msg;
+    let clip = e.currentTarget.dataset.clip;
+    let _this = this;
+    wx.setClipboardData({
+      data: clip,
+      success (res) {
+        _this.handleHidePopup();
+        wx.showToast({
+          title: msg + '复制成功',
+        })
+      }
+    })
+  },
+  handleShowPopup () {
+    this.setData({
+      popup: true
+    })
+  },
+  handleHidePopup () {
+    this.setData({
+      popup: false
+    })
+  },
+  startInterVal() {
+    this.data.countSetInterVal = setInterval(this.setCountDown, 1000);
+  },
+  endInterVal() {
+    clearInterval(this.data.countSetInterVal);
+    this.handleOrderDetail();
+  },
+  setCountDown() {
+    let time = 1800 - (new Date().getTime() - this.data.order.createAt) / 1000;
+    time = parseInt(time);
+    if (time > 0) {
+      this.setData({
+        count_down: time
+      });
+    } else {
+      this.endInterVal();
+      this.setData({
+        isTimeOut: true
+      })
+    }
+  },
+  goToTheFoodDetailPage (e) {
+    wx.navigateTo({
+      url: '/pages/fooddetail/fooddetail?gid=' + this.data.goods.goodsInfo.gid + '&type=2'
     })
   }
 })

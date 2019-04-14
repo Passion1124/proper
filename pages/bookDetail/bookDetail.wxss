@@ -28,37 +28,37 @@ image {
   margin: 0 47rpx;
 }
 
-.result{
+.result {
   margin: 64rpx 0;
 }
 
-.result .title{
+.result .title {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.result .title .icon{
+.result .title .icon {
   width: 52rpx;
   height: 52rpx;
   margin-right: 14rpx;
 }
 
-.result .title .text{
+.result .title .text {
   font-size: 56rpx;
   line-height: 78rpx;
-  color: #23C2F7;
+  color: #23c2f7;
 }
 
-.result .subTitle{
+.result .subTitle {
   font-size: 24rpx;
   line-height: 33rpx;
-  color: #666666;
+  color: #666;
   text-align: center;
   margin-top: 24rpx;
 }
 
-.result .reset_btn button{
+.result .reset_btn button {
   width: 240rpx;
   height: 64rpx;
   line-height: 62rpx;
@@ -71,27 +71,27 @@ image {
   margin-top: 60rpx;
 }
 
-.row_inner{
+.row_inner {
   width: 100%;
   padding: 0 40rpx;
   box-sizing: border-box;
 }
 
-.container .row{
+.container .row {
   width: 100%;
   padding: 40rpx;
-  background-color: #23C2F7;
+  background-color: #23c2f7;
   border-radius: 15rpx;
   margin: 40rpx auto;
   color: #fff;
   box-sizing: border-box;
 }
 
-.container .gary{
-  background-color: #C2C2C2;
+.container .gary {
+  background-color: #c2c2c2;
 }
 
-.container .row .status{
+.container .row .status {
   font-size: 22rpx;
   line-height: 30rpx;
   text-align: center;
@@ -104,48 +104,66 @@ image {
   margin-bottom: 64rpx;
 }
 
-.order_info .date_title{
+.order_info .dining_title{
+  margin-bottom: 30rpx;
+}
+
+.order_info .dining_title .dining_title_tt, .order_info .dining_title .dining_title_tx {
+  font-size: 24rpx;
+  line-height: 33rpx;
+}
+
+.order_info .dining_title .dining_title_tt.o_status{
+  font-size: 34rpx;
+  line-height: 42rpx;
+}
+
+.order_info .dining_title .dining_title_tt {
+  margin-bottom: 10rpx;
+}
+
+.order_info .date_title {
   font-size: 24rpx;
   line-height: 33rpx;
   margin-bottom: 4rpx;
 }
 
-.order_info .order_date{
+.order_info .order_date {
   font-size: 48rpx;
   line-height: 58rpx;
   font-weight: bold;
   margin-bottom: 40rpx;
 }
 
-.order_info .other{
+.order_info .other {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.order_info .other>view{
+.order_info .other>view {
   display: flex;
   align-items: center;
 }
 
-.order_info .other>view .text{
+.order_info .other>view .text {
   font-size: 28rpx;
   line-height: 40rpx;
 }
 
-.order_info .other>view .icon{
+.order_info .other>view .icon {
   width: 40rpx;
   height: 40rpx;
   margin-right: 10rpx;
 }
 
-.order_info .other>view .icon image{
+.order_info .other>view .icon image {
   width: 100%;
   height: 100%;
   vertical-align: top;
 }
 
-.line{
+.line {
   width: 100%;
   height: 1rpx;
   border-bottom: 1rpx dashed #fff;
@@ -153,37 +171,37 @@ image {
   margin: 60rpx 0;
 }
 
-.contact_info .name{
+.contact_info .name {
   font-size: 36rpx;
   line-height: 50rpx;
   margin-bottom: 16rpx;
 }
 
-.contact_info .phone, .contact_info .mail{
+.contact_info .phone, .contact_info .mail {
   font-size: 28rpx;
   line-height: 40rpx;
   margin-bottom: 16rpx;
 }
 
-.contact_info .mail{
+.contact_info .mail {
   margin-bottom: 0;
 }
 
-.order_explain_text{
+.order_explain_text {
   font-size: 28rpx;
   line-height: 40rpx;
   color: #fff;
   margin: 56rpx 0 24rpx;
 }
 
-.order_explain{
+.order_explain {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   padding-top: 5rpx;
 }
 
-.order_explain view{
+.order_explain view {
   font-size: 24rpx;
   line-height: 33rpx;
   padding: 9rpx 28rpx;
@@ -192,38 +210,45 @@ image {
   margin: 0 24rpx 24rpx 0;
 }
 
-.btn_row{
+.contact {
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #fff;
+  margin-top: 30rpx;
+}
+
+.btn_row {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.btn_row.flex_center{
+.btn_row.flex_center {
   justify-content: center;
 }
 
-.btn_row button{
+.btn_row button {
   width: 280rpx;
   height: 80rpx;
   font-size: 32rpx;
   color: #fff;
   border-radius: 56rpx;
-  background-color: rgba(255, 255, 255, .4);
+  background-color: rgba(255, 255, 255, 0.4);
   margin: 0;
   padding: 0;
   margin-top: 40rpx;
 }
 
-.merchecs{
+.merchecs {
   display: flex;
   align-items: center;
   width: 100%;
   padding-bottom: 60rpx;
-  border-bottom: 1rpx dashed #fff; 
+  border-bottom: 1rpx dashed #fff;
   margin-bottom: 40rpx;
 }
 
-.merchecs .poster{
+.merchecs .poster {
   width: 112rpx;
   height: 112rpx;
   border-radius: 5rpx;
@@ -244,5 +269,51 @@ image {
   color: #fff;
 }
 
+.mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 1;
+  z-index: 3;
+}
 
+.popup{
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 540rpx;
+  height: 220rpx;
+  border-radius: 20rpx;
+  padding: 40rpx 20rpx;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  box-sizing: border-box;
+  z-index: 4;
+}
 
+.popup>view{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20rpx;
+}
+
+.popup>view view:first-of-type{
+  font-size: 28rpx;
+  line-height: 40rpx;
+  color: #3c3c3c;
+}
+
+.popup>view view:last-of-type{
+  width: 80rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 26rpx;
+  color: #3c3c3c;
+  border: 1rpx solid #e9e9e9;
+  border-radius: 20rpx;
+  text-align: center;
+}

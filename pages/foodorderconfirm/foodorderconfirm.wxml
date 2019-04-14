@@ -188,7 +188,17 @@
       <text class='key_color'>{{currency}} {{totalFee / 100}}</text>
     </view>
     <view class='down_order'>
-      <button bindtap='handleClickGoToTheOrder'>去下单</button>
+      <button bindtap='handleClickBottomOrderButton'>去下单</button>
+    </view>
+  </view>
+  <view class='mask' bindtap='handleHidePopup' wx:if='{{popup}}'></view>
+  <view class='popup' wx:if='{{popup}}'>
+    <view class='input_row'>
+      <input type='number' value='{{tableNo}}' placeholder='请输入桌号' bindinput='handleTableNoInput'></input>
+    </view>
+    <view class='tips'>可向服务员询问桌号</view>
+    <view class='save_btn'>
+      <button bindtap='handleTableNoCheck'>确认下单</button>
     </view>
   </view>
 </view>

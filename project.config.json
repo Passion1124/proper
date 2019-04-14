@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 17,
+			"current": 18,
 			"list": [
 				{
 					"id": 0,
@@ -72,7 +72,7 @@
 					"id": 4,
 					"name": "预订 - 订单详情",
 					"pathName": "pages/bookDetail/bookDetail",
-					"query": "id=5a56956530be49e180686b284937cbd0&result=1",
+					"query": "id=240e47c4be614aab8a60a9370d09731a",
 					"scene": null
 				},
 				{
@@ -104,10 +104,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 9,
 					"name": "排队完成页面",
 					"pathName": "pages/lineUpDetail/lineUpDetail",
-					"query": "sn=6399d76468a04e078d3c40a8107d48b6&num=6&email=330352812@qq.com&favorName=非吸烟区&roomName=需要",
+					"query": "sn=dacb69fd136c446b860831a99c7aa8bd&skipType=order",
 					"scene": null
 				},
 				{
@@ -164,6 +164,13 @@
 					"name": "点菜页面加菜",
 					"pathName": "pages/foodorder/foodorder",
 					"query": "mid=1c630e99-f286-47f1-9809-c621c9b6a3e0&tno=002&toPage=foodadd",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "点菜下单页面",
+					"pathName": "pages/foodorderconfirm/foodorderconfirm",
+					"query": "foodOrderId=4d6a61af-a982-4d95-81c5-857e279cbe8c&mid=1c630e99-f286-47f1-9809-c621c9b6a3e0&personNum=5&tno=",
 					"scene": null
 				}
 			]

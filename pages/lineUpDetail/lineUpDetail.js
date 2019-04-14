@@ -1,3 +1,5 @@
+import utils from '../../utils/util.js'
+
 const app = getApp();
 
 Page({
@@ -16,7 +18,9 @@ Page({
     email: '',
     favorName: '',
     roomName: '',
-    goods: {}
+    goods: {},
+    popup: false,
+    emailValue: ''
   },
 
   /**
@@ -131,6 +135,43 @@ Page({
       });
     }, e => {
       console.error(e);
+    })
+  },
+  // 排队个人资料完善
+  handleLineProfile () {
+    let api = 'com.ttdtrip.api.goods.apis.line.LineProfileApiService';
+    let data = { base: app.globalData.baseBody, sn: this.data.sn, email: this.data.emailValue };
+    app.request(api, data, res => {
+      console.log(res);
+      this.handleHidePopup();
+      this.handleLineWait();
+    }, e => {
+      console.error(e);
+    })
+  },
+  // 保存邮箱
+  handleSaveEmail () {
+    if (!this.data.email) {
+      utils.showMessage('请输入您的邮箱');
+    } else if (this.data.email && !utils.validateEmail(this.data.email)) {
+      utils.showMessage('请输入正确的邮箱');
+    } else {
+
+    }
+  },
+  handleEmailValueInput (e) {
+    this.setData({
+      emailValue: e.detail.value
+    });
+  },
+  handleShowPopup () {
+    this.setData({
+      popup: true
+    })
+  },
+  handleHidePopup () {
+    this.setData({
+      popup: false
     })
   },
   handleResetLineWait () {

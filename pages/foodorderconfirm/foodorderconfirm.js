@@ -22,7 +22,10 @@ Page({
     mustPoint: [],
     putQuestions: [],
     setMeal: [],
-    ordinary: []
+    ordinary: [],
+    inputTableNo: 0,
+    tableNo: '',
+    popup: false
   },
 
   /**
@@ -100,6 +103,7 @@ Page({
         totalFee: res.totalFee,
         consumerCount: res.consumerCount,
         currency: res.currency,
+        inputTableNo: res.inputTableNo,
         mustPoint: res.orderItems.filter(item => item.type === 9),
         putQuestions: res.orderItems.filter(item => item.type === 2),
         setMeal: res.orderItems.filter(item => item.type === 3),
@@ -131,10 +135,54 @@ Page({
     }
     let api = 'com.ttdtrip.api.restaurant.apis.service.v2.FoodBasketConfirmApiService';
     let data = { base: app.globalData.baseBody, foodOrderId: this.data.foodOrderId };
+    if (this.data.inputTableNo) {
+      data.tableNo = this.data.tableNo;
+    }
     app.request(api, data, res => {
-      utils.navigateTo('/pages/foodpayresult/foodpayresult?foodOrderId=' + this.data.foodOrderId + '&mid=' + this.data.mid + '&tno=' + this.data.tno);
+      utils.redirectTo('/pages/foodpayresult/foodpayresult?foodOrderId=' + this.data.foodOrderId + '&mid=' + this.data.mid + '&tno=' + this.data.tno);
     }, e => {
       console.error(e);
+    })
+  },
+  // 检查餐厅桌台是否有效
+  handleTableNoCheck () {
+    let api = 'com.ttdtrip.api.order.apis.service.TableNoCheckApiService';
+    let data = { base: app.globalData.baseBody, mid: this.data.mid, tableNo: this.data.tableNo };
+    app.request(api, data, res => {
+      console.log(res);
+      if (res.exists) {
+        this.handleClickGoToTheOrder();
+      } else {
+        utils.showMessage('桌台不存在');
+      }
+    }, e => {
+      console.error(e);
+    })
+  },
+  // 点击去下单按钮
+  handleClickBottomOrderButton () {
+    if (this.data.inputTableNo) {
+      this.handleShowPopup();
+    } else {
+      this.handleClickGoToTheOrder();
+    }
+  },
+  // 显示弹窗
+  handleShowPopup () {
+    this.setData({
+      popup: true
+    })
+  },
+  // 隐藏弹窗
+  handleHidePopup () {
+    this.setData({
+      popup: false
+    })
+  },
+  // 修改桌号
+  handleTableNoInput (e) {
+    this.setData({
+      tableNo: e.detail.value
     })
   },
   // 判断当前食物是否在可点时段

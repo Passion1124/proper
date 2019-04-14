@@ -54,13 +54,29 @@
         <view class='o_label'>包间</view>
         <view class='o_value'>{{ roomName || (line.box ? "需要" : "不需要")}}</view>
       </view>
-      <view class='flex'>
+      <view class='flex' wx:if='{{email || line.email}}'>
         <view class='o_label'>联系方式</view>
         <view class='o_value'>{{ email || line.email}}</view>
       </view>
     </view>
+    <view class='perfect' wx:if='{{!email && !line.email}}'>
+      <view class='text'>完善联系方式，你将收到排队提醒，以免过号</view>
+      <view class='order_btn'>
+        <button bindtap='handleShowPopup'>立马完善联系方式</button>
+      </view>
+    </view>
     <view class='order_btn' wx:if='{{line.lineStatus < 2 && goods.goodsBase.onlineOrderDish === 1}}'>
       <button bindtap='goToTheFoodOrder'>前往点菜</button>
+    </view>
+  </view>
+  <view class='mask' bindtap='handleHidePopup' wx:if='{{popup}}'></view>
+  <view class='popup' wx:if='{{popup}}'>
+    <view class='input_row'>
+      <input value='{{emailValue}}' placeholder='请输入邮箱' bindinput='handleEmailValueInput'></input>
+    </view>
+    <view class='tips'>填写后将不可修改</view>
+    <view class='save_btn'>
+      <button bindtap='handleSaveEmail'>保存</button>
     </view>
   </view>
 </view>
