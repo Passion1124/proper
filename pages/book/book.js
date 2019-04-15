@@ -188,8 +188,14 @@ Page({
     };
     app.request(api, data, res => {
       console.log(res);
+      let enName = res.receiver.enName;
+      let contactor = enName;
+      if (enName) {
+        let split = enName.split('|');
+        contactor = split[1] + ' ' + split[0];
+      }
       this.setData({
-        ['preOrderInfo.contactor']: res.receiver.name,
+        ['preOrderInfo.contactor']: contactor,
         ['preOrderInfo.phoneNo']: res.receiver.phoneNo,
         ['preOrderInfo.mail']: res.receiver.email
       })
@@ -251,10 +257,15 @@ Page({
   handleSaveReceiverInfo() {
     let api = 'com.ttdtrip.api.order.apis.service.ReceiverSaveApiService';
     let preOrderInfo = this.data.preOrderInfo;
+    let split = preOrderInfo.contactor.split(' ');
+    let enName = preOrderInfo.contactor;
+    if (split.length >= 2) {
+      enName = split[1] + '|' + split[0];
+    }
     let data = Object.assign({
       base: app.globalData.baseBody
     }, {
-      name: preOrderInfo.contactor,
+      enName,
       email: preOrderInfo.mail,
       phoneNo: preOrderInfo.phoneNo
     });
