@@ -34,7 +34,7 @@ image {
   color: #fff;
   background-color: #09D5CC; 
   border-radius: 10rpx;
-  margin: 40rpx auto 0;
+  margin: 40rpx auto;
   box-sizing: border-box;
 }
 

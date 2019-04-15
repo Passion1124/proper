@@ -12,8 +12,8 @@
     </view>
     <view class='text active'>排队</view>
   </view>
-  <view class='queue {{(!line.lineStatus || line.lineStatus === 1) ? "" : "gray_bgc"}}'>
-    <view class='status' wx:if='{{line.lineStatus}}'>{{dateFr.getLineStatusText(line.lineStatus)}}</view>
+  <view class='queue {{(!line.lineStatus || line.lineStatus === 1) && !dateFr.getLineOrderOverdue(line.lineAt) ? "" : "gray_bgc"}}'>
+    <view class='status' wx:if='{{line.lineStatus}}'>{{dateFr.getLineOrderOverdue(line.lineAt) ? "已过期" : dateFr.getLineStatusText(line.lineStatus)}}</view>
     <view class='queue_single'>排队单</view>
     <view class='main_info' wx:if='{{!line.lineStatus || line.lineStatus === 1}}'>
       <block wx:if='{{lineStatus === "wait"}}'>
@@ -24,7 +24,7 @@
         <view class='title success'>{{line.fullName}}
           <text>号</text>
         </view>
-        <view class='subTitle'>前方排队剩余{{lineNum}}桌</view>
+        <view class='subTitle'>{{dateFr.getLineOrderOverdue(line.lineAt) ? "您的订单已过期" : "前方排队剩余" + lineNum + "桌"}}</view>
       </block>
       <block wx:if='{{lineStatus === "fail"}}'>
         <view class='title'>提交失败</view>
@@ -59,13 +59,13 @@
         <view class='o_value'>{{ email || line.email}}</view>
       </view>
     </view>
-    <view class='perfect' wx:if='{{!email && !line.email}}'>
+    <view class='perfect' wx:if='{{!email && !line.email && !dateFr.getLineOrderOverdue(line.lineAt)}}'>
       <view class='text'>完善联系方式，你将收到排队提醒，以免过号</view>
       <view class='order_btn'>
         <button bindtap='handleShowPopup'>立马完善联系方式</button>
       </view>
     </view>
-    <view class='order_btn' wx:if='{{line.lineStatus < 2 && goods.goodsBase.onlineOrderDish === 1}}'>
+    <view class='order_btn' wx:if='{{line.lineStatus < 2 && goods.goodsBase.onlineOrderDish === 1 && !dateFr.getLineOrderOverdue(line.lineAt)}}'>
       <button bindtap='goToTheFoodOrder'>前往点菜</button>
     </view>
   </view>

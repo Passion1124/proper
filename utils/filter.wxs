@@ -269,6 +269,16 @@ var DateFr = {
     if (status === 4) str = '商户下线';
     return str;
   },
+  // 获取排队订单是否到期
+  getLineOrderOverdue: function (lineAt) {
+    var line = getDate(lineAt + 8 * 3600 * 1000).toJSON().substring(0, 19).replace('T', ' ').split(' ')[0];
+    var now = getDate(getDate().getTime() + 8 * 3600 * 1000).toJSON().substring(0, 19).replace('T', ' ').split(' ')[0];
+    if (line === now) {
+      return false;
+    } else {
+      return true;
+    }
+  },
   // 获取点菜订单状态文本
   getFoodStatusText: function(status) {
     var str = '';
@@ -570,6 +580,7 @@ module.exports = {
   getLinePendingDateText: DateFr.getLinePendingDateText,
   getLineOverDateText: DateFr.getLineOverDateText,
   getLineStatusText: DateFr.getLineStatusText,
+  getLineOrderOverdue: DateFr.getLineOrderOverdue,
   getFoodStatusText: DateFr.getFoodStatusText,
   getNowFoodOrderNum: DateFr.getNowFoodOrderNum,
   getOrderPageUseDateText: DateFr.getOrderPageUseDateText,

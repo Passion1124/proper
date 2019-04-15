@@ -92,17 +92,22 @@
     <view class='queue' data-sn='{{item.sn}}' bindtap='goToTheLineUpDetail'>
       <view class='top'>
         <view>{{item.name}}</view>
-        <view class='status blue}}'>{{dateFr.getLineStatusText(item.lineStatus)}}</view>
+        <view class='status blue}}'>{{dateFr.getLineOrderOverdue(item.lineAt) ? "已过期" : dateFr.getLineStatusText(item.lineStatus)}}</view>
       </view>
       <view class='line'></view>
       <view class='bottom'>
         <view class='left'>
           <view>{{item.fullName}}</view>
-          <view wx:if='{{item.lineStatus === 0 || item.lineStatus === 1}}'>已等{{dateFr.getLinePendingDateText(item.lineAt)}}</view>
-          <view wx:elif='{{item.lineStatus === 2}}'>排队用时：{{dateFr.getLinePendingDateText(item.lineAt)}} | 已点单</view>
-          <view wx:elif='{{item.lineStatus === 3}}'>用时：{{dateFr.getLinePendingDateText(item.lineAt)}} | 已点单</view>
+          <block wx:if='{{!dateFr.getLineOrderOverdue(item.lineAt)}}'>
+            <view wx:if='{{item.lineStatus === 0 || item.lineStatus === 1}}'>已等{{dateFr.getLinePendingDateText(item.lineAt)}}</view>
+            <view wx:elif='{{item.lineStatus === 2}}'>排队用时：{{dateFr.getLinePendingDateText(item.lineAt)}} | 已点单</view>
+            <view wx:elif='{{item.lineStatus === 3}}'>用时：{{dateFr.getLinePendingDateText(item.lineAt)}} | 已点单</view>
+          </block>
+          <block wx:else>
+            <view>您的订单已过期</view>
+          </block>
         </view>
-        <view class='right' wx:if='{{item.lineStatus < 2 && item.onlineOrderDish === 1}}'>
+        <view class='right' wx:if='{{item.lineStatus < 2 && item.onlineOrderDish === 1 && !dateFr.getLineOrderOverdue(item.lineAt)}}'>
           <button data-sn='{{item.sn}}' data-mid='{{item.mid}}' catchtap='goToTheFoodOrder'>点菜</button>
         </view>
       </view>
