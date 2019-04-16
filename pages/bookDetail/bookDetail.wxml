@@ -54,7 +54,7 @@
           <view class='dining_title_tt'>餐厅：</view>
           <view class='dining_title_tx' bindtap='goToTheFoodDetailPage'>{{goods.goodsInfo.name}} ></view>
         </view>
-        <view class='dining_title'>
+        <view class='dining_title' wx:if='{{goods.goodsInfo.address}}'>
           <view class='dining_title_tt'>地址：</view>
           <view class='dining_title_tx'>{{goods.goodsInfo.address}}</view>
         </view>

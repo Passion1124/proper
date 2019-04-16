@@ -267,7 +267,7 @@ Page({
     let s_data = { foodOrderId: res.foodOrderId };
     if (res.foodOrderBatch && !this.data.toPage) {
       util.redirectTo('/pages/foodadd/foodadd?orderId=' + res.foodOrderId);
-    } else if (res.foodBasket || this.data.toPage) {
+    } else if (res.foodBasket || this.data.toPage || this.data.sn) {
       let foodCartList = {};
       if (res.foodBasket) {
         foodCartList.mustPoint = res.foodBasket.orderItems.filter(item => item.type === 9 && !item.selfFoodStyle);
