@@ -38,7 +38,7 @@
         <view class='o_label'>餐厅</view>
         <view class='o_value' bindtap='goToTheFoodDetailPage'>{{goods.goodsInfo.name}} ></view>
       </view>
-      <view class='flex'>
+      <view class='flex' wx:if='{{goods.goodsInfo.address}}'>
         <view class='o_label'>地址</view>
         <view class='o_value'>{{goods.goodsInfo.address}}</view>
       </view>
@@ -72,7 +72,7 @@
   <view class='mask' bindtap='handleHidePopup' wx:if='{{popup}}'></view>
   <view class='popup' wx:if='{{popup}}'>
     <view class='input_row'>
-      <input value='{{emailValue}}' placeholder='请输入邮箱' bindinput='handleEmailValueInput'></input>
+      <input value='{{emailValue}}' placeholder='请输入邮箱' bindinput='handleEmailValueInput' maxlength='32'></input>
     </view>
     <view class='tips'>填写后将不可修改</view>
     <view class='save_btn'>

@@ -152,7 +152,8 @@
   </view>
   <view class='row' wx:if='{{order.orderStatus === 2 || order.orderStatus === 3}}'>
     <view class='other flex'>
-      <view class='refund' bindtap='goToTheRefund' wx:if='{{order.refundStatus < 1 && order.payPrice }}'>申请退款</view>
+      <!-- order.refundStatus < 1 && order.payPrice  -->
+      <view class='refund' bindtap='goToTheRefund' wx:if='{{false}}'>申请退款</view>
       <view class='shopping'>
         <button bindtap='goToTheOrder'>再次购买</button>
       </view>

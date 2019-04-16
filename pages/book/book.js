@@ -190,7 +190,7 @@ Page({
       console.log(res);
       let enName = res.receiver.enName;
       let contactor = enName;
-      if (enName) {
+      if (enName && enName.indexOf('|') !== -1) {
         let split = enName.split('|');
         contactor = split[1] + ' ' + split[0];
       }

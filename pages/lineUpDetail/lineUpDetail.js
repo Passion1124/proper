@@ -151,12 +151,12 @@ Page({
   },
   // 保存邮箱
   handleSaveEmail () {
-    if (!this.data.email) {
+    if (!this.data.emailValue) {
       utils.showMessage('请输入您的邮箱');
-    } else if (this.data.email && !utils.validateEmail(this.data.email)) {
+    } else if (this.data.emailValue && !utils.validateEmail(this.data.emailValue)) {
       utils.showMessage('请输入正确的邮箱');
     } else {
-
+      this.handleLineProfile();
     }
   },
   handleEmailValueInput (e) {
