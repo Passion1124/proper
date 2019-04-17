@@ -160,11 +160,7 @@ Page({
       content: '确定取消该订单',
       success(res) {
         if (res.confirm) {
-          if (that.data.order.orderStatus === -1) {
-            that.handleOrderCancel();
-          } else {
-            that.handleOrderRefundin();
-          }
+          that.handleOrderCancel();
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
