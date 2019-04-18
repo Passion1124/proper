@@ -45,12 +45,14 @@ var foodorderconfirm = {
   },
   getMenuItemFoodNumber: function (arr, menuItemId) {
     if (arr.length && menuItemId) {
+      var hash = {};
       var num = arr.filter(function (item) {
         return item.menuItemId === menuItemId && !item.selfFoodStyle;
-      }).reduce(function (pre, curr) {
-        return pre + curr.foodNumber || 0
-      }, 0);
-      return num;
+      }).reduce(function (curr, next) {
+        hash[next.foodId + next.menuItemId] ? '' : hash[next.foodId + next.menuItemId] = true && curr.push(next);
+        return curr;
+      }, []);
+      return num.length;
     } else {
       return 0;
     }
@@ -58,11 +60,13 @@ var foodorderconfirm = {
   getMenuItemFoodSelected: function (arr, menuItemId, limit) {
     var num = 0;
     if (arr.length && menuItemId) {
+      var hash = {};
       num = arr.filter(function (item) {
         return item.menuItemId === menuItemId;
-      }).reduce(function (pre, curr) {
-        return pre + curr.foodNumber || 0
-      }, 0);
+      }).reduce(function (curr, next) {
+        hash[next.foodId + next.menuItemId] ? '' : hash[next.foodId + next.menuItemId] = true && curr.push(next);
+        return curr;
+      }, []).length;
     };
     if (num && !limit) {
       return true;

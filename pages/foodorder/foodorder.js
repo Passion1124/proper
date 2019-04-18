@@ -277,7 +277,7 @@ Page({
         foodCartList.selected = res.foodBasket.orderItems.filter(item => item.selfFoodStyle);
       }
       s_data.foodCartList = foodCartList;
-      s_data.consumerCount = res.foodBasket ? res.foodBasket.consumerCount : 0;
+      s_data.consumerCount = res.foodBasket ? res.foodBasket.consumerCount : this.data.consumerCount;
       s_data.pickerNumber = (res.foodBasket ? res.foodBasket.consumerCount : 0) + (res.foodOrderBatch ? res.foodOrderBatch.consumerCount : 0) - 1;
       s_data.foodItems = res.foodBasket ? res.foodBasket.foodItems : [];
       s_data.orderItems = res.foodBasket ? res.foodBasket.orderItems : [];
@@ -678,7 +678,11 @@ Page({
   // 判断必点菜是否满足条件
   getMandatoryFoodNumberSatisfyEvery (val) {
     var limit = val.limit;
-    var foodNumber = this.data.foodItems.filter(item => item.menuItemId === val.id).reduce((curr, next) => curr + next.foodNumber, 0);
+    var hash = {};
+    var foodNumber = this.data.foodItems.filter(item => item.menuItemId === val.id).reduce((curr, next) => {
+      hash[next.foodId + next.menuItemId] ? '' : hash[next.foodId + next.menuItemId] = true && curr.push(next);
+      return curr;
+    }, []).length;
     if (!limit && foodNumber) {
       return true;
     } else if (limit && foodNumber >= limit) {
