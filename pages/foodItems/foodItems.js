@@ -300,7 +300,7 @@ Page({
       ['newFoods.spcItemId']: spcItemId
     });
     if (spcItemId.filter(item => item).length === this.data.specifications[this.data.selectFood.id].foodSpcs.length) {
-      let spcMd5 = md5(spcItemId.reverse().join(''));
+      let spcMd5 = md5(spcItemId.sort().join(''));
       this.setData({
         spcMd5
       })

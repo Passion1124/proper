@@ -2,7 +2,7 @@
 <wxs module="foodorderconfirm" src='../../utils/wxs/foodorderconfirm.wxs'></wxs>
 <view class='container'>
   <view class='top'>
-    <view class='tableNo'>桌号：{{foodOrder.tableNo}}</view>
+    <view class='tableNo'>桌号：{{foodOrder.tableNo || '无'}}</view>
     <view class='subTitle'>暂未结账，最终价格以服务员出具账单为准</view>
   </view>
   <view class='ordered_menu'>
