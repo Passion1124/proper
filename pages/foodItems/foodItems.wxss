@@ -290,6 +290,7 @@ page{
 }
 
 .popup .specifications .food_info .info .price{
+  display: none;
   font-size: 32rpx;
   line-height: 45rpx;
   color: #F97572;
